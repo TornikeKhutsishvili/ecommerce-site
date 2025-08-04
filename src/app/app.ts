@@ -37,6 +37,7 @@ export class App implements OnInit {
   private searchService = inject(SearchService);
   private productService = inject(ProductService);
 
+
   ngOnInit() {
 
     this.productService.getProducts().subscribe((data:any) => {
@@ -49,7 +50,7 @@ export class App implements OnInit {
 
     this.filterService.filteredProducts$.subscribe((products) => {
       this.filteredProducts.set(products);
-      console.log('Filtered Products from service:', products); // Log to check the products
+      // console.log('Filtered Products from service:', products); // Log to check the products
     });
 
   }

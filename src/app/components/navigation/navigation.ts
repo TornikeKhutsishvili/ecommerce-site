@@ -108,7 +108,7 @@ export class Navigation {
       sortedProducts.sort((a, b) => b.price - a.price);
     }
 
-    console.log('Sorted Products:', sortedProducts);
+    // console.log('Sorted Products:', sortedProducts);
     this.filterService.setFilteredProducts(sortedProducts);
   }
 

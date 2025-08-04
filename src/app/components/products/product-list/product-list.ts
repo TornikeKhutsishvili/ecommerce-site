@@ -48,11 +48,11 @@ export class ProductList {
     this.productService.getProducts().subscribe((data: any) => {
 
       this.products.set(data);
-      console.log('HomeComponent received all products:', this.products());
+      // console.log('HomeComponent received all products:', this.products());
 
       // Check if there are already filtered products in the service
       this.filteredProducts.set(this.filterService.getFilteredProducts());
-      console.log('HomeComponent received filtered products:', this.filteredProducts());
+      // console.log('HomeComponent received filtered products:', this.filteredProducts());
 
       // If no filtered products, set all products to filtered
       if (!this.filteredProducts().length) {
@@ -62,7 +62,7 @@ export class ProductList {
       // Subscribe to filtered products updates from the service
       this.filterSubscription = this.filterService.filteredProducts$.subscribe((filtered) => {
         this.filteredProducts.set(filtered);
-        console.log('Filtered updated:', filtered);
+        // console.log('Filtered updated:', filtered);
       });
 
     });

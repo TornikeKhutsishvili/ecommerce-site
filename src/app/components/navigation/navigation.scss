@@ -7,65 +7,67 @@
     letter-spacing: 1px;
   }
 
-  .navbar-actions {
-    justify-content: space-between;
+  .mobile-slide{
+    .navbar-actions {
+      justify-content: space-between;
 
-    .search-box input {
-      border-radius: 20px;
-      padding: 0.3rem 0.8rem;
-      min-width: 150px;
-      min-height: 40px;
-    }
-
-    .form-select {
-      border-radius: 20px;
-      padding: 0.3rem 0.8rem;
-      min-height: 40px;
-    }
-
-    .cart-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-    }
-
-    .cart-badge {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background: #ff4757;
-      color: white;
-      border-radius: 50%;
-      font-size: 0.7rem;
-      padding: 2px 6px;
-    }
-
-    .theme-btn {
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .auth-links {
-      font-size: 1.1rem;
-
-      a {
-        color: inherit;
-        transition: color 0.2s ease;
-
-        &:hover {
-          color: #0d6efd;
-        }
+      .search-box input {
+        border-radius: 20px;
+        padding: 0.3rem 0.8rem;
+        min-width: 150px;
+        min-height: 40px;
       }
 
-      span {
-        opacity: 0.6;
+      .form-select {
+        border-radius: 20px;
+        padding: 0.3rem 0.8rem;
+        min-height: 40px;
+      }
+
+      .cart-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+
+      .cart-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #ff4757;
+        color: white;
+        border-radius: 50%;
+        font-size: 0.7rem;
+        padding: 2px 6px;
+      }
+
+      .theme-btn {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .auth-links {
+        font-size: 1.1rem;
+
+        a {
+          color: inherit;
+          transition: color 0.2s ease;
+
+          &:hover {
+            color: #0d6efd;
+          }
+        }
+
+        span {
+          opacity: 0.6;
+        }
       }
     }
   }
