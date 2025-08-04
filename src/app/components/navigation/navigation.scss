@@ -8,6 +8,8 @@
   }
 
   .navbar-actions {
+    justify-content: space-between;
+
     .search-box input {
       border-radius: 20px;
       padding: 0.3rem 0.8rem;
@@ -51,7 +53,7 @@
     }
 
     .auth-links {
-      font-size: 0.9rem;
+      font-size: 1.1rem;
 
       a {
         color: inherit;
