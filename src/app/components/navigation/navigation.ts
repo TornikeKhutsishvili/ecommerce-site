@@ -6,6 +6,7 @@ import { SearchService } from '../../services/search-service';
 import { ThemeService } from '../../services/theme-service';
 import { RouterLink, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-navigation',
@@ -30,6 +31,7 @@ export class Navigation {
   private searchService = inject(SearchService);
   private themeService = inject(ThemeService);
   private renderer = inject(Renderer2);
+  private authService = inject(AuthService);
 
   isDarkMode = signal<boolean>(false);
   isMenuOpen = signal<boolean>(false);
@@ -109,6 +111,17 @@ export class Navigation {
 
   closeMenu(): void {
     this.isMenuOpen.set(false);
+  }
+
+
+  isLoggedIn = this.authService.isLoggedIn;
+
+  login() {
+    this.authService.login();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }

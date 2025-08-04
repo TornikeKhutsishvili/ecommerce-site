@@ -21,30 +21,46 @@
       </ul>
 
       <!-- Right Side Actions -->
-      <div class="d-flex align-items-center navbar-actions flex-wrap">
+      <div class="d-flex align-items-center navbar-actions flex-wrap gap-2">
 
         <!-- Search -->
-        <div class="search-box me-2 mt-2 mt-lg-0">
+        <div class="search-box">
           <input type="text" class="form-control" placeholder="Search..." (input)="onSearch($event)">
         </div>
 
         <!-- Filter -->
-        <select class="form-select me-2 mt-2 mt-lg-0" (change)="filterByPrice($event, products())" name="select">
+        <select class="form-select" (change)="filterByPrice($event, products())" name="select">
           <option value="">Price</option>
           <option value="low">Low → High</option>
           <option value="high">High → Low</option>
         </select>
 
         <!-- Cart -->
-        <a [routerLink]="['/cart']" class="btn btn-outline-primary position-relative me-2 mt-2 mt-lg-0">
+        <a [routerLink]="['/cart']" class="btn btn-outline-primary position-relative cart-btn">
           🛒
           <span class="cart-badge" *ngIf="cartItemCount() > 0">{{ cartItemCount() }}</span>
         </a>
 
         <!-- Theme Toggle -->
-        <button type="button" class="btn btn-outline-secondary theme-btn mt-2 mt-lg-0" (click)="toggleTheme()">
+        <button type="button" class="btn btn-outline-secondary theme-btn" (click)="toggleTheme()">
           {{ isDarkMode() ? sun : moon }}
         </button>
+
+        <!-- Auth Links -->
+        <div class="auth-links d-flex align-items-center">
+          <ng-container *ngIf="!isLoggedIn(); else loggedInLinks">
+            <a [routerLink]="['/login']" class="text-decoration-none me-2">Login</a>
+            <span>|</span>
+            <a [routerLink]="['/register']" class="text-decoration-none ms-2">Register</a>
+          </ng-container>
+
+          <ng-template #loggedInLinks>
+            <a [routerLink]="['/profile']" class="text-decoration-none me-2">Profile</a>
+            <span>|</span>
+            <a [routerLink]="['/']" class="text-decoration-none ms-2" (click)="logout()">Logout</a>
+          </ng-template>
+        </div>
+
       </div>
     </div>
   </div>
