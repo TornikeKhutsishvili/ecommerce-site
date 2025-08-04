@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">📩 Contact Us</h2>
+
+  <div class="row">
+    <div class="col-lg-6 mb-4">
+      <h5>Get in Touch</h5>
+      <p>We’d love to hear from you! Fill out the form or reach us at:</p>
+
+      <p class="small mb-1">
+        <strong>Email: </strong>
+        <a href="mailto:support@yourshop.com" class="text-dark text-decoration-none">support&#64;yourshop.com</a>
+      </p>
+
+      <p class="small mb-1">
+        <strong>Phone: </strong>
+        <a href="tel:+995599123456789" class="text-dark text-decoration-none">+995 (599) 123-456-789</a>
+      </p>
+
+      <p class="small">
+        <strong>Address: </strong>
+        <a href="https://maps.google.com/?q=123+Popular+St,+Tbilisi,+Georgia"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-dark text-decoration-none">
+          123 Popular St, Tbilisi, Georgia
+        </a>
+      </p>
+
+    </div>
+
+    <div class="col-lg-6">
+      <form (ngSubmit)="submitContactForm()" #contactForm="ngForm">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input id="name" type="text" class="form-control" [(ngModel)]="contact.name" name="name" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input id="email" type="email" class="form-control" [(ngModel)]="contact.email" name="email" required>
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">Message</label>
+          <textarea id="message" class="form-control" rows="4" [(ngModel)]="contact.message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">Send Message</button>
+      </form>
+    </div>
+  </div>
+</div>

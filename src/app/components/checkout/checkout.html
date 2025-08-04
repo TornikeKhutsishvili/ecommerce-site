@@ -1,0 +1,108 @@
+<div class="checkout-container">
+  <h2 class="checkout-title">Checkout 🛍️</h2>
+
+  <div *ngIf="cartItems().length > 0; else emptyCart" class="checkout-grid">
+
+    <!-- Left side: Cart items -->
+    <section class="cart-items">
+      <h3>Your Cart</h3>
+
+      <div *ngFor="let item of cartItems()" class="cart-item">
+        <img [src]="item.thumbnail || item.image" alt="{{ item.title }}" class="cart-item-img" />
+        <div class="cart-item-info">
+          <h4>{{ item.title }}</h4>
+          <p class="category">{{ item.category }}</p>
+          <p class="price">${{ item.price.toFixed(2) }}</p>
+
+          <div class="quantity-control">
+            <button (click)="updateQuantity(item.id, item.quantity - 1)" aria-label="Decrease quantity">-</button>
+            <span>{{ item.quantity }}</span>
+            <button (click)="updateQuantity(item.id, item.quantity + 1)" aria-label="Increase quantity">+</button>
+          </div>
+
+          <p class="total">Total: ${{ (item.price * item.quantity).toFixed(2) }}</p>
+
+          <button class="remove-btn" (click)="removeFromCart(item.id)">Remove</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right side: Checkout form -->
+    <section class="checkout-form-section">
+      <h3>Shipping & Payment</h3>
+
+      <form (ngSubmit)="completeCheckout()" #checkoutForm="ngForm" novalidate>
+
+        <!-- Full Name -->
+        <label for="name">Full Name *</label>
+        <input id="name" name="name" type="text" required [(ngModel)]="user.name" #nameInput="ngModel" />
+        <div class="error" *ngIf="nameInput.invalid && nameInput.touched">Full Name is required</div>
+
+        <!-- Email -->
+        <label for="email">Email *</label>
+        <input id="email" name="email" type="email" required
+              pattern="^[^@]+@[^@]+\.[^@]+$"
+              [(ngModel)]="user.email" #emailInput="ngModel" />
+        <div class="error" *ngIf="emailInput.invalid && emailInput.touched">
+          <div *ngIf="emailInput.errors?.['required']">Email is required</div>
+          <div *ngIf="emailInput.errors?.['pattern']">Invalid email format</div>
+        </div>
+
+        <!-- Shipping Address -->
+        <label for="address">Shipping Address *</label>
+        <input id="address" name="address" type="text" required
+              [(ngModel)]="user.address" #addressInput="ngModel" />
+        <div class="error" *ngIf="addressInput.invalid && addressInput.touched">Shipping Address is required</div>
+
+        <!-- Payment Method -->
+        <label for="paymentMethod">Payment Method *</label>
+        <select id="paymentMethod" name="paymentMethod" [(ngModel)]="paymentMethod" (ngModelChange)="onPaymentMethodChange($event)">
+          <option value="Cash_on_Delivery">Cash on Delivery</option>
+          <option value="PayPal">PayPal</option>
+          <option value="Credit_Card">Credit Card</option>
+        </select>
+
+        <!-- Conditional payment fields -->
+        <div *ngIf="paymentMethod() === 'Credit_Card'" class="payment-credit-card">
+          <label for="cardNumber">Card Number *</label>
+          <input id="cardNumber" name="cardNumber" type="text" maxlength="19" placeholder="1234-5678-9012-3456"
+                required [(ngModel)]="cardNumber" #cardNumberInput="ngModel" (input)="formatCardNumber()" />
+          <div class="error" *ngIf="cardNumberInput.invalid && cardNumberInput.touched">Card Number is required</div>
+
+          <label for="expiryDate">Expiry Date *</label>
+          <input id="expiryDate" name="expiryDate" type="month" required [(ngModel)]="expiryDate" #expiryDateInput="ngModel" />
+          <div class="error" *ngIf="expiryDateInput.invalid && expiryDateInput.touched">Expiry Date is required</div>
+
+          <label for="cvv">CVV *</label>
+          <input id="cvv" name="cvv" type="text" maxlength="3" placeholder="123" required
+                [(ngModel)]="cvv" #cvvInput="ngModel" />
+          <div class="error" *ngIf="cvvInput.invalid && cvvInput.touched">CVV is required</div>
+        </div>
+
+        <div *ngIf="paymentMethod() === 'PayPal'" class="payment-paypal">
+          <label for="paypalEmail">PayPal Email *</label>
+          <input id="paypalEmail" name="paypalEmail" type="email" placeholder="you@example.com"
+                required [(ngModel)]="paypalEmail" #paypalEmailInput="ngModel" />
+          <div class="error" *ngIf="paypalEmailInput.invalid && paypalEmailInput.touched">PayPal email is required</div>
+        </div>
+
+        <div *ngIf="paymentMethod() === 'Cash_on_Delivery'" class="payment-cash">
+          <p>You will pay upon delivery.</p>
+        </div>
+
+        <button type="submit" [disabled]="checkoutForm.invalid" class="btn-submit">Complete Checkout</button>
+      </form>
+
+      <div class="total-price">
+        <h4>Total: ${{ totalPrice().toFixed(2) }}</h4>
+      </div>
+
+      <a routerLink="/cart" class="btn-back">Back to Cart</a>
+    </section>
+  </div>
+
+  <ng-template #emptyCart>
+    <p>Your cart is empty. Add some products!</p>
+    <a routerLink="/" class="btn-back-home">Back to Home</a>
+  </ng-template>
+</div>

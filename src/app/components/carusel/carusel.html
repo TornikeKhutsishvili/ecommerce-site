@@ -1,0 +1,33 @@
+<div id="carouselExampleCaptions" class="carousel slide">
+  <div class="carousel-indicators">
+    <button *ngFor="let item of products; let i = index"
+            type="button" name="button"
+            [attr.aria-label]="'Slide ' + (i + 1)"
+            [attr.title]="'Slide ' + (i + 1)"
+            [class.active]="i === currentIndex()"
+            (click)="currentIndex.set(i)">
+    </button>
+  </div>
+
+  <div class="carousel-inner">
+    <div *ngFor="let item of products; let i = index"
+        class="carousel-item"
+        [class.active]="i === currentIndex()">
+      <img [src]="item.images[0]" class="d-block w-100" alt="{{ item.title }}" />
+      <div class="carousel-caption d-none d-md-block">
+        <h1>{{ item.title }}</h1>
+        <p>Price: ${{ item.price }}</p>
+      </div>
+    </div>
+  </div>
+
+  <button class="carousel-control-prev" type="button" (click)="prevSlide()">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+
+  <button class="carousel-control-next" type="button" (click)="nextSlide()">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>

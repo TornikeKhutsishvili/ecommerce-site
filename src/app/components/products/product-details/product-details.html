@@ -1,0 +1,70 @@
+<div class="container py-5" *ngIf="product()">
+  <div class="row g-5 align-items-center">
+    <!-- Product Image -->
+    <div class="col-lg-6 text-center">
+      <div class="p-3 bg-light rounded shadow-sm product-image-wrapper">
+        <img
+          [src]="product().thumbnail || product().image"
+          class="img-fluid rounded product-detail-img"
+          alt="{{ product().title }}"
+        />
+      </div>
+    </div>
+
+    <!-- Product Info -->
+    <div class="col-lg-6">
+      <h1 class="fw-bold mb-3">{{ product().title }}</h1>
+      <p class="text-muted small mb-2">{{ product().brand }} • {{ product().category }}</p>
+
+      <!-- Rating -->
+      <div class="mb-3">
+        <ng-container *ngFor="let star of [1,2,3,4,5]">
+          <i class="bi"
+            [ngClass]="{
+              'bi-star-fill text-warning': star <= product().rating,
+              'bi-star text-secondary': star > product().rating
+            }">
+          </i>
+        </ng-container>
+        <span class="text-muted small ms-2">({{ product().rating }})</span>
+      </div>
+
+      <!-- Price -->
+      <div class="mb-4">
+        <span class="fw-bold fs-3 text-primary">${{ product().price }}</span>
+        <span *ngIf="product().discountPercentage"
+              class="text-muted text-decoration-line-through ms-2">
+          ${{ (product().price / (1 - product().discountPercentage / 100)).toFixed(2) }}
+        </span>
+        <span *ngIf="product().discountPercentage" class="badge bg-danger ms-3 px-3 py-2">
+          -{{ product().discountPercentage }}%
+        </span>
+      </div>
+
+      <!-- Description -->
+      <p class="mb-4">{{ product().description }}</p>
+
+      <!-- Extra Details -->
+      <ul class="list-unstyled text-muted small mb-4">
+        <li><strong>Stock:</strong> {{ product().stock }} available</li>
+        <li><strong>SKU:</strong> {{ product().sku }}</li>
+        <li><strong>Shipping:</strong> {{ product().shippingInformation }}</li>
+        <li><strong>Warranty:</strong> {{ product().warrantyInformation }}</li>
+      </ul>
+
+      <!-- Buttons -->
+      <div class="d-flex gap-3">
+        <button type="button"
+                class="btn btn-primary btn-lg flex-grow-1"
+                (click)="addToCart()">
+          🛒 Add to Cart
+        </button>
+        <button type="button"
+                class="btn btn-outline-secondary btn-lg"
+                (click)="goBack()">
+          ⬅ Back
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

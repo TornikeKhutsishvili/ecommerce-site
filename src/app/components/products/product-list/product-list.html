@@ -1,0 +1,93 @@
+<div class="container py-5">
+
+  <!-- Pagination Top -->
+  <div class="d-flex justify-content-center mb-4">
+    <pagination-controls
+      (pageChange)="page.set($event)"
+      class="page"
+    ></pagination-controls>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="row g-4" *ngIf="paginatedProducts().length > 0; else noProducts">
+    <div
+      class="col-xl-3 col-lg-4 col-md-6 col-sm-12"
+      *ngFor="let product of filteredProducts() | paginate: { itemsPerPage: itemsPerPage(), currentPage: page() }"
+    >
+      <div class="card border-0 shadow-sm h-100 product-card">
+        <!-- Product Image -->
+        <div class="position-relative overflow-hidden">
+          <img
+            [src]="product.thumbnail || product.image"
+            class="card-img-top img-fluid product-img"
+            alt="{{ product.title }}"
+          />
+          <!-- Discount Badge -->
+          <span *ngIf="product.discountPercentage"
+                class="badge bg-danger position-absolute top-0 start-0 m-2 px-3 py-2">
+            -{{ product.discountPercentage }}%
+          </span>
+        </div>
+
+        <!-- Product Body -->
+        <div class="card-body text-center d-flex flex-column justify-content-between">
+          <div>
+            <h5 class="card-title fw-semibold text-truncate">{{ product.title }}</h5>
+            <p class="text-muted small mb-2">{{ product.brand }}</p>
+
+            <div class="mb-3">
+              <span class="fw-bold fs-5 text-primary">${{ product.price }}</span>
+              <span *ngIf="product.discountPercentage" class="text-muted text-decoration-line-through ms-2">
+                ${{ (product.price / (1 - product.discountPercentage / 100)).toFixed(2) }}
+              </span>
+            </div>
+
+            <!-- Rating -->
+            <div class="mb-3">
+              <ng-container *ngFor="let star of [1,2,3,4,5]">
+                <i class="bi"
+                    [ngClass]="{
+                      'bi-star-fill text-warning': star <= product.rating,
+                      'bi-star text-secondary': star > product.rating
+                    }">
+                </i>
+              </ng-container>
+              <span class="text-muted small ms-2">({{ product.rating }})</span>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div>
+            <a [routerLink]="['/product', product.id]" class="btn btn-outline-primary w-100 mb-2">
+              View Details
+            </a>
+            <button type="button"
+                    class="btn btn-primary w-100"
+                    (click)="addToCart(product)">
+              🛒 Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Products Template -->
+  <ng-template #noProducts>
+    <p class="text-center text-muted mt-5">No products found. Please try another category.</p>
+  </ng-template>
+
+  <!-- Cart Info -->
+  <div class="cart-info text-center mt-5">
+    <span class="fw-semibold">🛍 Items in Cart: {{ cartItemCount() }}</span>
+    <a [routerLink]="['/cart']" class="btn btn-info ms-3">View Cart</a>
+  </div>
+
+  <!-- Pagination Bottom -->
+  <div class="d-flex justify-content-center mt-4">
+    <pagination-controls
+      (pageChange)="page.set($event)"
+      class="page"
+    ></pagination-controls>
+  </div>
+</div>

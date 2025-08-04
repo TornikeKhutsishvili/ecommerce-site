@@ -1,1 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
+@use "bootstrap/scss/bootstrap";
+
+// ================================
+// THEME VARIABLES
+// ================================
+
+$light-bg: #f8f9fa;
+$light-text: #212529;
+
+$dark-bg: #343a40;
+$dark-text: #f8f9fa;
+
+// ================================
+// MIXINS
+// ================================
+
+@mixin transition($props...) {
+  transition: $props 0.3s ease-in-out;
+}
+
+// ================================
+// THEMES
+// ================================
+
+body {
+  &.light-theme {
+    background-color: $light-bg;
+    color: $light-text;
+  }
+
+  &.dark-theme {
+    background-color: $dark-bg;
+    color: $dark-text;
+  }
+}
+
+// ================================
+// NAVBAR
+// ================================
+
+.navbar {
+  @include transition(all);
+
+  &.navbar-light {
+    background-color: $light-bg !important;
+    color: $light-text;
+  }
+
+  &.navbar-dark {
+    background-color: $dark-bg !important;
+    color: $dark-text;
+  }
+}

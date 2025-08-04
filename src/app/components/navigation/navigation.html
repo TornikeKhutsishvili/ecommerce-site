@@ -1,0 +1,51 @@
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg main-navbar" [ngClass]="isDarkMode() ? 'navbar-dark bg-dark' : 'navbar-light bg-light'">
+  <div class="container">
+
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold" [routerLink]="['/']" [routerLinkActive]="['active']">
+      TK<span class="text-primary">Shop</span>
+    </a>
+
+    <!-- Burger Menu -->
+    <button class="navbar-toggler" type="button" (click)="toggleMenu()" title="Menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menu Items -->
+    <div class="collapse navbar-collapse mobile-slide" [ngClass]="{ 'show': isMenuOpen() }">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" [routerLink]="['/']" [routerLinkActive]="['active']" (click)="closeMenu()">Home</a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink]="['/shop']" [routerLinkActive]="['active']" (click)="closeMenu()">Shop</a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink]="['/contact']" [routerLinkActive]="['active']" (click)="closeMenu()">Contact</a></li>
+      </ul>
+
+      <!-- Right Side Actions -->
+      <div class="d-flex align-items-center navbar-actions flex-wrap">
+
+        <!-- Search -->
+        <div class="search-box me-2 mt-2 mt-lg-0">
+          <input type="text" class="form-control" placeholder="Search..." (input)="onSearch($event)">
+        </div>
+
+        <!-- Filter -->
+        <select class="form-select me-2 mt-2 mt-lg-0" (change)="filterByPrice($event, products())" name="select">
+          <option value="">Price</option>
+          <option value="low">Low → High</option>
+          <option value="high">High → Low</option>
+        </select>
+
+        <!-- Cart -->
+        <a [routerLink]="['/cart']" class="btn btn-outline-primary position-relative me-2 mt-2 mt-lg-0">
+          🛒
+          <span class="cart-badge" *ngIf="cartItemCount() > 0">{{ cartItemCount() }}</span>
+        </a>
+
+        <!-- Theme Toggle -->
+        <button type="button" class="btn btn-outline-secondary theme-btn mt-2 mt-lg-0" (click)="toggleTheme()">
+          {{ isDarkMode() ? sun : moon }}
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
