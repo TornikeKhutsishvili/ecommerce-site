@@ -23,17 +23,17 @@
       <!-- Right Side Actions -->
       <div class="d-flex align-items-center navbar-actions flex-wrap gap-2">
 
-        <!-- Search -->
-        <div class="search-box">
-          <input type="text" class="form-control" placeholder="Search..." (input)="onSearch($event)">
-        </div>
-
         <!-- Filter -->
         <select class="form-select" (change)="filterByPrice($event, products())" name="select">
           <option value="">Price</option>
           <option value="low">Low → High</option>
           <option value="high">High → Low</option>
         </select>
+
+        <!-- Search -->
+        <div class="search-box">
+          <input type="text" class="form-control" placeholder="Search..." (input)="onSearch($event)">
+        </div>
 
         <!-- Cart -->
         <a [routerLink]="['/cart']" class="btn btn-outline-primary position-relative cart-btn">
