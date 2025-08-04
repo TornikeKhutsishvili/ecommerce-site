@@ -48,6 +48,9 @@ export class Navigation {
 
     this.isblack.set('#343a40');
     this.islight.set('#f8f9fa');
+
+
+    this.authService.loadFromStorage();
   }
 
   ngOnInit(): void {
@@ -117,7 +120,7 @@ export class Navigation {
   isLoggedIn = this.authService.isLoggedIn;
 
   login() {
-    this.authService.login();
+    this.authService.login(localStorage.getItem('email')!);
   }
 
   logout() {

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterModule } from '@angular/router';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-login',
@@ -18,15 +19,16 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
 export class Login {
 
   private router = inject(Router);
+  private auth = inject(AuthService);
 
-  email = '';
-  password = '';
+  email = signal('');
+  password = signal('');
 
   onSubmit() {
-    if (this.email && this.password) {
-      alert(`Welcome back, ${this.email}!`);
-      this.router.navigate(['/']); // redirect to homepage or dashboard
+    if (this.email() && this.password()) {
+      this.auth.login(this.email());
+      alert(`Welcome back, ${this.email()}!`);
+      this.router.navigate(['/']);
     }
   }
-
 }

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterModule } from '@angular/router';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-register',
@@ -16,16 +17,16 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
   styleUrls: ['./register.scss']
 })
 export class Register {
-
-  name = '';
-  email = '';
-  password = '';
-  confirmPassword = '';
+  name = signal('');
+  email = signal('');
+  password = signal('');
+  confirmPassword = signal('');
 
   private router = inject(Router);
+  private auth = inject(AuthService);
 
   get passwordMismatch(): boolean {
-    return this.password !== this.confirmPassword;
+    return this.password() !== this.confirmPassword();
   }
 
   onSubmit() {
@@ -33,11 +34,9 @@ export class Register {
       alert('Passwords do not match!');
       return;
     }
-    // TODO: add your registration logic here (call API or service)
-    if (this.name && this.email && this.password) {
-      alert(`Welcome, ${this.name}! Your account has been created.`);
-      this.router.navigate(['/login']); // redirect to login page
+    if (this.name() && this.email() && this.password()) {
+      alert(`Welcome, ${this.name()}! Your account has been created.`);
+      this.router.navigate(['/login']);
     }
   }
-
 }
