@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -16,8 +16,8 @@ import { RouterModule } from '@angular/router';
 })
 export class About {
 
-  companyName = 'TK Store';
-  mission = 'We aim to provide high-quality products at the best prices while ensuring an exceptional shopping experience.';
-  yearFounded = 2025;
+  companyName = signal<string>('TKShop');
+  mission = signal<string>('We aim to provide high-quality products at the best prices while ensuring an exceptional shopping experience.');
+  yearFounded = signal<number>(2025);
 
 }
