@@ -4,7 +4,6 @@ import { ProductList } from "../products/product-list/product-list";
 import { Carusel } from "../carusel/carusel";
 import { ProductService } from '../../services/product-service';
 import { dummyProductModel } from '../../models/product.model';
-import { About } from "../about/about";
 
 @Component({
   selector: 'app-home',
@@ -12,8 +11,7 @@ import { About } from "../about/about";
   imports: [
     CommonModule,
     ProductList,
-    Carusel,
-    About
+    Carusel
 ],
   templateUrl: './home.html',
   styleUrls: ['./home.scss']
