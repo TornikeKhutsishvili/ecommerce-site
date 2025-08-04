@@ -15,6 +15,10 @@ export const routes: Routes = [
     loadComponent: () => import('./components/home/home').then((m) => m.Home)
   },
 
+  { path: 'products',
+    loadComponent: () => import('./components/products/product-list/product-list').then((m) => m.ProductList)
+  },
+
   { path: 'product/:id',
     loadComponent: () => import('./components/products/product-details/product-details').then((m) => m.ProductDetails),
     data: {
@@ -48,6 +52,14 @@ export const routes: Routes = [
 
   { path: 'register',
     loadComponent: () => import('./components/auth/register/register').then((m) => m.Register)
+  },
+
+  { path: 'profile',
+    loadComponent: () => import('./components/auth/profile/profile').then((m) => m.Profile)
+  },
+
+  { path: 'edit-profile',
+    loadComponent: () => import('./components/auth/edit-profile/edit-profile').then((m) => m.EditProfile)
   },
 
   { path: '**', redirectTo: '' }
