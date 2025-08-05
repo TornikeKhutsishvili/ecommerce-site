@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { dummyProductModel } from '../../../../models/product.model';
 import { ProductService } from '../../../../services/product-service';
@@ -20,7 +20,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './furniture.html',
   styleUrls: ['./furniture.scss']
 })
-export class Furniture {
+export class Furniture implements OnInit, OnDestroy {
 
   products = signal<dummyProductModel[]>([]);
   filteredProducts = signal<dummyProductModel[]>([]);

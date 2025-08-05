@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { dummyProductModel } from '../../../../models/product.model';
 import { ProductService } from '../../../../services/product-service';
@@ -20,7 +20,7 @@ import { SearchService } from '../../../../services/search-service';
   templateUrl: './beauty.html',
   styleUrls: ['./beauty.scss']
 })
-export class Beauty {
+export class Beauty implements OnInit, OnDestroy {
 
   products = signal<dummyProductModel[]>([]);
   filteredProducts = signal<dummyProductModel[]>([]);
