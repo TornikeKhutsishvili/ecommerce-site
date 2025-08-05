@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-profile',
@@ -13,5 +14,5 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./profile.scss']
 })
 export class Profile {
-
+    auth = inject(AuthService);
 }

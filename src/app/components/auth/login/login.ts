@@ -18,17 +18,20 @@ import { AuthService } from '../../../services/auth-service';
 })
 export class Login {
 
-  private router = inject(Router);
-  private auth = inject(AuthService);
-
   email = signal('');
   password = signal('');
 
+  private router = inject(Router);
+  private auth = inject(AuthService);
+
   onSubmit() {
     if (this.email() && this.password()) {
-      this.auth.login(this.email());
-      alert(`Welcome back, ${this.email()}!`);
-      this.router.navigate(['/']);
+      const success = this.auth.login(this.email(), this.password());
+      if (success) {
+        alert(`Welcome back, ${this.email()}!`);
+        this.router.navigate(['/']);
+      }
     }
   }
+
 }

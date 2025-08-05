@@ -1,4 +1,11 @@
 import { Routes } from '@angular/router';
+import { adminGuard } from './guards/admin-guard';
+import { authGuard } from './guards/auth-guard';
+import { Dashboard } from './components/admin/dashboard/dashboard';
+import { Login } from './components/auth/login/login';
+import { Register } from './components/auth/register/register';
+import { Profile } from './components/auth/profile/profile';
+import { EditProfile } from './components/auth/edit-profile/edit-profile';
 
 // get products id
 function generatePrerenderParams(count: number): { id: string }[] {
@@ -46,21 +53,11 @@ export const routes: Routes = [
     loadComponent: () => import('./components/contact/contact').then((m) => m.Contact)
   },
 
-  { path: 'login',
-    loadComponent: () => import('./components/auth/login/login').then((m) => m.Login)
-  },
-
-  { path: 'register',
-    loadComponent: () => import('./components/auth/register/register').then((m) => m.Register)
-  },
-
-  { path: 'profile',
-    loadComponent: () => import('./components/auth/profile/profile').then((m) => m.Profile)
-  },
-
-  { path: 'edit-profile',
-    loadComponent: () => import('./components/auth/edit-profile/edit-profile').then((m) => m.EditProfile)
-  },
+  { path: 'login', component: Login },
+  { path: 'register', component: Register },
+  { path: 'profile', component: Profile, canActivate: [authGuard] },
+  { path: 'edit-profile', component: EditProfile, canActivate: [authGuard] },
+  { path: 'admin', component: Dashboard, canActivate: [adminGuard] },
 
   { path: '**', redirectTo: '' }
 

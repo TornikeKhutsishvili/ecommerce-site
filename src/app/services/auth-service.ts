@@ -1,31 +1,63 @@
 import { Injectable, signal } from '@angular/core';
 
+interface User {
+  name: string;
+  email: string;
+  role: 'user' | 'admin';
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  isLoggedIn = signal<boolean>(false);
-  userEmail = signal<string | null>(null);
+  isLoggedIn = signal(false);
+  currentUser = signal<User | null>(null);
 
-  login(email: string) {
+  constructor() {
+    this.loadFromStorage();
+  }
+
+  login(email: string, password: string): boolean {
+    // DEMO: here should be really API call
+    const user: User = {
+      name: email.split('@')[0],
+      email,
+      role: email === 'admin@example.com' ? 'admin' : 'user'
+    };
+
     this.isLoggedIn.set(true);
-    this.userEmail.set(email);
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('userEmail', email);
+    this.currentUser.set(user);
+
+    localStorage.setItem('auth_user', JSON.stringify(user));
+    localStorage.setItem('auth_logged_in', 'true');
+
+    return true;
+  }
+
+  register(name: string, email: string, password: string) {
+    // DEMO: API call register
+    alert(`Account created for ${name}`);
   }
 
   logout() {
     this.isLoggedIn.set(false);
-    this.userEmail.set(null);
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('userEmail');
+    this.currentUser.set(null);
+    localStorage.removeItem('auth_user');
+    localStorage.removeItem('auth_logged_in');
   }
 
   loadFromStorage() {
-    const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    const email = localStorage.getItem('userEmail');
-    this.isLoggedIn.set(loggedIn);
-    if (email) this.userEmail.set(email);
+    const loggedIn = localStorage.getItem('auth_logged_in') === 'true';
+    const storedUser = localStorage.getItem('auth_user');
+
+    if (loggedIn && storedUser) {
+      this.isLoggedIn.set(true);
+      this.currentUser.set(JSON.parse(storedUser));
+    }
+  }
+
+  isAdmin(): boolean {
+    return this.currentUser()?.role === 'admin';
   }
 
 }

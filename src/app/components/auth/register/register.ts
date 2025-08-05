@@ -17,6 +17,7 @@ import { AuthService } from '../../../services/auth-service';
   styleUrls: ['./register.scss']
 })
 export class Register {
+
   name = signal('');
   email = signal('');
   password = signal('');
@@ -25,7 +26,7 @@ export class Register {
   private router = inject(Router);
   private auth = inject(AuthService);
 
-  get passwordMismatch(): boolean {
+  get passwordMismatch() {
     return this.password() !== this.confirmPassword();
   }
 
@@ -35,8 +36,9 @@ export class Register {
       return;
     }
     if (this.name() && this.email() && this.password()) {
-      alert(`Welcome, ${this.name()}! Your account has been created.`);
+      this.auth.register(this.name(), this.email(), this.password());
       this.router.navigate(['/login']);
     }
   }
+
 }
