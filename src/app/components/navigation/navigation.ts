@@ -4,7 +4,7 @@ import { ProductService } from '../../services/product-service';
 import { FilterService } from '../../services/filter-service';
 import { SearchService } from '../../services/search-service';
 import { ThemeService } from '../../services/theme-service';
-import { RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
 import { Collapse } from 'bootstrap';
@@ -38,6 +38,9 @@ export class Navigation implements AfterViewInit {
   sun = '☀';
   moon = '🌙';
 
+  private router = inject(Router);
+  currentUrl = signal<string>('');
+
   private collapseInstance!: Collapse;
 
   private productService = inject(ProductService);
@@ -52,9 +55,17 @@ export class Navigation implements AfterViewInit {
 
   constructor() {
     this.isDarkMode.set(this.themeService.getSavedTheme() === 'dark');
+
     this.isblack.set('#343a40');
     this.islight.set('#f8f9fa');
+
+
     this.authService.loadFromStorage();
+
+
+    this.router.events.subscribe(() => {
+      this.currentUrl.set(this.router.url);
+    });
   }
 
   ngOnInit(): void {

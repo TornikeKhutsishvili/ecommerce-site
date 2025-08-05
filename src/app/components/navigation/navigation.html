@@ -32,6 +32,7 @@
             Home
           </a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link"
             [routerLink]="['/shop']"
@@ -42,6 +43,7 @@
             Shop
           </a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link"
             [routerLink]="['/contact']"
@@ -64,7 +66,7 @@
         </a>
 
         <!-- Search -->
-        <div class="search-box">
+        <div class="search-box" *ngIf="currentUrl() !== '/shop' && currentUrl() !== '/contact'">
           <input type="text" class="form-control" placeholder="Search..." (input)="onSearch($event)">
         </div>
 
@@ -89,7 +91,10 @@
         </button>
 
         <!-- Filter -->
-        <select class="form-select" (change)="filterByPrice($event, products())" name="select">
+        <select *ngIf="currentUrl() !== '/contact'"
+          class="form-select" name="select"
+          (change)="filterByPrice($event, products())"
+        >
           <option value="">Price</option>
           <option value="low">Low → High</option>
           <option value="high">High → Low</option>
