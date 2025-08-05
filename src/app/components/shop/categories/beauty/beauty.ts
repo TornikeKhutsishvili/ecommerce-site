@@ -31,10 +31,10 @@ export class Beauty {
   private filterService = inject(FilterService);
   private searchService = inject(SearchService);
 
+
   // ngOnInit
   ngOnInit(): void {
 
-    // filtered products
     this.productService.getProductsByCategory('beauty').subscribe(data => {
 
       this.products.set(data);
@@ -43,17 +43,20 @@ export class Beauty {
       // Check if there are already filtered products in the service
       this.filteredProducts.set(this.filterService.getFilteredProducts());
 
+      // Insert in filter service
+      this.filterService.setFilteredProducts(this.products());
+
+      // search products
+      this.searchService.searchQuery$.subscribe(query => {
+        const filtered = this.products().filter(product => product.title.toLowerCase().includes(query.toLowerCase()));
+        this.filteredProducts.set(filtered);
+      });
+
       // Subscribe to filtered products updates from the service
       this.filterSubscription = this.filterService.filteredProducts$.subscribe((filtered) => {
         this.filteredProducts.set(filtered);
       });
 
-    });
-
-    // search products
-    this.searchService.searchQuery$.subscribe(query => {
-      const filtered = this.products().filter(product => product.title.toLowerCase().includes(query.toLowerCase()));
-      this.filteredProducts.set(filtered);
     });
 
   }
@@ -64,6 +67,7 @@ export class Beauty {
     const filtered = this.filterService.filterByPrice(this.products(), price);
     this.filterService.setFilteredProducts(filtered); // Set filtered products in the service
   }
+
 
   // ngOnDestroy
   ngOnDestroy() {

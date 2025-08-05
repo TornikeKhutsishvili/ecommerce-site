@@ -31,10 +31,10 @@ export class Furniture {
   private filterService = inject(FilterService);
   private searchService = inject(SearchService);
 
+
   // ngOnInit
   ngOnInit(): void {
 
-    // filtered products
     this.productService.getProductsByCategory('furniture').subscribe(data => {
 
       this.products.set(data);
@@ -42,6 +42,9 @@ export class Furniture {
 
       // Check if there are already filtered products in the service
       this.filteredProducts.set(this.filterService.getFilteredProducts());
+
+      // Insert in filter service
+      this.filterService.setFilteredProducts(this.products());
 
       // Subscribe to filtered products updates from the service
       this.filterSubscription = this.filterService.filteredProducts$.subscribe((filtered) => {
