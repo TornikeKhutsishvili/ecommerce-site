@@ -3,7 +3,11 @@
   <div class="container">
 
     <!-- Logo -->
-    <a class="navbar-brand fw-bold" [routerLink]="['/']" [routerLinkActive]="['active']">
+    <a class="navbar-brand fw-bold"
+      [routerLink]="['/']"
+      [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       TK<span class="text-primary">Shop</span>
     </a>
 
@@ -13,11 +17,41 @@
     </button>
 
     <!-- Menu Items -->
-    <div #navbarCollapse class="collapse navbar-collapse mobile-slide" [ngClass]="{ 'show': isMenuOpen() }">
+    <div #navbarCollapse
+      class="collapse navbar-collapse mobile-slide"
+      [ngClass]="{ 'show': isMenuOpen() }"
+    >
       <ul class="navbar-nav mx-auto">
-        <li class="nav-item"><a class="nav-link" [routerLink]="['/home']" [routerLinkActive]="['active']" (click)="closeMenu()">Home</a></li>
-        <li class="nav-item"><a class="nav-link" [routerLink]="['/shop']" [routerLinkActive]="['active']" (click)="closeMenu()">Shop</a></li>
-        <li class="nav-item"><a class="nav-link" [routerLink]="['/contact']" [routerLinkActive]="['active']" (click)="closeMenu()">Contact</a></li>
+        <li class="nav-item">
+          <a class="nav-link"
+            [routerLink]="['/home']"
+            [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeMenu()"
+          >
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"
+            [routerLink]="['/shop']"
+            [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeMenu()"
+          >
+            Shop
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"
+            [routerLink]="['/contact']"
+            [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeMenu()"
+          >
+            Contact
+          </a>
+        </li>
       </ul>
 
       <!-- Right Side Actions -->

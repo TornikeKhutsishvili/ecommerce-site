@@ -7,9 +7,30 @@
       <div class="col-md-6 mb-3">
         <h5>Quick Links</h5>
         <ul class="list-unstyled d-flex flex-wrap gap-3 justify-content-center justify-content-md-start">
-          <li><a [routerLink]="['/']" [routerLinkActive]="['active']" class="text-light text-decoration-none">Home</a></li>
-          <li><a [routerLink]="['/cart']" [routerLinkActive]="['active']" class="text-light text-decoration-none">Cart</a></li>
-          <li><a [routerLink]="['/contact']" [routerLinkActive]="['active']" class="text-light text-decoration-none">Contact</a></li>
+          <li>
+            <a [routerLink]="['/']"
+              [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="text-light text-decoration-none">
+              Home
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/cart']"
+              [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="text-light text-decoration-none">
+              Cart
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/contact']"
+              [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="text-light text-decoration-none">
+              Contact
+            </a>
+          </li>
         </ul>
       </div>
 
