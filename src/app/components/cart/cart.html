@@ -1,9 +1,9 @@
 <div class="cart-container container mt-5">
   <h2 class="text-center mb-4">🛒 Your Shopping Cart</h2>
 
-  <div *ngIf="cartItems().length > 0; else emptyCart">
+  <div *ngIf="filteredProducts().length > 0; else emptyCart">
     <div class="row g-4">
-      @for(item of cartItems(); track $index){
+      @for(item of filteredProducts(); track $index){
         <div class="col-lg-4 col-md-6">
           <div class="cart-card shadow-sm">
             <div class="cart-img">

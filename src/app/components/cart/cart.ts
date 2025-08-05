@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
 import { CartService } from '../../services/cart-service';
+import { SearchService } from '../../services/search-service';
+import { FilterService } from '../../services/filter-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -16,40 +19,92 @@ import { CartService } from '../../services/cart-service';
   templateUrl: './cart.html',
   styleUrls: ['./cart.scss']
 })
-export class Cart {
+export class Cart implements OnInit, OnDestroy {
 
   cartItems = signal<any[]>([]);
+  filteredProducts = signal<any[]>([]);
   totalPrice = signal<number>(0);
-  private cartService = inject(CartService);
 
+  private filterSubscription: Subscription | null = null;
+
+  private cartService = inject(CartService);
+  private filterService = inject(FilterService);
+  private searchService = inject(SearchService);
+
+
+  // ngOnInit
   ngOnInit(): void {
-    this.cartItems.set(this.cartService.getCartItems());  // Restore cart data from LocalStorage
+
+    const items = this.cartService.getCartItems();
+
+    this.cartItems.set(items);
+    this.filteredProducts.set(items);
     this.calculateTotalPrice();
+
+    // Insert in filter service
+    this.filterService.setFilteredProducts(items);
+
+    // Search
+    this.searchService.searchQuery$.subscribe(query => {
+      const filtered = this.filterService.getFilteredProducts()
+        .filter(product => product.title.toLowerCase().includes(query.toLowerCase()));
+      this.filteredProducts.set(filtered);
+    });
+
+    // Filter
+    this.filterSubscription = this.filterService.filteredProducts$.subscribe(filtered => {
+      this.filteredProducts.set(filtered);
+    });
+
   }
+
 
   // Update quantity
   updateQuantity(productId: number, quantity: number): void {
     if (quantity >= 1) { // At least 1 product
-      this.cartService.updateQuantity(productId, quantity);  // Update in LocalStorage
-      this.cartItems.set(this.cartService.getCartItems());  // Update cart
-      this.calculateTotalPrice();  // Update total amount
+      this.cartService.updateQuantity(productId, quantity); // Update to LocalStorage
+
+      const updated = this.cartService.getCartItems();
+      this.cartItems.set(updated);
+      this.filteredProducts.set(updated);
+      this.calculateTotalPrice();
     }
   }
 
+
   // Remove product from cart
   removeFromCart(productId: number): void {
-    this.cartService.removeFromCart(productId);  // Delete from LocalStorage
-    this.cartItems.set(this.cartService.getCartItems());  // Update cart
-    this.calculateTotalPrice();  // Update total amount
+    this.cartService.removeFromCart(productId); // Delete from localStorage
+
+    const updated = this.cartService.getCartItems();
+    this.cartItems.set(updated);
+    this.filteredProducts.set(updated);
+    this.calculateTotalPrice();
   }
 
-  // Calculate the total price of products in the cart
+
+  // Calculate the total amount
   calculateTotalPrice(): void {
     const total = this.cartItems().reduce((acc, item) => {
       return acc + (item?.price * item?.quantity || 0);
     }, 0);
 
     this.totalPrice.set(total);
+  }
+
+
+  // apply filter
+  applyPriceFilter(price: number) {
+    const filtered = this.filterService.filterByPrice(this.filteredProducts(), price);
+    this.filterService.setFilteredProducts(filtered); // Set filtered products in the service
+  }
+
+
+  // ngOnDestroy
+  ngOnDestroy() {
+    if (this.filterSubscription) {
+      this.filterSubscription.unsubscribe();
+    }
   }
 
 }
