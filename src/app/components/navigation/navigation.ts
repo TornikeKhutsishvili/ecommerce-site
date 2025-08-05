@@ -53,6 +53,8 @@ export class Navigation implements AfterViewInit {
   currentUser = this.authService.currentUser;
   isLoggedIn = this.authService.isLoggedIn;
 
+
+
   constructor() {
     this.isDarkMode.set(this.themeService.getSavedTheme() === 'dark');
 
@@ -68,6 +70,8 @@ export class Navigation implements AfterViewInit {
     });
   }
 
+
+
   ngOnInit(): void {
     this.updateNavbarTheme();
 
@@ -76,15 +80,21 @@ export class Navigation implements AfterViewInit {
     });
   }
 
+
+
   ngAfterViewInit(): void {
     this.collapseInstance = new Collapse(this.navbarCollapse.nativeElement, { toggle: false });
   }
+
+
 
   toggleTheme(): void {
     this.themeService.toggleTheme();
     this.isDarkMode.set(this.themeService.getSavedTheme() === 'dark');
     this.updateNavbarTheme();
   }
+
+
 
   updateNavbarTheme(): void {
     const navbar = document.querySelector('.navbar');
@@ -100,20 +110,28 @@ export class Navigation implements AfterViewInit {
     }
   }
 
+
+
   toggleMenu(): void {
     this.isMenuOpen.set(!this.isMenuOpen());
     this.collapseInstance.toggle();
   }
+
+
 
   closeMenu(): void {
     this.isMenuOpen.set(false);
     this.collapseInstance.hide();
   }
 
+
+
   onSearch(event: any) {
     const query = event.target.value.trim();
     this.searchService.updateSearchQuery(query);
   }
+
+
 
   filterByPrice(event: any, products: any[]) {
     const value = event.target.value;
@@ -131,7 +149,10 @@ export class Navigation implements AfterViewInit {
     this.filterService.setFilteredProducts(sortedProducts);
   }
 
+
+
   logout() {
     this.authService.logout();
   }
+
 }
