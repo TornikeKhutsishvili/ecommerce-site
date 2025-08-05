@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { dummyProductModel } from '../../../../models/product.model';
 import { ProductService } from '../../../../services/product-service';
 import { RouterLink, RouterModule } from '@angular/router';
+import { FilterService } from '../../../../services/filter-service';
+import { SearchService } from '../../../../services/search-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-furniture',
@@ -20,12 +23,52 @@ import { RouterLink, RouterModule } from '@angular/router';
 export class Furniture {
 
   products = signal<dummyProductModel[]>([]);
-  private productService = inject(ProductService);
+  filteredProducts = signal<dummyProductModel[]>([]);
 
+  private filterSubscription: Subscription | null = null;
+
+  private productService = inject(ProductService);
+  private filterService = inject(FilterService);
+  private searchService = inject(SearchService);
+
+  // ngOnInit
   ngOnInit(): void {
+
+    // filtered products
     this.productService.getProductsByCategory('furniture').subscribe(data => {
+
       this.products.set(data);
+      this.filteredProducts.set(data);
+
+      // Check if there are already filtered products in the service
+      this.filteredProducts.set(this.filterService.getFilteredProducts());
+
+      // Subscribe to filtered products updates from the service
+      this.filterSubscription = this.filterService.filteredProducts$.subscribe((filtered) => {
+        this.filteredProducts.set(filtered);
+      });
+
     });
+
+    // search products
+    this.searchService.searchQuery$.subscribe(query => {
+      const filtered = this.products().filter(product => product.title.toLowerCase().includes(query.toLowerCase()));
+      this.filteredProducts.set(filtered);
+    });
+  }
+
+
+  // apply filter
+  applyPriceFilter(price: number) {
+    const filtered = this.filterService.filterByPrice(this.products(), price);
+    this.filterService.setFilteredProducts(filtered); // Set filtered products in the service
+  }
+
+  // ngOnDestroy
+  ngOnDestroy() {
+    if (this.filterSubscription) {
+      this.filterSubscription.unsubscribe();
+    }
   }
 
 }

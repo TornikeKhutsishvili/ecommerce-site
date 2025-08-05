@@ -69,8 +69,7 @@ export class ProductList {
 
     // search
     this.searchService.searchQuery$.subscribe(query => {
-      const filtered = this.products().filter(product =>
-        product.title.toLowerCase().includes(query.toLowerCase()));
+      const filtered = this.products().filter(product => product.title.toLowerCase().includes(query.toLowerCase()));
       this.filteredProducts.set(filtered);
     });
 

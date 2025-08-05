@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product-service';
 import { CartService } from '../../services/cart-service';
 import { dummyProductModel } from '../../models/product.model';
+import { FilterService } from '../../services/filter-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-shop',
@@ -17,15 +19,25 @@ export class Shop {
   filteredProducts = signal<dummyProductModel[]>([]);
   categories: string[] = [];
 
+  private filterSubscription: Subscription | null = null;
+
   private productService = inject(ProductService);
   private cartService = inject(CartService);
+  private filterService = inject(FilterService);
 
   ngOnInit(): void {
+
     this.productService.getProducts().subscribe(data => {
       this.products.set(data);
       this.filteredProducts.set(data);
       this.categories = [...new Set(data.map(p => p.category))];
     });
+
+    // Subscribe to filtered products updates from the service
+    this.filterSubscription = this.filterService.filteredProducts$.subscribe((filtered) => {
+      this.filteredProducts.set(filtered);
+    });
+
   }
 
   onSearch(event: Event) {
@@ -40,6 +52,17 @@ export class Shop {
     this.filteredProducts.set(
       category ? this.products().filter(p => p.category === category) : [...this.products()]
     );
+  }
+
+  applyPriceFilter(price: number) {
+    const filtered = this.filterService.filterByPrice(this.products(), price);
+    this.filterService.setFilteredProducts(filtered); // Set filtered products in the service
+  }
+
+  ngOnDestroy() {
+    if (this.filterSubscription) {
+      this.filterSubscription.unsubscribe();
+    }
   }
 
   categoryImages: Record<string, string> = {
