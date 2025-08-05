@@ -58,7 +58,14 @@ export class Furniture implements OnInit, OnDestroy {
 
       // Subscribe to filtered products updates from the service
       this.filterSubscription = this.filterService.filteredProducts$.subscribe(filtered => {
-        this.filteredProducts.set(filtered.length > 0 ? filtered : this.products());
+        if (filtered.length > 0) {
+          const maxPrice = Math.max(...filtered.map(p => p.price));
+
+          const categoryFiltered = this.products().filter(p => p.price <= maxPrice);
+          this.filteredProducts.set(categoryFiltered);
+        } else {
+          this.filteredProducts.set(this.products());
+        }
       });
 
     });
