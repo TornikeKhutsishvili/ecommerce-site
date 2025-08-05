@@ -41,7 +41,7 @@ export class Beauty implements OnInit, OnDestroy {
       this.filteredProducts.set(data);
 
       // Insert in filter service
-      this.filterService.setFilteredProducts(this.products());
+      this.filterService.setFilteredProducts(data);
 
       // search products
       this.searchService.searchQuery$.subscribe(query => {
@@ -63,13 +63,6 @@ export class Beauty implements OnInit, OnDestroy {
 
     });
 
-  }
-
-
-  // apply filter
-  applyPriceFilter(price: number) {
-    const filtered = this.filterService.filterByPrice(this.products(), price);
-    this.filterService.setFilteredProducts(filtered); // Set filtered products in the service
   }
 
 
