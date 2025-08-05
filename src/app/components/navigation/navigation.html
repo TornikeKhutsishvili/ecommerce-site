@@ -13,7 +13,7 @@
     </button>
 
     <!-- Menu Items -->
-    <div class="collapse navbar-collapse mobile-slide" [ngClass]="{ 'show': isMenuOpen() }">
+    <div #navbarCollapse class="collapse navbar-collapse mobile-slide" [ngClass]="{ 'show': isMenuOpen() }">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item"><a class="nav-link" [routerLink]="['/home']" [routerLinkActive]="['active']" (click)="closeMenu()">Home</a></li>
         <li class="nav-item"><a class="nav-link" [routerLink]="['/shop']" [routerLinkActive]="['active']" (click)="closeMenu()">Shop</a></li>
