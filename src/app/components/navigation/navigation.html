@@ -77,9 +77,9 @@
           </ng-container>
 
           <ng-template #loggedInLinks>
-            <a [routerLink]="['/profile']" class="text-decoration-none me-2">Profile</a>
+            <a [routerLink]="['/profile']" class="text-decoration-none me-2 btn btn-primary">Profile</a>
             <span>|</span>
-            <a [routerLink]="['/']" class="text-decoration-none ms-2" (click)="logout()">Logout</a>
+            <a [routerLink]="['/']" class="text-decoration-none ms-2 btn btn-danger" (click)="logout()">Logout</a>
           </ng-template>
         </div>
 
