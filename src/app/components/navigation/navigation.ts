@@ -117,11 +117,8 @@ export class Navigation {
   }
 
 
+  currentUser = this.authService.currentUser;
   isLoggedIn = this.authService.isLoggedIn;
-
-  login() {
-    this.authService.login(localStorage.getItem('email')!);
-  }
 
   logout() {
     this.authService.logout();
