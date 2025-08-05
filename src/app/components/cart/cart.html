@@ -10,17 +10,17 @@
               <img [src]="item.thumbnail || item.images?.[0]" alt="{{ item.title }}" class="img-fluid" />
             </div>
             <div class="cart-body">
-              <h5 class="cart-title">{{ item.title }}</h5>
+              <h5 class="cart-title text-dark">{{ item.title }}</h5>
               <p class="cart-price">${{ item.price | number : '1.2-2' }}</p>
 
               <!-- Quantity Control -->
               <div class="cart-quantity">
-                <button class="btn-qty" (click)="updateQuantity(item.id, item.quantity - 1)">-</button>
-                <span>{{ item.quantity }}</span>
-                <button class="btn-qty" (click)="updateQuantity(item.id, item.quantity + 1)">+</button>
+                <button class="btn-qty text-dark" (click)="updateQuantity(item.id, item.quantity - 1)">-</button>
+                <span class="text-dark">{{ item.quantity }}</span>
+                <button class="btn-qty text-dark" (click)="updateQuantity(item.id, item.quantity + 1)">+</button>
               </div>
 
-              <p class="cart-subtotal">
+              <p class="cart-subtotal text-dark">
                 Subtotal: <strong>${{ (item.price * item.quantity) | number : '1.2-2' }}</strong>
               </p>
 
