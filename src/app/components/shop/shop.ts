@@ -15,7 +15,7 @@ export class Shop {
 
   products = signal<dummyProductModel[]>([]);
   filteredProducts = signal<dummyProductModel[]>([]);
-  categories = signal<string[]>([]);
+  categories: string[] = [];
 
   private productService = inject(ProductService);
   private cartService = inject(CartService);
@@ -24,7 +24,7 @@ export class Shop {
     this.productService.getProducts().subscribe(data => {
       this.products.set(data);
       this.filteredProducts.set(data);
-      this.categories.set([...new Set(data.map(p => p.category))]);
+      this.categories = [...new Set(data.map(p => p.category))];
     });
   }
 
@@ -41,6 +41,15 @@ export class Shop {
       category ? this.products().filter(p => p.category === category) : [...this.products()]
     );
   }
+
+  categoryImages: Record<string, string> = {
+
+    beauty: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600',
+    fragrances: 'https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=600',
+    furniture: 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=600',
+    groceries: 'https://images.unsplash.com/photo-1668179456564-db429f9de8e8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+
+  };
 
   addToCart(product: dummyProductModel) {
     this.cartService.addToCart(product);

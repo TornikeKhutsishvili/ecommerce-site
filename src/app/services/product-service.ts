@@ -42,4 +42,10 @@ export class ProductService {
     );
   }
 
+  getProductsByCategory(category: string): Observable<dummyProductModel[]> {
+    return this.http.get<DummyApiResponse>(`${this.apiUrl}/category/${category}`).pipe(
+      map(res => res.products)
+    );
+  }
+
 }
