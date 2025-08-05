@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../../../services/cart-service';
 import { ProductService } from '../../../services/product-service';
 import { FormsModule } from '@angular/forms';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-product-details',
@@ -19,7 +20,7 @@ export class ProductDetails {
 
   product = signal<any>('');
 
-  private router = inject(Router);
+  private location = inject(Location);
   private route = inject(ActivatedRoute);
   private cartService = inject(CartService);
   private productService = inject(ProductService);
@@ -40,7 +41,7 @@ export class ProductDetails {
   }
 
   goBack() {
-    this.router.navigate(['/']);
+    this.location.back();
   }
 
 }
