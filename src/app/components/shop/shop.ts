@@ -1,28 +1,21 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { dummyProductModel } from '../../models/product.model';
-import { CartService } from '../../services/cart-service';
+import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product-service';
-import { RouterLink, RouterModule } from '@angular/router';
+import { CartService } from '../../services/cart-service';
+import { dummyProductModel } from '../../models/product.model';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterLink,
-    RouterModule
-  ],
-  templateUrl: './shop.html',
-  styleUrls: ['./shop.scss']
+  imports: [CommonModule, RouterLink],
+  templateUrl: './shop.html'
 })
 export class Shop {
 
   products = signal<dummyProductModel[]>([]);
   filteredProducts = signal<dummyProductModel[]>([]);
-  categories: string[] = [];
+  categories = signal<string[]>([]);
 
   private productService = inject(ProductService);
   private cartService = inject(CartService);
@@ -31,9 +24,7 @@ export class Shop {
     this.productService.getProducts().subscribe(data => {
       this.products.set(data);
       this.filteredProducts.set(data);
-
-      // categories list
-      this.categories = [...new Set(data.map(p => p.category))];
+      this.categories.set([...new Set(data.map(p => p.category))]);
     });
   }
 

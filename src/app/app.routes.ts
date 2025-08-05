@@ -49,6 +49,11 @@ export const routes: Routes = [
     loadComponent: () => import('./components/shop/shop').then((m) => m.Shop)
   },
 
+  {
+    path: 'categories',
+    loadChildren: () => import('./components/shop/categories/categories.routes').then((m) => m.categoriesRoutes)
+  },
+
   { path: 'contact',
     loadComponent: () => import('./components/contact/contact').then((m) => m.Contact)
   },

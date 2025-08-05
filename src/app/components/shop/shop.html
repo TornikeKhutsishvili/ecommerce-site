@@ -1,6 +1,21 @@
 <div class="container mt-4">
   <h2 class="text-center mb-4">🛍 Shop</h2>
 
+  <!-- Categories Cards -->
+  <div class="row mb-5">
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let categ of categories()">
+      <div class="card h-100 shadow-sm category-card"
+          [routerLink]="['/categories', categ]">
+        <img src="https://via.placeholder.com/300x200?text={{ categ | titlecase }}"
+            class="card-img-top" alt="{{ categ }}">
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ categ | titlecase }}</h5>
+          <p class="text-muted">Browse {{ categ | titlecase }} products</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- Filter & Search -->
   <div class="row mb-4">
@@ -11,7 +26,7 @@
     <div class="col-md-6">
       <select class="form-select" (change)="filterByCategory($event)">
         <option value="">All Categories</option>
-        <option *ngFor="let cat of categories" [value]="cat">{{ cat | titlecase }}</option>
+        <option *ngFor="let categ of categories()" [value]="categ">{{ categ | titlecase }}</option>
       </select>
     </div>
   </div>
