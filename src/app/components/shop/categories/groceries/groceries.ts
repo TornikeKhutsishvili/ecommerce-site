@@ -40,21 +40,25 @@ export class Groceries implements OnInit, OnDestroy {
       this.products.set(data);
       this.filteredProducts.set(data);
 
-      // Check if there are already filtered products in the service
-      this.filteredProducts.set(this.filterService.getFilteredProducts());
-
       // Insert in filter service
       this.filterService.setFilteredProducts(this.products());
 
       // search products
       this.searchService.searchQuery$.subscribe(query => {
-        const filtered = this.products().filter(product => product.title.toLowerCase().includes(query.toLowerCase()));
-        this.filteredProducts.set(filtered);
+        if (!query.trim()) {
+          this.filteredProducts.set(this.products()); // All on empty
+        } else {
+          const filtered = this.products().filter(product =>
+            product.title.toLowerCase().includes(query.toLowerCase())
+          );
+
+          this.filteredProducts.set(filtered);
+        }
       });
 
       // Subscribe to filtered products updates from the service
-      this.filterSubscription = this.filterService.filteredProducts$.subscribe((filtered) => {
-        this.filteredProducts.set(filtered);
+      this.filterSubscription = this.filterService.filteredProducts$.subscribe(filtered => {
+        this.filteredProducts.set(filtered.length > 0 ? filtered : this.products());
       });
 
     });
