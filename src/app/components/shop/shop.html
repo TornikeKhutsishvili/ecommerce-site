@@ -3,7 +3,7 @@
 
   <!-- Categories Cards -->
   <div class="row mb-5">
-    <div class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let categ of categories">
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4" style="cursor: pointer" *ngFor="let categ of categories">
       <div class="card h-100 shadow-sm category-card"
           [routerLink]="['/categories', categ]">
         <img [src]="categoryImages[categ]" class="card-img-top" alt="{{ categ }}">
