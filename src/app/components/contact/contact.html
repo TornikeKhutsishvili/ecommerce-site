@@ -1,6 +1,9 @@
 <div class="container mt-4">
+
+  <!-- title -->
   <h2 class="text-center mb-4">📩 Contact Us</h2>
 
+  <!-- Get in Touch -->
   <div class="row">
     <div class="col-lg-6 mb-4">
       <h5>Get in Touch</h5>
@@ -28,22 +31,59 @@
 
     </div>
 
+
+    <!-- Google Maps -->
+    <div class="map-container">
+      <iframe
+        [src]="mapUrl"
+        target="_blank"
+        width="100%"
+        height="280"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        title="map"
+        >
+      </iframe>
+    </div>
+
+
+    <!-- Form -->
     <div class="col-lg-6">
-      <form  #contactForm="ngForm">
+      <form [formGroup]="myForm" (ngSubmit)="sendEmail()">
+
+        <!-- name -->
         <div class="mb-3">
-          <label for="name" class="form-label">Name</label>
-          <input id="name" type="text" class="form-control" name="name" required>
+          <label for="from_name" class="form-label">Name</label>
+          <input id="from_name" type="text" class="form-control" name="name" formControlName="from_name" placeholder="{{ 'Enter_your_name' | translate }}">
         </div>
+        <div *ngIf="myForm.controls.from_name.invalid && myForm.controls.from_name.touched">
+          <small>{{ 'Name_is_required' | translate }}</small>
+        </div>
+
+        <!-- email -->
         <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input id="email" type="email" class="form-control"  name="email" required>
+          <label for="user_email" class="form-label">Email</label>
+          <input id="user_email" type="email" class="form-control" name="email" formControlName="user_email" placeholder="{{ 'Enter_your_email' | translate }}">
         </div>
+        <div *ngIf="myForm.controls.user_email.invalid && myForm.controls.user_email.touched">
+          <small>{{ 'Please_enter_a_valid_email' | translate }}</small>
+        </div>
+
+        <!-- message -->
         <div class="mb-3">
           <label for="message" class="form-label">Message</label>
-          <textarea id="message" class="form-control" rows="4"  name="message" required></textarea>
+          <textarea id="message" class="form-control" formControlName="message" rows="4" name="message" placeholder="{{ 'Your_message' | translate }}"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">Send Message</button>
+        <div *ngIf="myForm.controls.message.invalid && myForm.controls.message.touched">
+          <small>{{ 'Message_is_required' | translate }}</small>
+        </div>
+
+        <!-- button submit -->
+        <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Send Message</button>
+
       </form>
     </div>
+
   </div>
 </div>

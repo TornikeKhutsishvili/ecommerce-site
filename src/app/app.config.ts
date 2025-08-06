@@ -2,28 +2,32 @@ import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListen
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
-import { HttpLoaderFactory } from './translate.loader';
-
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const appConfig: ApplicationConfig = {
+
   providers: [
+
     provideHttpClient(withFetch()),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
 
+    // Provide ngx-translate core
     importProvidersFrom(
       TranslateModule.forRoot({
-        defaultLanguage: 'en',
-        loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
-        }
+        fallbackLang: 'en'
       })
-    )
+    ),
+
+    // Provide ngx-translate http-loader (new API)
+    provideTranslateHttpLoader({
+      prefix: './assets/i18n/',
+      suffix: '.json'
+    })
 
   ]
+
 };

@@ -85,7 +85,7 @@
           </ng-template>
         </div>
 
-        <ul>
+        <ul class="text-decoration-none list-unstyled">
           <li class="language-switcher">
             <select [(ngModel)]="selectedLanguage" (ngModelChange)="changeLanguage($event)" title="select">
               <option *ngFor="let lang of languages" [value]="lang.code" (change)="closeMenu()">
