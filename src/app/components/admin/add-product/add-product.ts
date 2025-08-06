@@ -1,13 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, signal, Signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductService } from '../../../services/product-service';
 import { Router } from '@angular/router';
 import { AddToasts } from "../../toasts/add-toasts/add-toasts";
-import { DeleteToasts } from '../../toasts/delete-toasts/delete-toasts';
-import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
-import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
 
 @Component({
   selector: 'app-add-product',
@@ -28,17 +25,22 @@ export class AddProduct {
 
   @ViewChild('addToast') addToast!: AddToasts;
 
-  product = {
-    title: '',
-    price: 0,
-    description: '',
-    category: '',
-    image: ''
+  product: {
+    title: Signal<string>;
+    price: Signal<number>;
+    description: Signal<string>;
+    category: Signal<string>;
+    image: Signal<string>;
+  } = {
+    title: signal(''),
+    price: signal(0),
+    description: signal(''),
+    category: signal(''),
+    image: signal('')
   };
 
   saveProduct() {
-    // აქ API-ს POST უნდა დაუმატო
-    this.addToast.openToast(`Adding product: ${this.product}`);
+    this.addToast.openToast(`Adding product: ${this.product.title()}`);
     this.router.navigate(['/admin']);
   }
 

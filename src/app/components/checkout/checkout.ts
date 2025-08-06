@@ -64,13 +64,12 @@ export class Checkout {
     this.calculateTotalPrice();
   }
 
-  // Complete the checkout process
+  // Complete the checkout process  // Form submission handler
   completeCheckout(): void {
     if (!this.user.name() || !this.user.email() || !this.user.address()) {
       this.alertToast.openToast(`warning`);
       return;
     }
-    // Here you can add the payment system or other checkout logic
 
     // Empty the cart
     this.cartService.clearCart();
@@ -88,12 +87,7 @@ export class Checkout {
   // Handle payment method selection change
   onPaymentMethodChange(newMethod: string) {
     this.paymentMethod.set(newMethod);
-  }
-
-  // Form submission handler
-  onSubmit(): void {
-    // Handle the checkout form submission here
-    this.acceptToast.openToast(`Order submitted with payment method: ${this.paymentMethod}`);
+    this.acceptToast.openToast(`Order submitted with payment method: ${this.paymentMethod()}`);
   }
 
   // Format the card number as the user types
