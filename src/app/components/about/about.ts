@@ -19,7 +19,5 @@ import { TranslateModule } from '@ngx-translate/core';
 export class About {
 
   companyName = signal<string>('TKShop');
-  mission = signal<string>('We aim to provide high-quality products at the best prices while ensuring an exceptional shopping experience.');
-  yearFounded = signal<number>(2025);
 
 }

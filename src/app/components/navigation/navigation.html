@@ -14,7 +14,11 @@
     </a>
 
     <!-- Burger Menu -->
-    <button class="navbar-toggler" type="button" (click)="toggleMenu()" title="Menu">
+    <button class="navbar-toggler"
+            type="button"
+            (click)="toggleMenu()"
+            title="{{ 'Menu' | translate }}"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -31,7 +35,7 @@
             [routerLinkActiveOptions]="{ exact: true }"
             (click)="closeMenu()"
           >
-            Home
+            {{ 'home' | translate }}
           </a>
         </li>
 
@@ -42,7 +46,7 @@
             [routerLinkActiveOptions]="{ exact: true }"
             (click)="closeMenu()"
           >
-            Shop
+            {{ 'shop' | translate }}
           </a>
         </li>
 
@@ -53,10 +57,11 @@
             [routerLinkActiveOptions]="{ exact: true }"
             (click)="closeMenu()"
           >
-            Contact
+            {{ 'contact' | translate }}
           </a>
         </li>
       </ul>
+
 
       <!-- Right Side Actions -->
       <div class="d-flex align-items-center navbar-actions flex-wrap gap-2">
@@ -76,7 +81,7 @@
         >
           <input type="text"
             class="form-control"
-            placeholder="Search..."
+            placeholder="{{ 'Search...' | translate }}"
             (input)="onSearch($event)"
           >
         </div>
@@ -87,25 +92,30 @@
           <ng-container *ngIf="!isLoggedIn(); else loggedInLinks">
             <a [routerLink]="['/login']"
               class="text-decoration-none me-2"
-              >Login
+              >{{ 'Login' | translate }}
             </a>
+
             <span>|</span>
+
             <a [routerLink]="['/register']"
               class="text-decoration-none ms-2"
-              >Register
+              >{{ 'Register' | translate}}
             </a>
           </ng-container>
 
+
           <ng-template #loggedInLinks>
             <a [routerLink]="['/profile']"
-              class="text-decoration-none me-2 btn btn-primary"
-              >Profile
+              class="text-decoration-none me-2 btn btn-primary text-light"
+              >{{ 'Profile' | translate }}
             </a>
+
             <span>|</span>
+
             <a [routerLink]="['/']"
-              class="text-decoration-none ms-2 btn btn-danger"
+              class="text-decoration-none ms-2 btn btn-danger text-light"
               (click)="logout()"
-              >Logout
+              >{{ 'Logout' | translate }}
             </a>
           </ng-template>
         </div>
@@ -146,9 +156,9 @@
           class="form-select" name="select"
           (change)="filterByPrice($event, products())"
         >
-          <option value="">Price</option>
-          <option value="low">Low → High</option>
-          <option value="high">High → Low</option>
+          <option value="">{{ 'Price' | translate}}</option>
+          <option value="low">{{ 'Low → High' | translate }}</option>
+          <option value="high">{{ 'High → Low' | translate }}</option>
         </select>
 
       </div>
