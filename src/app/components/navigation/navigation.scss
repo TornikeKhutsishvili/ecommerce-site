@@ -68,3 +68,163 @@
     }
   }
 }
+
+
+
+
+
+.language-switcher {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  select {
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 0.4rem 2rem 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 60px;
+
+    // Light Mode
+    body.light-theme & {
+      color: #212529;
+      border-color: rgba(0, 0, 0, 0.1);
+      background-color: rgba(0, 0, 0, 0.03);
+
+      &:hover {
+        background-color: rgba(0, 123, 255, 0.08);
+        border-color: rgba(0, 123, 255, 0.3);
+      }
+
+      &:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+      }
+    }
+
+    // Dark Mode
+    body.dark-theme & {
+      color: #f8f9fa;
+      border-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.05);
+
+      &:hover {
+        background-color: rgba(100, 255, 218, 0.1);
+        border-color: rgba(100, 255, 218, 0.4);
+      }
+
+      &:focus {
+        border-color: #64ffda;
+        box-shadow: 0 0 6px rgba(100, 255, 218, 0.5);
+      }
+    }
+  }
+
+  // Custom Arrow
+  &::after {
+    content: "▼";
+    position: absolute;
+    right: 12px;
+    font-size: 0.6rem;
+    pointer-events: none;
+    transition: transform 0.2s ease;
+
+    body.light-theme & {
+      color: #212529;
+    }
+
+    body.dark-theme & {
+      color: #f8f9fa;
+    }
+  }
+
+  // Focus-ზე ისარი ბრუნავს
+  select:focus + &::after {
+    transform: rotate(180deg);
+  }
+}
+
+
+
+
+
+
+
+
+// .language-switcher {
+//   position: relative;
+//   display: flex;
+//   align-items: center;
+
+//   select {
+//     appearance: none; // default arrow წაშლილი
+//     background-color: transparent;
+//     border: 2px solid transparent;
+//     border-radius: 20px;
+//     padding: 0.4rem 2rem 0.4rem 0.8rem;
+//     font-size: 0.9rem;
+//     font-weight: 500;
+//     color: inherit;
+//     cursor: pointer;
+//     transition: all 0.3s ease;
+//     min-width: 80px;
+
+//     &:hover {
+//       background-color: rgba(0, 123, 255, 0.1);
+//       border-color: rgba(0, 123, 255, 0.3);
+//     }
+
+//     &:focus {
+//       outline: none;
+//       border-color: #007bff;
+//       box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
+//     }
+//   }
+
+//   // custom arrow
+//   &::after {
+//     content: "▼";
+//     position: absolute;
+//     right: 10px;
+//     font-size: 0.6rem;
+//     color: inherit;
+//     pointer-events: none;
+//     transition: transform 0.2s ease;
+//   }
+
+//   select:focus + &::after {
+//     transform: rotate(180deg);
+//   }
+// }
+
+
+
+
+
+
+
+// /* language change */
+// .language-switcher select {
+//   padding: 7px 10px;
+//   font-size: 16px;
+//   border: 2px solid #64ffda !important;
+//   border-radius: 4px;
+//   color: #007bff;
+//   background-color: #0a192f;
+// }
+
+// .language-switcher select:focus {
+//   outline: none;
+//   border: 2px solid #64ffda !important;
+//   color: #007bff;
+//   background-color: #0a192f;
+// }
+
+// .language-switcher select{
+//   cursor: pointer !important;
+// }

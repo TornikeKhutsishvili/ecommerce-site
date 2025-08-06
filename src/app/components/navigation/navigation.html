@@ -1,5 +1,7 @@
 <!-- navbar -->
-<nav class="navbar navbar-expand-lg main-navbar" [ngClass]="isDarkMode() ? 'navbar-dark bg-dark' : 'navbar-light bg-light'">
+<nav class="navbar navbar-expand-lg main-navbar"
+  [ngClass]="isDarkMode() ? 'navbar-dark bg-dark' : 'navbar-light bg-light'"
+>
   <div class="container">
 
     <!-- Logo -->
@@ -62,43 +64,82 @@
         <!-- Cart -->
         <a [routerLink]="['/cart']" class="btn btn-outline-primary position-relative cart-btn">
           🛒
-          <span class="cart-badge" *ngIf="cartItemCount() > 0">{{ cartItemCount() }}</span>
+          <span class="cart-badge" *ngIf="cartItemCount() > 0">
+            {{ cartItemCount() }}
+          </span>
         </a>
 
+
         <!-- Search -->
-        <div class="search-box" *ngIf="currentUrl() !== '/shop' && currentUrl() !== '/contact'">
-          <input type="text" class="form-control" placeholder="Search..." (input)="onSearch($event)">
+        <div class="search-box"
+          *ngIf="currentUrl() !== '/shop' && currentUrl() !== '/contact'"
+        >
+          <input type="text"
+            class="form-control"
+            placeholder="Search..."
+            (input)="onSearch($event)"
+          >
         </div>
+
 
         <!-- Auth Links -->
         <div class="auth-links d-flex align-items-center">
           <ng-container *ngIf="!isLoggedIn(); else loggedInLinks">
-            <a [routerLink]="['/login']" class="text-decoration-none me-2">Login</a>
+            <a [routerLink]="['/login']"
+              class="text-decoration-none me-2"
+              >Login
+            </a>
             <span>|</span>
-            <a [routerLink]="['/register']" class="text-decoration-none ms-2">Register</a>
+            <a [routerLink]="['/register']"
+              class="text-decoration-none ms-2"
+              >Register
+            </a>
           </ng-container>
 
           <ng-template #loggedInLinks>
-            <a [routerLink]="['/profile']" class="text-decoration-none me-2 btn btn-primary">Profile</a>
+            <a [routerLink]="['/profile']"
+              class="text-decoration-none me-2 btn btn-primary"
+              >Profile
+            </a>
             <span>|</span>
-            <a [routerLink]="['/']" class="text-decoration-none ms-2 btn btn-danger" (click)="logout()">Logout</a>
+            <a [routerLink]="['/']"
+              class="text-decoration-none ms-2 btn btn-danger"
+              (click)="logout()"
+              >Logout
+            </a>
           </ng-template>
         </div>
 
-        <ul class="text-decoration-none list-unstyled">
+
+
+        <!-- Theme Toggle -->
+        <button type="button"
+          class="btn btn-outline-secondary theme-btn"
+          (click)="toggleTheme()"
+        >
+          {{ isDarkMode() ? sun : moon }}
+        </button>
+
+
+
+        <!-- language selector -->
+        <ul class="text-decoration-none list-unstyled m-0">
           <li class="language-switcher">
-            <select [(ngModel)]="selectedLanguage" (ngModelChange)="changeLanguage($event)" title="select">
-              <option *ngFor="let lang of languages" [value]="lang.code" (change)="closeMenu()">
+            <select [(ngModel)]="selectedLanguage"
+              (ngModelChange)="changeLanguage($event)"
+              title="language"
+            >
+              <option *ngFor="let lang of languages"
+                [value]="lang.code"
+                (change)="closeMenu()"
+              >
                 {{ lang.code | translate }}
               </option>
             </select>
           </li>
         </ul>
 
-        <!-- Theme Toggle -->
-        <button type="button" class="btn btn-outline-secondary theme-btn" (click)="toggleTheme()">
-          {{ isDarkMode() ? sun : moon }}
-        </button>
+
 
         <!-- Filter -->
         <select *ngIf="currentUrl() !== '/contact'"
@@ -111,6 +152,8 @@
         </select>
 
       </div>
+
     </div>
+
   </div>
 </nav>
