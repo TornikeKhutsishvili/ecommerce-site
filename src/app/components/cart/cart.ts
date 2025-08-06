@@ -87,6 +87,7 @@ export class Cart implements OnInit, OnDestroy {
     this.cartItems.set(updated);
     this.filteredProducts.set(updated);
     this.calculateTotalPrice();
+
     this.deleteToast.openToast('delete product');
   }
 
