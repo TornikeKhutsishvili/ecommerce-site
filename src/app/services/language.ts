@@ -5,19 +5,19 @@ import { TranslateService } from '@ngx-translate/core';
 @Injectable({ providedIn: 'root' })
 export class Language {
 
-  private defaultLang = 'en';
+  private fallbackLang = 'en';
   private availableLangs = ['en', 'ge'];
 
   public translate = inject(TranslateService);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    const lang = this.getSavedLang() || this.getBrowserLang() || this.defaultLang;
+    const lang = this.getSavedLang() || this.getBrowserLang() || this.fallbackLang;
     this.setLanguage(lang);
   }
 
 
   getCurrentLang(): string {
-    return this.translate.currentLang || this.defaultLang;
+    return this.translate.currentLang || this.fallbackLang;
   }
 
 

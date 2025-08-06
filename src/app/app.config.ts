@@ -7,7 +7,7 @@ import {
 
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -15,7 +15,7 @@ export const appConfig: ApplicationConfig = {
 
   providers: [
 
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
@@ -31,7 +31,7 @@ export const appConfig: ApplicationConfig = {
 
     // Provide ngx-translate http-loader (new API)
     provideTranslateHttpLoader({
-      prefix: './assets/i18n/',
+      prefix: '../assets/i18n/',
       suffix: '.json'
     })
 
