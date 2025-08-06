@@ -1,1 +1,6 @@
-<p>alert-toasts works!</p>
+<div class="toast-container" *ngIf="showToast()">
+  <div class="toast toast-alert">
+    <span>{{ message }}</span>
+    <button class="close-btn" (click)="closeToast()">✖</button>
+  </div>
+</div>

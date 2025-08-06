@@ -1,6 +1,8 @@
 <div class="container mt-4">
+
   <h2>➕ Add Product</h2>
 
+  <!-- form for add products -->
   <form (ngSubmit)="saveProduct()">
     <div class="mb-3">
       <label class="form-label">Title</label>
@@ -27,7 +29,22 @@
       <input type="text" class="form-control" [(ngModel)]="product.image" name="image" title="image">
     </div>
 
-    <button type="submit" class="btn btn-success">Save</button>
-    <a routerLink="/admin" class="btn btn-secondary">Cancel</a>
+    <!-- add toasts -->
+    <app-add-toasts #addToast></app-add-toasts>
+
+    <!-- add -->
+    <button
+      type="submit"
+      class="btn btn-success"
+      (click)="addToast.openToast()"
+    >
+      Add Product
+    </button>
+
+    <!-- cancel -->
+    <a routerLink="/admin" class="btn btn-secondary">
+      Cancel
+    </a>
   </form>
+
 </div>

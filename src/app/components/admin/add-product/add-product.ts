@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductService } from '../../../services/product-service';
 import { Router } from '@angular/router';
+import { AddToasts } from "../../toasts/add-toasts/add-toasts";
 
 @Component({
   selector: 'app-add-product',
@@ -11,8 +12,9 @@ import { Router } from '@angular/router';
   imports: [
     CommonModule,
     FormsModule,
-    TranslateModule
-  ],
+    TranslateModule,
+    AddToasts
+],
   templateUrl: './add-product.html',
   styleUrls: ['./add-product.scss']
 })
