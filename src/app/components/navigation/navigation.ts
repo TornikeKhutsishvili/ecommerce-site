@@ -1,5 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, EventEmitter, inject, OnInit, Output, Renderer2, signal, ViewChild } from '@angular/core';
+
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  inject,
+  OnInit,
+  Output,
+  Renderer2,
+  signal,
+  ViewChild
+} from '@angular/core';
+
 import { ProductService } from '../../services/product-service';
 import { FilterService } from '../../services/filter-service';
 import { SearchService } from '../../services/search-service';
@@ -177,7 +190,6 @@ export class Navigation implements AfterViewInit, OnInit {
 
     this.filterService.setFilteredProducts(sortedProducts);
   }
-
 
 
   // logout

@@ -33,7 +33,7 @@
 
 
     <!-- Google Maps -->
-    <div class="map-container">
+    <div class="map-container w-50">
       <iframe
         [src]="mapUrl"
         target="_blank"
@@ -55,28 +55,34 @@
         <!-- name -->
         <div class="mb-3">
           <label for="from_name" class="form-label">{{'Name' | translate }}</label>
+
+          <!-- error -->
+            <div class="error mb-1" *ngIf="myForm.controls.from_name.invalid && myForm.controls.from_name.touched">
+              <small>{{ 'Name_is_required' | translate }}</small>
+            </div>
           <input id="from_name" type="text" class="form-control" name="name" formControlName="from_name" placeholder="{{ 'Enter_your_name' | translate }}">
-        </div>
-        <div *ngIf="myForm.controls.from_name.invalid && myForm.controls.from_name.touched">
-          <small>{{ 'Name_is_required' | translate }}</small>
         </div>
 
         <!-- email -->
         <div class="mb-3">
           <label for="user_email" class="form-label">{{'Email' | translate }}</label>
+
+            <!-- error -->
+            <div class="error mb-1" *ngIf="myForm.controls.user_email.invalid && myForm.controls.user_email.touched">
+              <small>{{ 'Please_enter_a_valid_email' | translate }}</small>
+            </div>
           <input id="user_email" type="email" class="form-control" name="email" formControlName="user_email" placeholder="{{ 'Enter_your_email' | translate }}">
-        </div>
-        <div *ngIf="myForm.controls.user_email.invalid && myForm.controls.user_email.touched">
-          <small>{{ 'Please_enter_a_valid_email' | translate }}</small>
         </div>
 
         <!-- message -->
         <div class="mb-3">
           <label for="message" class="form-label">{{'Message' | translate }}</label>
-          <textarea id="message" class="form-control" formControlName="message" rows="4" name="message" placeholder="{{ 'Your_message' | translate }}"></textarea>
-        </div>
-        <div *ngIf="myForm.controls.message.invalid && myForm.controls.message.touched">
-          <small>{{ 'Message_is_required' | translate }}</small>
+
+          <!-- error -->
+            <div class="error mb-1" *ngIf="myForm.controls.message.invalid && myForm.controls.message.touched">
+              <small>{{ 'Message_is_required' | translate }}</small>
+            </div>
+          <textarea id="message" class="form-control" formControlName="message" rows="8" name="message" placeholder="{{ 'Your_message' | translate }}"></textarea>
         </div>
 
         <!-- button submit -->
