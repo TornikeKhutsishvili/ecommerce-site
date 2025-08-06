@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DeleteToasts } from '../toasts/delete-toasts/delete-toasts';
 import { AcceptToasts } from "../toasts/accept-toasts/accept-toasts";
 import { AlertToasts } from "../toasts/alert-toasts/alert-toasts";
+import { AddToasts } from '../toasts/add-toasts/add-toasts';
 
 @Component({
   selector: 'app-checkout',
@@ -35,6 +36,7 @@ export class Checkout {
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
   @ViewChild('alertToast') alertToast!: AlertToasts;
+  @ViewChild('addToast') addToast!: AddToasts;
 
   user: {
     name: Signal<string>;

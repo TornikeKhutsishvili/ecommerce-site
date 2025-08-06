@@ -1,4 +1,5 @@
 <div class="container mt-4">
+
   <h2>✏ Edit Product</h2>
 
   <form (ngSubmit)="updateProduct()">
@@ -30,4 +31,11 @@
     <button type="submit" class="btn btn-success">Update</button>
     <a routerLink="/admin" class="btn btn-secondary">Cancel</a>
   </form>
+
+  <!-- toasts -->
+  <app-accept-toasts #acceptToast></app-accept-toasts>
+  <app-alert-toasts #alertToast></app-alert-toasts>
+  <app-delete-toasts #deleteToast></app-delete-toasts>
+  <app-add-toasts #addToast></app-add-toasts>
+
 </div>

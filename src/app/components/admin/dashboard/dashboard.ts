@@ -1,9 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductService } from '../../../services/product-service';
 import { RouterLink, RouterModule } from '@angular/router';
+import { DeleteToasts } from '../../toasts/delete-toasts/delete-toasts';
+import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
+import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
+import { AddToasts } from '../../toasts/add-toasts/add-toasts';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,6 +27,11 @@ export class Dashboard {
   productService = inject(ProductService);
   products = signal<any[]>([]);
   loading = signal<boolean>(true);
+
+  @ViewChild('deleteToast') deleteToast!: DeleteToasts;
+  @ViewChild('acceptToast') acceptToast!: AcceptToasts;
+  @ViewChild('alertToast') alertToast!: AlertToasts;
+  @ViewChild('addToast') addToast!: AddToasts;
 
   ngOnInit() {
     this.loadProducts();
