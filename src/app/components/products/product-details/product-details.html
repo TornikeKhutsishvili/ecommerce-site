@@ -47,10 +47,10 @@
 
       <!-- Extra Details -->
       <ul class="list-unstyled text-muted small mb-4">
-        <li><strong>Stock:</strong> {{ product().stock }} available</li>
-        <li><strong>SKU:</strong> {{ product().sku }}</li>
-        <li><strong>Shipping:</strong> {{ product().shippingInformation }}</li>
-        <li><strong>Warranty:</strong> {{ product().warrantyInformation }}</li>
+        <li><strong>{{ 'Stock' | translate }}:</strong> {{ product().stock }} {{ 'available' | translate }}</li>
+        <li><strong>{{ 'SKU' | translate }}:</strong> {{ product().sku }}</li>
+        <li><strong>{{ 'Shipping' | translate }}:</strong> {{ product().shippingInformation }}</li>
+        <li><strong>{{ 'Warranty' | translate }}:</strong> {{ product().warrantyInformation }}</li>
       </ul>
 
       <!-- Buttons -->
@@ -58,12 +58,12 @@
         <button type="button"
                 class="btn btn-primary btn-lg flex-grow-1"
                 (click)="addToCart()">
-          🛒 Add to Cart
+          🛒 {{ 'Add to Cart' | translate }}
         </button>
         <button type="button"
                 class="btn btn-outline-secondary btn-lg"
                 (click)="goBack()">
-          ⬅ Back
+          ⬅ {{ 'Back' | translate }}
         </button>
       </div>
     </div>

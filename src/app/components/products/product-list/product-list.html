@@ -59,12 +59,12 @@
           <!-- Actions -->
           <div>
             <a [routerLink]="['/product', product.id]" class="btn btn-outline-primary w-100 mb-2">
-              View Details
+              {{ 'View Details' | translate }}
             </a>
             <button type="button"
                     class="btn btn-primary w-100"
                     (click)="addToCart(product)">
-              🛒 Add to Cart
+              🛒 {{ 'Add to Cart' | translate }}
             </button>
           </div>
         </div>
@@ -75,14 +75,14 @@
 
   <!-- No Products Template -->
   <ng-template #noProducts>
-    <p class="text-center text-muted mt-5">No products found. Please try another category.</p>
+    <p class="text-center text-muted mt-5">{{ 'No products found. Please try another category.' | translate }}</p>
   </ng-template>
 
 
   <!-- Cart Info -->
   <div class="cart-info text-center mt-5">
-    <span class="fw-semibold">🛍 Items in Cart: {{ cartItemCount() }}</span>
-    <a [routerLink]="['/cart']" class="btn btn-info ms-3">View Cart</a>
+    <span class="fw-semibold">🛍 {{ 'Items in Cart' | translate }}: {{ cartItemCount() }}</span>
+    <a [routerLink]="['/cart']" class="btn btn-info ms-3">{{ 'View Cart' | translate }}</a>
   </div>
 
 

@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <h2 class="text-center mb-4">🛍 Shop</h2>
+  <h2 class="text-center mb-4">🛍 {{ 'Shop' | translate }}</h2>
 
   <!-- Categories Cards -->
   <div class="row mb-5">
@@ -9,7 +9,7 @@
         <img [src]="categoryImages[categ]" class="card-img-top" alt="{{ categ }}">
         <div class="card-body text-center">
           <h5 class="card-title">{{ categ | titlecase }}</h5>
-          <p class="text-muted">Browse {{ categ | titlecase }} products</p>
+          <p class="text-muted">{{ 'Browse' | translate }} {{ categ | titlecase }} {{ 'products' | translate }}</p>
         </div>
       </div>
     </div>
@@ -19,12 +19,12 @@
   <!-- Filter & Search -->
   <div class="row mb-4">
     <div class="col-md-6">
-      <input type="text" class="form-control" placeholder="Search products..."
+      <input type="text" class="form-control" placeholder="{{ 'Search' | translate }} {{ 'products' | translate }}..."
             (input)="onSearch($event)">
     </div>
     <div class="col-md-6">
       <select class="form-select" (change)="filterByCategory($event)">
-        <option value="">All Categories</option>
+        <option value="">{{ 'All Categories' | translate }}</option>
         <option *ngFor="let categ of categories" [value]="categ">{{ categ | titlecase }}</option>
       </select>
     </div>
@@ -40,8 +40,8 @@
           <h6 class="card-title">{{ product.title }}</h6>
           <p class="text-muted mb-1">{{ product.category }}</p>
           <p class="fw-bold mb-2">${{ product.price }}</p>
-          <a [routerLink]="['/product', product.id]" class="btn btn-outline-primary btn-sm mt-auto">View</a>
-          <button class="btn btn-success btn-sm mt-2" (click)="addToCart(product)">🛒 Add to Cart</button>
+          <a [routerLink]="['/product', product.id]" class="btn btn-outline-primary btn-sm mt-auto">{{ 'View' | translate }}</a>
+          <button class="btn btn-success btn-sm mt-2" (click)="addToCart(product)">🛒 {{ 'Add to Cart' | translate }}</button>
         </div>
       </div>
     </div>
