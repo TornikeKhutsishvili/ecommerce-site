@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
 import { CartService } from '../../services/cart-service';
@@ -7,6 +7,8 @@ import { SearchService } from '../../services/search-service';
 import { FilterService } from '../../services/filter-service';
 import { Subscription } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { AlertToasts } from "../toasts/alert-toasts/alert-toasts";
+import { DeleteToasts } from "../toasts/delete-toasts/delete-toasts";
 
 @Component({
   selector: 'app-cart',
@@ -16,8 +18,10 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     RouterLink,
     RouterModule,
-    TranslateModule
-  ],
+    TranslateModule,
+    AlertToasts,
+    DeleteToasts
+],
   templateUrl: './cart.html',
   styleUrls: ['./cart.scss']
 })
@@ -33,6 +37,7 @@ export class Cart implements OnInit, OnDestroy {
   private filterService = inject(FilterService);
   private searchService = inject(SearchService);
 
+  @ViewChild('deleteToast') deleteToast!: DeleteToasts;
 
   // ngOnInit
   ngOnInit(): void {
@@ -82,6 +87,7 @@ export class Cart implements OnInit, OnDestroy {
     this.cartItems.set(updated);
     this.filteredProducts.set(updated);
     this.calculateTotalPrice();
+    this.deleteToast.openToast(`${productId} delete product`);
   }
 
 

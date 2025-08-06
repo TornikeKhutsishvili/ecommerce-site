@@ -44,7 +44,7 @@ export class EditProduct {
         this.product.set(product);
       },
       error: () => {
-        this.alertToast.openToast();
+        this.alertToast.openToast('not found products');
       }
     });
   }
@@ -53,14 +53,12 @@ export class EditProduct {
     const prod = this.product();
 
     if (!prod.title || !prod.price) {
-      this.alertToast.openToast();
+      this.alertToast.openToast('not update');
       return;
     }
 
     console.log('Updating product:', prod);
-
-    this.acceptToast.openToast();
-
+    this.acceptToast.openToast(`Updating product: ${prod}`);
     this.router.navigate(['/admin']);
   }
 

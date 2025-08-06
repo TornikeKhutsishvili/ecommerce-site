@@ -45,5 +45,10 @@
       <p>Your cart is empty 😢</p>
       <a [routerLink]="['/']" class="btn btn-outline-primary mt-3">Back to Home</a>
     </div>
+    <app-alert-toasts #alertToast></app-alert-toasts>
   </ng-template>
 </div>
+
+
+<!-- toasts -->
+<app-delete-toasts #deleteToast></app-delete-toasts>

@@ -26,9 +26,6 @@ export class AddProduct {
   productService = inject(ProductService);
   router = inject(Router);
 
-  @ViewChild('deleteToast') deleteToast!: DeleteToasts;
-  @ViewChild('acceptToast') acceptToast!: AcceptToasts;
-  @ViewChild('alertToast') alertToast!: AlertToasts;
   @ViewChild('addToast') addToast!: AddToasts;
 
   product = {
@@ -41,8 +38,7 @@ export class AddProduct {
 
   saveProduct() {
     // აქ API-ს POST უნდა დაუმატო
-    console.log('Adding product:', this.product);
-    alert('Product added (frontend only)');
+    this.addToast.openToast(`Adding product: ${this.product}`);
     this.router.navigate(['/admin']);
   }
 

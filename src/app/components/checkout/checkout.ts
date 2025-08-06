@@ -67,15 +67,14 @@ export class Checkout {
   // Complete the checkout process
   completeCheckout(): void {
     if (!this.user.name() || !this.user.email() || !this.user.address()) {
-      this.alertToast.openToast(); // გაფრთხილების toast
+      this.alertToast.openToast(`warning`);
       return;
     }
     // Here you can add the payment system or other checkout logic
 
     // Empty the cart
     this.cartService.clearCart();
-    // alert(`Checkout completed for ${this.user.name}`);
-    this.acceptToast.openToast();
+    this.acceptToast.openToast(`Checkout completed for ${this.user.name}`);
   }
 
   calculateTotalPrice(): void {
@@ -131,7 +130,7 @@ export class Checkout {
     this.cartItems.update(items => items.filter(item => item.id !== productId));
     this.calculateTotalPrice();
     this.cartService.removeFromCart(productId);
-    this.deleteToast.openToast();
+    this.deleteToast.openToast(`${productId} delete product`);
   }
 
 }
