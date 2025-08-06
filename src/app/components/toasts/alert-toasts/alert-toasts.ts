@@ -15,9 +15,10 @@ import { FormsModule } from '@angular/forms';
 export class AlertToasts {
 
   showToast = signal(false);
-  message = 'Warning: Something went wrong!';
+  message = signal<string>('');
 
-  openToast() {
+  openToast(msg: string) {
+    this.message.set(msg);
     this.showToast.set(true);
     setTimeout(() => this.showToast.set(false), 3000);
   }

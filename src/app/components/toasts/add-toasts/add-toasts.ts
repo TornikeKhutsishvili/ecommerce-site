@@ -10,15 +10,15 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   templateUrl: './add-toasts.html',
-  styleUrl: './add-toasts.scss'
+  styleUrls: ['./add-toasts.scss']
 })
 export class AddToasts {
 
   showToast = signal(false);
+  message = signal<string>('');
 
-  message = 'Product added successfully!';
-
-  openToast() {
+  openToast(msg: string) {
+    this.message.set(msg);
     this.showToast.set(true);
     setTimeout(() => this.showToast.set(false), 3000);
   }

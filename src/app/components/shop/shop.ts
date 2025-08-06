@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product-service';
@@ -7,6 +7,10 @@ import { dummyProductModel } from '../../models/product.model';
 import { FilterService } from '../../services/filter-service';
 import { Subscription } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { DeleteToasts } from '../toasts/delete-toasts/delete-toasts';
+import { AcceptToasts } from '../toasts/accept-toasts/accept-toasts';
+import { AlertToasts } from '../toasts/alert-toasts/alert-toasts';
+import { AddToasts } from '../toasts/add-toasts/add-toasts';
 
 @Component({
   selector: 'app-shop',
@@ -14,8 +18,12 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     CommonModule,
     RouterLink,
-    TranslateModule
-  ],
+    TranslateModule,
+    AddToasts,
+    DeleteToasts,
+    AlertToasts,
+    AcceptToasts
+],
   templateUrl: './shop.html'
 })
 export class Shop {
@@ -23,6 +31,11 @@ export class Shop {
   products = signal<dummyProductModel[]>([]);
   filteredProducts = signal<dummyProductModel[]>([]);
   categories: string[] = [];
+
+  @ViewChild('deleteToast') deleteToast!: DeleteToasts;
+  @ViewChild('acceptToast') acceptToast!: AcceptToasts;
+  @ViewChild('alertToast') alertToast!: AlertToasts;
+  @ViewChild('addToast') addToast!: AddToasts;
 
   private filterSubscription: Subscription | null = null;
 
@@ -81,7 +94,7 @@ export class Shop {
 
   addToCart(product: dummyProductModel) {
     this.cartService.addToCart(product);
-    alert(`${product.title} added to cart!`);
+    this.addToast.openToast(`${product.title} added to cart!`);
   }
 
 }

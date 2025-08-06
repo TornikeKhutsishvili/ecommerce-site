@@ -15,9 +15,10 @@ import { FormsModule } from '@angular/forms';
 export class AcceptToasts {
 
   showToast = signal(false);
-  message = 'Action completed successfully!';
+  message = signal<string>('');
 
-  openToast() {
+  openToast(msg: string) {
+    this.message.set(msg);
     this.showToast.set(true);
     setTimeout(() => this.showToast.set(false), 3000);
   }
