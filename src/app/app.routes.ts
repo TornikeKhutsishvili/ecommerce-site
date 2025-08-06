@@ -6,6 +6,7 @@ import { Login } from './components/auth/login/login';
 import { Register } from './components/auth/register/register';
 import { Profile } from './components/auth/profile/profile';
 import { EditProfile } from './components/auth/edit-profile/edit-profile';
+import { AddProduct } from './components/admin/add-product/add-product';
 
 // get products id
 function generatePrerenderParams(count: number): { id: string }[] {
@@ -63,6 +64,7 @@ export const routes: Routes = [
   { path: 'profile', component: Profile, canActivate: [authGuard] },
   { path: 'edit-profile', component: EditProfile, canActivate: [authGuard] },
   { path: 'admin', component: Dashboard, canActivate: [adminGuard] },
+  { path: 'admin/add-product', component: AddProduct, canActivate: [adminGuard] },
 
   { path: '**', redirectTo: '' }
 

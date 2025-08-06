@@ -1,1 +1,26 @@
-<h1>Admin Dashboard</h1><p>Only admins can see this page.</p>
+<div class="container mt-4">
+  <h2>🛠 Admin Dashboard</h2>
+  <a routerLink="/admin/add-product" class="btn btn-primary mb-3">➕ Add Product</a>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products()">
+        <td>{{ product.id }}</td>
+        <td>{{ product.title }}</td>
+        <td>{{ product.price | currency }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm">✏ Edit</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteProduct(product.id)">🗑 Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

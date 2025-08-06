@@ -15,5 +15,5 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./add-product.scss']
 })
 export class AddProduct {
-  
+
 }

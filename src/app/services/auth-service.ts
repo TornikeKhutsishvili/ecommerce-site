@@ -15,14 +15,16 @@ export class AuthService {
   isLoggedIn = signal(false);
   currentUser = signal<User | null>(null);
 
-  private translate =inject(TranslateService);
+  private translate = inject(TranslateService);
 
   constructor() {
     this.loadFromStorage();
   }
 
+
+  // login
   login(email: string, password: string): boolean {
-    // DEMO: here should be really API call
+
     const user: User = {
       name: email.split('@')[0],
       email,
@@ -36,13 +38,17 @@ export class AuthService {
     localStorage.setItem('auth_logged_in', 'true');
 
     return true;
+
   }
 
+
+  // logout
   register(name: string, email: string, password: string) {
-    // DEMO: API call register
     alert(`Account created for ${name}`);
   }
 
+
+  // logout
   logout() {
     this.isLoggedIn.set(false);
     this.currentUser.set(null);
@@ -50,6 +56,8 @@ export class AuthService {
     localStorage.removeItem('auth_logged_in');
   }
 
+
+  // load from storage
   loadFromStorage() {
     const loggedIn = localStorage.getItem('auth_logged_in') === 'true';
     const storedUser = localStorage.getItem('auth_user');
@@ -60,6 +68,8 @@ export class AuthService {
     }
   }
 
+
+  // Admin
   isAdmin(): boolean {
     return this.currentUser()?.role === 'admin';
   }
