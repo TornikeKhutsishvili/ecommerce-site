@@ -1,4 +1,5 @@
 .main-navbar {
+
   padding: 8px 0;
   transition: all 0.3s ease;
 
@@ -74,15 +75,18 @@
 
         select {
           appearance: none;
-          background-color: transparent;
-          border: 2px solid transparent;
           border-radius: 20px;
-          padding: 4px 20px 4px 8px;
+          padding: 6px 20px 6px 8px;
           font-size: 16px;
           font-weight: 500;
           cursor: pointer;
           transition: all 0.3s ease;
-          min-width: 60px;
+          min-width: 64px;
+
+          /* Default Light theme */
+          background-color: rgba(0, 0, 0, 0.03);
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          color: #ffffff;
 
           &:hover {
             background-color: rgba(0, 123, 255, 0.08);
@@ -94,20 +98,31 @@
             box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
             outline: none;
           }
+
+          /* Dropdown options style */
+          option {
+            background-color: #ffffff;
+            color: #212529;
+          }
         }
 
         /* Light Theme */
         body.light-theme & select {
-          color: #212529;
-          border-color: rgba(0, 0, 0, 0.1);
           background-color: rgba(0, 0, 0, 0.03);
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          color: #212529;
         }
 
         /* Dark Theme */
         body.dark-theme & select {
-          color: #f8f9fa;
-          border-color: rgba(255, 255, 255, 0.1);
           background-color: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: #ffffff;
+
+          option {
+            background-color: #ffffff;
+            color: #212529;
+          }
 
           &:hover {
             background-color: rgba(100, 255, 218, 0.1);
@@ -125,15 +140,14 @@
           content: "▼";
           position: absolute;
           right: 12px;
-          font-size: 6px;
+          top: 13px;
+          font-size: 8px;
           pointer-events: none;
           transition: transform 0.2s ease;
-        }
-
-        select:focus + &::after {
-          transform: rotate(180deg);
+          color: inherit;
         }
       }
     }
   }
+
 }
