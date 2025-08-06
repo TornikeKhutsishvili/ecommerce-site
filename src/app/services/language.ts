@@ -53,7 +53,7 @@
 
 
 
-import { Inject, PLATFORM_ID, Injectable } from '@angular/core';
+import { Inject, PLATFORM_ID, Injectable, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -63,19 +63,18 @@ export class Language {
   private defaultLang = 'en';
   private availableLangs = ['en', 'ge'];
 
-  constructor(
-    private translate: TranslateService,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
+  public translate = inject(TranslateService);
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     const lang = this.getSavedLang() || this.getBrowserLang() || this.defaultLang;
     this.setLanguage(lang);
-
   }
+
 
   getCurrentLang(): string {
     return this.translate.currentLang || this.defaultLang;
   }
+
 
   setLanguage(lang: string): void {
     if (!this.availableLangs.includes(lang)) return;
@@ -87,6 +86,7 @@ export class Language {
     }
   }
 
+
   private getSavedLang(): string | null {
     if (isPlatformBrowser(this.platformId)) {
       const lang = localStorage.getItem('lang');
@@ -94,6 +94,7 @@ export class Language {
     }
     return null;
   }
+
 
   private getBrowserLang(): string | null {
     const browserLang = this.translate.getBrowserLang?.();

@@ -16,10 +16,9 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 })
 export class LanguageSelector {
 
-  constructor (
-    public translate: TranslateService,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
+  public translate = Inject(TranslateService);
+
+  constructor (@Inject(PLATFORM_ID) private platformId: Object) {
     this.translate.setDefaultLang('en');
 
     if (isPlatformBrowser(this.platformId)) {
