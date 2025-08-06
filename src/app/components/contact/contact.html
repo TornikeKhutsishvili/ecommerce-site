@@ -1,21 +1,21 @@
 <div class="container mt-4">
 
   <!-- title -->
-  <h2 class="text-center mb-4">📩 Contact Us</h2>
+  <h2 class="text-center mb-4">📩 {{ 'Contact Us' | translate }}</h2>
 
   <!-- Get in Touch -->
   <div class="row">
     <div class="col-lg-6 mb-4">
-      <h5>Get in Touch</h5>
-      <p>We’d love to hear from you! Fill out the form or reach us at:</p>
+      <h5>{{ 'Get in Touch' | translate }}</h5>
+      <p>{{ 'We’d love to hear from you! Fill out the form or reach us at:' | translate }}</p>
 
       <p class="small mb-1">
-        <strong>Email: </strong>
+        <strong>{{ 'Email' | translate }}: </strong>
         <a href="mailto:support@yourshop.com" class="text-decoration-none">support&#64;yourshop.com</a>
       </p>
 
       <p class="small mb-1">
-        <strong>Phone: </strong>
+        <strong>{{ 'Phone' | translate }}: </strong>
         <a href="tel:+995599123456789" class="text-decoration-none">+995 (599) 123-456-789</a>
       </p>
 
@@ -24,8 +24,9 @@
         <a href="https://maps.google.com/?q=123+Popular+St,+Tbilisi,+Georgia"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-decoration-none">
-          123 Popular St, Tbilisi, Georgia
+          class="text-decoration-none"
+        >
+          123 Popular St, {{ 'Tbilisi' | translate }}, {{ 'Georgia' | translate }}
         </a>
       </p>
 
@@ -42,7 +43,7 @@
         style="border:0;"
         allowfullscreen=""
         loading="lazy"
-        title="map"
+        title="{{ 'map' | translate }}"
         >
       </iframe>
     </div>
@@ -54,39 +55,72 @@
 
         <!-- name -->
         <div class="mb-3">
-          <label for="from_name" class="form-label">{{'Name' | translate }}</label>
+          <label for="from_name" class="form-label">
+            {{ 'Name' | translate }}
+          </label>
 
           <!-- error -->
             <div class="error mb-1" *ngIf="myForm.controls.from_name.invalid && myForm.controls.from_name.touched">
               <small>{{ 'Name_is_required' | translate }}</small>
             </div>
-          <input id="from_name" type="text" class="form-control" name="name" formControlName="from_name" placeholder="{{ 'Enter_your_name' | translate }}">
+          <input
+            id="from_name"
+            type="text"
+            class="form-control"
+            name="name"
+            formControlName="from_name"
+            placeholder="{{ 'Enter_your_name' | translate }}"
+          >
         </div>
 
         <!-- email -->
         <div class="mb-3">
-          <label for="user_email" class="form-label">{{'Email' | translate }}</label>
+          <label for="user_email" class="form-label">
+            {{ 'Email' | translate }}
+          </label>
 
             <!-- error -->
             <div class="error mb-1" *ngIf="myForm.controls.user_email.invalid && myForm.controls.user_email.touched">
               <small>{{ 'Please_enter_a_valid_email' | translate }}</small>
             </div>
-          <input id="user_email" type="email" class="form-control" name="email" formControlName="user_email" placeholder="{{ 'Enter_your_email' | translate }}">
+          <input
+            id="user_email"
+            type="email"
+            class="form-control"
+            name="email"
+            formControlName="user_email"
+            placeholder="{{ 'Enter_your_email' | translate }}"
+          >
         </div>
 
         <!-- message -->
         <div class="mb-3">
-          <label for="message" class="form-label">{{'Message' | translate }}</label>
+          <label for="message" class="form-label">
+            {{ 'Message' | translate }}
+          </label>
 
           <!-- error -->
             <div class="error mb-1" *ngIf="myForm.controls.message.invalid && myForm.controls.message.touched">
               <small>{{ 'Message_is_required' | translate }}</small>
             </div>
-          <textarea id="message" class="form-control" formControlName="message" rows="8" name="message" placeholder="{{ 'Your_message' | translate }}"></textarea>
+          <textarea
+            id="message"
+            class="form-control"
+            formControlName="message"
+            rows="8" name="message"
+            placeholder="{{ 'Your_message' | translate }}"
+          >
+          </textarea>
         </div>
 
         <!-- button submit -->
-        <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Send Message</button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="myForm.invalid"
+        >
+          {{ 'Send Message' | translate }}
+        </button>
 
       </form>
     </div>
