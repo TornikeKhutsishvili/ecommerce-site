@@ -29,18 +29,18 @@
     </div>
 
     <div class="col-lg-6">
-      <form (ngSubmit)="submitContactForm()" #contactForm="ngForm">
+      <form  #contactForm="ngForm">
         <div class="mb-3">
           <label for="name" class="form-label">Name</label>
-          <input id="name" type="text" class="form-control" [(ngModel)]="contact.name" name="name" required>
+          <input id="name" type="text" class="form-control" name="name" required>
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
-          <input id="email" type="email" class="form-control" [(ngModel)]="contact.email" name="email" required>
+          <input id="email" type="email" class="form-control"  name="email" required>
         </div>
         <div class="mb-3">
           <label for="message" class="form-label">Message</label>
-          <textarea id="message" class="form-control" rows="4" [(ngModel)]="contact.message" name="message" required></textarea>
+          <textarea id="message" class="form-control" rows="4"  name="message" required></textarea>
         </div>
         <button type="submit" class="btn btn-primary" [disabled]="contactForm.invalid">Send Message</button>
       </form>
