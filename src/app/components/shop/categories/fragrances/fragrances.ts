@@ -60,14 +60,10 @@ export class Fragrances implements OnInit, OnDestroy {
 
       // Subscribe to filtered products updates from the service
       this.filterSubscription = this.filterService.filteredProducts$.subscribe(filtered => {
-        // console.log('🔹 Filtered from service:', filtered);
-        // console.log('🔹 All products in Beauty:', this.products());
-
         if (filtered.length > 0) {
           const categoryFiltered = filtered.filter(p =>
             this.products().some(prod => prod.id === p.id)
           );
-          // console.log('🔹 Category filtered (Beauty only):', categoryFiltered);
           this.filteredProducts.set(categoryFiltered);
         } else {
           this.filteredProducts.set(this.products());
