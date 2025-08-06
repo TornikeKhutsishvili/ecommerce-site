@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, inject, OnInit, Output, PLATFORM_ID, Renderer2, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, inject, OnInit, Output, Renderer2, signal, ViewChild } from '@angular/core';
 import { ProductService } from '../../services/product-service';
 import { FilterService } from '../../services/filter-service';
 import { SearchService } from '../../services/search-service';
@@ -61,11 +61,11 @@ export class Navigation implements AfterViewInit, OnInit {
   selectedLanguage: string;
 
   languages = [
-    { code: 'EN', name: 'English' },
-    { code: 'GE', name: 'ქართული' }
+    { code: 'en', name: 'English' },
+    { code: 'ge', name: 'ქართული' }
   ];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor() {
 
     this.isDarkMode.set(this.themeService.getSavedTheme() === 'dark');
 
