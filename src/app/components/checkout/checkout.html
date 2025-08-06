@@ -5,7 +5,7 @@
 
     <!-- Left side: Cart items -->
     <section class="cart-items">
-      <h3>Your Cart</h3>
+      <h3 class="text-dark">Your Cart</h3>
 
       <div *ngFor="let item of cartItems()" class="cart-item">
         <img [src]="item.thumbnail || item.image" alt="{{ item.title }}" class="cart-item-img" />
@@ -16,7 +16,7 @@
 
           <div class="quantity-control">
             <button (click)="updateQuantity(item.id, item.quantity - 1)" aria-label="Decrease quantity">-</button>
-            <span>{{ item.quantity }}</span>
+            <span class="text-dark">{{ item.quantity }}</span>
             <button (click)="updateQuantity(item.id, item.quantity + 1)" aria-label="Increase quantity">+</button>
           </div>
 
@@ -29,7 +29,7 @@
 
     <!-- Right side: Checkout form -->
     <section class="checkout-form-section">
-      <h3>Shipping & Payment</h3>
+      <h3 class="text-dark">Shipping & Payment</h3>
 
       <form (ngSubmit)="completeCheckout()" #checkoutForm="ngForm" novalidate>
 
