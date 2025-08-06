@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Signal, signal } from '@angular/core';
+import { Component, inject, Signal, signal, ViewChild } from '@angular/core';
 import { CartService } from '../../services/cart-service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { DeleteToasts } from '../toasts/delete-toasts/delete-toasts';
+import { AcceptToasts } from "../toasts/accept-toasts/accept-toasts";
+import { AlertToasts } from "../toasts/alert-toasts/alert-toasts";
 
 @Component({
   selector: 'app-checkout',
@@ -13,8 +16,11 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     RouterLink,
     RouterModule,
-    TranslateModule
-  ],
+    TranslateModule,
+    AcceptToasts,
+    AlertToasts,
+    DeleteToasts
+],
   templateUrl: './checkout.html',
   styleUrls: ['./checkout.scss']
 })
@@ -25,6 +31,10 @@ export class Checkout {
   totalPrice = signal<number>(0);
 
   private cartService = inject(CartService);
+
+  @ViewChild('deleteToast') deleteToast!: DeleteToasts;
+  @ViewChild('acceptToast') acceptToast!: AcceptToasts;
+  @ViewChild('alertToast') alertToast!: AlertToasts;
 
   user: {
     name: Signal<string>;
@@ -54,18 +64,17 @@ export class Checkout {
 
   // Complete the checkout process
   completeCheckout(): void {
+    if (!this.user.name() || !this.user.email() || !this.user.address()) {
+      this.alertToast.openToast(); // გაფრთხილების toast
+      return;
+    }
     // Here you can add the payment system or other checkout logic
-    alert('Checkout Completed!');
+
     // Empty the cart
     this.cartService.clearCart();
-    alert(`Checkout completed for ${this.user.name}`);
+    // alert(`Checkout completed for ${this.user.name}`);
+    this.acceptToast.openToast();
   }
-
-  // calculateTotalPrice(): void {
-  //   this.totalPrice = this.cartItems().reduce((acc, item) => {
-  //     return acc + (item?.price * item?.quantity || 0);
-  //   }, 0);
-  // }
 
   calculateTotalPrice(): void {
     const total = this.cartItems().reduce((acc, item) => {
@@ -120,6 +129,7 @@ export class Checkout {
     this.cartItems.update(items => items.filter(item => item.id !== productId));
     this.calculateTotalPrice();
     this.cartService.removeFromCart(productId);
+    this.deleteToast.openToast();
   }
 
 }

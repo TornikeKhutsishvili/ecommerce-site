@@ -97,12 +97,18 @@
         <h4>Total: ${{ totalPrice().toFixed(2) }}</h4>
       </div>
 
-      <a routerLink="/cart" class="btn-back">Back to Cart</a>
+      <a [routerLink]="['/cart']" class="btn-back">Back to Cart</a>
     </section>
   </div>
 
+  <!-- Toast Components -->
+  <app-accept-toasts #acceptToast></app-accept-toasts>
+  <app-alert-toasts #alertToast></app-alert-toasts>
+  <app-delete-toasts #deleteToast></app-delete-toasts>
+
   <ng-template #emptyCart>
     <p>Your cart is empty. Add some products!</p>
-    <a routerLink="/" class="btn-back-home">Back to Home</a>
+    <a [routerLink]="['/']" class="btn-back-home">Back to Home</a>
   </ng-template>
+
 </div>
