@@ -7,9 +7,6 @@ import { dummyProductModel } from '../../models/product.model';
 import { FilterService } from '../../services/filter-service';
 import { Subscription } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
-import { DeleteToasts } from '../toasts/delete-toasts/delete-toasts';
-import { AcceptToasts } from '../toasts/accept-toasts/accept-toasts';
-import { AlertToasts } from '../toasts/alert-toasts/alert-toasts';
 import { AddToasts } from '../toasts/add-toasts/add-toasts';
 
 @Component({
@@ -20,9 +17,6 @@ import { AddToasts } from '../toasts/add-toasts/add-toasts';
     RouterLink,
     TranslateModule,
     AddToasts,
-    DeleteToasts,
-    AlertToasts,
-    AcceptToasts
 ],
   templateUrl: './shop.html'
 })
@@ -32,9 +26,6 @@ export class Shop {
   filteredProducts = signal<dummyProductModel[]>([]);
   categories: string[] = [];
 
-  @ViewChild('deleteToast') deleteToast!: DeleteToasts;
-  @ViewChild('acceptToast') acceptToast!: AcceptToasts;
-  @ViewChild('alertToast') alertToast!: AlertToasts;
   @ViewChild('addToast') addToast!: AddToasts;
 
   private filterSubscription: Subscription | null = null;
@@ -84,12 +75,10 @@ export class Shop {
   }
 
   categoryImages: Record<string, string> = {
-
     beauty: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600',
     fragrances: 'https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=600',
     furniture: 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=600',
     groceries: 'https://images.unsplash.com/photo-1668179456564-db429f9de8e8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-
   };
 
   addToCart(product: dummyProductModel) {

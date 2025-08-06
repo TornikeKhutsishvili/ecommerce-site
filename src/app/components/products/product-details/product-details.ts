@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../../../services/cart-service';
 import { ProductService } from '../../../services/product-service';
 import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { AddToasts } from '../../toasts/add-toasts/add-toasts';
 
 @Component({
   selector: 'app-product-details',
@@ -13,8 +14,9 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     CommonModule,
     FormsModule,
-    TranslateModule
-  ],
+    TranslateModule,
+    AddToasts
+],
   templateUrl: './product-details.html',
   styleUrls: ['./product-details.scss']
 })
@@ -26,6 +28,8 @@ export class ProductDetails {
   private route = inject(ActivatedRoute);
   private cartService = inject(CartService);
   private productService = inject(ProductService);
+
+  @ViewChild('addToast') addToast!: AddToasts;
 
   ngOnInit() {
     const productId = this.route.snapshot.paramMap.get('id');
@@ -39,7 +43,7 @@ export class ProductDetails {
 
   addToCart() {
     this.cartService.addToCart(this.product);
-    alert('Product added to cart! 🛒');
+    this.addToast.openToast('Product added to cart! 🛒');
   }
 
   goBack() {

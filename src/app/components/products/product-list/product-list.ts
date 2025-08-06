@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FilterService } from '../../../services/filter-service';
 import { ProductService } from '../../../services/product-service';
@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TranslateModule } from '@ngx-translate/core';
+import { AddToasts } from '../../toasts/add-toasts/add-toasts';
 
 @Component({
   selector: 'app-product-list',
@@ -18,7 +19,8 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     RouterLink,
     NgxPaginationModule,
-    TranslateModule
+    TranslateModule,
+    AddToasts
 ],
   templateUrl: './product-list.html',
   styleUrls: ['./product-list.scss']
@@ -38,6 +40,8 @@ export class ProductList {
   private filterService = inject(FilterService);
   private cartService = inject(CartService);
   private searchService = inject(SearchService);
+
+  @ViewChild('addToast') addToast!: AddToasts;
 
   readonly paginatedProducts = computed(() => {
     const start = (this.page() - 1) * this.itemsPerPage();
@@ -95,6 +99,7 @@ export class ProductList {
   addToCart(product: any): void {
     this.cartService.addToCart(product); // add product in cart
     this.cartItemCount.set(this.cartService.getCartItems().length);
+    this.addToast.openToast('Product added to cart! 🛒');
   }
 
 }
