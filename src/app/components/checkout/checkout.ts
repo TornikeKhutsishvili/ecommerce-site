@@ -74,7 +74,7 @@ export class Checkout {
 
     // Empty the cart
     this.cartService.clearCart();
-    this.acceptToast.openToast(`Checkout completed for ${this.user.name}`);
+    this.acceptToast.openToast(`Checkout completed for ${this.user.name()}`);
   }
 
   calculateTotalPrice(): void {
@@ -93,7 +93,7 @@ export class Checkout {
   // Form submission handler
   onSubmit(): void {
     // Handle the checkout form submission here
-    console.log('Order submitted with payment method:', this.paymentMethod);
+    this.acceptToast.openToast(`Order submitted with payment method: ${this.paymentMethod}`);
   }
 
   // Format the card number as the user types
@@ -130,7 +130,7 @@ export class Checkout {
     this.cartItems.update(items => items.filter(item => item.id !== productId));
     this.calculateTotalPrice();
     this.cartService.removeFromCart(productId);
-    this.deleteToast.openToast(`${productId} delete product`);
+    this.deleteToast.openToast(`delete product`);
   }
 
 }

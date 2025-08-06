@@ -48,8 +48,8 @@ export class Contact implements OnInit {
     if (this.myForm.valid) {
       this.emailService.sendEmail(this.myForm.value).then(
         response => {
-          console.log('Email has been successfully sent!', response);
-          this.acceptToast.openToast(`${response} Email has been successfully sent!`);
+          console.log(response.status);
+          this.acceptToast.openToast(`Email has been successfully sent!`);
 
           this.myForm.reset();
           this.myForm.markAsPristine();
@@ -57,12 +57,10 @@ export class Contact implements OnInit {
           this.myForm.updateValueAndValidity();
         },
         error => {
-          console.error('Error while sending the email!', error);
           this.alertToast.openToast(`${error} Error while sending the email!`);
         }
       );
     } else {
-      console.log('Please fill out all fields correctly.');
       this.alertToast.openToast('Please fill out all fields correctly.');
     }
   }
