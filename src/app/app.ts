@@ -8,6 +8,7 @@ import { FilterService } from './services/filter-service';
 import { SearchService } from './services/search-service';
 import { ProductService } from './services/product-service';
 import { Footer } from "./components/footer/footer";
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ import { Footer } from "./components/footer/footer";
     RouterOutlet,
     RouterModule,
     CommonModule,
+    TranslateModule,
     FormsModule,
     Navigation,
     Footer

@@ -6,11 +6,16 @@ import { CartService } from '../../services/cart-service';
 import { dummyProductModel } from '../../models/product.model';
 import { FilterService } from '../../services/filter-service';
 import { Subscription } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [
+    CommonModule,
+    RouterLink,
+    TranslateModule
+  ],
   templateUrl: './shop.html'
 })
 export class Shop {

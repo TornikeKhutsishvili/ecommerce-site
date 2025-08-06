@@ -7,6 +7,7 @@ import { RouterLink, RouterModule } from '@angular/router';
 import { FilterService } from '../../../../services/filter-service';
 import { SearchService } from '../../../../services/search-service';
 import { Subscription } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-furniture',
@@ -15,7 +16,8 @@ import { Subscription } from 'rxjs';
     CommonModule,
     FormsModule,
     RouterLink,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ],
   templateUrl: './furniture.html',
   styleUrls: ['./furniture.scss']

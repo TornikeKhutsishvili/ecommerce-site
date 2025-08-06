@@ -3,6 +3,7 @@ import { Component, inject, Signal, signal } from '@angular/core';
 import { CartService } from '../../services/cart-service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-checkout',
@@ -11,7 +12,8 @@ import { RouterLink, RouterModule } from '@angular/router';
     CommonModule,
     FormsModule,
     RouterLink,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ],
   templateUrl: './checkout.html',
   styleUrls: ['./checkout.scss']

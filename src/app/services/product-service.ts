@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { DummyApiResponse, dummyProductModel } from '../models/product.model';
 import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ export class ProductService {
 
   private apiUrl = 'https://dummyjson.com/products';
   private http = inject(HttpClient);
+
+  private translate =inject(TranslateService);
 
   getProducts(): Observable<dummyProductModel[]> {
     return this.http.get<DummyApiResponse>(this.apiUrl).pipe(

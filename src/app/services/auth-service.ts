@@ -1,4 +1,5 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 interface User {
   name: string;
@@ -10,8 +11,11 @@ interface User {
   providedIn: 'root'
 })
 export class AuthService {
+
   isLoggedIn = signal(false);
   currentUser = signal<User | null>(null);
+
+  private translate =inject(TranslateService);
 
   constructor() {
     this.loadFromStorage();

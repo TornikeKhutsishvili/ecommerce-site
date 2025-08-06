@@ -85,6 +85,16 @@
           </ng-template>
         </div>
 
+        <ul>
+          <li class="language-switcher">
+            <select [(ngModel)]="selectedLanguage" (ngModelChange)="changeLanguage($event)" title="select">
+              <option *ngFor="let lang of languages" [value]="lang.code" (change)="closeMenu()">
+                {{ lang.code | translate }}
+              </option>
+            </select>
+          </li>
+        </ul>
+
         <!-- Theme Toggle -->
         <button type="button" class="btn btn-outline-secondary theme-btn" (click)="toggleTheme()">
           {{ isDarkMode() ? sun : moon }}

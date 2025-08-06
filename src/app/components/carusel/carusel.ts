@@ -3,6 +3,7 @@ import { Component, computed, Input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { dummyProductModel } from '../../models/product.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-carusel',
@@ -10,7 +11,8 @@ import { dummyProductModel } from '../../models/product.model';
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ],
   templateUrl: './carusel.html',
   styleUrls: ['./carusel.scss']

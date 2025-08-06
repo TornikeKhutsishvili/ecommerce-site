@@ -8,6 +8,7 @@ import { SearchService } from '../../../services/search-service';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-product-list',
@@ -16,7 +17,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CommonModule,
     FormsModule,
     RouterLink,
-    NgxPaginationModule
+    NgxPaginationModule,
+    TranslateModule
 ],
   templateUrl: './product-list.html',
   styleUrls: ['./product-list.scss']

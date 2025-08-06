@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, EventEmitter, inject, Output, Renderer2, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, inject, OnInit, Output, PLATFORM_ID, Renderer2, signal, ViewChild } from '@angular/core';
 import { ProductService } from '../../services/product-service';
 import { FilterService } from '../../services/filter-service';
 import { SearchService } from '../../services/search-service';
@@ -8,6 +8,8 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
 import { Collapse } from 'bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Language } from '../../services/language';
 
 @Component({
   selector: 'app-navigation',
@@ -16,12 +18,13 @@ import { Collapse } from 'bootstrap';
     CommonModule,
     FormsModule,
     RouterLink,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ],
   templateUrl: './navigation.html',
   styleUrls: ['./navigation.scss']
 })
-export class Navigation implements AfterViewInit {
+export class Navigation implements AfterViewInit, OnInit {
 
   @Output() filterApplied = new EventEmitter<any[]>();
   @ViewChild('navbarCollapse') navbarCollapse!: ElementRef;
@@ -53,9 +56,17 @@ export class Navigation implements AfterViewInit {
   currentUser = this.authService.currentUser;
   isLoggedIn = this.authService.isLoggedIn;
 
+  public translate = inject(TranslateService);
+  public languageService = inject(Language);
+  selectedLanguage: string;
 
+  languages = [
+    { code: 'EN', name: 'English' },
+    { code: 'GE', name: 'ქართული' }
+  ];
 
-  constructor() {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+
     this.isDarkMode.set(this.themeService.getSavedTheme() === 'dark');
 
     this.isblack.set('#343a40');
@@ -68,6 +79,10 @@ export class Navigation implements AfterViewInit {
     this.router.events.subscribe(() => {
       this.currentUrl.set(this.router.url);
     });
+
+
+    this.selectedLanguage = this.languageService.getCurrentLang();
+
   }
 
 
@@ -81,13 +96,22 @@ export class Navigation implements AfterViewInit {
   }
 
 
-
+  // collapse instance
   ngAfterViewInit(): void {
     this.collapseInstance = new Collapse(this.navbarCollapse.nativeElement, { toggle: false });
   }
 
 
 
+  // change language
+  changeLanguage(lang: string): void {
+    this.languageService.setLanguage(lang);
+    this.selectedLanguage = lang;
+  }
+
+
+
+  // change theme
   toggleTheme(): void {
     this.themeService.toggleTheme();
     this.isDarkMode.set(this.themeService.getSavedTheme() === 'dark');
@@ -96,6 +120,7 @@ export class Navigation implements AfterViewInit {
 
 
 
+  // update navbar theme
   updateNavbarTheme(): void {
     const navbar = document.querySelector('.navbar');
     if (navbar) {
@@ -112,6 +137,7 @@ export class Navigation implements AfterViewInit {
 
 
 
+  // update navbar theme
   toggleMenu(): void {
     this.isMenuOpen.set(!this.isMenuOpen());
     this.collapseInstance.toggle();
@@ -119,6 +145,7 @@ export class Navigation implements AfterViewInit {
 
 
 
+  // close menu
   closeMenu(): void {
     this.isMenuOpen.set(false);
     this.collapseInstance.hide();
@@ -126,6 +153,7 @@ export class Navigation implements AfterViewInit {
 
 
 
+  // search
   onSearch(event: any) {
     const query = event.target.value.trim();
     this.searchService.updateSearchQuery(query);
@@ -133,6 +161,7 @@ export class Navigation implements AfterViewInit {
 
 
 
+  // filter by price
   filterByPrice(event: any, products: any[]) {
     const value = event.target.value;
 
@@ -151,6 +180,7 @@ export class Navigation implements AfterViewInit {
 
 
 
+  // logout
   logout() {
     this.authService.logout();
   }

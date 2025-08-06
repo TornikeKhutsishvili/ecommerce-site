@@ -5,13 +5,15 @@ import { CartService } from '../../../services/cart-service';
 import { ProductService } from '../../../services/product-service';
 import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ],
   templateUrl: './product-details.html',
   styleUrls: ['./product-details.scss']

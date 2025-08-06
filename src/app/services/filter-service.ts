@@ -1,10 +1,13 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilterService {
+
+  private translate =inject(TranslateService);
 
   private filteredProducts = signal<any[]>([]); // save filtered products
   // private originalProducts = signal<any[]>([]);

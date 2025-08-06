@@ -3,6 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,8 @@ import { AuthService } from '../../../services/auth-service';
     CommonModule,
     FormsModule,
     RouterLink,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ],
   templateUrl: './register.html',
   styleUrls: ['./register.scss']

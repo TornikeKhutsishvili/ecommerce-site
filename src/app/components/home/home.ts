@@ -4,6 +4,7 @@ import { ProductList } from "../products/product-list/product-list";
 import { Carusel } from "../carusel/carusel";
 import { ProductService } from '../../services/product-service';
 import { dummyProductModel } from '../../models/product.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,8 @@ import { dummyProductModel } from '../../models/product.model';
   imports: [
     CommonModule,
     ProductList,
-    Carusel
+    Carusel,
+    TranslateModule
 ],
   templateUrl: './home.html',
   styleUrls: ['./home.scss']

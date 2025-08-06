@@ -7,6 +7,7 @@ import { RouterLink, RouterModule } from '@angular/router';
 import { FilterService } from '../../../../services/filter-service';
 import { Subscription } from 'rxjs';
 import { SearchService } from '../../../../services/search-service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-beauty',
@@ -15,7 +16,8 @@ import { SearchService } from '../../../../services/search-service';
     CommonModule,
     FormsModule,
     RouterLink,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ],
   templateUrl: './beauty.html',
   styleUrls: ['./beauty.scss']

@@ -6,6 +6,7 @@ import { CartService } from '../../services/cart-service';
 import { SearchService } from '../../services/search-service';
 import { FilterService } from '../../services/filter-service';
 import { Subscription } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cart',
@@ -14,7 +15,8 @@ import { Subscription } from 'rxjs';
     CommonModule,
     FormsModule,
     RouterLink,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ],
   templateUrl: './cart.html',
   styleUrls: ['./cart.scss']

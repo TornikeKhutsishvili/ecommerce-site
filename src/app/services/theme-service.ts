@@ -1,5 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { inject, Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,7 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 export class ThemeService {
 
   private themeKey = 'theme';
+  private translate =inject(TranslateService);
 
   constructor(@Inject(PLATFORM_ID) private platformId: any) {
     if (this.isBrowser()) {

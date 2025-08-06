@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
+
+  private translate =inject(TranslateService);
 
   search(query: string, items: any[]) {
     // console.log(`Searching products for: ${query}`);
