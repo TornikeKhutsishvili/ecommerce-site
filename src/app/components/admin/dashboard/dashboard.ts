@@ -17,8 +17,9 @@ import { AddToasts } from '../../toasts/add-toasts/add-toasts';
     FormsModule,
     TranslateModule,
     RouterLink,
-    RouterModule
-  ],
+    RouterModule,
+    DeleteToasts
+],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']
 })
@@ -47,9 +48,8 @@ export class Dashboard {
 
   deleteProduct(id: number) {
     if (confirm('Are you sure you want to delete this product?')) {
-      // აქ შეგიძლია დაუმატო delete API
       this.products.set(this.products().filter(p => p.id !== id));
-      alert('Product deleted (frontend only)');
+      this.deleteToast.openToast(`Product deleted: ${id}`);
     }
   }
 
