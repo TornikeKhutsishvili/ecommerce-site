@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TranslateModule } from '@ngx-translate/core';
 import { EmailService } from '../../services/email-service';
+import { AlertToasts } from '../toasts/alert-toasts/alert-toasts';
+import { AcceptToasts } from '../toasts/accept-toasts/accept-toasts';
 
 @Component({
   selector: 'app-contact',
@@ -12,8 +14,10 @@ import { EmailService } from '../../services/email-service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule
-  ],
+    TranslateModule,
+    AcceptToasts,
+    AlertToasts
+],
   templateUrl: './contact.html',
   styleUrls: ['./contact.scss']
 })
@@ -22,6 +26,9 @@ export class Contact implements OnInit {
   ngOnInit(): void {}
 
   mapUrl: SafeResourceUrl;
+
+  @ViewChild('acceptToast') acceptToast!: AcceptToasts;
+  @ViewChild('alertToast') alertToast!: AlertToasts;
 
   constructor(private sanitizer: DomSanitizer, private emailService: EmailService) {
     this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
@@ -41,7 +48,8 @@ export class Contact implements OnInit {
       this.emailService.sendEmail(this.myForm.value).then(
         response => {
           console.log('Email has been successfully sent!', response);
-          alert('Email has been successfully sent!');
+          this.acceptToast.openToast();
+
           this.myForm.reset();
           this.myForm.markAsPristine();
           this.myForm.markAsUntouched();
@@ -49,11 +57,12 @@ export class Contact implements OnInit {
         },
         error => {
           console.error('Error while sending the email!', error);
-          alert('Failed to send the email!');
+          this.alertToast.openToast();
         }
       );
     } else {
       console.log('Please fill out all fields correctly.');
+      this.alertToast.openToast();
     }
   }
 
