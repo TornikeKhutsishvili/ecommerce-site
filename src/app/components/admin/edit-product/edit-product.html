@@ -1,0 +1,33 @@
+<div class="container mt-4">
+  <h2>✏ Edit Product</h2>
+
+  <form (ngSubmit)="updateProduct()">
+    <div class="mb-3">
+      <label class="form-label">Title</label>
+      <input type="text" class="form-control" [(ngModel)]="product().title" name="title" title="title" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Price</label>
+      <input type="number" class="form-control" [(ngModel)]="product().price" name="price" title="price" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" [(ngModel)]="product().description" name="description" title="description"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Category</label>
+      <input type="text" class="form-control" [(ngModel)]="product().category" title="category" name="category">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Image URL</label>
+      <input type="text" class="form-control" [(ngModel)]="product().image" title="image" name="image">
+    </div>
+
+    <button type="submit" class="btn btn-success">Update</button>
+    <a routerLink="/admin" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>

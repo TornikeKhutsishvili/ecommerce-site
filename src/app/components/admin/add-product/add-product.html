@@ -1,8 +1,33 @@
 <div class="container mt-4">
-    <h2>➕ Add Product</h2>
-    <form>
-        <input type="text" placeholder="Product Title" class="form-control mb-2">
-        <input type="number" placeholder="Price" class="form-control mb-2">
-        <button class="btn btn-success">Save</button>
-    </form>
+  <h2>➕ Add Product</h2>
+
+  <form (ngSubmit)="saveProduct()">
+    <div class="mb-3">
+      <label class="form-label">Title</label>
+      <input type="text" class="form-control" [(ngModel)]="product.title" name="title" title="title" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Price</label>
+      <input type="number" class="form-control" [(ngModel)]="product.price" name="price" title="price" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" [(ngModel)]="product.description" name="description" title="description"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Category</label>
+      <input type="text" class="form-control" [(ngModel)]="product.category" name="category" title="category">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Image URL</label>
+      <input type="text" class="form-control" [(ngModel)]="product.image" name="image" title="image">
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a routerLink="/admin" class="btn btn-secondary">Cancel</a>
+  </form>
 </div>
