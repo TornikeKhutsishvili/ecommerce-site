@@ -1,5 +1,4 @@
-import { inject, Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -7,10 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SearchService {
 
-  private translate =inject(TranslateService);
-
   search(query: string, items: any[]) {
-    // console.log(`Searching products for: ${query}`);
     return items.filter(item => item.title.toLowerCase().includes(query.toLowerCase())); // Filters products by name
   }
 

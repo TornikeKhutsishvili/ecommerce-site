@@ -15,7 +15,9 @@ export class AuthService {
   isLoggedIn = signal(false);
   currentUser = signal<User | null>(null);
 
+
   private translate = inject(TranslateService);
+
 
   constructor() {
     this.loadFromStorage();

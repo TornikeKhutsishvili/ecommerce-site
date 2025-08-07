@@ -12,7 +12,7 @@ export class ProductService {
   private apiUrl = 'https://dummyjson.com/products';
   private http = inject(HttpClient);
 
-  private translate =inject(TranslateService);
+  private translate = inject(TranslateService);
 
   getProducts(): Observable<dummyProductModel[]> {
     return this.http.get<DummyApiResponse>(this.apiUrl).pipe(

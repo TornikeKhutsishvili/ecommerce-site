@@ -21,6 +21,7 @@ export class ToastsService {
     setTimeout(() => this.remove(id), duration);
   }
 
+
   remove(id: number) {
     this.toasts.update(list => list.filter(t => t.id !== id));
   }

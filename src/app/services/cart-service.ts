@@ -8,7 +8,8 @@ export class CartService {
 
   private cartKey = 'cartItems';  // Key of LocalStorage
 
-  private translate =inject(TranslateService);
+  private translate = inject(TranslateService);
+
 
   // Add product to cart
   addToCart(product: any): void {
@@ -28,11 +29,13 @@ export class CartService {
     this.saveCartItems(cartItems);  // save cart in LocalStorage
   }
 
+
   // Return the list of products in the cart
   getCartItems(): any[] {
     const cartItems = localStorage.getItem(this.cartKey);
     return cartItems ? JSON.parse(cartItems) : [];  // If LocalStorage is empty, then return an empty array
   }
+
 
   // Update product quantity in the cart
   updateQuantity(productId: number, quantity: number): void {
@@ -45,6 +48,7 @@ export class CartService {
     }
   }
 
+
   // Delete product from cart
   removeFromCart(productId: number): void {
     let cartItems = this.getCartItems();
@@ -53,10 +57,12 @@ export class CartService {
     this.saveCartItems(cartItems);  /// Update the cart in LocalStorage
   }
 
+
   // Save cart data to LocalStorage
   private saveCartItems(cartItems: any[]): void {
     localStorage.setItem(this.cartKey, JSON.stringify(cartItems));  // Save cart to LocalStorage
   }
+
 
   // Clear the cart
   clearCart(): void {
