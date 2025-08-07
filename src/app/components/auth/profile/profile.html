@@ -1,5 +1,7 @@
-<div *ngIf="auth.currentUser() as user">
-    <h2>{{ user.name }}{{ "'s Profile" | translate }}</h2>
-    <p>{{ 'Email' | translate }}: {{ user.email }}</p>
-    <p>{{ 'Role' | translate }}: {{ user.role }}</p>
+<div class="container">
+    <div *ngIf="auth.currentUser() as user">
+        <h2>{{ user.name }}{{ "'s Profile" | translate }}</h2>
+        <p>{{ 'Email' | translate }}: {{ user.email }}</p>
+        <p>{{ 'Role' | translate }}: {{ user.role }}</p>
+    </div>
 </div>
