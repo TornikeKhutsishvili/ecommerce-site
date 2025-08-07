@@ -3,3 +3,23 @@
     color: #e91e63;
     margin-top: 0.25rem;
 }
+
+.contact-left {
+  display: flex;
+  flex-direction: column;
+
+  .map-container {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .contact-left,
+  .contact-form {
+    width: 100%;
+  }
+
+  .contact-left {
+    margin-bottom: 16px;
+  }
+}
