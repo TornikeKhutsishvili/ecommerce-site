@@ -7,7 +7,7 @@
         <img
           [src]="product().thumbnail || product().image"
           class="img-fluid rounded product-detail-img"
-          alt="{{ product().title }}"
+          alt="{{ product().title | translate }}"
         />
       </div>
     </div>
@@ -18,7 +18,7 @@
         {{ product().title }}
       </h1>
       <p class="text-muted small mb-2">
-        {{ product().brand }} • {{ product().category }}
+        {{ product().brand | translate }} • {{ product().category | translate }}
       </p>
 
       <!-- Rating -->
@@ -32,7 +32,7 @@
           </i>
         </ng-container>
         <span class="text-muted small ms-2">
-          ({{ product().rating }})
+          ({{ product().rating | translate }})
         </span>
       </div>
 
@@ -54,7 +54,7 @@
       </div>
 
       <!-- Description -->
-      <p class="mb-4">{{ product().description }}</p>
+      <p class="mb-4">{{ product().description | translate }}</p>
 
       <!-- Extra Details -->
       <ul class="list-unstyled text-muted small mb-4">
@@ -63,16 +63,16 @@
           {{ product().stock }} {{ 'available' | translate }}
         </li>
         <li>
-          <strong>{{ 'SKU' | translate }}:</strong>
+          <strong>{{ 'SKU' }}:</strong>
           {{ product().sku }}
         </li>
         <li>
           <strong>{{ 'Shipping' | translate }}:</strong>
-          {{ product().shippingInformation }}
+          {{ product().shippingInformation | translate }}
         </li>
         <li>
           <strong>{{ 'Warranty' | translate }}:</strong>
-          {{ product().warrantyInformation }}
+          {{ product().warrantyInformation | translate }}
         </li>
       </ul>
 
@@ -85,7 +85,7 @@
         </button>
         <button type="button"
                 class="btn btn-outline-secondary btn-lg"
-                (click)="goBack()">
+                (click)="goBack(true)">
           ⬅ {{ 'Back' | translate }}
         </button>
       </div>

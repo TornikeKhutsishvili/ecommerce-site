@@ -35,6 +35,8 @@ export class ProductDetails {
   private cartService = inject(CartService);
   private productService = inject(ProductService);
 
+
+  // ViewChild addToast
   @ViewChild('addToast') addToast!: AddToasts;
 
 
@@ -42,6 +44,7 @@ export class ProductDetails {
   ngOnInit() {
     const productId = this.route.snapshot.paramMap.get('id');
     const id = Number(productId);
+
     if (productId) {
       this.productService.getProductById(id).subscribe((data) => {
         this.product.set(data);
@@ -58,8 +61,14 @@ export class ProductDetails {
 
 
   // back
-  goBack() {
+  goBack(scrollToTop: boolean = false) {
     this.location.back();
+
+    if (scrollToTop) {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+    }
   }
 
 }

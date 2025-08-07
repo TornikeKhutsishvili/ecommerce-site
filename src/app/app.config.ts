@@ -5,7 +5,11 @@ import {
   provideZoneChangeDetection
 } from '@angular/core';
 
-import { provideRouter } from '@angular/router';
+import {
+  provideRouter,
+  withEnabledBlockingInitialNavigation
+} from '@angular/router';
+
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -18,8 +22,12 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(
+      routes,
+      withEnabledBlockingInitialNavigation(),
+    ),
     provideTranslateHttpLoader(),
+
 
 
     // Provide ngx-translate core
@@ -28,6 +36,8 @@ export const appConfig: ApplicationConfig = {
         fallbackLang: 'en'
       })
     ),
+
+
 
     // Provide ngx-translate http-loader (new API)
     provideTranslateHttpLoader({
