@@ -1,5 +1,11 @@
+import {
+  Component,
+  inject,
+  OnInit,
+  signal
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProductList } from "../products/product-list/product-list";
 import { Carusel } from "../carusel/carusel";
 import { ProductService } from '../../services/product-service';
@@ -31,14 +37,18 @@ export class Home implements OnInit {
       this.allProducts.set(data);
     });
 
+
     // carousel
     this.productService.getRandomProductCarusel().subscribe(data => {
       this.carouselProducts.set(data)
     });
 
+
     // random carousel
     this.loadRandomCarousel();
+
   }
+
 
   // random carousel
   loadRandomCarousel() {

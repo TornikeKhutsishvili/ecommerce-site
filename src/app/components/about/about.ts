@@ -18,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class About {
 
+  // companyName
   companyName = signal<string>('TKShop');
 
 }

@@ -1,5 +1,11 @@
+import {
+  Component,
+  inject,
+  signal,
+  ViewChild
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
@@ -22,14 +28,20 @@ import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
 })
 export class Login {
 
+  // Variables
   email = signal('');
   password = signal('');
 
+  // injects
   private router = inject(Router);
   private auth = inject(AuthService);
 
+
+  // ViewChild acceptToast
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
 
+
+  // onSubmit
   onSubmit() {
     if (this.email() && this.password()) {
       const success = this.auth.login(this.email(), this.password());

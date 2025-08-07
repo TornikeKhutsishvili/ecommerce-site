@@ -46,7 +46,10 @@ export class Cart implements OnInit, OnDestroy {
   private filterService = inject(FilterService);
   private searchService = inject(SearchService);
 
+
+  // ViewChild deleteToast
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
+
 
   // ngOnInit
   ngOnInit(): void {
@@ -57,8 +60,10 @@ export class Cart implements OnInit, OnDestroy {
     this.filteredProducts.set(items);
     this.calculateTotalPrice();
 
+
     // Insert in filter service
     this.filterService.setFilteredProducts(items);
+
 
     // Search
     this.searchService.searchQuery$.subscribe(query => {
@@ -67,12 +72,14 @@ export class Cart implements OnInit, OnDestroy {
       this.filteredProducts.set(filtered);
     });
 
+
     // Filter
     this.filterSubscription = this.filterService.filteredProducts$.subscribe(filtered => {
       this.filteredProducts.set(filtered);
     });
 
   }
+
 
 
   // Update quantity
@@ -88,6 +95,7 @@ export class Cart implements OnInit, OnDestroy {
   }
 
 
+
   // Remove product from cart
   removeFromCart(productId: number): void {
     this.cartService.removeFromCart(productId); // Delete from localStorage
@@ -101,6 +109,7 @@ export class Cart implements OnInit, OnDestroy {
   }
 
 
+
   // Calculate the total amount
   calculateTotalPrice(): void {
     const total = this.cartItems().reduce((acc, item) => {
@@ -111,11 +120,13 @@ export class Cart implements OnInit, OnDestroy {
   }
 
 
+
   // apply filter
   applyPriceFilter(price: number) {
     const filtered = this.filterService.filterByPrice(this.filteredProducts(), price);
     this.filterService.setFilteredProducts(filtered); // Set filtered products in the service
   }
+
 
 
   // ngOnDestroy

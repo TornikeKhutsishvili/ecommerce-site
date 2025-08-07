@@ -1,5 +1,11 @@
+import {
+  Component,
+  inject,
+  signal,
+  ViewChild
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
@@ -22,20 +28,28 @@ import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
 })
 export class Register {
 
+  // VariableS
   name = signal('');
   email = signal('');
   password = signal('');
   confirmPassword = signal('');
 
+  // injects
   private router = inject(Router);
   private auth = inject(AuthService);
 
+
+  // ViewChild alertToast
   @ViewChild('alertToast') alertToast!: AlertToasts;
 
+
+  // password Mismatch
   get passwordMismatch() {
     return this.password() !== this.confirmPassword();
   }
 
+
+  // onSubmit
   onSubmit() {
     if (this.passwordMismatch) {
       this.alertToast.openToast('Passwords do not match!');

@@ -1,5 +1,12 @@
+import {
+  Component,
+  inject,
+  Signal,
+  signal,
+  ViewChild
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Component, inject, Signal, signal, ViewChild } from '@angular/core';
 import { CartService } from '../../services/cart-service';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
@@ -33,11 +40,14 @@ export class Checkout {
 
   private cartService = inject(CartService);
 
+  // ViewChilds
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
   @ViewChild('alertToast') alertToast!: AlertToasts;
   @ViewChild('addToast') addToast!: AddToasts;
 
+
+  // user object
   user: {
     name: Signal<string>;
     email: Signal<string>;
@@ -59,10 +69,14 @@ export class Checkout {
 
   constructor() {}
 
+
+  // ngOnInit
   ngOnInit(): void {
     this.cartItems.set(this.cartService.getCartItems() || []);
     this.calculateTotalPrice();
   }
+
+
 
   // Complete the checkout process  // Form submission handler
   completeCheckout(): void {
@@ -76,6 +90,9 @@ export class Checkout {
     this.acceptToast.openToast(`Checkout completed for ${this.user.name()}`);
   }
 
+
+
+  // calculate Total Price
   calculateTotalPrice(): void {
     const total = this.cartItems().reduce((acc, item) => {
       return acc + (item?.price * item?.quantity || 0);
@@ -84,11 +101,15 @@ export class Checkout {
     this.totalPrice.set(total);  // update signal
   }
 
+
+
   // Handle payment method selection change
   onPaymentMethodChange(newMethod: string) {
     this.paymentMethod.set(newMethod);
     this.acceptToast.openToast(`Order submitted with payment method: ${this.paymentMethod()}`);
   }
+
+
 
   // Format the card number as the user types
   formatCardNumber(): void {
@@ -104,6 +125,9 @@ export class Checkout {
     this.cardNumber.set(formattedCardNumber);
   }
 
+
+
+  // update Quantity
   updateQuantity(productId: number, newQuantity: number): void {
     if (newQuantity <= 0) {
       this.removeFromCart(productId);
@@ -120,11 +144,16 @@ export class Checkout {
     this.cartService.updateQuantity(productId, newQuantity);
   }
 
+
+
+  // Product remove from cart
   removeFromCart(productId: number): void {
+
     this.cartItems.update(items => items.filter(item => item.id !== productId));
     this.calculateTotalPrice();
     this.cartService.removeFromCart(productId);
     this.deleteToast.openToast(`🗑 delete product`);
+
   }
 
 }

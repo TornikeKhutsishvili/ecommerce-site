@@ -1,5 +1,11 @@
+import {
+  Component,
+  inject,
+  signal,
+  ViewChild
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductService } from '../../../services/product-service';
@@ -32,11 +38,15 @@ export class EditProduct {
 
   product = signal<any>({});
 
+
+  // All ViewChild
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
   @ViewChild('alertToast') alertToast!: AlertToasts;
   @ViewChild('addToast') addToast!: AddToasts;
 
+
+  // ngOnInit
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.productService.getProductById(id).subscribe({
@@ -49,6 +59,8 @@ export class EditProduct {
     });
   }
 
+
+  // update product
   updateProduct() {
     const prod = this.product();
 

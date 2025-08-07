@@ -1,5 +1,12 @@
+import {
+  Component,
+  inject,
+  signal,
+  Signal,
+  ViewChild
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal, Signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductService } from '../../../services/product-service';
@@ -23,8 +30,11 @@ export class AddProduct {
   productService = inject(ProductService);
   router = inject(Router);
 
+  // ViewChild addToast
   @ViewChild('addToast') addToast!: AddToasts;
 
+
+  // product object
   product: {
     title: Signal<string>;
     price: Signal<number>;
@@ -39,6 +49,8 @@ export class AddProduct {
     image: signal('')
   };
 
+
+  // save product
   saveProduct() {
     this.addToast.openToast(`Adding product: ${this.product.title()}`);
     this.router.navigate(['/admin']);

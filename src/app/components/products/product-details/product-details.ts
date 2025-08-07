@@ -1,5 +1,11 @@
+import {
+  Component,
+  inject,
+  signal,
+  ViewChild
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../../../services/cart-service';
 import { ProductService } from '../../../services/product-service';
@@ -31,6 +37,8 @@ export class ProductDetails {
 
   @ViewChild('addToast') addToast!: AddToasts;
 
+
+  // ngOnInit
   ngOnInit() {
     const productId = this.route.snapshot.paramMap.get('id');
     const id = Number(productId);
@@ -41,11 +49,15 @@ export class ProductDetails {
     }
   }
 
+
+  // add product to cart
   addToCart() {
     this.cartService.addToCart(this.product);
     this.addToast.openToast('Product added to cart! 🛒');
   }
 
+
+  // back
   goBack() {
     this.location.back();
   }

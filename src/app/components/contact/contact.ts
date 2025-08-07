@@ -33,18 +33,26 @@ export class Contact implements OnInit {
 
   ngOnInit(): void {}
 
+  // map Url
   mapUrl: SafeResourceUrl;
 
+  // ViewChilds
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
   @ViewChild('alertToast') alertToast!: AlertToasts;
 
-  constructor(private sanitizer: DomSanitizer, private emailService: EmailService) {
+
+  // constructor
+  constructor(
+    private sanitizer: DomSanitizer,
+    private emailService: EmailService
+  ) {
     this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d174502.75368507477!2d44.76021740605285!3d41.71802463422026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40440cd7e64f626b%3A0x61d084ede2576ea3!2sTbilisi!5e1!3m2!1sen!2sge!4v1741282248376!5m2!1sen!2sge'
     );
   }
 
 
+  // form group
   myForm = new FormGroup({
     from_name: new FormControl('', Validators.required),
     user_email: new FormControl('', [Validators.required, Validators.email]),
@@ -52,6 +60,7 @@ export class Contact implements OnInit {
   });
 
 
+  // send message
   sendEmail() {
     if (this.myForm.valid) {
       this.emailService.sendEmail(this.myForm.value).then(

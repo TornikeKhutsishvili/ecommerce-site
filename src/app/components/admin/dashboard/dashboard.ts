@@ -1,5 +1,11 @@
+import {
+  Component,
+  inject,
+  signal,
+  ViewChild
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductService } from '../../../services/product-service';
@@ -29,15 +35,21 @@ export class Dashboard {
   products = signal<any[]>([]);
   loading = signal<boolean>(true);
 
+
+  // All ViewChild
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
   @ViewChild('alertToast') alertToast!: AlertToasts;
   @ViewChild('addToast') addToast!: AddToasts;
 
+
+  // ngOnInit
   ngOnInit() {
     this.loadProducts();
   }
 
+
+  // load products
   loadProducts() {
     this.loading.set(true);
     this.productService.getProducts().subscribe(data => {
@@ -46,10 +58,12 @@ export class Dashboard {
     });
   }
 
+
+  // delete product by id
   deleteProduct(id: number) {
     if (confirm('Are you sure you want to delete this product?')) {
       this.products.set(this.products().filter(p => p.id !== id));
-      this.deleteToast.openToast(`Product deleted: ${id}`);
+      this.deleteToast.openToast(`🗑 Product deleted: ${id}`);
     }
   }
 
