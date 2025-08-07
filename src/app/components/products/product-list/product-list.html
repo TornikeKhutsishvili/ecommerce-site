@@ -20,7 +20,7 @@
           <img
             [src]="product.thumbnail || product.image"
             class="card-img-top img-fluid product-img"
-            alt="{{ product.title }}"
+            alt="{{ product.title | translate }}"
           />
           <!-- Discount Badge -->
           <span *ngIf="product.discountPercentage"
@@ -34,20 +34,20 @@
         <div class="card-body text-center d-flex flex-column justify-content-between">
           <div>
             <h5 class="card-title fw-semibold text-truncate">
-              {{ product.title }}
+              {{ product.title | translate }}
             </h5>
             <p class="text-muted small mb-2">
-              {{ product.brand }}
+              {{ product.brand | translate }}
             </p>
 
             <div class="mb-3">
               <span class="fw-bold fs-5 text-primary">
-                ${{ product.price }}
+                {{ '$' | translate }}{{ product.price }}
               </span>
               <span *ngIf="product.discountPercentage"
                     class="text-muted text-decoration-line-through ms-2"
               >
-                ${{ (product.price / (1 - product.discountPercentage / 100)).toFixed(2) }}
+                {{ '$' | translate }}{{ (product.price / (1 - product.discountPercentage / 100)).toFixed(2) }}
               </span>
             </div>
 

@@ -15,10 +15,10 @@
         class="carousel-item"
         [class.active]="i === currentIndex()"
     >
-      <img [src]="item.images[0]" class="d-block w-100" alt="{{ item.title }}" />
+      <img [src]="item.images[0]" class="d-block w-100" alt="{{ item.title | translate }}" />
       <div class="carousel-caption d-none d-md-block">
-        <h1>{{ item.title }}</h1>
-        <p>{{ 'Price' | translate }}: ${{ item.price }}</p>
+        <h1>{{ item.title | translate }}</h1>
+        <p>{{ 'Price' | translate }}: {{ '$' | translate }}{{ item.price }}</p>
       </div>
     </div>
   </div>
