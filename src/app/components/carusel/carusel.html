@@ -5,7 +5,8 @@
             [attr.aria-label]="'Slide ' + (i + 1)"
             [attr.title]="'Slide ' + (i + 1)"
             [class.active]="i === currentIndex()"
-            (click)="currentIndex.set(i)">
+            (click)="currentIndex.set(i)"
+    >
     </button>
   </div>
 
@@ -16,18 +17,19 @@
       <img [src]="item.images[0]" class="d-block w-100" alt="{{ item.title }}" />
       <div class="carousel-caption d-none d-md-block">
         <h1>{{ item.title }}</h1>
-        <p>Price: ${{ item.price }}</p>
+        <p>{{ 'Price' | translate }}: ${{ item.price }}</p>
       </div>
     </div>
   </div>
 
   <button class="carousel-control-prev" type="button" (click)="prevSlide()">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
+    <span class="visually-hidden">{{ 'Previous' | translate }}</span>
   </button>
 
   <button class="carousel-control-next" type="button" (click)="nextSlide()">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
+    <span class="visually-hidden">{{ 'Next' | translate }}</span>
   </button>
+
 </div>

@@ -1,36 +1,75 @@
 <div class="container mt-4">
 
-  <h2>➕ Add Product</h2>
+  <h2>➕ {{ 'Add Product' | translate }}</h2>
 
   <!-- form for add products -->
   <form (ngSubmit)="saveProduct()">
     <div class="mb-3">
-      <label class="form-label">Title</label>
-      <input type="text" class="form-control" [(ngModel)]="product.title" name="title" title="title" required>
+      <label class="form-label">
+        {{ 'Title' | translate }}
+      </label>
+      <input type="text"
+            class="form-control"
+            [(ngModel)]="product.title"
+            name="title"
+            title="title"
+            required
+      >
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Price</label>
-      <input type="number" class="form-control" [(ngModel)]="product.price" name="price" title="price" required>
+      <label class="form-label">
+        {{ 'Price' | translate }}
+      </label>
+      <input type="number"
+            class="form-control"
+            [(ngModel)]="product.price"
+            name="price"
+            title="price"
+            required
+      >
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Description</label>
-      <textarea class="form-control" [(ngModel)]="product.description" name="description" title="description"></textarea>
+      <label class="form-label">
+        {{ 'Description' | translate }}
+      </label>
+      <textarea class="form-control"
+                [(ngModel)]="product.description"
+                name="description"
+                title="description"
+      >
+      </textarea>
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Category</label>
-      <input type="text" class="form-control" [(ngModel)]="product.category" name="category" title="category">
+      <label class="form-label">
+        {{ 'Category' | translate }}
+      </label>
+      <input type="text"
+            class="form-control"
+            [(ngModel)]="product.category"
+            name="category"
+            title="category"
+      >
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Image URL</label>
-      <input type="text" class="form-control" [(ngModel)]="product.image" name="image" title="image">
+      <label class="form-label">
+        {{ 'Image URL' | translate }}
+      </label>
+      <input type="text"
+            class="form-control"
+            [(ngModel)]="product.image"
+            name="image"
+            title="image"
+      >
     </div>
+
 
     <!-- add toasts -->
     <app-add-toasts #addToast></app-add-toasts>
+
 
     <!-- add -->
     <button
@@ -38,12 +77,13 @@
       class="btn btn-success"
       (click)="addToast.openToast(`Add Product`)"
     >
-      Add Product
+      {{ 'Add Product' | translate }}
     </button>
+
 
     <!-- cancel -->
     <a routerLink="/admin" class="btn btn-secondary">
-      Cancel
+      {{ 'Cancel' | translate }}
     </a>
   </form>
 

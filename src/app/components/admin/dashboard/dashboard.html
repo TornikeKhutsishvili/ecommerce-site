@@ -1,16 +1,18 @@
 <div class="container mt-4">
 
-  <h2>🛠 Admin Dashboard</h2>
-  <a routerLink="/admin/add-product" class="btn btn-primary mb-3">➕ Add Product</a>
+  <h2>🛠 {{ 'Admin Dashboard' | translate }}</h2>
+  <a routerLink="/admin/add-product" class="btn btn-primary mb-3">
+    ➕ {{ 'Add Product' | translate }}
+  </a>
 
   <table class="table table-bordered table-hover" *ngIf="!loading; else loadingTpl">
     <thead class="table-dark">
       <tr>
-        <th>ID</th>
-        <th>Image</th>
-        <th>Title</th>
-        <th>Price</th>
-        <th style="width: 150px;">Actions</th>
+        <th>{{ 'ID' | translate }}</th>
+        <th>{{ 'Image' | translate }}</th>
+        <th>{{ 'Title' | translate }}</th>
+        <th>{{ 'Price' | translate }}</th>
+        <th style="width: 150px;">{{ 'Actions' | translate }}</th>
       </tr>
     </thead>
     <tbody>
@@ -20,19 +22,29 @@
         <td>{{ product.title }}</td>
         <td>{{ product.price | currency }}</td>
         <td>
-          <a class="btn btn-warning btn-sm" [routerLink]="['/admin/edit-product', product().id]">✏ Edit</a>
-          <button class="btn btn-danger btn-sm" (click)="deleteProduct(product.id)">🗑 Delete</button>
+          <a class="btn btn-warning btn-sm"
+            [routerLink]="['/admin/edit-product', product().id]"
+          >
+            ✏ {{ 'Edit' | translate }}
+          </a>
+          <button class="btn btn-danger btn-sm"
+                  (click)="deleteProduct(product.id)"
+          >
+            🗑 {{ 'Delete' | translate }}
+          </button>
         </td>
       </tr>
     </tbody>
   </table>
+
+
 
   <!-- toasts -->
   <app-delete-toasts #deleteToast></app-delete-toasts>
 
 
   <ng-template #loadingTpl>
-    <p>Loading products...</p>
+    <p>{{ 'Loading products' | translate }}...</p>
   </ng-template>
 
 </div>

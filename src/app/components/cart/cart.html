@@ -1,14 +1,17 @@
 <div class="cart-container container mt-5">
-  <h2 class="text-center mb-4">🛒 Your Shopping Cart</h2>
+  <h2 class="text-center mb-4">🛒 {{ 'Your Shopping Cart' | translate }}</h2>
 
   <div *ngIf="filteredProducts().length > 0; else emptyCart">
     <div class="row g-4">
+
       @for(item of filteredProducts(); track $index){
         <div class="col-lg-4 col-md-6">
           <div class="cart-card shadow-sm">
+
             <div class="cart-img">
               <img [src]="item.thumbnail || item.images?.[0]" alt="{{ item.title }}" class="img-fluid" />
             </div>
+
             <div class="cart-body">
               <h5 class="cart-title text-dark">{{ item.title }}</h5>
               <p class="cart-price">${{ item.price | number : '1.2-2' }}</p>
@@ -21,33 +24,35 @@
               </div>
 
               <p class="cart-subtotal text-dark">
-                Subtotal: <strong>${{ (item.price * item.quantity) | number : '1.2-2' }}</strong>
+                {{ 'Subtotal' | translate }}: <strong>${{ (item.price * item.quantity) | number : '1.2-2' }}</strong>
               </p>
 
               <!-- Remove Button -->
-              <button class="btn-remove" (click)="removeFromCart(item.id)">Remove</button>
+              <button class="btn-remove" (click)="removeFromCart(item.id)">{{ 'Remove' | translate }}</button>
             </div>
           </div>
         </div>
       }
+
     </div>
 
     <!-- Total + Checkout -->
     <div class="cart-summary text-center mt-5">
-      <h4>Total: <span>${{ totalPrice() | number : '1.2-2' }}</span></h4>
-      <a [routerLink]="['/checkout']" class="btn btn-success btn-lg mt-3">Proceed to Checkout</a>
+      <h4>{{ 'Total' | translate }}: <span>${{ totalPrice() | number : '1.2-2' }}</span></h4>
+      <a [routerLink]="['/checkout']" class="btn btn-success btn-lg mt-3">{{ 'Proceed to Checkout' | translate }}</a>
     </div>
   </div>
 
   <!-- Empty Cart -->
   <ng-template #emptyCart>
     <div class="empty-cart text-center">
-      <p>Your cart is empty 😢</p>
-      <a [routerLink]="['/']" class="btn btn-outline-primary mt-3">Back to Home</a>
+      <p>{{ 'Your cart is empty' | translate }} 😢</p>
+      <a [routerLink]="['/']" class="btn btn-outline-primary mt-3">{{ 'Back to Home' | translate }}</a>
     </div>
     <app-alert-toasts #alertToast></app-alert-toasts>
   </ng-template>
 </div>
+
 
 
 <!-- toasts -->
