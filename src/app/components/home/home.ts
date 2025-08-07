@@ -40,6 +40,7 @@ export class Home implements OnInit {
     this.loadRandomCarousel();
   }
 
+  // random carousel
   loadRandomCarousel() {
     this.productService.getRandomProductCarusel().subscribe(data => {
       this.carouselProducts.set(data);

@@ -1,6 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal
+} from '@angular/core';
+
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { RouterLink, RouterModule } from '@angular/router';
 import { dummyProductModel } from '../../../../models/product.model';
 import { ProductService } from '../../../../services/product-service';
@@ -32,7 +39,6 @@ export class Groceries implements OnInit, OnDestroy {
   private productService = inject(ProductService);
   private filterService = inject(FilterService);
   private searchService = inject(SearchService);
-
 
   // ngOnInit
   ngOnInit(): void {
@@ -73,7 +79,6 @@ export class Groceries implements OnInit, OnDestroy {
     });
 
   }
-
 
   // ngOnDestroy
   ngOnDestroy() {

@@ -1,4 +1,10 @@
-import { Component, inject, signal, ViewChild } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  ViewChild
+} from '@angular/core';
+
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product-service';

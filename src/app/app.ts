@@ -1,5 +1,12 @@
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { Navigation } from "./components/navigation/navigation";
@@ -52,11 +59,11 @@ export class App implements OnInit {
 
     this.filterService.filteredProducts$.subscribe((products) => {
       this.filteredProducts.set(products);
-      // console.log('Filtered Products from service:', products); // Log to check the products
     });
 
   }
 
+  // search
   onSearch(event: any) {
     const query = event.target.value;
     const searched = this.searchService.search(query, this.items());
@@ -64,12 +71,14 @@ export class App implements OnInit {
     this.applyFilters(); // Apply filters
   }
 
+  // filter change
   onFilterChange(event: any) {
     const value = +event.target.value;
     this.priceFilter.set(value);
     this.applyFilters(); // Apply filters by price
   }
 
+  // filter
   applyFilters() {
     let filtered = this.items();
 
@@ -83,7 +92,6 @@ export class App implements OnInit {
   }
 
   applyFilter(filteredProducts: any[]) {
-    // console.log("AppComponent received filtered products:", filteredProducts);
     this.filteredProducts.set(filteredProducts);
     this.filterService.setFilteredProducts(filteredProducts); // Save data in the service
   }
