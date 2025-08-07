@@ -1,5 +1,4 @@
-import { inject, Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 export class CartService {
 
   private cartKey = 'cartItems';  // Key of LocalStorage
-
-  private translate = inject(TranslateService);
 
 
   // Add product to cart

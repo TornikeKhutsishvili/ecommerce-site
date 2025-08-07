@@ -50,13 +50,3 @@ export class DummyApiResponse {
     skip: number = 0;
     limit: number = 0;
 }
-
-
-// export class dummyProductModel {
-//     id: number = 0;
-//     title: string = '';
-//     description: string = '';
-//     price: number = 0;
-//     category: string = '';
-//     image: string = '';
-// }
