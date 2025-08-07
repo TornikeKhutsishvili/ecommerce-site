@@ -1,5 +1,7 @@
 <div class="cart-container container mt-5">
-  <h2 class="text-center mb-4">🛒 {{ 'Your Shopping Cart' | translate }}</h2>
+  <h2 class="text-center mb-4">
+    🛒 {{ 'Your Shopping Cart' | translate }}
+  </h2>
 
   <div *ngIf="filteredProducts().length > 0; else emptyCart">
     <div class="row g-4">
@@ -13,14 +15,24 @@
             </div>
 
             <div class="cart-body">
-              <h5 class="cart-title text-dark">{{ item.title }}</h5>
-              <p class="cart-price">${{ item.price | number : '1.2-2' }}</p>
+              <h5 class="cart-title text-dark">
+                {{ item.title }}
+              </h5>
+              <p class="cart-price">
+                ${{ item.price | number : '1.2-2' }}
+              </p>
 
               <!-- Quantity Control -->
               <div class="cart-quantity">
-                <button class="btn-qty text-dark" (click)="updateQuantity(item.id, item.quantity - 1)">-</button>
+                <button class="btn-qty text-dark"
+                        (click)="updateQuantity(item.id, item.quantity - 1)"
+                >-
+                </button>
                 <span class="text-dark">{{ item.quantity }}</span>
-                <button class="btn-qty text-dark" (click)="updateQuantity(item.id, item.quantity + 1)">+</button>
+                <button class="btn-qty text-dark"
+                        (click)="updateQuantity(item.id, item.quantity + 1)"
+                >+
+                </button>
               </div>
 
               <p class="cart-subtotal text-dark">
@@ -28,7 +40,11 @@
               </p>
 
               <!-- Remove Button -->
-              <button class="btn-remove" (click)="removeFromCart(item.id)">{{ 'Remove' | translate }}</button>
+              <button class="btn-remove"
+                      (click)="removeFromCart(item.id)"
+              >
+                {{ 'Remove' | translate }}
+              </button>
             </div>
           </div>
         </div>
@@ -39,7 +55,11 @@
     <!-- Total + Checkout -->
     <div class="cart-summary text-center mt-5">
       <h4>{{ 'Total' | translate }}: <span>${{ totalPrice() | number : '1.2-2' }}</span></h4>
-      <a [routerLink]="['/checkout']" class="btn btn-success btn-lg mt-3">{{ 'Proceed to Checkout' | translate }}</a>
+      <a [routerLink]="['/checkout']"
+          class="btn btn-success btn-lg mt-3"
+      >
+        {{ 'Proceed to Checkout' | translate }}
+      </a>
     </div>
   </div>
 
@@ -47,10 +67,15 @@
   <ng-template #emptyCart>
     <div class="empty-cart text-center">
       <p>{{ 'Your cart is empty' | translate }} 😢</p>
-      <a [routerLink]="['/']" class="btn btn-outline-primary mt-3">{{ 'Back to Home' | translate }}</a>
+      <a [routerLink]="['/']" class="btn btn-outline-primary mt-3">
+        {{ 'Back to Home' | translate }}
+      </a>
     </div>
+
+    <!-- toasts -->
     <app-alert-toasts #alertToast></app-alert-toasts>
   </ng-template>
+
 </div>
 
 

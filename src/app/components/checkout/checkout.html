@@ -1,11 +1,15 @@
 <div class="checkout-container">
-  <h2 class="checkout-title">{{ 'Checkout' | translate }} 🛍️</h2>
+  <h2 class="checkout-title">
+    {{ 'Checkout' | translate }} 🛍️
+  </h2>
 
   <div *ngIf="cartItems().length > 0; else emptyCart" class="checkout-grid">
 
     <!-- Left side: Cart items -->
     <section class="cart-items">
-      <h3 class="text-dark">{{ 'Your Cart' | translate }}</h3>
+      <h3 class="text-dark">
+        {{ 'Your Cart' | translate }}
+      </h3>
 
       <div *ngFor="let item of cartItems()" class="cart-item">
         <img [src]="item.thumbnail || item.image" alt="{{ item.title }}" class="cart-item-img" />
@@ -19,12 +23,20 @@
           </p>
 
           <div class="quantity-control">
-            <button (click)="updateQuantity(item.id, item.quantity - 1)" aria-label="Decrease quantity">-</button>
+            <button (click)="updateQuantity(item.id, item.quantity - 1)"
+                    aria-label="Decrease quantity"
+            >-
+            </button>
             <span class="text-dark">{{ item.quantity }}</span>
-            <button (click)="updateQuantity(item.id, item.quantity + 1)" aria-label="Increase quantity">+</button>
+            <button (click)="updateQuantity(item.id, item.quantity + 1)"
+                    aria-label="Increase quantity"
+            >+
+            </button>
           </div>
 
-          <p class="total">{{ 'Total' | translate }}: ${{ (item.price * item.quantity).toFixed(2) }}</p>
+          <p class="total">
+            {{ 'Total' | translate }}: ${{ (item.price * item.quantity).toFixed(2) }}
+          </p>
 
           <button class="remove-btn" (click)="removeFromCart(item.id)">
             {{ 'Remove' | translate }}
@@ -35,7 +47,9 @@
 
     <!-- Right side: Checkout form -->
     <section class="checkout-form-section">
-      <h3 class="text-dark">{{ 'Shipping & Payment' | translate }}</h3>
+      <h3 class="text-dark">
+        {{ 'Shipping & Payment' | translate }}
+      </h3>
 
       <form (ngSubmit)="completeCheckout()" #checkoutForm="ngForm" novalidate>
 
@@ -76,7 +90,9 @@
         </div>
 
         <!-- Shipping Address -->
-        <label for="address">{{ 'Shipping Address' | translate }} *</label>
+        <label for="address">
+          {{ 'Shipping Address' | translate }} *
+        </label>
         <input id="address"
               name="address"
               type="text"
@@ -89,7 +105,9 @@
         </div>
 
         <!-- Payment Method -->
-        <label for="paymentMethod">{{ 'Payment Method' | translate }} *</label>
+        <label for="paymentMethod">
+          {{ 'Payment Method' | translate }} *
+        </label>
         <select id="paymentMethod"
                 name="paymentMethod"
                 [(ngModel)]="paymentMethod"
@@ -119,7 +137,9 @@
             {{ 'Card Number is required' | translate }}
           </div>
 
-          <label for="expiryDate">{{ 'Expiry Date' | translate }} *</label>
+          <label for="expiryDate">
+            {{ 'Expiry Date' | translate }} *
+          </label>
           <input id="expiryDate"
                 name="expiryDate"
                 type="month"
@@ -177,10 +197,11 @@
         <h4>{{ 'Total' | translate }}: ${{ totalPrice().toFixed(2) }}</h4>
       </div>
 
-      <a [routerLink]="['/cart']" class="btn-back">{{ 'Back to Cart' | translate }}</a>
+      <a [routerLink]="['/cart']" class="btn-back">
+        {{ 'Back to Cart' | translate }}
+      </a>
     </section>
   </div>
-
 
 
   <!-- Toast Components -->

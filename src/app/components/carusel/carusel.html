@@ -13,7 +13,8 @@
   <div class="carousel-inner">
     <div *ngFor="let item of products; let i = index"
         class="carousel-item"
-        [class.active]="i === currentIndex()">
+        [class.active]="i === currentIndex()"
+    >
       <img [src]="item.images[0]" class="d-block w-100" alt="{{ item.title }}" />
       <div class="carousel-caption d-none d-md-block">
         <h1>{{ item.title }}</h1>
@@ -22,12 +23,21 @@
     </div>
   </div>
 
-  <button class="carousel-control-prev" type="button" (click)="prevSlide()">
+
+  <!-- prev btn -->
+  <button class="carousel-control-prev"
+          type="button"
+          (click)="prevSlide()"
+  >
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">{{ 'Previous' | translate }}</span>
   </button>
 
-  <button class="carousel-control-next" type="button" (click)="nextSlide()">
+  <!-- next btn -->
+  <button class="carousel-control-next"
+          type="button"
+          (click)="nextSlide()"
+  >
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">{{ 'Next' | translate }}</span>
   </button>

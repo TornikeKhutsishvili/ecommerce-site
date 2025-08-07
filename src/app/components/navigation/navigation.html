@@ -2,6 +2,7 @@
 <nav class="navbar navbar-expand-lg main-navbar"
   [ngClass]="isDarkMode() ? 'navbar-dark bg-dark' : 'navbar-light bg-light'"
 >
+
   <div class="container">
 
     <!-- Logo -->
@@ -13,6 +14,7 @@
       TK<span class="text-primary">Shop</span>
     </a>
 
+
     <!-- Burger Menu -->
     <button class="navbar-toggler"
             type="button"
@@ -21,6 +23,7 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
 
     <!-- Menu Items -->
     <div #navbarCollapse
@@ -117,7 +120,8 @@
             <a [routerLink]="['/']"
               class="text-decoration-none ms-2 btn btn-danger text-light"
               (click)="logout()"
-              >{{ 'Logout' | translate }}
+            >
+              {{ 'Logout' | translate }}
             </a>
           </ng-template>
         </div>

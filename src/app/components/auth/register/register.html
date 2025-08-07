@@ -1,11 +1,17 @@
 <!-- registeration -->
 <div class="container mt-5" style="max-width: 400px;">
-  <h2 class="mb-4 text-center">{{ 'Register' | translate }}</h2>
+
+  <h2 class="mb-4 text-center">
+    {{ 'Register' | translate }}
+  </h2>
+
 
   <form (ngSubmit)="onSubmit()" #registerForm="ngForm" novalidate>
 
     <div class="mb-3">
-      <label for="name" class="form-label">{{ 'Full Name' | translate }}</label>
+      <label for="name" class="form-label">
+        {{ 'Full Name' | translate }}
+      </label>
       <input
         type="text"
         id="name"
@@ -16,8 +22,12 @@
         minlength="2"
         #nameInput="ngModel"
       />
-      <div *ngIf="nameInput.invalid && nameInput.touched" class="text-danger small">
-        <div *ngIf="nameInput.errors?.['required']">{{ 'Full Name is required.' | translate }}</div>
+      <div *ngIf="nameInput.invalid && nameInput.touched"
+          class="text-danger small"
+      >
+        <div *ngIf="nameInput.errors?.['required']">
+          {{ 'Full Name is required.' | translate }}
+        </div>
         <div *ngIf="nameInput.errors?.['minlength']">
           {{ 'Full Name must be at least 2 characters.' | translate }}
         </div>
@@ -25,7 +35,9 @@
     </div>
 
     <div class="mb-3">
-      <label for="email" class="form-label">{{ 'Email' | translate }}</label>
+      <label for="email" class="form-label">
+        {{ 'Email' | translate }}
+      </label>
       <input
         type="email"
         id="email"
@@ -36,14 +48,22 @@
         email
         #emailInput="ngModel"
       />
-      <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger small">
-        <div *ngIf="emailInput.errors?.['required']">{{ 'Email is required.' | translate }}</div>
-        <div *ngIf="emailInput.errors?.['email']">{{ 'Please enter a valid email.' | translate }}</div>
+      <div *ngIf="emailInput.invalid && emailInput.touched"
+          class="text-danger small"
+      >
+        <div *ngIf="emailInput.errors?.['required']">
+          {{ 'Email is required.' | translate }}
+        </div>
+        <div *ngIf="emailInput.errors?.['email']">
+          {{ 'Please enter a valid email.' | translate }}
+        </div>
       </div>
     </div>
 
     <div class="mb-3">
-      <label for="password" class="form-label">{{ 'Password' | translate }}</label>
+      <label for="password" class="form-label">
+        {{ 'Password' | translate }}
+      </label>
       <input
         type="password"
         id="password"
@@ -54,14 +74,22 @@
         minlength="6"
         #passwordInput="ngModel"
       />
-      <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger small">
-        <div *ngIf="passwordInput.errors?.['required']">{{ 'Password is required.' | translate }}</div>
-        <div *ngIf="passwordInput.errors?.['minlength']">{{ 'Password must be at least 6 characters.' | translate }}</div>
+      <div *ngIf="passwordInput.invalid && passwordInput.touched"
+          class="text-danger small"
+      >
+        <div *ngIf="passwordInput.errors?.['required']">
+          {{ 'Password is required.' | translate }}
+        </div>
+        <div *ngIf="passwordInput.errors?.['minlength']">
+          {{ 'Password must be at least 6 characters.' | translate }}
+        </div>
       </div>
     </div>
 
     <div class="mb-3">
-      <label for="confirmPassword" class="form-label">{{ 'Confirm Password' | translate }}</label>
+      <label for="confirmPassword" class="form-label">
+        {{ 'Confirm Password' | translate }}
+      </label>
       <input
         type="password"
         id="confirmPassword"
@@ -71,10 +99,14 @@
         required
         #confirmPasswordInput="ngModel"
       />
-      <div *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched" class="text-danger small">
+      <div *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched"
+          class="text-danger small"
+      >
         {{ 'Confirm Password is required.' | translate }}
       </div>
-      <div *ngIf="passwordMismatch && confirmPasswordInput.touched" class="text-danger small">
+      <div *ngIf="passwordMismatch && confirmPasswordInput.touched"
+          class="text-danger small"
+      >
         {{ 'Passwords do not match.' | translate }}
       </div>
     </div>
@@ -92,9 +124,12 @@
   <div class="mt-3 text-center">
     <small>
       {{ 'Already have an account?' | translate }}
-      <a [routerLink]="['/login']">{{ 'Login here' | translate}}</a>
+      <a [routerLink]="['/login']">
+        {{ 'Login here' | translate }}
+      </a>
     </small>
   </div>
+
 </div>
 
 
