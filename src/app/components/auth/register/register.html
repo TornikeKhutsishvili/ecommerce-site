@@ -26,10 +26,10 @@
           class="text-danger small"
       >
         <div *ngIf="nameInput.errors?.['required']">
-          {{ 'Full Name is required.' | translate }}
+          {{ 'Full Name is required' | translate }}
         </div>
         <div *ngIf="nameInput.errors?.['minlength']">
-          {{ 'Full Name must be at least 2 characters.' | translate }}
+          {{ 'Full Name must be at least 2 characters' | translate }}
         </div>
       </div>
     </div>
@@ -52,10 +52,10 @@
           class="text-danger small"
       >
         <div *ngIf="emailInput.errors?.['required']">
-          {{ 'Email is required.' | translate }}
+          {{ 'Email is required' | translate }}
         </div>
         <div *ngIf="emailInput.errors?.['email']">
-          {{ 'Please enter a valid email.' | translate }}
+          {{ 'Please enter a valid email' | translate }}
         </div>
       </div>
     </div>
@@ -78,10 +78,10 @@
           class="text-danger small"
       >
         <div *ngIf="passwordInput.errors?.['required']">
-          {{ 'Password is required.' | translate }}
+          {{ 'Password is required' | translate }}
         </div>
         <div *ngIf="passwordInput.errors?.['minlength']">
-          {{ 'Password must be at least 6 characters.' | translate }}
+          {{ 'Password must be at least 6 characters' | translate }}
         </div>
       </div>
     </div>
@@ -102,12 +102,12 @@
       <div *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched"
           class="text-danger small"
       >
-        {{ 'Confirm Password is required.' | translate }}
+        {{ 'Confirm Password is required' | translate }}
       </div>
       <div *ngIf="passwordMismatch && confirmPasswordInput.touched"
           class="text-danger small"
       >
-        {{ 'Passwords do not match.' | translate }}
+        {{ 'Passwords do not match' | translate }}
       </div>
     </div>
 

@@ -22,10 +22,10 @@
       />
       <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger small">
         <div *ngIf="emailInput.errors?.['required']">
-          {{ 'Email is required.' | translate }}
+          {{ 'Email is required' | translate }}
         </div>
         <div *ngIf="emailInput.errors?.['email']">
-          {{ 'Please enter a valid email.' | translate }}
+          {{ 'Please enter a valid email' | translate }}
         </div>
       </div>
     </div>
@@ -46,10 +46,10 @@
       />
       <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger small">
         <div *ngIf="passwordInput.errors?.['required']">
-          {{ 'Password is required.' | translate }}
+          {{ 'Password is required' | translate }}
         </div>
         <div *ngIf="passwordInput.errors?.['minlength']">
-          {{ 'Password must be at least 6 characters.' | translate }}
+          {{ 'Password must be at least 6 characters' | translate }}
         </div>
       </div>
     </div>
