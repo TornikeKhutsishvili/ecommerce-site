@@ -15,6 +15,7 @@
                 <img [src]="item.thumbnail || item.images?.[0]"
                       alt="{{ item.title | translate }}"
                       class="img-fluid"
+                      loading="lazy"
                 />
               </div>
 

@@ -25,6 +25,7 @@
                 [src]="product.thumbnail || product.image"
                 class="card-img-top img-fluid product-img"
                 alt="{{ product.title | translate }}"
+                loading="lazy"
               />
               <!-- Discount Badge -->
               @if( product.discountPercentage ) {

@@ -18,12 +18,13 @@
             <img [src]="item.thumbnail || item.image"
                   alt="{{ item.title }}"
                   class="cart-item-img"
+                  loading="lazy"
             />
 
             <div class="cart-item-info">
-              <h4>{{ item.title }}</h4>
+              <h4>{{ item.title | translate }}</h4>
               <p class="category">
-                {{ item.category }}
+                {{ item.category | translate }}
               </p>
               <p class="price">
                 ${{ item.price.toFixed(2) }}
@@ -48,7 +49,7 @@
               <button class="remove-btn"
                       (click)="removeFromCart(item.id)"
               >
-                {{ 'Remove' | translate }}
+                🗑 {{ 'Remove' | translate }}
               </button>
             </div>
 

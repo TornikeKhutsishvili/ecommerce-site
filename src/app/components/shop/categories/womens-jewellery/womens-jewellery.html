@@ -11,6 +11,7 @@
           <img [src]="product.thumbnail"
                 class="card-img-top"
                 alt="{{ product.title | translate }}"
+                loading="lazy"
           >
           <div class="card-body d-flex flex-column">
             <h6 class="card-title">{{ product.title | translate }}</h6>

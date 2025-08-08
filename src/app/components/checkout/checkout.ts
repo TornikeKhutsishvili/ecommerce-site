@@ -153,7 +153,7 @@ export class Checkout implements OnInit {
     this.cartItems.update(items => items.filter(item => item.id !== productId));
     this.calculateTotalPrice();
     this.cartService.removeFromCart(productId);
-    this.deleteToast.openToast(`🗑 delete product`);
+    this.deleteToast.openToast(`delete product`);
 
   }
 

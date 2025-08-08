@@ -9,6 +9,7 @@
             [src]="product().thumbnail || product().image"
             class="img-fluid rounded product-detail-img"
             alt="{{ product().title | translate }}"
+            loading="lazy"
           />
         </div>
       </div>

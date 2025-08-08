@@ -42,7 +42,7 @@ export class ProductList implements OnInit {
   caruselProducts = signal<any[]>([]);
   cartItemCount = signal<number>(0);
   page = signal<number>(1);
-  itemsPerPage = signal<number>(16);
+  itemsPerPage = signal<number>(12);
 
   private filterSubscription: Subscription | null = null;
 

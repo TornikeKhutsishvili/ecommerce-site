@@ -22,6 +22,7 @@
         <img [src]="item.images[0]"
               class="d-block w-100"
               alt="{{ item.title | translate }}"
+              loading="lazy"
         />
         <div class="carousel-caption d-none d-md-block">
           <h1>{{ item.title | translate }}</h1>
