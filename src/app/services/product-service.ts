@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class ProductService {
 
   private apiUrl = 'https://dummyjson.com/products';
-  private limit = '?limit=100';
+  private limit = '?limit=200';
   private http = inject(HttpClient);
 
   // get all product

@@ -44,7 +44,7 @@ export class MenShirts implements OnInit, OnDestroy {
   // ngOnInit
   ngOnInit(): void {
 
-    this.productService.getProductsByCategory('mens-shirts').subscribe(data => {
+    this.productService.getProductsByCategory('mens-shirt').subscribe(data => {
 
       this.products.set(data);
       this.filteredProducts.set(data);
