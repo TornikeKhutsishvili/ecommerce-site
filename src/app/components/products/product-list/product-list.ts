@@ -64,7 +64,7 @@ export class ProductList {
     // filtered products
     this.productService.getProducts().subscribe((data: any) => {
       this.products.set(data);
-
+      console.log(this.products());
 
       // Check if there are already filtered products in the service
       this.filteredProducts.set(this.filterService.getFilteredProducts());
@@ -92,6 +92,7 @@ export class ProductList {
 
     // cart item count
     this.cartItemCount.set(this.cartService.getCartItems().length);
+
   }
 
 

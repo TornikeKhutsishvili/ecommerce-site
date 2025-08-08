@@ -8,13 +8,14 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductService {
 
-  private apiUrl = 'https://dummyjson.com/products?limit=100';
+  private apiUrl = 'https://dummyjson.com/products';
+  private limit = '?limit=100';
   private http = inject(HttpClient);
 
   // get all product
   getProducts(): Observable<dummyProductModel[]> {
-    return this.http.get<DummyApiResponse>(this.apiUrl).pipe(
-      map(res => res.products.slice(0, 100))
+    return this.http.get<DummyApiResponse>(this.apiUrl + this.limit).pipe(
+      map(res => res.products)
     );
   }
 
