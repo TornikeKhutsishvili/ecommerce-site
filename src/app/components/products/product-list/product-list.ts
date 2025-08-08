@@ -39,7 +39,7 @@ export class ProductList {
   caruselProducts = signal<any[]>([]);
   cartItemCount = signal<number>(0);
   page = signal<number>(1);
-  itemsPerPage = signal<number>(12);
+  itemsPerPage = signal<number>(16);
 
   private filterSubscription: Subscription | null = null;
 
