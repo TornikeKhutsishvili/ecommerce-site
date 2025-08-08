@@ -25,16 +25,20 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class Carusel {
 
+
   // get products
   @Input() products: dummyProductModel[] = [];
 
+
   // current Index
   currentIndex = signal(0);
+
 
   // current product
   currentProduct = computed(() =>
     this.products.length > 0 ? this.products[this.currentIndex()] : null
   );
+
 
   // next slide
   nextSlide() {
@@ -42,6 +46,7 @@ export class Carusel {
       this.currentIndex.set((this.currentIndex() + 1) % this.products.length);
     }
   }
+
 
   // previous slide
   prevSlide() {

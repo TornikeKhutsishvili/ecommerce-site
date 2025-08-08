@@ -1,12 +1,13 @@
 import {
   Component,
   inject,
+  OnInit,
   signal,
   ViewChild
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CartService } from '../../../services/cart-service';
 import { ProductService } from '../../../services/product-service';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +20,7 @@ import { AddToasts } from '../../toasts/add-toasts/add-toasts';
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     FormsModule,
     TranslateModule,
     AddToasts
@@ -26,8 +28,9 @@ import { AddToasts } from '../../toasts/add-toasts/add-toasts';
   templateUrl: './product-details.html',
   styleUrls: ['./product-details.scss']
 })
-export class ProductDetails {
+export class ProductDetails implements OnInit {
 
+  // variables
   product = signal<any>('');
 
   private location = inject(Location);
@@ -42,6 +45,7 @@ export class ProductDetails {
 
   // ngOnInit
   ngOnInit() {
+
     const productId = this.route.snapshot.paramMap.get('id');
     const id = Number(productId);
 
@@ -50,7 +54,9 @@ export class ProductDetails {
         this.product.set(data);
       });
     }
+
   }
+
 
 
   // add product to cart

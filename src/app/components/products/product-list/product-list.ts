@@ -2,6 +2,7 @@ import {
   Component,
   computed,
   inject,
+  OnInit,
   signal,
   ViewChild
 } from '@angular/core';
@@ -12,7 +13,7 @@ import { FilterService } from '../../../services/filter-service';
 import { ProductService } from '../../../services/product-service';
 import { CartService } from '../../../services/cart-service';
 import { SearchService } from '../../../services/search-service';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,6 +26,7 @@ import { AddToasts } from '../../toasts/add-toasts/add-toasts';
     CommonModule,
     FormsModule,
     RouterLink,
+    RouterModule,
     NgxPaginationModule,
     TranslateModule,
     AddToasts
@@ -32,8 +34,9 @@ import { AddToasts } from '../../toasts/add-toasts/add-toasts';
   templateUrl: './product-list.html',
   styleUrls: ['./product-list.scss']
 })
-export class ProductList {
+export class ProductList implements OnInit {
 
+  // variables
   products = signal<any[]>([]);
   filteredProducts = signal<any[]>([]);
   caruselProducts = signal<any[]>([]);
@@ -48,7 +51,9 @@ export class ProductList {
   private cartService = inject(CartService);
   private searchService = inject(SearchService);
 
+  // ViewChild addToast
   @ViewChild('addToast') addToast!: AddToasts;
+
 
 
   // how many product should be one page
@@ -58,7 +63,8 @@ export class ProductList {
   });
 
 
-  // ng on init
+
+  // ngOnInit
   ngOnInit() {
 
     // filtered products
@@ -96,6 +102,7 @@ export class ProductList {
   }
 
 
+
   // ng on destroy
   ngOnDestroy() {
     if (this.filterSubscription) {
@@ -104,11 +111,13 @@ export class ProductList {
   }
 
 
+
   // Example of how to apply a filter or change data
   applyPriceFilter(price: number) {
     const filtered = this.filterService.filterByPrice(this.products(), price);
     this.filterService.setFilteredProducts(filtered); // Set filtered products in the service
   }
+
 
 
   // cart

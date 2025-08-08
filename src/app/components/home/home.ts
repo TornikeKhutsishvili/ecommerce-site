@@ -11,12 +11,16 @@ import { Carusel } from "../carusel/carusel";
 import { ProductService } from '../../services/product-service';
 import { dummyProductModel } from '../../models/product.model';
 import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
+    RouterModule,
     ProductList,
     Carusel,
     TranslateModule
@@ -26,10 +30,15 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class Home implements OnInit {
 
-  private productService = inject(ProductService);
+  // variables
   carouselProducts = signal<dummyProductModel[]>([]);
   allProducts = signal<dummyProductModel[]>([]);
 
+
+  private productService = inject(ProductService);
+
+
+  // ngOnInit
   ngOnInit() {
 
     // All products
@@ -48,6 +57,7 @@ export class Home implements OnInit {
     this.loadRandomCarousel();
 
   }
+
 
 
   // random carousel

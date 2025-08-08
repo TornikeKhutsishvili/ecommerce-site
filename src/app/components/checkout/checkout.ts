@@ -1,6 +1,7 @@
 import {
   Component,
   inject,
+  OnInit,
   Signal,
   signal,
   ViewChild
@@ -32,7 +33,7 @@ import { AddToasts } from '../toasts/add-toasts/add-toasts';
   templateUrl: './checkout.html',
   styleUrls: ['./checkout.scss']
 })
-export class Checkout {
+export class Checkout implements OnInit {
 
   paymentMethod = signal('Cash_on_Delivery');
   cartItems = signal<any[]>([]);

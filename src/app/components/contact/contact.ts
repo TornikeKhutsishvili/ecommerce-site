@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+
+import {
+  Component,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 
 import {
   FormControl,
@@ -14,6 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { EmailService } from '../../services/email-service';
 import { AlertToasts } from '../toasts/alert-toasts/alert-toasts';
 import { AcceptToasts } from '../toasts/accept-toasts/accept-toasts';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
@@ -21,6 +27,7 @@ import { AcceptToasts } from '../toasts/accept-toasts/accept-toasts';
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     ReactiveFormsModule,
     TranslateModule,
     AcceptToasts,
@@ -41,6 +48,7 @@ export class Contact implements OnInit {
   @ViewChild('alertToast') alertToast!: AlertToasts;
 
 
+
   // constructor
   constructor(
     private sanitizer: DomSanitizer,
@@ -52,6 +60,7 @@ export class Contact implements OnInit {
   }
 
 
+
   // form group
   myForm = new FormGroup({
     from_name: new FormControl('', Validators.required),
@@ -60,10 +69,13 @@ export class Contact implements OnInit {
   });
 
 
+
   // send message
   sendEmail() {
     if (this.myForm.valid) {
+
       this.emailService.sendEmail(this.myForm.value).then(
+
         response => {
           console.log(response.status);
           this.acceptToast.openToast(`Email has been successfully sent!`);
@@ -76,7 +88,9 @@ export class Contact implements OnInit {
         error => {
           this.alertToast.openToast(`${error} Error while sending the email!`);
         }
+
       );
+
     } else {
       this.alertToast.openToast('Please fill out all fields correctly.');
     }
