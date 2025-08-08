@@ -11,22 +11,29 @@ export class ProductService {
   private apiUrl = 'https://dummyjson.com/products?limit=100';
   private http = inject(HttpClient);
 
+  // get all product
   getProducts(): Observable<dummyProductModel[]> {
     return this.http.get<DummyApiResponse>(this.apiUrl).pipe(
       map(res => res.products.slice(0, 100))
     );
   }
 
+
+  // get product by id
   getProductById(id: number): Observable<dummyProductModel> {
     return this.http.get<dummyProductModel>(`${this.apiUrl}/${id}`);
   }
 
+
+  // get product carusel
   getProductCarusel(): Observable<dummyProductModel[]> {
     return this.http.get<DummyApiResponse>(this.apiUrl).pipe(
       map(res => res.products.slice(0, 7))
     );
   }
 
+
+  // get random product carusel
   getRandomProductCarusel(): Observable<dummyProductModel[]> {
     return this.http.get<DummyApiResponse>(this.apiUrl).pipe(
       map(res => {
@@ -42,6 +49,8 @@ export class ProductService {
     );
   }
 
+
+  // get products by category
   getProductsByCategory(category: string): Observable<dummyProductModel[]> {
     return this.http.get<DummyApiResponse>(`${this.apiUrl}/category/${category}`).pipe(
       map(res => res.products)
