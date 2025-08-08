@@ -66,7 +66,7 @@ export class Groceries implements OnInit, OnDestroy {
 
       // Subscribe to filtered products updates from the service
       this.filterSubscription = this.filterService.filteredProducts$.subscribe(filtered => {
-        if (filtered.length > 0) {
+        if ( filtered.length > 0 ) {
           const categoryFiltered = filtered.filter(p =>
             this.products().some(prod => prod.id === p.id)
           );
