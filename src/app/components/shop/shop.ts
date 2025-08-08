@@ -33,6 +33,7 @@ export class Shop {
   filteredProducts = signal<dummyProductModel[]>([]);
   categories: string[] = [];
 
+
   // ViewChild to addToast
   @ViewChild('addToast') addToast!: AddToasts;
 
@@ -60,6 +61,7 @@ export class Shop {
   }
 
 
+
   // search
   onSearch(event: Event) {
     const query = (event.target as HTMLInputElement).value.toLowerCase();
@@ -67,6 +69,7 @@ export class Shop {
       this.products().filter(p => p.title.toLowerCase().includes(query))
     );
   }
+
 
 
   // filter by category
@@ -78,11 +81,13 @@ export class Shop {
   }
 
 
+
   // apply Price Filter
   applyPriceFilter(price: number) {
     const filtered = this.filterService.filterByPrice(this.products(), price);
     this.filterService.setFilteredProducts(filtered); // Set filtered products in the service
   }
+
 
 
   // ngOnDestroy
@@ -93,35 +98,37 @@ export class Shop {
   }
 
 
+
   // categories image
   categoryImages: Record<string, string> = {
 
-    'beauty': 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600',
-    'fragrances': 'https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=600',
-    'furniture': 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=600',
-    'groceries': 'https://images.unsplash.com/photo-1668179456564-db429f9de8e8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'home-decoration': 'https://plus.unsplash.com/premium_photo-1678402545080-2353b489c0c3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'kitchen-accessories': 'https://images.unsplash.com/photo-1556909211-36987daf7b4d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'laptops': 'https://plus.unsplash.com/premium_photo-1711051475117-f3a4d3ff6778?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'mens-shirts': 'https://images.unsplash.com/photo-1624222244232-5f1ae13bbd53?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'mens-shoes': 'https://images.unsplash.com/photo-1617689563472-c66428e83d17?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'mens-watches': 'https://images.unsplash.com/photo-1703505841379-2f863b201212?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'mobile-accessories': 'https://images.unsplash.com/photo-1566793474285-2decf0fc182a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'motorcycle': 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'skin-care': 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'smartphones': 'https://images.unsplash.com/photo-1672413514634-4781b15fd89e?q=80&w=1174&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'sports-accessories': 'https://plus.unsplash.com/premium_photo-1709932755399-b61bb0a3aa2a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'sunglasses': 'https://images.unsplash.com/photo-1625591340248-6d289000f96a?q=80&w=1028&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'tablets': 'https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'tops': 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'vehicle': 'https://plus.unsplash.com/premium_photo-1698080249116-de37e81e568e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'womens-bags': 'https://images.unsplash.com/photo-1559563458-527698bf5295?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'womens-dresses': 'https://images.unsplash.com/photo-1623609163859-ca93c959b98a?q=80&w=686&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'womens-jewellery': 'https://plus.unsplash.com/premium_photo-1661645433820-24c8604e4db5?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'womens-shoes': 'https://images.unsplash.com/photo-1670938258821-2956d4ce9c9b?q=80&w=1167&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'womens-watches': 'https://images.unsplash.com/photo-1658381466795-dd8f06a540e5?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    'beauty': 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=50&fit=cover',
+    'fragrances': 'https://images.unsplash.com/photo-1519682337058-a94d519337bc?q=50&fit=cover',
+    'furniture': 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=50&fit=cover',
+    'groceries': 'https://images.unsplash.com/photo-1668179456564-db429f9de8e8?q=50&fit=cover',
+    'home-decoration': 'https://plus.unsplash.com/premium_photo-1678402545080-2353b489c0c3?q=50&fit=cover',
+    'kitchen-accessories': 'https://images.unsplash.com/photo-1556909211-36987daf7b4d?q=50&fit=cover',
+    'laptops': 'https://plus.unsplash.com/premium_photo-1711051475117-f3a4d3ff6778?q=50&fit=cover',
+    'mens-shirts': 'https://images.unsplash.com/photo-1624222244232-5f1ae13bbd53?q=50&fit=cover',
+    'mens-shoes': 'https://images.unsplash.com/photo-1617689563472-c66428e83d17?q=50&fit=cover',
+    'mens-watches': 'https://images.unsplash.com/photo-1703505841379-2f863b201212?q=50&fit=cover',
+    'mobile-accessories': 'https://images.unsplash.com/photo-1566793474285-2decf0fc182a?q=50&fit=cover',
+    'motorcycle': 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=50&fit=cover',
+    'skin-care': 'https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=50&fit=cover',
+    'smartphones': 'https://images.unsplash.com/photo-1672413514634-4781b15fd89e?q=50&fit=cover',
+    'sports-accessories': 'https://plus.unsplash.com/premium_photo-1709932755399-b61bb0a3aa2a?q=50&fit=cover',
+    'sunglasses': 'https://images.unsplash.com/photo-1502767089025-6572583495f9?q=50&&fit=cover',
+    'tablets': 'https://images.unsplash.com/photo-1623126908029-58cb08a2b272?q=50&fit=cover',
+    'tops': 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=50&fit=cover',
+    'vehicle': 'https://plus.unsplash.com/premium_photo-1698080249116-de37e81e568e?q=50&fit=cover',
+    'womens-bags': 'https://images.unsplash.com/photo-1559563458-527698bf5295?q=50&fit=cover',
+    'womens-dresses': 'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?q=50&fit=cover',
+    'womens-jewellery': 'https://plus.unsplash.com/premium_photo-1661645433820-24c8604e4db5?q=50&fit=cover',
+    'womens-shoes': 'https://images.unsplash.com/photo-1670938258821-2956d4ce9c9b?q=50&fit=cover',
+    'womens-watches': 'https://images.unsplash.com/photo-1653651461471-d4dffd0e5ab0?q=50&&fit=cover'
 
   };
+
 
 
   // add to cart
