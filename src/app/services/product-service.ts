@@ -8,12 +8,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductService {
 
-  private apiUrl = 'https://dummyjson.com/products';
+  private apiUrl = 'https://dummyjson.com/products?limit=100';
   private http = inject(HttpClient);
 
   getProducts(): Observable<dummyProductModel[]> {
     return this.http.get<DummyApiResponse>(this.apiUrl).pipe(
-      map(res => res.products.slice(0, 50))
+      map(res => res.products.slice(0, 100))
     );
   }
 
@@ -23,7 +23,7 @@ export class ProductService {
 
   getProductCarusel(): Observable<dummyProductModel[]> {
     return this.http.get<DummyApiResponse>(this.apiUrl).pipe(
-      map(res => res.products.slice(0, 3))
+      map(res => res.products.slice(0, 7))
     );
   }
 
@@ -37,7 +37,7 @@ export class ProductService {
           [products[i], products[j]] = [products[j], products[i]];
         }
 
-        return products.slice(0, 3);
+        return products.slice(0, 7);
       })
     );
   }

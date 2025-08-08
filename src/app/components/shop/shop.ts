@@ -28,10 +28,12 @@ import { AddToasts } from '../toasts/add-toasts/add-toasts';
 })
 export class Shop {
 
+  // variables
   products = signal<dummyProductModel[]>([]);
   filteredProducts = signal<dummyProductModel[]>([]);
   categories: string[] = [];
 
+  // ViewChild to addToast
   @ViewChild('addToast') addToast!: AddToasts;
 
   private filterSubscription: Subscription | null = null;
@@ -40,6 +42,8 @@ export class Shop {
   private cartService = inject(CartService);
   private filterService = inject(FilterService);
 
+
+  // ngOnInit
   ngOnInit(): void {
 
     this.productService.getProducts().subscribe(data => {
@@ -55,6 +59,8 @@ export class Shop {
 
   }
 
+
+  // search
   onSearch(event: Event) {
     const query = (event.target as HTMLInputElement).value.toLowerCase();
     this.filteredProducts.set(
@@ -62,6 +68,8 @@ export class Shop {
     );
   }
 
+
+  // filter by category
   filterByCategory(event: Event) {
     const category = (event.target as HTMLSelectElement).value;
     this.filteredProducts.set(
@@ -69,24 +77,41 @@ export class Shop {
     );
   }
 
+
+  // apply Price Filter
   applyPriceFilter(price: number) {
     const filtered = this.filterService.filterByPrice(this.products(), price);
     this.filterService.setFilteredProducts(filtered); // Set filtered products in the service
   }
 
+
+  // ngOnDestroy
   ngOnDestroy() {
     if (this.filterSubscription) {
       this.filterSubscription.unsubscribe();
     }
   }
 
+
+  // categories image
   categoryImages: Record<string, string> = {
-    beauty: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600',
-    fragrances: 'https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=600',
-    furniture: 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=600',
-    groceries: 'https://images.unsplash.com/photo-1668179456564-db429f9de8e8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+
+    'beauty': 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600',
+    'fragrances': 'https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=600',
+    'furniture': 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=600',
+    'groceries': 'https://images.unsplash.com/photo-1668179456564-db429f9de8e8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'home-decoration': 'https://plus.unsplash.com/premium_photo-1678402545080-2353b489c0c3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'kitchen-accessories': 'https://images.unsplash.com/photo-1556909211-36987daf7b4d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'laptops': 'https://plus.unsplash.com/premium_photo-1711051475117-f3a4d3ff6778?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'mens-shirts': 'https://images.unsplash.com/photo-1624222244232-5f1ae13bbd53?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'mens-shoes': 'https://images.unsplash.com/photo-1617689563472-c66428e83d17?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'mens-watches': 'https://images.unsplash.com/photo-1703505841379-2f863b201212?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    'mobile-accessories': 'https://images.unsplash.com/photo-1566793474285-2decf0fc182a?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+
   };
 
+
+  // add to cart
   addToCart(product: dummyProductModel) {
     this.cartService.addToCart(product);
     this.addToast.openToast(`${product.title} added to cart!`);
