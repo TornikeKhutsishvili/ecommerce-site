@@ -57,4 +57,69 @@ export const categoriesRoutes: Routes = [
     loadComponent: () => import('./mobile-accessories/mobile-accessories').then((m) => m.MobileAccessories)
   },
 
+  {
+    path: 'motorcycle',
+    loadComponent: () => import('./motorcycle/motorcycle').then((m) => m.Motorcycle)
+  },
+
+  {
+    path: 'skin-care',
+    loadComponent: () => import('./skin-care/skin-care').then((m) => m.SkinCare)
+  },
+
+  {
+    path: 'smartphone',
+    loadComponent: () => import('./smartphones/smartphones').then((m) => m.Smartphones)
+  },
+
+  {
+    path: 'sports-accessories',
+    loadComponent: () => import('./sports-accessories/sports-accessories').then((m) => m.SportsAccessories)
+  },
+
+  {
+    path: 'sunglasses',
+    loadComponent: () => import('./sunglasses/sunglasses').then((m) => m.Sunglasses)
+  },
+
+  {
+    path: 'tablets',
+    loadComponent: () => import('./tablets/tablets').then((m) => m.Tablets)
+  },
+
+  {
+    path: 'top',
+    loadComponent: () => import('./tops/tops').then((m) => m.Tops)
+  },
+
+  {
+    path: 'vehicle',
+    loadComponent: () => import('./vehicle/vehicle').then((m) => m.Vehicle)
+  },
+
+  {
+    path: 'womens-bags',
+    loadComponent: () => import('./womens-bags/womens-bags').then((m) => m.WomensBags)
+  },
+
+  {
+    path: 'womens-dresses',
+    loadComponent: () => import('./womens-dresses/womens-dresses').then((m) => m.WomensDresses)
+  },
+
+  {
+    path: 'womens-jewellery',
+    loadComponent: () => import('./womens-jewellery/womens-jewellery').then((m) => m.WomensJewellery)
+  },
+
+  {
+    path: 'womens-shoes',
+    loadComponent: () => import('./womens-shoes/womens-shoes').then((m) => m.WomensShoes)
+  },
+
+  {
+    path: 'womens-watches',
+    loadComponent: () => import('./womens-watches/womens-watches').then((m) => m.WomensWatches)
+  },
+
 ];
