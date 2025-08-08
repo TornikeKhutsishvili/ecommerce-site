@@ -13,7 +13,7 @@ export class ProductService {
 
   getProducts(): Observable<dummyProductModel[]> {
     return this.http.get<DummyApiResponse>(this.apiUrl).pipe(
-      map(res => res.products.slice(0, 31))
+      map(res => res.products.slice(0, 50))
     );
   }
 
