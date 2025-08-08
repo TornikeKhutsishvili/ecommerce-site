@@ -5,7 +5,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product-service';
 import { CartService } from '../../services/cart-service';
@@ -14,15 +14,20 @@ import { FilterService } from '../../services/filter-service';
 import { Subscription } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { AddToasts } from '../toasts/add-toasts/add-toasts';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-shop',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     RouterLink,
+    RouterModule,
     TranslateModule,
     AddToasts,
+    NgxPaginationModule,
 ],
   templateUrl: './shop.html'
 })
@@ -32,6 +37,8 @@ export class Shop {
   products = signal<dummyProductModel[]>([]);
   filteredProducts = signal<dummyProductModel[]>([]);
   categories: string[] = [];
+  page = signal<number>(1);
+  itemsPerPage = signal<number>(16);
 
 
   // ViewChild to addToast
@@ -61,7 +68,6 @@ export class Shop {
   }
 
 
-
   // search
   onSearch(event: Event) {
     const query = (event.target as HTMLInputElement).value.toLowerCase();
@@ -69,7 +75,6 @@ export class Shop {
       this.products().filter(p => p.title.toLowerCase().includes(query))
     );
   }
-
 
 
   // filter by category

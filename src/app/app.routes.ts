@@ -31,7 +31,7 @@ export const routes: Routes = [
   { path: 'product/:id',
     loadComponent: () => import('./components/products/product-details/product-details').then((m) => m.ProductDetails),
     data: {
-      getPrerenderParams: () => generatePrerenderParams(30)
+      getPrerenderParams: () => generatePrerenderParams(194)
     }
   },
 
@@ -51,9 +51,11 @@ export const routes: Routes = [
     loadComponent: () => import('./components/shop/shop').then((m) => m.Shop)
   },
 
-  {
-    path: 'categories',
-    loadChildren: () => import('./components/shop/categories/categories.routes').then((m) => m.categoriesRoutes)
+  { path: 'categories',
+    loadChildren: () => import('./components/shop/categories/categories.routes').then((m) => m.categoriesRoutes),
+    data: {
+      getPrerenderParams: () => generatePrerenderParams(194)
+    }
   },
 
   { path: 'contact',
@@ -61,11 +63,17 @@ export const routes: Routes = [
   },
 
   { path: 'login', component: Login },
+
   { path: 'register', component: Register },
+
   { path: 'profile', component: Profile, canActivate: [authGuard] },
+
   { path: 'edit-profile', component: EditProfile, canActivate: [authGuard] },
+
   { path: 'admin', component: Dashboard, canActivate: [adminGuard] },
+
   { path: 'admin/add-product', component: AddProduct, canActivate: [adminGuard] },
+
   { path: 'admin/edit-product/:id', component: EditProduct, canActivate: [adminGuard] },
 
   { path: '**', redirectTo: '' }

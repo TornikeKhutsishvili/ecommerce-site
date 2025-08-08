@@ -63,7 +63,9 @@
   <!-- Products -->
   <div class="row">
 
-    @for( product of filteredProducts(); track $index ) {
+    <!-- control flow syntax -->
+    @let paginated = (filteredProducts() | paginate: { itemsPerPage: itemsPerPage(), currentPage: page() });
+    @for( product of paginated; track $index ) {
       <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
         <div class="card product-card h-100 shadow-sm">
           <img [src]="product.thumbnail"
@@ -90,9 +92,18 @@
     }
 
   </div>
+
+
+
+  <!-- Pagination Bottom -->
+  <div class="d-flex justify-content-center mt-4">
+    <pagination-controls
+      (pageChange)="page.set($event)"
+      class="page"
+    ></pagination-controls>
+  </div>
+
 </div>
-
-
 
 
 <!-- Toast Components -->
