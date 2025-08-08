@@ -38,17 +38,17 @@ export const categoriesRoutes: Routes = [
   },
 
   {
-    path: 'men-shirts',
+    path: 'mens-shirts',
     loadComponent: () => import('./men-shirts/men-shirts').then((m) => m.MenShirts)
   },
 
   {
-    path: 'men-shoes',
+    path: 'mens-shoes',
     loadComponent: () => import('./men-shoes/men-shoes').then((m) => m.MenShoes)
   },
 
   {
-    path: 'men-watches',
+    path: 'mens-watches',
     loadComponent: () => import('./men-watches/men-watches').then((m) => m.MenWatches)
   },
 
@@ -68,7 +68,7 @@ export const categoriesRoutes: Routes = [
   },
 
   {
-    path: 'smartphone',
+    path: 'smartphones',
     loadComponent: () => import('./smartphones/smartphones').then((m) => m.Smartphones)
   },
 
@@ -88,7 +88,7 @@ export const categoriesRoutes: Routes = [
   },
 
   {
-    path: 'top',
+    path: 'tops',
     loadComponent: () => import('./tops/tops').then((m) => m.Tops)
   },
 
