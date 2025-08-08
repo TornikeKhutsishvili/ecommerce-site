@@ -1,0 +1,30 @@
+<div class="container mt-4">
+
+  <h2 class="text-center mb-4">
+    🏍️ {{ 'Motorcycle' | translate }}
+  </h2>
+
+  <div class="row">
+    @for( product of filteredProducts(); track $index ) {
+      <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="card product-card h-100 shadow-sm">
+          <img [src]="product.thumbnail"
+                class="card-img-top"
+                alt="{{ product.title | translate }}"
+          >
+          <div class="card-body d-flex flex-column">
+            <h6 class="card-title">{{ product.title | translate }}</h6>
+            <p class="text-muted mb-1">{{ product.brand }}</p>
+            <p class="fw-bold mb-2">{{ '$' | translate }}{{ product.price }}</p>
+            <a [routerLink]="['/product', product.id]"
+              class="btn btn-outline-primary btn-sm mt-auto"
+            >
+              {{ 'View Details' | translate }}
+            </a>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+</div>
