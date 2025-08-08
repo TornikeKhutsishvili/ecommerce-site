@@ -5,11 +5,17 @@ import {
   ViewChild
 } from '@angular/core';
 
+import {
+  ActivatedRoute,
+  Router,
+  RouterLink,
+  RouterModule
+} from '@angular/router';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductService } from '../../../services/product-service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { DeleteToasts } from '../../toasts/delete-toasts/delete-toasts';
 import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
 import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
@@ -21,6 +27,8 @@ import { AddToasts } from '../../toasts/add-toasts/add-toasts';
   imports: [
     CommonModule,
     FormsModule,
+    RouterLink,
+    RouterModule,
     TranslateModule,
     AcceptToasts,
     AlertToasts,

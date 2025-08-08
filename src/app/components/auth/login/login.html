@@ -1,5 +1,6 @@
 <!-- login.component.html -->
 <div class="container mt-5" style="max-width: 400px;">
+
   <h2 class="mb-4 text-center">
     {{ 'Login' | translate }}
   </h2>
@@ -20,14 +21,16 @@
         email
         #emailInput="ngModel"
       />
-      <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger small">
-        <div *ngIf="emailInput.errors?.['required']">
-          {{ 'Email is required' | translate }}
+      @if( emailInput.invalid && emailInput.touched ) {
+        <div class="text-danger small">
+          @if( emailInput.errors?.['required'] ) {
+            <div>{{ 'Email is required' | translate }}</div>
+          }
+          @if( emailInput.errors?.['email'] ) {
+            <div>{{ 'Please enter a valid email' | translate }}</div>
+          }
         </div>
-        <div *ngIf="emailInput.errors?.['email']">
-          {{ 'Please enter a valid email' | translate }}
-        </div>
-      </div>
+      }
     </div>
 
     <div class="mb-3">
@@ -44,14 +47,16 @@
         minlength="6"
         #passwordInput="ngModel"
       />
-      <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger small">
-        <div *ngIf="passwordInput.errors?.['required']">
-          {{ 'Password is required' | translate }}
+      @if( passwordInput.invalid && passwordInput.touched ) {
+        <div class="text-danger small">
+          @if( passwordInput.errors?.['required'] ) {
+            <div>{{ 'Password is required' | translate }}</div>
+          }
+          @if( passwordInput.errors?.['minlength'] ) {
+            <div>{{ 'Password must be at least 6 characters' | translate }}</div>
+          }
         </div>
-        <div *ngIf="passwordInput.errors?.['minlength']">
-          {{ 'Password must be at least 6 characters' | translate }}
-        </div>
-      </div>
+      }
     </div>
 
     <button

@@ -3,205 +3,236 @@
     {{ 'Checkout' | translate }} 🛍️
   </h2>
 
-  <div *ngIf="cartItems().length > 0; else emptyCart" class="checkout-grid">
+  @if( cartItems().length > 0 ) {
+    <div class="checkout-grid">
 
-    <!-- Left side: Cart items -->
-    <section class="cart-items">
-      <h3 class="text-dark">
-        {{ 'Your Cart' | translate }}
-      </h3>
+      <!-- Left side: Cart items -->
+      <section class="cart-items">
+        <h3 class="text-dark">
+          {{ 'Your Cart' | translate }}
+        </h3>
 
-      <div *ngFor="let item of cartItems()" class="cart-item">
-        <img [src]="item.thumbnail || item.image" alt="{{ item.title }}" class="cart-item-img" />
-        <div class="cart-item-info">
-          <h4>{{ item.title }}</h4>
-          <p class="category">
-            {{ item.category }}
-          </p>
-          <p class="price">
-            ${{ item.price.toFixed(2) }}
-          </p>
+        @for( item of cartItems(); track $index ) {
+          <div class="cart-item">
 
-          <div class="quantity-control">
-            <button (click)="updateQuantity(item.id, item.quantity - 1)"
-                    aria-label="Decrease quantity"
-            >-
-            </button>
-            <span class="text-dark">{{ item.quantity }}</span>
-            <button (click)="updateQuantity(item.id, item.quantity + 1)"
-                    aria-label="Increase quantity"
-            >+
-            </button>
+            <img [src]="item.thumbnail || item.image"
+                  alt="{{ item.title }}"
+                  class="cart-item-img"
+            />
+
+            <div class="cart-item-info">
+              <h4>{{ item.title }}</h4>
+              <p class="category">
+                {{ item.category }}
+              </p>
+              <p class="price">
+                ${{ item.price.toFixed(2) }}
+              </p>
+
+              <div class="quantity-control">
+                <button (click)="updateQuantity(item.id, item.quantity - 1)"
+                        aria-label="Decrease quantity"
+                >-
+                </button>
+                <span class="text-dark">{{ item.quantity }}</span>
+                <button (click)="updateQuantity(item.id, item.quantity + 1)"
+                        aria-label="Increase quantity"
+                >+
+                </button>
+              </div>
+
+              <p class="total">
+                {{ 'Total' | translate }}: ${{ (item.price * item.quantity).toFixed(2) }}
+              </p>
+
+              <button class="remove-btn"
+                      (click)="removeFromCart(item.id)"
+              >
+                {{ 'Remove' | translate }}
+              </button>
+            </div>
+
           </div>
+        }
+      </section>
 
-          <p class="total">
-            {{ 'Total' | translate }}: ${{ (item.price * item.quantity).toFixed(2) }}
-          </p>
+      <!-- Right side: Checkout form -->
+      <section class="checkout-form-section">
+        <h3 class="text-dark text-center">
+          {{ 'Shipping & Payment' | translate }}
+        </h3>
 
-          <button class="remove-btn" (click)="removeFromCart(item.id)">
-            {{ 'Remove' | translate }}
-          </button>
-        </div>
-      </div>
-    </section>
+        <form (ngSubmit)="completeCheckout()" #checkoutForm="ngForm" novalidate>
 
-    <!-- Right side: Checkout form -->
-    <section class="checkout-form-section">
-      <h3 class="text-dark text-center">
-        {{ 'Shipping & Payment' | translate }}
-      </h3>
-
-      <form (ngSubmit)="completeCheckout()" #checkoutForm="ngForm" novalidate>
-
-        <!-- Full Name -->
-        <label for="name">
-          {{ 'Full Name' | translate }} *
-        </label>
-        <input id="name"
-              name="name"
-              type="text"
-              required
-              [(ngModel)]="user.name"
-              #nameInput="ngModel"
-        />
-        <div class="error" *ngIf="nameInput.invalid && nameInput.touched">
-          {{ 'Full Name is required' | translate }}
-        </div>
-
-        <!-- Email -->
-        <label for="email">
-          {{ 'Email' | translate }} *
-        </label>
-        <input id="email"
-              name="email"
-              type="email"
-              required
-              pattern="^[^@]+@[^@]+\.[^@]+$"
-              [(ngModel)]="user.email"
-              #emailInput="ngModel"
-        />
-        <div class="error" *ngIf="emailInput.invalid && emailInput.touched">
-          <div *ngIf="emailInput.errors?.['required']">
-            {{ 'Email is required' | translate }}
-          </div>
-          <div *ngIf="emailInput.errors?.['pattern']">
-            {{ 'Invalid email format' | translate }}
-          </div>
-        </div>
-
-        <!-- Shipping Address -->
-        <label for="address">
-          {{ 'Shipping Address' | translate }} *
-        </label>
-        <input id="address"
-              name="address"
-              type="text"
-              required
-              [(ngModel)]="user.address"
-              #addressInput="ngModel"
-        />
-        <div class="error" *ngIf="addressInput.invalid && addressInput.touched">
-          {{ 'Shipping Address is required' | translate }}
-        </div>
-
-        <!-- Payment Method -->
-        <label for="paymentMethod">
-          {{ 'Payment Method' | translate }} *
-        </label>
-        <select id="paymentMethod"
-                name="paymentMethod"
-                [(ngModel)]="paymentMethod"
-                (ngModelChange)="onPaymentMethodChange($event)"
-        >
-          <option value="Cash on Delivery">{{ 'Cash on Delivery' | translate }}</option>
-          <option value="PayPal">{{ 'PayPal' | translate }}</option>
-          <option value="Credit Card">{{ 'Credit Card' | translate }}</option>
-        </select>
-
-        <!-- Conditional payment fields -->
-        <div *ngIf="paymentMethod() === 'Credit Card'" class="payment-credit-card">
-          <label for="cardNumber">
-            {{ 'Card Number' | translate }} *
-          </label>
-          <input id="cardNumber"
-                name="cardNumber"
+          <!-- Full Name -->
+          <label for="name">{{ 'Full Name' | translate }} *</label>
+          <input id="name"
+                name="name"
                 type="text"
-                maxlength="19"
-                placeholder="1234-5678-9012-3456"
                 required
-                [(ngModel)]="cardNumber"
-                #cardNumberInput="ngModel"
-                (input)="formatCardNumber()"
+                [(ngModel)]="user.name"
+                #nameInput="ngModel"
           />
-          <div class="error" *ngIf="cardNumberInput.invalid && cardNumberInput.touched">
-            {{ 'Card Number is required' | translate }}
-          </div>
+          @if( nameInput.invalid && nameInput.touched ) {
+            <div class="error">
+              {{ 'Full Name is required' | translate }}
+            </div>
+          }
 
-          <label for="expiryDate">
-            {{ 'Expiry Date' | translate }} *
-          </label>
-          <input id="expiryDate"
-                name="expiryDate"
-                type="month"
-                required
-                [(ngModel)]="expiryDate"
-                #expiryDateInput="ngModel"
-          />
-          <div class="error" *ngIf="expiryDateInput.invalid && expiryDateInput.touched">
-            {{ 'Expiry Date is required' | translate }}
-          </div>
-
-          <label for="cvv">
-            {{ 'CVV' | translate }} *
-          </label>
-          <input id="cvv"
-                name="cvv"
-                type="text"
-                maxlength="3"
-                placeholder="123"
-                required
-                [(ngModel)]="cvv"
-                #cvvInput="ngModel"
-          />
-          <div class="error" *ngIf="cvvInput.invalid && cvvInput.touched">
-            {{ 'CVV is required' | translate }}
-          </div>
-        </div>
-
-        <div *ngIf="paymentMethod() === 'PayPal'" class="payment-paypal">
-          <label for="paypalEmail">
-            {{ 'PayPal Email' | translate }} *
-          </label>
-          <input id="paypalEmail"
-                name="paypalEmail"
+          <!-- Email -->
+          <label for="email">{{ 'Email' | translate }} *</label>
+          <input id="email"
+                name="email"
                 type="email"
-                placeholder="you@example.com"
-                required [(ngModel)]="paypalEmail"
-                #paypalEmailInput="ngModel"
+                required
+                pattern="^[^@]+@[^@]+\.[^@]+$"
+                [(ngModel)]="user.email"
+                #emailInput="ngModel"
           />
-          <div class="error" *ngIf="paypalEmailInput.invalid && paypalEmailInput.touched">
-            {{ 'PayPal email is required' | translate }}
-          </div>
+          @if( emailInput.invalid && emailInput.touched ) {
+            <div class="error">
+              @if( emailInput.errors?.['required'] ) {
+                <div>{{ 'Email is required' | translate }}</div>
+              }
+              @if( emailInput.errors?.['pattern'] ) {
+                <div>{{ 'Invalid email format' | translate }}</div>
+              }
+            </div>
+          }
+
+          <!-- Shipping Address -->
+          <label for="address">{{ 'Shipping Address' | translate }} *</label>
+          <input id="address"
+                name="address"
+                type="text"
+                required
+                [(ngModel)]="user.address"
+                #addressInput="ngModel"
+          />
+          @if( addressInput.invalid && addressInput.touched ){
+            <div class="error">
+              {{ 'Shipping Address is required' | translate }}
+            </div>
+          }
+
+          <!-- Payment Method -->
+          <label for="paymentMethod">{{ 'Payment Method' | translate }} *</label>
+          <select id="paymentMethod"
+                  name="paymentMethod"
+                  [(ngModel)]="paymentMethod"
+                  (ngModelChange)="onPaymentMethodChange($event)"
+          >
+            <option value="Cash on Delivery">{{ 'Cash on Delivery' | translate }}</option>
+            <option value="PayPal">{{ 'PayPal' | translate }}</option>
+            <option value="Credit Card">{{ 'Credit Card' | translate }}</option>
+          </select>
+
+          <!-- Conditional payment fields -->
+          @if( paymentMethod() === 'Credit Card' ) {
+            <div class="payment-credit-card">
+              <label for="cardNumber">{{ 'Card Number' | translate }} *</label>
+              <input id="cardNumber"
+                    name="cardNumber"
+                    type="text"
+                    maxlength="19"
+                    placeholder="1234-5678-9012-3456"
+                    required
+                    [(ngModel)]="cardNumber"
+                    #cardNumberInput="ngModel"
+                    (input)="formatCardNumber()"
+              />
+              @if( cardNumberInput.invalid && cardNumberInput.touched ) {
+                <div class="error">
+                  {{ 'Card Number is required' | translate }}
+                </div>
+              }
+
+              <label for="expiryDate">{{ 'Expiry Date' | translate }} *</label>
+              <input id="expiryDate"
+                    name="expiryDate"
+                    type="month"
+                    required
+                    [(ngModel)]="expiryDate"
+                    #expiryDateInput="ngModel"
+              />
+              @if( expiryDateInput.invalid && expiryDateInput.touched ){
+                <div class="error">
+                  {{ 'Expiry Date is required' | translate }}
+                </div>
+              }
+
+              <label for="cvv">{{ 'CVV' | translate }} *</label>
+              <input id="cvv"
+                    name="cvv"
+                    type="text"
+                    maxlength="3"
+                    placeholder="123"
+                    required
+                    [(ngModel)]="cvv"
+                    #cvvInput="ngModel"
+              />
+              @if( cvvInput.invalid && cvvInput.touched ) {
+                <div class="error">
+                  {{ 'CVV is required' | translate }}
+                </div>
+              }
+            </div>
+          }
+
+          @if( paymentMethod() === 'PayPal' ) {
+            <div class="payment-paypal">
+              <label for="paypalEmail">{{ 'PayPal Email' | translate }} *</label>
+              <input id="paypalEmail"
+                    name="paypalEmail"
+                    type="email"
+                    placeholder="you@example.com"
+                    required [(ngModel)]="paypalEmail"
+                    #paypalEmailInput="ngModel"
+              />
+              @if( paypalEmailInput.invalid && paypalEmailInput.touched ) {
+                <div class="error">
+                  {{ 'PayPal email is required' | translate }}
+                </div>
+              }
+            </div>
+          }
+
+          @if( paymentMethod() === 'Cash on Delivery' ) {
+            <div class="payment-cash">
+              <p>{{ 'You will pay upon delivery.' | translate }}</p>
+            </div>
+          }
+
+          <button type="submit" [disabled]="checkoutForm.invalid" class="btn-submit">
+            {{ 'Complete Checkout' | translate }}
+          </button>
+        </form>
+
+        <div class="total-price">
+          <h4>
+            {{ 'Total' | translate }}: ${{ totalPrice().toFixed(2) }}
+          </h4>
         </div>
 
-        <div *ngIf="paymentMethod() === 'Cash on Delivery'" class="payment-cash">
-          <p>{{ 'You will pay upon delivery.' | translate }}</p>
-        </div>
+        <a [routerLink]="['/cart']"
+            class="btn-back"
+        >
+          {{ 'Back to Cart' | translate }}
+        </a>
+      </section>
+    </div>
+  } @else {
 
-        <button type="submit" [disabled]="checkoutForm.invalid" class="btn-submit">
-          {{ 'Complete Checkout' | translate }}
-        </button>
-      </form>
+    <p>
+      {{ 'Your cart is empty. Add some products!' | translate }}
+    </p>
+    <a [routerLink]="['/']"
+        class="btn-back-home"
+    >
+      {{ 'Back to Home' | translate }}
+    </a>
 
-      <div class="total-price">
-        <h4>{{ 'Total' | translate }}: ${{ totalPrice().toFixed(2) }}</h4>
-      </div>
-
-      <a [routerLink]="['/cart']" class="btn-back">
-        {{ 'Back to Cart' | translate }}
-      </a>
-    </section>
-  </div>
+  }
 
 
   <!-- Toast Components -->
@@ -209,12 +240,5 @@
   <app-accept-toasts class="mt-3" #acceptToast></app-accept-toasts>
   <app-delete-toasts #deleteToast></app-delete-toasts>
 
-
-  <ng-template #emptyCart>
-    <p>{{ 'Your cart is empty. Add some products!' | translate }}</p>
-    <a [routerLink]="['/']" class="btn-back-home">
-      {{ 'Back to Home' | translate }}
-    </a>
-  </ng-template>
 
 </div>

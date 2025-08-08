@@ -1,6 +1,12 @@
-<div class="toast-container" *ngIf="showToast()">
-  <div class="toast toast-delete">
-    <span>{{ message() }}</span>
-    <button class="close-btn" (click)="closeToast()">✖</button>
+@if( showToast() ) {
+  <div class="toast-container">
+    <div class="toast toast-delete">
+      <span>{{ message() }}</span>
+      <button class="close-btn"
+              (click)="closeToast()"
+      >
+        ✖
+      </button>
+    </div>
   </div>
-</div>
+}

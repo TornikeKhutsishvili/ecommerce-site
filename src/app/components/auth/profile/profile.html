@@ -1,7 +1,19 @@
 <div class="container">
-    <div *ngIf="auth.currentUser() as user">
-        <h2>{{ user.name }}{{ "'s Profile" | translate }}</h2>
-        <p>{{ 'Email' | translate }}: {{ user.email }}</p>
-        <p>{{ 'Role' | translate }}: {{ user.role }}</p>
-    </div>
+
+    <!-- control-flow syntax -->
+    @let user = auth.currentUser();
+    @if( user ) {
+
+        <div>
+            <h2>{{ user.name }}{{ "'s Profile" | translate }}</h2>
+            <p>{{ 'Email' | translate }}: {{ user.email }}</p>
+            <p>{{ 'Role' | translate }}: {{ user.role }}</p>
+        </div>
+
+    } @else {
+        <p>empty!</p>
+    }
+
 </div>
+
+<!-- auth.currentUser() as user -->

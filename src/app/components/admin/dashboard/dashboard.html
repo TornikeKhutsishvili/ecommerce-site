@@ -1,52 +1,64 @@
 <div class="container mt-4">
 
   <h2>🛠 {{ 'Admin Dashboard' | translate }}</h2>
-  <a routerLink="/admin/add-product" class="btn btn-primary mb-3">
+  <a [routerLink]="['/admin/add-product']"
+      class="btn btn-primary mb-3"
+  >
     ➕ {{ 'Add Product' | translate }}
   </a>
 
-  <table class="table table-bordered table-hover" *ngIf="!loading; else loadingTpl">
-    <thead class="table-dark">
-      <tr>
-        <th>{{ 'ID' | translate }}</th>
-        <th>{{ 'Image' | translate }}</th>
-        <th>{{ 'Title' | translate }}</th>
-        <th>{{ 'Price' | translate }}</th>
-        <th style="width: 150px;">
-          {{ 'Actions' | translate }}
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let product of products()">
-        <td>{{ product.id }}</td>
-        <td><img [src]="product.image" alt="img" width="50"></td>
-        <td>{{ product.title }}</td>
-        <td>{{ product.price | currency }}</td>
-        <td>
-          <a class="btn btn-warning btn-sm"
-            [routerLink]="['/admin/edit-product', product().id]"
-          >
-            ✏ {{ 'Edit' | translate }}
-          </a>
-          <button class="btn btn-danger btn-sm"
-                  (click)="deleteProduct(product.id)"
-          >
-            {{ 'Delete' | translate }}
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  @if( !loading() ) {
 
+    <table class="table table-bordered table-hover">
 
+      <!-- table head -->
+      <thead class="table-dark">
+        <tr>
+          <th>{{ 'ID' | translate }}</th>
+          <th>{{ 'Image' | translate }}</th>
+          <th>{{ 'Title' | translate }}</th>
+          <th>{{ 'Price' | translate }}</th>
+          <th style="width: 150px;">
+            {{ 'Actions' | translate }}
+          </th>
+        </tr>
+      </thead>
 
-  <!-- toasts -->
-  <app-delete-toasts #deleteToast></app-delete-toasts>
+      <!-- table body -->
+      <tbody>
+        @for( product of products(); track $index ) {
+          <tr>
+            <td>{{ product.id }}</td>
+            <td><img [src]="product.image" alt="img" width="50"></td>
+            <td>{{ product.title }}</td>
+            <td>{{ product.price | currency }}</td>
+            <td>
+              <a class="btn btn-warning btn-sm"
+                [routerLink]="['/admin/edit-product', product().id]"
+              >
+                ✏ {{ 'Edit' | translate }}
+              </a>
+              <button class="btn btn-danger btn-sm"
+                      (click)="deleteProduct(product.id)"
+              >
+                {{ 'Delete' | translate }}
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
 
+    </table>
 
-  <ng-template #loadingTpl>
+  } @else {
+
     <p>{{ 'Loading products' | translate }}...</p>
-  </ng-template>
+
+  }
 
 </div>
+
+
+
+<!-- toasts -->
+<app-delete-toasts #deleteToast></app-delete-toasts>

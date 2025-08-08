@@ -10,89 +10,98 @@
 
 
   <!-- Product Layout -->
-  <div class="row g-4" *ngIf="paginatedProducts().length > 0; else noProducts">
-    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12"
-        *ngFor="let product of filteredProducts() | paginate: { itemsPerPage: itemsPerPage(), currentPage: page() }"
-    >
-      <div class="card border-0 shadow-sm h-100 product-card">
-        <!-- Product Image -->
-        <div class="position-relative overflow-hidden">
-          <img
-            [src]="product.thumbnail || product.image"
-            class="card-img-top img-fluid product-img"
-            alt="{{ product.title | translate }}"
-          />
-          <!-- Discount Badge -->
-          <span *ngIf="product.discountPercentage"
-                class="badge bg-danger position-absolute top-0 start-0 m-2 px-3 py-2"
-          >
-            -{{ product.discountPercentage }}%
-          </span>
-        </div>
+  @if( paginatedProducts().length > 0 ){
 
-        <!-- Product Body -->
-        <div class="card-body text-center d-flex flex-column justify-content-between">
-          <div>
-            <h5 class="card-title fw-semibold text-truncate">
-              {{ product.title | translate }}
-            </h5>
-            <p class="text-muted small mb-2">
-              {{ product.brand | translate }}
-            </p>
+    <div class="row g-4">
 
-            <div class="mb-3">
-              <span class="fw-bold fs-5 text-primary">
-                {{ '$' | translate }}{{ product.price }}
-              </span>
-              <span *ngIf="product.discountPercentage"
-                    class="text-muted text-decoration-line-through ms-2"
-              >
-                {{ '$' | translate }}{{ (product.price / (1 - product.discountPercentage / 100)).toFixed(2) }}
-              </span>
+      <!-- control flow syntax -->
+      @let paginated = (filteredProducts() | paginate: { itemsPerPage: itemsPerPage(), currentPage: page() });
+      @for ( product of paginated; track $index ) {
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+          <div class="card border-0 shadow-sm h-100 product-card">
+            <!-- Product Image -->
+            <div class="position-relative overflow-hidden">
+              <img
+                [src]="product.thumbnail || product.image"
+                class="card-img-top img-fluid product-img"
+                alt="{{ product.title | translate }}"
+              />
+              <!-- Discount Badge -->
+              @if( product.discountPercentage ) {
+                <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-3 py-2">
+                  -{{ product.discountPercentage }}%
+                </span>
+              }
             </div>
 
-            <!-- Rating -->
-            <div class="mb-3">
-              <ng-container *ngFor="let star of [1,2,3,4,5]">
-                <i class="bi"
-                    [ngClass]="{
-                      'bi-star-fill text-warning': star <= product.rating,
-                      'bi-star text-secondary': star > product.rating
-                    }">
-                </i>
-              </ng-container>
-              <span class="text-muted small ms-2">
-                ({{ product.rating }})
-              </span>
+            <!-- Product Body -->
+            <div class="card-body text-center d-flex flex-column justify-content-between">
+              <div>
+                <h5 class="card-title fw-semibold text-truncate">
+                  {{ product.title | translate }}
+                </h5>
+                <p class="text-muted small mb-2">
+                  {{ product.brand | translate }}
+                </p>
+
+                <div class="mb-3">
+                  <span class="fw-bold fs-5 text-primary">
+                    {{ '$' | translate }}{{ product.price }}
+                  </span>
+                  @if( product.discountPercentage ) {
+                    <span class="text-muted text-decoration-line-through ms-2">
+                      {{ '$' | translate }}{{ (product.price / (1 - product.discountPercentage / 100)).toFixed(2) }}
+                    </span>
+                  }
+                </div>
+
+                <!-- Rating -->
+                <div class="mb-3">
+                  @for( star of [1,2,3,4,5]; track $index ) {
+                    <ng-container>
+                      <i class="bi"
+                          [ngClass]="{
+                            'bi-star-fill text-warning': star <= product.rating,
+                            'bi-star text-secondary': star > product.rating
+                          }">
+                      </i>
+                    </ng-container>
+                  }
+                  <span class="text-muted small ms-2">
+                    ({{ product.rating }})
+                  </span>
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div>
+                <a [routerLink]="['/product', product.id]"
+                  class="btn btn-outline-primary w-100 mb-2"
+                >
+                  {{ 'View Details' | translate }}
+                </a>
+                <button type="button"
+                        class="btn btn-primary w-100"
+                        (click)="addToCart(product)"
+                >
+                  🛒 {{ 'Add to Cart' | translate }}
+                </button>
+              </div>
             </div>
           </div>
-
-          <!-- Actions -->
-          <div>
-            <a [routerLink]="['/product', product.id]"
-              class="btn btn-outline-primary w-100 mb-2"
-            >
-              {{ 'View Details' | translate }}
-            </a>
-            <button type="button"
-                    class="btn btn-primary w-100"
-                    (click)="addToCart(product)"
-            >
-              🛒 {{ 'Add to Cart' | translate }}
-            </button>
-          </div>
         </div>
-      </div>
+      }
+
     </div>
-  </div>
 
+  } @else {
 
-  <!-- No Products Template -->
-  <ng-template #noProducts>
     <p class="text-center text-muted mt-5">
       {{ 'No products found. Please try another category.' | translate }}
     </p>
-  </ng-template>
+
+  }
+
 
 
   <!-- Cart Info -->
@@ -106,6 +115,7 @@
       {{ 'View Cart' | translate }}
     </a>
   </div>
+
 
 
   <!-- Pagination Bottom -->

@@ -12,7 +12,9 @@
     <div class="col-lg-6 mb-4 d-flex flex-column contact-left">
       <!-- Get in Touch -->
       <div class="mb-2">
-        <h5>{{ 'Get in Touch' | translate }}</h5>
+        <h5>
+          {{ 'Get in Touch' | translate }}
+        </h5>
         <p>
           {{ 'We’d love to hear from you! Fill out the form or reach us at:' | translate }}
         </p>
@@ -74,11 +76,11 @@
           <label for="from_name" class="form-label">
             {{ 'Name' | translate }}
           </label>
-          <div class="error mb-1"
-              *ngIf="myForm.controls.from_name.invalid && myForm.controls.from_name.touched"
-          >
-            <small>{{ 'Name_is_required' | translate }}</small>
-          </div>
+          @if( myForm.controls.from_name.invalid && myForm.controls.from_name.touched ) {
+            <div class="error mb-1">
+              <small>{{ 'Name_is_required' | translate }}</small>
+            </div>
+          }
           <input
             id="from_name"
             type="text"
@@ -94,11 +96,11 @@
           <label for="user_email" class="form-label">
             {{ 'Email' | translate }}
           </label>
-          <div class="error mb-1"
-              *ngIf="myForm.controls.user_email.invalid && myForm.controls.user_email.touched"
-          >
-            <small>{{ 'Please_enter_a_valid_email' | translate }}</small>
-          </div>
+          @if( myForm.controls.user_email.invalid && myForm.controls.user_email.touched ) {
+            <div class="error mb-1">
+              <small>{{ 'Please_enter_a_valid_email' | translate }}</small>
+            </div>
+          }
           <input
             id="user_email"
             type="email"
@@ -114,11 +116,11 @@
           <label for="message" class="form-label">
             {{ 'Message' | translate }}
           </label>
-          <div class="error mb-1"
-              *ngIf="myForm.controls.message.invalid && myForm.controls.message.touched"
-          >
-            <small>{{ 'Message_is_required' | translate }}</small>
-          </div>
+          @if( myForm.controls.message.invalid && myForm.controls.message.touched ) {
+            <div class="error mb-1">
+              <small>{{ 'Message_is_required' | translate }}</small>
+            </div>
+          }
           <textarea
             id="message"
             class="form-control"
@@ -144,11 +146,9 @@
     </div>
 
 
-
     <!-- toasts -->
     <app-accept-toasts #acceptToast></app-accept-toasts>
     <app-alert-toasts #alertToast></app-alert-toasts>
 
   </div>
-
 </div>

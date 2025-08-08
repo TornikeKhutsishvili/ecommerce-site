@@ -1,6 +1,6 @@
 <!-- navbar -->
 <nav class="navbar navbar-expand-lg main-navbar"
-  [ngClass]="isDarkMode() ? 'navbar-dark bg-dark' : 'navbar-light bg-light'"
+    [ngClass]="isDarkMode() ? 'navbar-dark bg-dark' : 'navbar-light bg-light'"
 >
 
   <div class="container">
@@ -72,43 +72,47 @@
         <!-- Cart -->
         <a [routerLink]="['/cart']" class="btn btn-outline-primary position-relative cart-btn">
           🛒
-          <span class="cart-badge" *ngIf="cartItemCount() > 0">
-            {{ cartItemCount() }}
-          </span>
+          @if( cartItemCount() > 0 ) {
+            <span class="cart-badge">
+              {{ cartItemCount() }}
+            </span>
+          }
         </a>
 
 
         <!-- Search -->
-        <div class="search-box"
-          *ngIf="currentUrl() !== '/shop' && currentUrl() !== '/contact'"
-        >
-          <input type="text"
-            class="form-control"
-            placeholder="{{ 'Search...' | translate }}"
-            (input)="onSearch($event)"
-          >
-        </div>
+        @if( currentUrl() !== '/shop' && currentUrl() !== '/contact' ) {
+          <div class="search-box">
+            <input type="text"
+              class="form-control"
+              placeholder="{{ 'Search...' | translate }}"
+              (input)="onSearch($event)"
+            >
+          </div>
+        }
 
 
         <!-- Auth Links -->
         <div class="auth-links d-flex align-items-center">
-          <ng-container *ngIf="!isLoggedIn(); else loggedInLinks">
-            <a [routerLink]="['/login']"
-              class="text-decoration-none me-2"
-              >{{ 'Login' | translate }}
-            </a>
+          @if( !isLoggedIn() ) {
 
-            <span>|</span>
+            <ng-container>
+              <a [routerLink]="['/login']"
+                class="text-decoration-none me-2"
+                >{{ 'Login' | translate }}
+              </a>
 
-            <a [routerLink]="['/register']"
-              class="text-decoration-none ms-2"
-            >
-              {{ 'Register' | translate}}
-            </a>
-          </ng-container>
+              <span>|</span>
 
+              <a [routerLink]="['/register']"
+                class="text-decoration-none ms-2"
+              >
+                {{ 'Register' | translate}}
+              </a>
+            </ng-container>
 
-          <ng-template #loggedInLinks>
+          } @else {
+
             <a [routerLink]="['/profile']"
               class="text-decoration-none me-2 btn btn-primary text-light"
             >
@@ -123,7 +127,8 @@
             >
               {{ 'Logout' | translate }}
             </a>
-          </ng-template>
+
+          }
         </div>
 
 
@@ -142,15 +147,14 @@
         <ul class="text-decoration-none list-unstyled m-0">
           <li class="language-switcher">
             <select [(ngModel)]="selectedLanguage"
-              (ngModelChange)="changeLanguage($event)"
-              title="language"
+                    (ngModelChange)="changeLanguage($event)"
+                    title="language"
             >
-              <option *ngFor="let lang of languages"
-                [value]="lang.code"
-                (change)="closeMenu()"
-              >
-                {{ lang.code | translate }}
-              </option>
+              @for( lang of languages; track $index ) {
+                <option [value]="lang.code" (change)="closeMenu()">
+                  {{ lang.code | translate }}
+                </option>
+              }
             </select>
           </li>
         </ul>
@@ -158,14 +162,15 @@
 
 
         <!-- Filter -->
-        <select *ngIf="currentUrl() !== '/contact'"
-          class="form-select" name="select"
-          (change)="filterByPrice($event, products())"
-        >
-          <option value="">{{ 'Price' | translate}}</option>
-          <option value="low">{{ 'Low → High' | translate }}</option>
-          <option value="high">{{ 'High → Low' | translate }}</option>
-        </select>
+        @if( currentUrl() !== '/contact' ) {
+          <select class="form-select" name="select"
+                  (change)="filterByPrice($event, products())"
+          >
+            <option value="">{{ 'Price' | translate}}</option>
+            <option value="low">{{ 'Low → High' | translate }}</option>
+            <option value="high">{{ 'High → Low' | translate }}</option>
+          </select>
+        }
 
       </div>
 
