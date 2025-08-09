@@ -73,9 +73,24 @@ export class Cart implements OnInit, OnDestroy {
     });
 
 
-    // Filter
+
+    // All Products Filter
+    // this.filterSubscription = this.filterService.filteredProducts$.subscribe(filtered => {
+    //   this.filteredProducts.set(filtered);
+    // });
+
+
+
+    // Subscribe to filtered products updates from the service
     this.filterSubscription = this.filterService.filteredProducts$.subscribe(filtered => {
-      this.filteredProducts.set(filtered);
+      if (filtered.length > 0) {
+        const categoryFiltered = filtered.filter(p =>
+          this.cartItems().some(prod => prod.id === p.id)
+        );
+        this.filteredProducts.set(categoryFiltered);
+      } else {
+        this.filteredProducts.set(this.cartItems());
+      }
     });
 
   }
