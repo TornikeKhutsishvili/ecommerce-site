@@ -111,6 +111,39 @@ export class ProductList implements OnInit {
   }
 
 
+  stars = signal<any>([1, 2, 3, 4, 5]);
+
+  // getStarClass(productRating: number, star: number): string {
+  //   const fullStars = Math.floor(productRating);
+  //   const decimal = productRating - fullStars;
+
+  //   if (star <= fullStars) {
+  //     return 'bi-star-fill text-warning';
+  //   }
+
+  //   if (star === fullStars + 1) {
+  //     if (decimal >= 0.75) {
+  //       return 'bi-star-fill text-warning';
+  //     }
+  //     if (decimal >= 0.25) {
+  //       return 'bi-star-half text-warning';
+  //     }
+  //   }
+
+  //   return 'bi-star text-secondary';
+  // }
+
+  getStarFillPercent(productRating: number, star: number): number {
+    if (star <= Math.floor(productRating)) {
+      return 100;
+    }
+    if (star === Math.floor(productRating) + 1) {
+      return (productRating - Math.floor(productRating)) * 100;
+    }
+
+    return 0;
+  }
+
 
   // Example of how to apply a filter or change data
   applyPriceFilter(price: number) {
