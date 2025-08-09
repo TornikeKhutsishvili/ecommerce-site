@@ -71,18 +71,23 @@ export class Checkout implements OnInit, AfterViewInit {
     effect(() => {
       const sticky = this.isSticky();
       const el = this.checkoutSection.nativeElement;
+
       if (sticky) {
+
         el.style.position = 'fixed';
         el.style.top = '0';
         el.style.right = '0';
         el.style.backgroundColor = 'white';
         el.style.overflowY = 'auto';
+
       } else {
+
         el.style.position = '';
         el.style.top = '';
         el.style.height = '';
         el.style.backgroundColor = '';
         el.style.overflowY = '';
+
       }
     });
   }
@@ -137,6 +142,7 @@ export class Checkout implements OnInit, AfterViewInit {
   }
 
 
+
   // calculate Total Price
   calculateTotalPrice(): void {
     const total = this.cartItems().reduce((acc, item) => {
@@ -147,11 +153,13 @@ export class Checkout implements OnInit, AfterViewInit {
   }
 
 
+
   // Handle payment method selection change
   onPaymentMethodChange(newMethod: string) {
     this.paymentMethod.set(newMethod);
     this.acceptToast.openToast(`Order submitted with payment method: ${this.paymentMethod()}`);
   }
+
 
 
   // Format the card number as the user types
@@ -167,6 +175,7 @@ export class Checkout implements OnInit, AfterViewInit {
     // Update the cardNumber with formatted value
     this.cardNumber.set(formattedCardNumber);
   }
+
 
 
   // update Quantity
@@ -185,6 +194,7 @@ export class Checkout implements OnInit, AfterViewInit {
     this.calculateTotalPrice();
     this.cartService.updateQuantity(productId, newQuantity);
   }
+
 
 
   // Product remove from cart
