@@ -145,6 +145,10 @@
 
   /* Checkout Form */
   .checkout-form-section {
+    transition: all 0.3s ease;
+    height: max-content;
+    z-index: 1000;
+
     h3 {
       font-weight: 600;
       font-size: 1.8rem;

@@ -1,5 +1,7 @@
 import {
+  AfterViewInit,
   Component,
+  ElementRef,
   inject,
   OnInit,
   Signal,
@@ -16,6 +18,7 @@ import { DeleteToasts } from '../toasts/delete-toasts/delete-toasts';
 import { AcceptToasts } from "../toasts/accept-toasts/accept-toasts";
 import { AlertToasts } from "../toasts/alert-toasts/alert-toasts";
 import { AddToasts } from '../toasts/add-toasts/add-toasts';
+import { effect } from '@angular/core';
 
 @Component({
   selector: 'app-checkout',
@@ -33,7 +36,7 @@ import { AddToasts } from '../toasts/add-toasts/add-toasts';
   templateUrl: './checkout.html',
   styleUrls: ['./checkout.scss']
 })
-export class Checkout implements OnInit {
+export class Checkout implements OnInit, AfterViewInit {
 
   paymentMethod = signal('Cash_on_Delivery');
   cartItems = signal<any[]>([]);
@@ -41,7 +44,51 @@ export class Checkout implements OnInit {
 
   private cartService = inject(CartService);
 
-  // ViewChilds
+  // ViewChild shippingHeader and checkoutSection
+  @ViewChild('shippingHeader', { static: true }) shippingHeader!: ElementRef<HTMLElement>;
+  @ViewChild('checkoutSection', { static: true }) checkoutSection!: ElementRef<HTMLElement>;
+
+  isSticky = signal(false);
+
+  ngAfterViewInit(): void {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        this.isSticky.set(!entry.isIntersecting);
+      },
+      {
+        root: null,
+        threshold: 0,
+        rootMargin: '0px'
+      }
+    );
+
+    observer.observe(this.shippingHeader.nativeElement);
+
+    // Side effect: when isSticky be change, check and activated fixed styles
+    this.createStickyEffect();
+  }
+  private createStickyEffect() {
+    effect(() => {
+      const sticky = this.isSticky();
+      const el = this.checkoutSection.nativeElement;
+      if (sticky) {
+        el.style.position = 'fixed';
+        el.style.top = '0';
+        el.style.right = '0';
+        el.style.backgroundColor = 'white';
+        el.style.overflowY = 'auto';
+      } else {
+        el.style.position = '';
+        el.style.top = '';
+        el.style.height = '';
+        el.style.backgroundColor = '';
+        el.style.overflowY = '';
+      }
+    });
+  }
+
+
+  // ViewChilds all Toasts
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
   @ViewChild('alertToast') alertToast!: AlertToasts;
@@ -68,7 +115,6 @@ export class Checkout implements OnInit {
   cvv = signal<string>('');
   paypalEmail = signal<string>('');
 
-  constructor() {}
 
 
   // ngOnInit
@@ -76,7 +122,6 @@ export class Checkout implements OnInit {
     this.cartItems.set(this.cartService.getCartItems() || []);
     this.calculateTotalPrice();
   }
-
 
 
   // Complete the checkout process  // Form submission handler
@@ -92,7 +137,6 @@ export class Checkout implements OnInit {
   }
 
 
-
   // calculate Total Price
   calculateTotalPrice(): void {
     const total = this.cartItems().reduce((acc, item) => {
@@ -103,13 +147,11 @@ export class Checkout implements OnInit {
   }
 
 
-
   // Handle payment method selection change
   onPaymentMethodChange(newMethod: string) {
     this.paymentMethod.set(newMethod);
     this.acceptToast.openToast(`Order submitted with payment method: ${this.paymentMethod()}`);
   }
-
 
 
   // Format the card number as the user types
@@ -125,7 +167,6 @@ export class Checkout implements OnInit {
     // Update the cardNumber with formatted value
     this.cardNumber.set(formattedCardNumber);
   }
-
 
 
   // update Quantity
@@ -144,7 +185,6 @@ export class Checkout implements OnInit {
     this.calculateTotalPrice();
     this.cartService.updateQuantity(productId, newQuantity);
   }
-
 
 
   // Product remove from cart
