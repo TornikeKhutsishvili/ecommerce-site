@@ -36,6 +36,7 @@ import { DeleteToasts } from "../toasts/delete-toasts/delete-toasts";
 })
 export class Cart implements OnInit, OnDestroy {
 
+  // variables
   cartItems = signal<any[]>([]);
   filteredProducts = signal<any[]>([]);
   totalPrice = signal<number>(0);
