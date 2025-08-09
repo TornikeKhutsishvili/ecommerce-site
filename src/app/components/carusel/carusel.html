@@ -25,8 +25,21 @@
               loading="lazy"
         />
         <div class="carousel-caption d-none d-md-block">
+
           <h1>{{ item.title | translate }}</h1>
           <p>{{ 'Price' | translate }}: {{ '$' | translate }}{{ item.price }}</p>
+
+          @for( star of stars(); track $index ) {
+            <div class="star-container">
+              <i class="bi bi-star text-secondary"></i>
+              <i class="bi bi-star-fill text-warning filled-star"
+                [style.width.%]="getStarFillPercent(item.rating, star)"
+                [style.overflow]="'hidden'"
+                [style.position]="'absolute'"
+              ></i>
+            </div>
+          }
+
         </div>
       </div>
     }
@@ -51,5 +64,6 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">{{ 'Next' | translate }}</span>
   </button>
+
 
 </div>

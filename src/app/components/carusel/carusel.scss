@@ -25,6 +25,22 @@
       font-size: 1.2rem;
       color: #f0f0f0;
     }
+
+    .star-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .filled-star {
+        position: absolute;
+        top: 0;
+        left: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        height: 100%;
+        pointer-events: none;
+    }
+
   }
 
   .carousel-control-prev,

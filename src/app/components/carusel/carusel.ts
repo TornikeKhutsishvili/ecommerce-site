@@ -33,11 +33,26 @@ export class Carusel {
   // current Index
   currentIndex = signal(0);
 
+  // stars
+  stars = signal<any>([1, 2, 3, 4, 5]);
 
   // current product
   currentProduct = computed(() =>
     this.products.length > 0 ? this.products[this.currentIndex()] : null
   );
+
+
+  // get star fill percent
+  getStarFillPercent(productRating: number, star: number): number {
+    if (star <= Math.floor(productRating)) {
+      return 100;
+    }
+    if (star === Math.floor(productRating) + 1) {
+      return (productRating - Math.floor(productRating)) * 100;
+    }
+
+    return 0;
+  }
 
 
   // next slide
