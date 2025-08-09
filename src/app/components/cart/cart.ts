@@ -65,19 +65,33 @@ export class Cart implements OnInit, OnDestroy {
     this.filterService.setFilteredProducts(items);
 
 
-    // Search
-    this.searchService.searchQuery$.subscribe(query => {
-      const filtered = this.filterService.getFilteredProducts()
-        .filter(product => product.title.toLowerCase().includes(query.toLowerCase()));
-      this.filteredProducts.set(filtered);
-    });
-
+    // All Products Search
+    // this.searchService.searchQuery$.subscribe(query => {
+    //   const filtered = this.filterService.getFilteredProducts()
+    //     .filter(product => product.title.toLowerCase().includes(query.toLowerCase()));
+    //   this.filteredProducts.set(filtered);
+    // });
 
 
     // All Products Filter
     // this.filterSubscription = this.filterService.filteredProducts$.subscribe(filtered => {
     //   this.filteredProducts.set(filtered);
     // });
+
+
+
+    // search products
+    this.searchService.searchQuery$.subscribe(query => {
+      if (!query.trim()) {
+        this.filteredProducts.set(this.cartItems()); // All on empty
+      } else {
+        const filtered = this.cartItems().filter(product =>
+          product.title.toLowerCase().includes(query.toLowerCase())
+        );
+
+        this.filteredProducts.set(filtered);
+      }
+    });
 
 
 
