@@ -32,6 +32,7 @@ export class ProductDetails implements OnInit {
 
   // variables
   product = signal<any>('');
+  stars = signal<any>([1, 2, 3, 4, 5]);
 
   private location = inject(Location);
   private route = inject(ActivatedRoute);
@@ -57,6 +58,18 @@ export class ProductDetails implements OnInit {
 
   }
 
+
+  // get star fill percent
+  getStarFillPercent(productRating: number, star: number): number {
+    if (star <= Math.floor(productRating)) {
+      return 100;
+    }
+    if (star === Math.floor(productRating) + 1) {
+      return (productRating - Math.floor(productRating)) * 100;
+    }
+
+    return 0;
+  }
 
 
   // add product to cart

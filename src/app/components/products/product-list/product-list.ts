@@ -43,6 +43,7 @@ export class ProductList implements OnInit {
   cartItemCount = signal<number>(0);
   page = signal<number>(1);
   itemsPerPage = signal<number>(12);
+  stars = signal<any>([1, 2, 3, 4, 5]);
 
   private filterSubscription: Subscription | null = null;
 
@@ -111,8 +112,7 @@ export class ProductList implements OnInit {
   }
 
 
-  stars = signal<any>([1, 2, 3, 4, 5]);
-
+  // get star class
   // getStarClass(productRating: number, star: number): string {
   //   const fullStars = Math.floor(productRating);
   //   const decimal = productRating - fullStars;
@@ -133,6 +133,8 @@ export class ProductList implements OnInit {
   //   return 'bi-star text-secondary';
   // }
 
+
+  // get star fill percent
   getStarFillPercent(productRating: number, star: number): number {
     if (star <= Math.floor(productRating)) {
       return 100;

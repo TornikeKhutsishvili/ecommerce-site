@@ -25,7 +25,7 @@
 
         <!-- Rating -->
         <div class="mb-3">
-          @for( star of [1,2,3,4,5]; track $index ) {
+          <!-- @for( star of [1,2,3,4,5]; track $index ) {
             <ng-container>
               <i class="bi"
                 [ngClass]="{
@@ -34,6 +34,17 @@
                 }">
               </i>
             </ng-container>
+          } -->
+
+          @for( star of stars(); track $index ) {
+            <div class="star-container">
+              <i class="bi bi-star text-secondary"></i>
+              <i class="bi bi-star-fill text-warning filled-star"
+                [style.width.%]="getStarFillPercent(product().rating, star)"
+                [style.overflow]="'hidden'"
+                [style.position]="'absolute'"
+              ></i>
+            </div>
           }
           <span class="text-muted small ms-2">
             ({{ product().rating | translate }})

@@ -3,3 +3,18 @@
     height: 420px;
   }
 }
+
+.star-container {
+    position: relative;
+    display: inline-block;
+}
+
+.filled-star {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 100%;
+    pointer-events: none;
+}
