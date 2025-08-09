@@ -27,7 +27,7 @@
                 {{ item.category | translate }}
               </p>
               <p class="price">
-                ${{ item.price.toFixed(2) }}
+                {{ '$' | translate }}{{ item.price.toFixed(2) }}
               </p>
 
               <div class="quantity-control">
@@ -43,7 +43,7 @@
               </div>
 
               <p class="total">
-                {{ 'Total' | translate }}: ${{ (item.price * item.quantity).toFixed(2) }}
+                {{ 'Total' | translate }}: {{ '$' | translate }}{{ (item.price * item.quantity).toFixed(2) }}
               </p>
 
               <button class="remove-btn"
@@ -211,7 +211,7 @@
 
         <div class="total-price">
           <h4>
-            {{ 'Total' | translate }}: ${{ totalPrice().toFixed(2) }}
+            {{ 'Total' | translate }}: {{ '$' | translate }}{{ totalPrice().toFixed(2) }}
           </h4>
         </div>
 
