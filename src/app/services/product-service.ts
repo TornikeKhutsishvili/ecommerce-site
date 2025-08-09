@@ -28,7 +28,7 @@ export class ProductService {
 
   // get product carusel
   getProductCarusel(): Observable<dummyProductModel[]> {
-    return this.http.get<DummyApiResponse>(this.apiUrl).pipe(
+    return this.http.get<DummyApiResponse>(this.apiUrl + this.limit).pipe(
       map(res => res.products.slice(0, 7))
     );
   }
@@ -36,7 +36,7 @@ export class ProductService {
 
   // get random product carusel
   getRandomProductCarusel(): Observable<dummyProductModel[]> {
-    return this.http.get<DummyApiResponse>(this.apiUrl).pipe(
+    return this.http.get<DummyApiResponse>(this.apiUrl + this.limit).pipe(
       map(res => {
         const products = res.products;
 
