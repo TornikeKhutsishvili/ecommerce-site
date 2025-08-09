@@ -9,11 +9,14 @@ import { EditProfile } from './components/auth/edit-profile/edit-profile';
 import { AddProduct } from './components/admin/add-product/add-product';
 import { EditProduct } from './components/admin/edit-product/edit-product';
 
+
 // get products id
 function generatePrerenderParams(count: number): { id: string }[] {
   return Array.from({ length: count }, (_, i) => ({ id: (i + 1).toString() }));
 }
 
+
+// routes
 export const routes: Routes = [
 
   { path: '',
