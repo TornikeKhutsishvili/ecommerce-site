@@ -8,12 +8,15 @@ import { Profile } from './components/auth/profile/profile';
 import { EditProfile } from './components/auth/edit-profile/edit-profile';
 import { AddProduct } from './components/admin/add-product/add-product';
 import { EditProduct } from './components/admin/edit-product/edit-product';
+import { DashboardAnalytics } from './components/admin/dashboard-analytics/dashboard-analytics';
+
 
 
 // get products id
 function generatePrerenderParams(count: number): { id: string }[] {
   return Array.from({ length: count }, (_, i) => ({ id: (i + 1).toString() }));
 }
+
 
 
 // routes
@@ -74,6 +77,8 @@ export const routes: Routes = [
   { path: 'edit-profile', component: EditProfile, canActivate: [authGuard] },
 
   { path: 'admin', component: Dashboard, canActivate: [adminGuard] },
+
+  { path: 'admin/dashboard-analytics', component: DashboardAnalytics, canActivate: [adminGuard] },
 
   { path: 'admin/add-product', component: AddProduct, canActivate: [adminGuard] },
 
