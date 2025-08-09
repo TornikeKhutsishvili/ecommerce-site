@@ -12,16 +12,16 @@ interface User {
 })
 export class AuthService {
 
+  // variables
   isLoggedIn = signal(false);
   currentUser = signal<User | null>(null);
 
-
-  private translate = inject(TranslateService);
 
 
   constructor() {
     this.loadFromStorage();
   }
+
 
 
   // login
@@ -44,10 +44,12 @@ export class AuthService {
   }
 
 
+
   // logout
   register(name: string, email: string, password: string) {
     alert(`Account created for ${name}`);
   }
+
 
 
   // logout
@@ -57,6 +59,7 @@ export class AuthService {
     localStorage.removeItem('auth_user');
     localStorage.removeItem('auth_logged_in');
   }
+
 
 
   // load from storage
@@ -69,6 +72,8 @@ export class AuthService {
       this.currentUser.set(JSON.parse(storedUser));
     }
   }
+
+
 
 
   // Admin
