@@ -75,7 +75,7 @@ export class ProductList implements OnInit {
     // filtered products
     this.productService.getProducts().subscribe((data: any) => {
       this.products.set(data);
-      console.log(this.products());
+      // console.log(this.products());
 
       // Check if there are already filtered products in the service
       this.filteredProducts.set(this.filterService.getFilteredProducts());
