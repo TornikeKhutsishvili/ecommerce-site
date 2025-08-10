@@ -52,9 +52,9 @@ export class ProductList implements OnInit {
   private cartService = inject(CartService);
   private searchService = inject(SearchService);
 
+
   // ViewChild addToast
   @ViewChild('addToast') addToast!: AddToasts;
-
 
 
   // how many product should be one page

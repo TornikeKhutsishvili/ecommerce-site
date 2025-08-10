@@ -50,8 +50,8 @@ export class Navigation implements AfterViewInit, OnInit {
 
   isblack = signal<string>('');
   islight = signal<string>('');
-  sun = '☀';
-  moon = '🌙';
+  sun = signal('☀');
+  moon = signal('🌙');
 
   private router = inject(Router);
   currentUrl = signal<string>('');

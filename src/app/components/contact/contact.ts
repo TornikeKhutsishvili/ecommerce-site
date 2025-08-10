@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   OnInit,
+  signal,
   ViewChild
 } from '@angular/core';
 
@@ -41,7 +42,8 @@ export class Contact implements OnInit {
   ngOnInit(): void {}
 
   // map Url
-  mapUrl: SafeResourceUrl;
+  // mapUrl: SafeResourceUrl;
+  mapUrl = signal<SafeResourceUrl | null>(null);
 
   // ViewChilds
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
@@ -54,9 +56,8 @@ export class Contact implements OnInit {
     private sanitizer: DomSanitizer,
     private emailService: EmailService
   ) {
-    this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d174502.75368507477!2d44.76021740605285!3d41.71802463422026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40440cd7e64f626b%3A0x61d084ede2576ea3!2sTbilisi!5e1!3m2!1sen!2sge!4v1741282248376!5m2!1sen!2sge'
-    );
+    const rawUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d174502.75368507477!2d44.76021740605285!3d41.71802463422026!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40440cd7e64f626b%3A0x61d084ede2576ea3!2sTbilisi!5e1!3m2!1sen!2sge!4v1741282248376!5m2!1sen!2sge';
+    this.mapUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl));
   }
 
 
