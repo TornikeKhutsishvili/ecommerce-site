@@ -95,6 +95,8 @@
         @if( currentUrl() !== '/shop' && currentUrl() !== '/contact' ) {
           <div class="search-box">
             <input type="text"
+              id="search"
+              name="search"
               class="form-control"
               placeholder="{{ 'Search...' | translate }}"
               (input)="onSearch($event)"
