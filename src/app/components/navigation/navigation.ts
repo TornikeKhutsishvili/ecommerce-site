@@ -1,5 +1,3 @@
-import { CommonModule } from '@angular/common';
-
 import {
   AfterViewInit,
   Component,
@@ -13,11 +11,17 @@ import {
   ViewChild
 } from '@angular/core';
 
+import {
+  Router,
+  RouterLink,
+  RouterModule
+} from '@angular/router';
+
+import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product-service';
 import { FilterService } from '../../services/filter-service';
 import { SearchService } from '../../services/search-service';
 import { ThemeService } from '../../services/theme-service';
-import { Router, RouterLink, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
 import { Collapse } from 'bootstrap';
@@ -76,6 +80,7 @@ export class Navigation implements AfterViewInit, OnInit {
     { code: 'en', name: 'English' },
     { code: 'ge', name: 'ქართული' }
   ];
+
 
   constructor() {
 

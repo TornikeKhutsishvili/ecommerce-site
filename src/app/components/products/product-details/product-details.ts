@@ -6,8 +6,12 @@ import {
   ViewChild
 } from '@angular/core';
 
+import {
+  ActivatedRoute,
+  RouterModule
+} from '@angular/router';
+
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CartService } from '../../../services/cart-service';
 import { ProductService } from '../../../services/product-service';
 import { FormsModule } from '@angular/forms';
@@ -39,7 +43,6 @@ export class ProductDetails implements OnInit {
   private cartService = inject(CartService);
   private productService = inject(ProductService);
 
-
   // ViewChild addToast
   @ViewChild('addToast') addToast!: AddToasts;
 
@@ -59,6 +62,7 @@ export class ProductDetails implements OnInit {
   }
 
 
+
   // get star fill percent
   getStarFillPercent(productRating: number, star: number): number {
     if (star <= Math.floor(productRating)) {
@@ -72,11 +76,13 @@ export class ProductDetails implements OnInit {
   }
 
 
+
   // add product to cart
   addToCart() {
     this.cartService.addToCart(this.product);
     this.addToast.openToast('Product added to cart! 🛒');
   }
+
 
 
   // back

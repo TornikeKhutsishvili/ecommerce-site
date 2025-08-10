@@ -1,8 +1,18 @@
+import {
+  Component,
+  signal
+} from '@angular/core';
+
+import {
+  RouterLink,
+  RouterModule
+} from '@angular/router';
+
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
 import { About } from "../about/about";
 import { TranslateModule } from '@ngx-translate/core';
+
+
 
 @Component({
   selector: 'app-footer',

@@ -7,13 +7,17 @@ import {
   ViewChild
 } from '@angular/core';
 
+import {
+  RouterLink,
+  RouterModule
+} from '@angular/router';
+
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { FilterService } from '../../../services/filter-service';
 import { ProductService } from '../../../services/product-service';
 import { CartService } from '../../../services/cart-service';
 import { SearchService } from '../../../services/search-service';
-import { RouterLink, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TranslateModule } from '@ngx-translate/core';

@@ -1,5 +1,3 @@
-import { CommonModule } from '@angular/common';
-
 import {
   Component,
   OnInit,
@@ -15,7 +13,12 @@ import {
   Validators
 } from '@angular/forms';
 
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import {
+  DomSanitizer,
+  SafeResourceUrl
+} from '@angular/platform-browser';
+
+import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { EmailService } from '../../services/email-service';
 import { AlertToasts } from '../toasts/alert-toasts/alert-toasts';
