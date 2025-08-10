@@ -10,14 +10,10 @@ import { AddProduct } from './components/admin/add-product/add-product';
 import { EditProduct } from './components/admin/edit-product/edit-product';
 import { DashboardAnalytics } from './components/admin/dashboard-analytics/dashboard-analytics';
 
-
-
 // get products id
 function generatePrerenderParams(count: number): { id: string }[] {
   return Array.from({ length: count }, (_, i) => ({ id: (i + 1).toString() }));
 }
-
-
 
 // routes
 export const routes: Routes = [
@@ -58,7 +54,11 @@ export const routes: Routes = [
   },
 
   { path: 'categories',
-    loadChildren: () => import('./components/shop/categories/categories.routes').then((m) => m.categoriesRoutes),
+    loadComponent: () => import('./components/categories/categories').then((m) => m.Categories)
+  },
+
+  { path: 'categories-child',
+    loadChildren: () => import('./components/categories/categories-child/categories.routes').then((m) => m.categoriesRoutes),
     data: {
       getPrerenderParams: () => generatePrerenderParams(194)
     }

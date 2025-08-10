@@ -1,0 +1,34 @@
+<div class="container mt-4">
+
+  <!-- Categories Cards -->
+  <div class="row mb-5">
+
+    @for( categ of categories(); track $index ) {
+
+      <div class="col-lg-3 col-md-4 col-sm-6 mb-4" style="cursor: pointer">
+        <div
+          class="card h-100 shadow-sm category-card"
+          [routerLink]="['/categories-child', categ]"
+        >
+          <img
+            [src]="categoryImages[categ]"
+            class="card-img-top"
+            alt="{{ categ | translate }}"
+            loading="lazy"
+          />
+          <div class="card-body text-center">
+            <h5 class="card-title mb-3">
+              {{ categ | titlecase | translate }}
+          </h5>
+            <p class="text-muted">
+              {{ 'Browse' | translate }}
+          </p>
+          </div>
+        </div>
+      </div>
+
+    }
+
+  </div>
+
+</div>
