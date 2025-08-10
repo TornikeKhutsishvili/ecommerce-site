@@ -1,6 +1,7 @@
 import {
   Component,
   inject,
+  OnInit,
   signal,
   ViewChild
 } from '@angular/core';
@@ -36,7 +37,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './shop.html',
   styleUrls: ['./shop.scss']
 })
-export class Shop {
+export class Shop implements OnInit {
 
   // variables
   products = signal<dummyProductModel[]>([]);
