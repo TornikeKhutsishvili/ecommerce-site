@@ -1,6 +1,7 @@
 <!-- registeration -->
 <div class="container mt-5" style="max-width: 400px;">
 
+  <!-- title -->
   <h2 class="mb-4 text-center">
     {{ 'Register' | translate }}
   </h2>
@@ -17,6 +18,7 @@
         id="name"
         name="name"
         class="form-control"
+        placeholder="{{ 'Full Name' | translate }}"
         [(ngModel)]="name"
         required
         minlength="2"
@@ -43,6 +45,7 @@
         id="email"
         name="email"
         class="form-control"
+        placeholder="{{ 'Email' | translate }}"
         [(ngModel)]="email"
         required
         email
@@ -69,6 +72,7 @@
         id="password"
         name="password"
         class="form-control"
+        placeholder="{{ 'Password' | translate }}"
         [(ngModel)]="password"
         required
         minlength="6"
@@ -95,6 +99,7 @@
         id="confirmPassword"
         name="confirmPassword"
         class="form-control"
+        placeholder="{{ 'Confirm Password' | translate }}"
         [(ngModel)]="confirmPassword"
         required
         #confirmPasswordInput="ngModel"

@@ -1,9 +1,19 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  Inject,
+  Injectable,
+  PLATFORM_ID,
+  signal
+} from '@angular/core';
+
+import {
+  isPlatformBrowser
+} from '@angular/common';
+
 
 interface User {
   name: string;
   email: string;
+  password: string;
   role: 'user' | 'admin';
 }
 
@@ -12,73 +22,104 @@ interface User {
 })
 export class AuthService {
 
-  // variables
+  // Signals
   isLoggedIn = signal(false);
   currentUser = signal<User | null>(null);
 
+  private readonly STORAGE_KEY = 'auth_user';
 
-
-  constructor() {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.loadFromStorage();
   }
 
-
-
-  // login
+  /** Login */
   login(email: string, password: string): boolean {
+    const storedUser = this.getUserByEmail(email);
+    if (!storedUser) return false;
 
-    const user: User = {
-      name: email.split('@')[0],
+    if (storedUser.password === password) {
+      this.safeSetItem(this.STORAGE_KEY, JSON.stringify(storedUser));
+      this.isLoggedIn.set(true);
+      this.currentUser.set(storedUser);
+      return true;
+    }
+    return false;
+  }
+
+  /** Register */
+  register(name: string, email: string, password: string): boolean {
+    if (this.getUserByEmail(email)) return false;
+
+    const newUser: User = {
+      name,
       email,
+      password,
       role: email === 'admin@example.com' ? 'admin' : 'user'
     };
 
-    this.isLoggedIn.set(true);
-    this.currentUser.set(user);
-
-    localStorage.setItem('auth_user', JSON.stringify(user));
-    localStorage.setItem('auth_logged_in', 'true');
-
+    this.safeSetItem(email, JSON.stringify(newUser));
     return true;
-
   }
 
-
-
-  // logout
-  register(name: string, email: string, password: string) {
-    alert(`Account created for ${name}`);
-  }
-
-
-
-  // logout
-  logout() {
+  /** Logout */
+  logout(): void {
+    this.safeRemoveItem(this.STORAGE_KEY);
     this.isLoggedIn.set(false);
     this.currentUser.set(null);
-    localStorage.removeItem('auth_user');
-    localStorage.removeItem('auth_logged_in');
   }
 
+  /** Check if logged in */
+  checkLogin(): boolean {
+    return this.isLoggedIn();
+  }
 
+  /** Get current user */
+  getUser(): User | null {
+    return this.currentUser();
+  }
 
-  // load from storage
-  loadFromStorage() {
-    const loggedIn = localStorage.getItem('auth_logged_in') === 'true';
-    const storedUser = localStorage.getItem('auth_user');
+  /** Search by email */
+  getUserByEmail(email: string): User | null {
+    const data = this.safeGetItem(email);
+    return data ? JSON.parse(data) : null;
+  }
 
-    if (loggedIn && storedUser) {
+  /** Load from storage */
+  private loadFromStorage() {
+    const storedUserStr = this.safeGetItem(this.STORAGE_KEY);
+    if (storedUserStr) {
+      const user: User = JSON.parse(storedUserStr);
       this.isLoggedIn.set(true);
-      this.currentUser.set(JSON.parse(storedUser));
+      this.currentUser.set(user);
     }
   }
 
-
-
-
-  // Admin
+  /** Is admin? */
   isAdmin(): boolean {
     return this.currentUser()?.role === 'admin';
+  }
+
+  /** Safe storage access */
+  private safeGetItem(key: string): string | null {
+    if (isPlatformBrowser(this.platformId)) {
+      try { return localStorage.getItem(key); }
+      catch { return null; }
+    }
+    return null;
+  }
+
+  private safeSetItem(key: string, value: string): void {
+    if (isPlatformBrowser(this.platformId)) {
+      try { localStorage.setItem(key, value); }
+      catch {}
+    }
+  }
+
+  private safeRemoveItem(key: string): void {
+    if (isPlatformBrowser(this.platformId)) {
+      try { localStorage.removeItem(key); }
+      catch {}
+    }
   }
 
 }

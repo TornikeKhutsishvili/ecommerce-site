@@ -5,12 +5,22 @@ import {
   ViewChild
 } from '@angular/core';
 
+import {
+  Router,
+  RouterLink,
+  RouterModule
+} from '@angular/router';
+
+import {
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
+
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterLink, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
 import { TranslateModule } from '@ngx-translate/core';
 import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
+import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
 
 @Component({
   selector: 'app-register',
@@ -20,6 +30,7 @@ import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
     FormsModule,
     RouterLink,
     RouterModule,
+    ReactiveFormsModule,
     TranslateModule,
     AlertToasts
 ],
@@ -28,22 +39,20 @@ import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
 })
 export class Register {
 
-  // VariableS
+  // Variables
   name = signal('');
   email = signal('');
   password = signal('');
   confirmPassword = signal('');
 
-  // injects
   private router = inject(Router);
   private auth = inject(AuthService);
 
 
-  // ViewChild alertToast
+  // ViewChild acceptToast and alertToast
+  @ViewChild('acceptToast') acceptToast!: AcceptToasts;
   @ViewChild('alertToast') alertToast!: AlertToasts;
 
-
-  // password Mismatch
   get passwordMismatch() {
     return this.password() !== this.confirmPassword();
   }
@@ -51,14 +60,25 @@ export class Register {
 
   // onSubmit
   onSubmit() {
+
     if (this.passwordMismatch) {
       this.alertToast.openToast('Passwords do not match!');
       return;
     }
+
     if (this.name() && this.email() && this.password()) {
-      this.auth.register(this.name(), this.email(), this.password());
-      this.router.navigate(['/login']);
+
+      const success = this.auth.register(this.name(), this.email(), this.password());
+
+      if (success) {
+        this.router.navigate(['/login']);
+        this.acceptToast.openToast('User is register!');
+      } else {
+        this.alertToast.openToast('User with this email already exists!');
+      }
+
     }
+
   }
 
 }

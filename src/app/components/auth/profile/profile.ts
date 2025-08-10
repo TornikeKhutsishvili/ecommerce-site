@@ -1,8 +1,18 @@
+import {
+  Component,
+  inject,
+  OnInit
+} from '@angular/core';
+
+import {
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
+
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth-service';
 import { TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -10,11 +20,36 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     TranslateModule
   ],
   templateUrl: './profile.html',
   styleUrls: ['./profile.scss']
 })
-export class Profile {
-    auth = inject(AuthService);
+export class Profile implements OnInit {
+
+  // varibles
+  auth = inject(AuthService);
+  private router = inject(Router);
+
+  user: any;
+
+  // ngOnInit
+  ngOnInit(): void {
+    this.user = this.auth.getUser();
+  }
+
+
+  // logout
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+  }
+
+
+  // goToEditProfile
+  goToEditProfile(): void {
+    this.router.navigate(['/edit-profile']);
+  }
+
 }

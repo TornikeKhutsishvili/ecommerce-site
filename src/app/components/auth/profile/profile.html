@@ -1,19 +1,21 @@
-<div class="container">
+<div class="profile-container-main">
 
-    <!-- control-flow syntax -->
-    @let user = auth.currentUser();
-    @if( user ) {
+  <!-- control-flow syntax -->
+  @let user = auth.currentUser();
+  @if( user ) {
 
-        <div>
-            <h2>{{ user.name }}{{ "'s Profile" | translate }}</h2>
-            <p>{{ 'Email' | translate }}: {{ user.email }}</p>
-            <p>{{ 'Role' | translate }}: {{ user.role }}</p>
-        </div>
+  <div class="profile-container">
+    <h2>Welcome, {{ user?.name || 'User' }}! 👋</h2>
+    <p>Your email: <strong>{{ user?.email }}</strong></p>
 
-    } @else {
+    <div class="profile-actions">
+      <button type="button" (click)="goToEditProfile()" class="me-1">✏️ Edit Profile</button>
+      <button type="button" (click)="logout()" class="ms-1">🚪 Logout</button>
+    </div>
+  </div>
+
+  } @else {
         <p>empty!</p>
-    }
+  }
 
 </div>
-
-<!-- auth.currentUser() as user -->

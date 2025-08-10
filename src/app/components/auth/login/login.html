@@ -1,10 +1,12 @@
 <!-- login.component.html -->
 <div class="container mt-5" style="max-width: 400px;">
 
+  <!-- title -->
   <h2 class="mb-4 text-center">
     {{ 'Login' | translate }}
   </h2>
 
+  <!-- start form -->
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
 
     <div class="mb-3">
@@ -68,6 +70,7 @@
     </button>
 
   </form>
+  <!-- end form -->
 
   <div class="mt-3 text-center">
     <small>
@@ -77,7 +80,9 @@
       </a>
     </small>
   </div>
+
 </div>
+
 
 
 <!-- accept toast -->

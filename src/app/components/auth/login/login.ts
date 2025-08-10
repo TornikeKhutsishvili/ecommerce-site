@@ -5,12 +5,22 @@ import {
   ViewChild
 } from '@angular/core';
 
+import {
+  Router,
+  RouterLink,
+  RouterModule
+} from '@angular/router';
+
+import {
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
+
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterLink, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
 import { TranslateModule } from '@ngx-translate/core';
 import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
+import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +30,7 @@ import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
     FormsModule,
     RouterLink,
     RouterModule,
+    ReactiveFormsModule,
     TranslateModule,
     AcceptToasts
 ],
@@ -28,27 +39,31 @@ import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
 })
 export class Login {
 
-  // Variables
+  // variables
   email = signal('');
   password = signal('');
 
-  // injects
   private router = inject(Router);
   private auth = inject(AuthService);
 
-
-  // ViewChild acceptToast
+  // ViewChild acceptToast and alertToast
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
-
+  @ViewChild('alertToast') alertToast!: AlertToasts;
 
   // onSubmit
   onSubmit() {
     if (this.email() && this.password()) {
+
       const success = this.auth.login(this.email(), this.password());
+
       if (success) {
-        this.acceptToast.openToast(`Welcome back, ${this.email()}!`);
+        const user = this.auth.getUser();
+        this.acceptToast.openToast(`Welcome back, ${user?.name || 'User'}!`);
         this.router.navigate(['/']);
+      } else {
+        this.alertToast.openToast('Invalid email or password!');
       }
+
     }
   }
 
