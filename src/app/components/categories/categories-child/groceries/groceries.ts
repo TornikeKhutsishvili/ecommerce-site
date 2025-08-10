@@ -45,7 +45,10 @@ export class Groceries implements OnInit, OnDestroy {
   private filterService = inject(FilterService);
   private searchService = inject(SearchService);
 
-  productsToShow = signal(12);
+
+  // Show products
+  productsToShow = signal(8);
+
   get visibleProducts() {
     return this.filteredProducts().slice(0, this.productsToShow());
   }
@@ -53,10 +56,7 @@ export class Groceries implements OnInit, OnDestroy {
   showMore() {
     const currentCount = this.productsToShow();
     const filteredCount = this.filteredProducts().length;
-
-    // აქ უნდა გამოვთვალოთ რამდენი პროდუქტი ამოვსათავსოთ ახალ ხაზზე,
     const nextCount = Math.min(currentCount + 8, filteredCount);
-
     this.productsToShow.set(nextCount);
   }
 
