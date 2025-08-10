@@ -13,15 +13,16 @@ import {
 } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterService } from '../../../services/filter-service';
 import { ProductService } from '../../../services/product-service';
 import { CartService } from '../../../services/cart-service';
 import { SearchService } from '../../../services/search-service';
-import { FormsModule } from '@angular/forms';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { TranslateModule } from '@ngx-translate/core';
 import { AddToasts } from '../../toasts/add-toasts/add-toasts';
+import { dummyProductModel } from '../../../models/product.model';
 
 @Component({
   selector: 'app-product-list',
@@ -160,7 +161,7 @@ export class ProductList implements OnInit {
 
 
   // cart
-  addToCart(product: any): void {
+  addToCart(product: dummyProductModel): void {
     this.cartService.addToCart(product); // add product in cart
     this.cartItemCount.set(this.cartService.getCartItems().length);
     this.addToast.openToast(`${product.title} added to cart! 🛒`);

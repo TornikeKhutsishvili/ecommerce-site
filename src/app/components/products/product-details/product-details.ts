@@ -12,11 +12,11 @@ import {
 } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
+import { Location } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { CartService } from '../../../services/cart-service';
 import { ProductService } from '../../../services/product-service';
-import { FormsModule } from '@angular/forms';
-import { Location } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { AddToasts } from '../../toasts/add-toasts/add-toasts';
 
 @Component({
@@ -42,6 +42,7 @@ export class ProductDetails implements OnInit {
   private route = inject(ActivatedRoute);
   private cartService = inject(CartService);
   private productService = inject(ProductService);
+
 
   // ViewChild addToast
   @ViewChild('addToast') addToast!: AddToasts;
@@ -76,13 +77,12 @@ export class ProductDetails implements OnInit {
   }
 
 
-
   // add product to cart
-  addToCart(product: any): void {
-    this.cartService.addToCart(this.product);
-    this.addToast.openToast(`${product.title, product.id} added to cart! 🛒`);
+  addToCart() {
+    const currentProduct = this.product();
+    this.cartService.addToCart(currentProduct);
+    this.addToast.openToast(`${currentProduct.title} added to cart! 🛒`);
   }
-
 
 
   // back

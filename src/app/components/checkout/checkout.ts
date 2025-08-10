@@ -7,10 +7,14 @@ import {
   ViewChild
 } from '@angular/core';
 
+import {
+  RouterLink,
+  RouterModule
+} from '@angular/router';
+
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart-service';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { DeleteToasts } from '../toasts/delete-toasts/delete-toasts';
 import { AcceptToasts } from "../toasts/accept-toasts/accept-toasts";
@@ -41,8 +45,6 @@ export class Checkout implements OnInit {
 
   private cartService = inject(CartService);
 
-
-
   // ViewChilds all Toasts
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
@@ -71,7 +73,6 @@ export class Checkout implements OnInit {
   paypalEmail = signal<string>('');
 
 
-
   // ngOnInit
   ngOnInit(): void {
     this.cartItems.set(this.cartService.getCartItems() || []);
@@ -92,7 +93,6 @@ export class Checkout implements OnInit {
   }
 
 
-
   // calculate Total Price
   calculateTotalPrice(): void {
     const total = this.cartItems().reduce((acc, item) => {
@@ -103,13 +103,11 @@ export class Checkout implements OnInit {
   }
 
 
-
   // Handle payment method selection change
   onPaymentMethodChange(newMethod: string) {
     this.paymentMethod.set(newMethod);
     this.acceptToast.openToast(`Order submitted with payment method: ${this.paymentMethod()}`);
   }
-
 
 
   // Format the card number as the user types
@@ -125,7 +123,6 @@ export class Checkout implements OnInit {
     // Update the cardNumber with formatted value
     this.cardNumber.set(formattedCardNumber);
   }
-
 
 
   // update Quantity
@@ -144,7 +141,6 @@ export class Checkout implements OnInit {
     this.calculateTotalPrice();
     this.cartService.updateQuantity(productId, newQuantity);
   }
-
 
 
   // Product remove from cart

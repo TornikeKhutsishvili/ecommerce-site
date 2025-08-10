@@ -1,5 +1,9 @@
+import {
+  Component,
+  signal
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,6 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./about.scss']
 })
 export class About {
+
 
   // companyName
   companyName = signal<string>('TKShop');

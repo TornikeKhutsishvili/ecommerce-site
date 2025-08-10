@@ -1,5 +1,3 @@
-import { CommonModule } from '@angular/common';
-
 import {
   Component,
   inject,
@@ -9,8 +7,13 @@ import {
   ViewChild
 } from '@angular/core';
 
+import {
+  RouterLink,
+  RouterModule
+} from '@angular/router';
+
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterModule } from '@angular/router';
 import { CartService } from '../../services/cart-service';
 import { SearchService } from '../../services/search-service';
 import { FilterService } from '../../services/filter-service';
@@ -48,8 +51,10 @@ export class Cart implements OnInit, OnDestroy {
   private searchService = inject(SearchService);
 
 
+
   // ViewChild deleteToast
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
+
 
 
   // ngOnInit

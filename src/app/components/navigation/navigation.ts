@@ -17,16 +17,20 @@ import {
   RouterModule
 } from '@angular/router';
 
+import {
+  TranslateModule,
+  TranslateService
+} from '@ngx-translate/core';
+
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product-service';
 import { FilterService } from '../../services/filter-service';
 import { SearchService } from '../../services/search-service';
 import { ThemeService } from '../../services/theme-service';
-import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth-service';
-import { Collapse } from 'bootstrap';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Language } from '../../services/language';
+import { Collapse } from 'bootstrap';
 
 @Component({
   selector: 'app-navigation',
@@ -103,7 +107,6 @@ export class Navigation implements AfterViewInit, OnInit {
   }
 
 
-
   ngOnInit(): void {
     this.updateNavbarTheme();
 
@@ -119,13 +122,11 @@ export class Navigation implements AfterViewInit, OnInit {
   }
 
 
-
   // change language
   changeLanguage(lang: string): void {
     this.languageService.setLanguage(lang);
     this.selectedLanguage = lang;
   }
-
 
 
   // change theme
@@ -134,7 +135,6 @@ export class Navigation implements AfterViewInit, OnInit {
     this.isDarkMode.set(this.themeService.getSavedTheme() === 'dark');
     this.updateNavbarTheme();
   }
-
 
 
   // update navbar theme
@@ -153,13 +153,11 @@ export class Navigation implements AfterViewInit, OnInit {
   }
 
 
-
   // update navbar theme
   toggleMenu(): void {
     this.isMenuOpen.set(!this.isMenuOpen());
     this.collapseInstance.toggle();
   }
-
 
 
   // close menu
@@ -169,13 +167,11 @@ export class Navigation implements AfterViewInit, OnInit {
   }
 
 
-
   // search
   onSearch(event: any) {
     const query = event.target.value.trim();
     this.searchService.updateSearchQuery(query);
   }
-
 
 
   // filter by price
@@ -194,7 +190,6 @@ export class Navigation implements AfterViewInit, OnInit {
 
     this.filterService.setFilteredProducts(sortedProducts);
   }
-
 
 
   // logout

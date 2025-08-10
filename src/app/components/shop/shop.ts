@@ -1,5 +1,6 @@
 import {
   Component,
+  computed,
   inject,
   OnInit,
   signal,
@@ -11,16 +12,20 @@ import {
   RouterModule
 } from '@angular/router';
 
+import {
+  Subject,
+  takeUntil
+} from 'rxjs';
+
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { ProductService } from '../../services/product-service';
 import { CartService } from '../../services/cart-service';
 import { dummyProductModel } from '../../models/product.model';
 import { FilterService } from '../../services/filter-service';
-import { Subscription } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
 import { AddToasts } from '../toasts/add-toasts/add-toasts';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-shop',
@@ -46,12 +51,10 @@ export class Shop implements OnInit {
   page = signal<number>(1);
   itemsPerPage = signal<number>(12);
 
-
   // ViewChild to addToast
   @ViewChild('addToast') addToast!: AddToasts;
 
-  private filterSubscription: Subscription | null = null;
-
+  private destroy$ = new Subject<void>();
   private productService = inject(ProductService);
   private cartService = inject(CartService);
   private filterService = inject(FilterService);
@@ -60,16 +63,20 @@ export class Shop implements OnInit {
   // ngOnInit
   ngOnInit(): void {
 
-    this.productService.getProducts().subscribe(data => {
-      this.products.set(data);
-      this.filteredProducts.set(data);
-      this.categories.set([...new Set(data.map(p => p.category))]);
-    });
+    this.productService.getProducts()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        this.products.set(data);
+        this.filteredProducts.set(data);
+        this.categories.set([...new Set(data.map(p => p.category))]);
+      });
 
     // Subscribe to filtered products updates from the service
-    this.filterSubscription = this.filterService.filteredProducts$.subscribe((filtered) => {
-      this.filteredProducts.set(filtered);
-    });
+    this.filterService.filteredProducts$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((filtered) => {
+        this.filteredProducts.set(filtered);
+      });
 
   }
 
@@ -80,6 +87,7 @@ export class Shop implements OnInit {
     this.filteredProducts.set(
       this.products().filter(p => p.title.toLowerCase().includes(query))
     );
+    this.page.set(1);
   }
 
 
@@ -89,6 +97,7 @@ export class Shop implements OnInit {
     this.filteredProducts.set(
       category ? this.products().filter(p => p.category === category) : [...this.products()]
     );
+    this.page.set(1);
   }
 
 
@@ -96,14 +105,7 @@ export class Shop implements OnInit {
   applyPriceFilter(price: number) {
     const filtered = this.filterService.filterByPrice(this.products(), price);
     this.filterService.setFilteredProducts(filtered); // Set filtered products in the service
-  }
-
-
-  // ngOnDestroy
-  ngOnDestroy() {
-    if (this.filterSubscription) {
-      this.filterSubscription.unsubscribe();
-    }
+    this.page.set(1);
   }
 
 
@@ -111,6 +113,13 @@ export class Shop implements OnInit {
   addToCart(product: dummyProductModel) {
     this.cartService.addToCart(product);
     this.addToast.openToast(`${product.title} added to cart! 🛒`);
+  }
+
+
+  // ngOnDestroy
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }

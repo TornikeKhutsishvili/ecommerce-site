@@ -6,15 +6,20 @@ import {
   signal
 } from '@angular/core';
 
+import {
+  NavigationEnd,
+  Router,
+  RouterModule
+} from '@angular/router';
+
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ProductList } from "../products/product-list/product-list";
+import { filter, Subscription } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 import { Carusel } from "../carusel/carusel";
 import { ProductService } from '../../services/product-service';
 import { dummyProductModel } from '../../models/product.model';
-import { TranslateModule } from '@ngx-translate/core';
-import { FormsModule } from '@angular/forms';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { filter, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
