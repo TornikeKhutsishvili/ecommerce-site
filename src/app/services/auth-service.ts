@@ -85,7 +85,7 @@ export class AuthService {
   }
 
   /** Load from storage */
-  private loadFromStorage() {
+  public loadFromStorage() {
     const storedUserStr = this.safeGetItem(this.STORAGE_KEY);
     if (storedUserStr) {
       const user: User = JSON.parse(storedUserStr);

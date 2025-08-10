@@ -14,11 +14,11 @@
           type="text"
           id="name"
           name="name"
-          required
           minlength="3"
           [(ngModel)]="usernameValue"
           #nameInput="ngModel"
           placeholder="{{ 'Name' | translate }}"
+          required
         />
         <label for="name">
           {{ 'Name' | translate }}
@@ -47,7 +47,7 @@
           minlength="6"
           [(ngModel)]="passwordValue"
           #passwordInput="ngModel"
-          placeholder=""
+          placeholder=" "
         />
         <label for="password">
           {{ 'New Password' | translate }}
@@ -68,7 +68,7 @@
             name="confirmPassword"
             [(ngModel)]="confirmPasswordValue"
             #confirmPasswordInput="ngModel"
-            placeholder="{{ 'Confirm Password' | translate }}"
+            placeholder=" "
             required
           />
           <label for="confirmPassword">

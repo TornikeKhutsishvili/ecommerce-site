@@ -13,7 +13,6 @@
 
 h2 {
   font-size: 2rem;
-  color: #333;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -69,6 +68,7 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
   transition: all 0.3s ease;
+  color: #000000;
 }
 
 input:hover {
