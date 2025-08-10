@@ -16,23 +16,23 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 })
 export class LanguageSelector {
 
-  public translate = Inject(TranslateService);
+  // public translate = Inject(TranslateService);
 
-  constructor (@Inject(PLATFORM_ID) private platformId: Object) {
-    this.translate.setDefaultLang('en');
+  // constructor (@Inject(PLATFORM_ID) private platformId: Object) {
+  //   this.translate.setDefaultLang('en');
 
-    if (isPlatformBrowser(this.platformId)) {
-      const savedLang = localStorage.getItem('lang');
-      this.translate.use(savedLang || 'en');
-    }
-  }
+  //   if (isPlatformBrowser(this.platformId)) {
+  //     const savedLang = localStorage.getItem('lang');
+  //     this.translate.use(savedLang || 'en');
+  //   }
+  // }
 
-  changeLanguage(langCode: string): void {
-    this.translate.use(langCode);
+  // changeLanguage(langCode: string): void {
+  //   this.translate.use(langCode);
 
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('lang', langCode);
-    }
-  }
+  //   if (isPlatformBrowser(this.platformId)) {
+  //     localStorage.setItem('lang', langCode);
+  //   }
+  // }
 
 }

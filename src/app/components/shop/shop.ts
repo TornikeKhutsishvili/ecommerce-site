@@ -110,7 +110,7 @@ export class Shop implements OnInit {
   // add to cart
   addToCart(product: dummyProductModel) {
     this.cartService.addToCart(product);
-    this.addToast.openToast(`${product.title} added to cart!`);
+    this.addToast.openToast(`${product.title} added to cart! 🛒`);
   }
 
 }

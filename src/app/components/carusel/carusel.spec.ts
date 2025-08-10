@@ -2,13 +2,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Carusel } from './carusel';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
 describe('Carusel', () => {
   let component: Carusel;
   let fixture: ComponentFixture<Carusel>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Carusel]
+      imports: [
+        Carusel,
+        HttpClientTestingModule,
+        TranslateModule.forRoot()
+      ]
     })
     .compileComponents();
 

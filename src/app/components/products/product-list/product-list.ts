@@ -163,7 +163,7 @@ export class ProductList implements OnInit {
   addToCart(product: any): void {
     this.cartService.addToCart(product); // add product in cart
     this.cartItemCount.set(this.cartService.getCartItems().length);
-    this.addToast.openToast('Product added to cart! 🛒');
+    this.addToast.openToast(`${product.title} added to cart! 🛒`);
   }
 
 }

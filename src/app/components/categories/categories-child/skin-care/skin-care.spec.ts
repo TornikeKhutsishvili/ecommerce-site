@@ -2,13 +2,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SkinCare } from './skin-care';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
 describe('SkinCare', () => {
   let component: SkinCare;
   let fixture: ComponentFixture<SkinCare>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SkinCare]
+      imports: [
+        SkinCare,
+        HttpClientTestingModule,
+        TranslateModule.forRoot()
+      ]
     })
     .compileComponents();
 

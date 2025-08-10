@@ -78,9 +78,9 @@ export class ProductDetails implements OnInit {
 
 
   // add product to cart
-  addToCart() {
+  addToCart(product: any): void {
     this.cartService.addToCart(this.product);
-    this.addToast.openToast('Product added to cart! 🛒');
+    this.addToast.openToast(`${product.title, product.id} added to cart! 🛒`);
   }
 
 

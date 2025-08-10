@@ -2,13 +2,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WomensDresses } from './womens-dresses';
 
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TranslateModule } from '@ngx-translate/core';
+
 describe('WomensDresses', () => {
   let component: WomensDresses;
   let fixture: ComponentFixture<WomensDresses>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WomensDresses]
+      imports: [
+        WomensDresses,
+        HttpClientTestingModule,
+        TranslateModule.forRoot()
+      ]
     })
     .compileComponents();
 
