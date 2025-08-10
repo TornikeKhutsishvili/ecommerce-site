@@ -48,7 +48,7 @@ export class MenWatches implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.productService.getProductsByCategory('men-watches')
+    this.productService.getProductsByCategory('mens-watches')
     .pipe(takeUntil(this.destroy$))
     .subscribe(data => {
       this.products.set(data);
@@ -81,7 +81,7 @@ export class MenWatches implements OnInit, OnDestroy {
       .subscribe(filtered => {
         if (filtered.length > 0) {
 
-          const categoryFiltered = filtered.filter(p => p.category === 'men-watches');
+          const categoryFiltered = filtered.filter(p => p.category === 'mens-watches');
           this.filteredProducts.set(categoryFiltered);
 
         } else {
