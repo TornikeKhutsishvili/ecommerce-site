@@ -46,6 +46,22 @@ export class Fragrances implements OnInit, OnDestroy {
   private searchService = inject(SearchService);
 
 
+  productsToShow = signal(12);
+  get visibleProducts() {
+    return this.filteredProducts().slice(0, this.productsToShow());
+  }
+
+  showMore() {
+    const currentCount = this.productsToShow();
+    const filteredCount = this.filteredProducts().length;
+
+    // აქ უნდა გამოვთვალოთ რამდენი პროდუქტი ამოვსათავსოთ ახალ ხაზზე,
+    const nextCount = Math.min(currentCount + 8, filteredCount);
+
+    this.productsToShow.set(nextCount);
+  }
+
+
   ngOnInit(): void {
 
     this.productService.getProductsByCategory('fragrances')

@@ -5,7 +5,8 @@
   </h2>
 
   <div class="row">
-    @for( product of filteredProducts(); track $index ) {
+    <!-- @for( product of filteredProducts(); track $index ) { -->
+    @for( product of visibleProducts; track $index ) {
       <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
         <div class="card product-card h-100 shadow-sm">
           <img [src]="product.thumbnail"
@@ -27,5 +28,13 @@
       </div>
     }
   </div>
+
+  @if(productsToShow() < filteredProducts().length){
+    <div class="text-center">
+      <button class="btn btn-outline-primary btn-sm mt-auto" (click)="showMore()">
+        {{ 'Show more' | translate }}
+      </button>
+    </div>
+  }
 
 </div>
