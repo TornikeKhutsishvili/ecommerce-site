@@ -19,8 +19,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth-service';
 import { TranslateModule } from '@ngx-translate/core';
-import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
 import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
+import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +32,8 @@ import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
     RouterModule,
     ReactiveFormsModule,
     TranslateModule,
-    AcceptToasts
+    AcceptToasts,
+    AlertToasts
 ],
   templateUrl: './login.html',
   styleUrls: ['./login.scss']

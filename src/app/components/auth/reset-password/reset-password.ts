@@ -1,7 +1,8 @@
 import {
   Component,
   inject,
-  signal
+  signal,
+  ViewChild
 } from '@angular/core';
 
 import {
@@ -17,6 +18,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../../services/auth-service';
+import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
 
 @Component({
   selector: 'app-reset-password',
@@ -26,7 +28,8 @@ import { AuthService } from '../../../services/auth-service';
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    TranslateModule
+    TranslateModule,
+    AlertToasts
   ],
   templateUrl: './reset-password.html',
   styleUrls: ['./reset-password.scss']
@@ -42,6 +45,7 @@ export class ResetPassword {
   private auth = inject(AuthService)
   private router = inject(Router);
 
+  @ViewChild('alertToast') alertToast!: AlertToasts;
 
   // reset password
   reset(): void {
@@ -74,6 +78,7 @@ export class ResetPassword {
       this.error.set('Failed to reset password.');
       this.success.set(false);
       console.error(error);
+      this.alertToast.openToast('Failed to reset password.');
     }
   }
 

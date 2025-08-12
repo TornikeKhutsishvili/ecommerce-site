@@ -32,7 +32,8 @@ import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
     RouterModule,
     ReactiveFormsModule,
     TranslateModule,
-    AlertToasts
+    AlertToasts,
+    AcceptToasts
 ],
   templateUrl: './register.html',
   styleUrls: ['./register.scss']
@@ -49,13 +50,17 @@ export class Register {
   private auth = inject(AuthService);
 
 
+
   // ViewChild acceptToast and alertToast
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
   @ViewChild('alertToast') alertToast!: AlertToasts;
 
+
+
   get passwordMismatch() {
     return this.password() !== this.confirmPassword();
   }
+
 
 
   // onSubmit

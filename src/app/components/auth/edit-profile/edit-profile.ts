@@ -2,7 +2,8 @@ import {
   Component,
   inject,
   OnInit,
-  signal
+  signal,
+  ViewChild
 } from '@angular/core';
 
 import {
@@ -18,6 +19,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../../services/auth-service';
+import { AlertToasts } from "../../toasts/alert-toasts/alert-toasts";
 
 @Component({
   selector: 'app-edit-profile',
@@ -27,8 +29,9 @@ import { AuthService } from '../../../services/auth-service';
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
-    TranslateModule
-  ],
+    TranslateModule,
+    AlertToasts
+],
   templateUrl: './edit-profile.html',
   styleUrls: ['./edit-profile.scss']
 })
@@ -53,7 +56,14 @@ export class EditProfile implements OnInit {
   private auth = inject(AuthService);
   private router = inject(Router);
 
+
+  // ViewChild alertToast
+  @ViewChild('alertToast') alertToast!: AlertToasts;
+
+
+  // ng on init
   ngOnInit(): void {
+
     const user = this.auth.getUser();
     if (user) {
       this.username.set(user.name ?? '');
@@ -63,9 +73,13 @@ export class EditProfile implements OnInit {
       this.passwordValue.set('');
       this.confirmPasswordValue.set('');
     }
+
   }
 
+
+  // save
   save(): void {
+
     if (this.usernameValue().trim().length < 3) {
       this.errorMessage.set('Username must be at least 3 characters long.');
       return;
@@ -100,7 +114,7 @@ export class EditProfile implements OnInit {
       return;
     }
 
-    // დავაყენოთ Signal-ებში ბოლო ვალები
+    // Let's set up the latest debts in Signals
     this.username.set(this.usernameValue().trim());
     this.password.set(this.passwordValue() || user.password());
 
@@ -117,16 +131,23 @@ export class EditProfile implements OnInit {
       this.errorMessage.set('');
 
       setTimeout(() => this.router.navigate(['/profile']), 1500);
+
     } catch (error) {
       this.errorMessage.set('Failed to save user data.');
       console.error(error);
+      this.alertToast.openToast(this.errorMessage());
     }
+
   }
 
+
+  // go back to profile
   goBack(): void {
     this.router.navigate(['/profile']);
   }
 
+
+  // toggle password
   togglePassword(): void {
     this.showPassword.set(!this.showPassword());
   }
