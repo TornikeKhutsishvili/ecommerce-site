@@ -1,8 +1,11 @@
 import {
+  AfterViewChecked,
   Component,
+  Inject,
   inject,
   OnDestroy,
   OnInit,
+  PLATFORM_ID,
   signal,
   ViewChild
 } from '@angular/core';
@@ -12,7 +15,11 @@ import {
   RouterModule
 } from '@angular/router';
 
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule,
+  isPlatformBrowser
+} from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart-service';
 import { SearchService } from '../../services/search-service';
@@ -21,6 +28,7 @@ import { Subscription } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { AlertToasts } from "../toasts/alert-toasts/alert-toasts";
 import { DeleteToasts } from "../toasts/delete-toasts/delete-toasts";
+import AOS from 'aos';
 
 @Component({
   selector: 'app-cart',
@@ -37,7 +45,7 @@ import { DeleteToasts } from "../toasts/delete-toasts/delete-toasts";
   templateUrl: './cart.html',
   styleUrls: ['./cart.scss']
 })
-export class Cart implements OnInit, OnDestroy {
+export class Cart implements OnInit, OnDestroy, AfterViewChecked {
 
   // variables
   cartItems = signal<any[]>([]);
@@ -56,9 +64,14 @@ export class Cart implements OnInit, OnDestroy {
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
 
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   // ngOnInit
   ngOnInit(): void {
+
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.init();
+    }
 
     const items = this.cartService.getCartItems();
 
@@ -115,6 +128,13 @@ export class Cart implements OnInit, OnDestroy {
 
   }
 
+
+  // AOS refresh
+  ngAfterViewChecked(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.refresh(); // Reflects changes in animations
+    }
+  }
 
 
   // Update quantity
