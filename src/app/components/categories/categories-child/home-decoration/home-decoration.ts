@@ -11,10 +11,14 @@ import {
   RouterModule
 } from '@angular/router';
 
+import {
+  Subject,
+  takeUntil
+} from 'rxjs';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { Subject, Subscription, takeUntil } from 'rxjs';
 import { dummyProductModel } from '../../../../models/product.model';
 import { ProductService } from '../../../../services/product-service';
 import { FilterService } from '../../../../services/filter-service';
