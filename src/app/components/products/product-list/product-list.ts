@@ -1,8 +1,10 @@
 import {
+  AfterViewChecked,
   Component,
   computed,
   Inject,
   inject,
+  OnDestroy,
   OnInit,
   PLATFORM_ID,
   signal,
@@ -46,7 +48,7 @@ import AOS from 'aos';
   templateUrl: './product-list.html',
   styleUrls: ['./product-list.scss']
 })
-export class ProductList implements OnInit {
+export class ProductList implements OnInit, OnDestroy, AfterViewChecked {
 
   // variables
   products = signal<any[]>([]);

@@ -22,7 +22,7 @@
       <select class="form-select"
               (change)="filterByCategory($event)"
       >
-        <option value="">
+        <option value="all">
           {{ 'All Categories' | translate }}
         </option>
         @for( categ of categories(); track $index ){

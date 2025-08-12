@@ -1,7 +1,9 @@
 import {
+  AfterViewChecked,
   Component,
   Inject,
   inject,
+  OnDestroy,
   OnInit,
   PLATFORM_ID,
   signal,
@@ -32,6 +34,7 @@ import { dummyProductModel } from '../../models/product.model';
 import { FilterService } from '../../services/filter-service';
 import { AddToasts } from '../toasts/add-toasts/add-toasts';
 import AOS from 'aos';
+import { SearchService } from '../../services/search-service';
 
 @Component({
   selector: 'app-shop',
@@ -48,7 +51,7 @@ import AOS from 'aos';
   templateUrl: './shop.html',
   styleUrls: ['./shop.scss']
 })
-export class Shop implements OnInit {
+export class Shop implements OnInit, OnDestroy, AfterViewChecked {
 
   // variables
   products = signal<dummyProductModel[]>([]);
@@ -62,12 +65,15 @@ export class Shop implements OnInit {
   @ViewChild('addToast') addToast!: AddToasts;
 
   private destroy$ = new Subject<void>();
+
   private productService = inject(ProductService);
   private cartService = inject(CartService);
   private filterService = inject(FilterService);
-
+  private searchService = inject(SearchService);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+  selectedCategory = signal<string>('all');
 
 
   // ngOnInit
@@ -82,8 +88,11 @@ export class Shop implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         this.products.set(data);
+
+        const cats = Array.from(new Set(data.map(p => p.category)));
+        this.categories.set([...cats]);
+
         this.filteredProducts.set(data);
-        this.categories.set([...new Set(data.map(p => p.category))]);
       });
 
     // Subscribe to filtered products updates from the service
@@ -91,6 +100,13 @@ export class Shop implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((filtered) => {
         this.filteredProducts.set(filtered);
+      });
+
+    // In SearchService
+    this.searchService.searchQuery$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(query => {
+        this.applyAllFilters(query);
       });
 
   }
@@ -109,9 +125,7 @@ export class Shop implements OnInit {
   // search
   onSearch(event: Event) {
     const query = (event.target as HTMLInputElement).value.toLowerCase();
-    this.filteredProducts.set(
-      this.products().filter(p => p.title.toLowerCase().includes(query))
-    );
+    this.searchService.updateSearchQuery(query);
     this.page.set(1);
   }
 
@@ -120,9 +134,8 @@ export class Shop implements OnInit {
   // filter by category
   filterByCategory(event: Event) {
     const category = (event.target as HTMLSelectElement).value;
-    this.filteredProducts.set(
-      category ? this.products().filter(p => p.category === category) : [...this.products()]
-    );
+    this.selectedCategory.set(category);
+    this.applyAllFilters(this.searchService.getSearchQueryValue());
     this.page.set(1);
   }
 
@@ -130,9 +143,36 @@ export class Shop implements OnInit {
 
   // apply Price Filter
   applyPriceFilter(price: number) {
-    const filtered = this.filterService.filterByPrice(this.products(), price);
-    this.filterService.setFilteredProducts(filtered); // Set filtered products in the service
+    this.applyAllFilters(this.searchService.getSearchQueryValue(), price);
     this.page.set(1);
+  }
+
+
+
+  // In the main filtering function, we collect all the criteria - category, search, price
+  private applyAllFilters(searchQuery: string, maxPrice?: number) {
+
+    // Let's start with the product.
+    let filtered = [...this.products()];
+
+    // If category is not All, filter by category
+    const cat = this.selectedCategory();
+    if (cat && cat !== 'all') {
+      filtered = filtered.filter(p => p.category === cat);
+    }
+
+    // Search using the search() method of SearchService (which uses Georgian-English regex)
+    filtered = this.searchService.search(searchQuery, filtered);
+
+    // Price filter if maxPrice is present
+    if (maxPrice !== undefined) {
+      filtered = this.filterService.filterByPrice(filtered, maxPrice);
+    }
+
+    // Update on both signals
+    this.filteredProducts.set(filtered);
+    this.filterService.setFilteredProducts(filtered);
+
   }
 
 

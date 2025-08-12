@@ -6,13 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SearchService {
 
-  // search(query: string, items: any[]) {
-  //   const term = query?.toLocaleLowerCase('ka').trim();
-  //   const regex = new RegExp(term, 'iu');
-  //   // return items.filter(item => item?.title.toLowerCase('ka').includes(term)); // Filters products by name
-  //   return items.filter(item => regex.test(item.title));
-  // }
-
+  // search
   search(query: string, items: any[]) {
 
     if (!query) return items; // If empty, show all products
@@ -40,6 +34,11 @@ export class SearchService {
   // update query
   updateSearchQuery(query: string) {
     this.searchQuery.next(query);
+  }
+
+  // get Search Query Value
+  getSearchQueryValue(): string {
+    return this.searchQuery.getValue();
   }
 
 }
