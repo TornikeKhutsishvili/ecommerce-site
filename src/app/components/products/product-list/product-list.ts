@@ -76,7 +76,7 @@ export class ProductList implements OnInit {
     // filtered products
     this.productService.getProducts().subscribe((data: any) => {
       this.products.set(data);
-      // console.log(this.products());
+      this.filteredProducts.set([...data]);
 
       // Check if there are already filtered products in the service
       this.filteredProducts.set(this.filterService.getFilteredProducts());
@@ -87,18 +87,17 @@ export class ProductList implements OnInit {
         this.filteredProducts.set([...this.products()]);
       }
 
+      // search
+      this.searchService.searchQuery$.subscribe(query => {
+        const filtered = this.searchService.search(query, this.products());
+        this.filteredProducts.set(filtered);
+      });
+
       // Subscribe to filtered products updates from the service
       this.filterSubscription = this.filterService.filteredProducts$.subscribe((filtered) => {
         this.filteredProducts.set(filtered);
       });
 
-    });
-
-
-    // search
-    this.searchService.searchQuery$.subscribe(query => {
-      const filtered = this.products().filter(product => product.title.toLowerCase().includes(query.toLowerCase()));
-      this.filteredProducts.set(filtered);
     });
 
 

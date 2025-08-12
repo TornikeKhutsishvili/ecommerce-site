@@ -12,10 +12,14 @@ import {
   RouterModule
 } from '@angular/router';
 
+import {
+  filter,
+  Subscription
+} from 'rxjs';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductList } from "../products/product-list/product-list";
-import { filter, Subscription } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { Carusel } from "../carusel/carusel";
 import { ProductService } from '../../services/product-service';
@@ -51,12 +55,13 @@ export class Home implements OnInit, OnDestroy {
 
     this.loadData();
 
-    this.routerSub = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-      this.loadData();
-    });
+    this.routerSub = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.loadData();
+      });
 
   }
-
 
 
   // load Data

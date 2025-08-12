@@ -25,8 +25,8 @@ export class SearchService {
     const regex = new RegExp(`${termKa}|${termEn}`, 'iu');
 
     return items.filter(item => {
-      const titleKa = item.title?.toLocaleLowerCase('ka');
-      const titleEn = item.title?.toLocaleLowerCase('en');
+      const titleKa = item.title?.toLocaleLowerCase('ka') ?? '';
+      const titleEn = item.title?.toLocaleLowerCase('en') ?? '';
       return regex.test(titleKa) || regex.test(titleEn);
     });
 
