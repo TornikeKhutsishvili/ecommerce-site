@@ -19,53 +19,64 @@ function generatePrerenderParams(count: number): { id: string }[] {
 export const routes: Routes = [
 
   { path: '',
-    loadComponent: () => import('./components/home/home').then((m) => m.Home)
+    loadComponent: () => import('./components/home/home')
+    .then((m) => m.Home)
   },
 
   { path: 'home',
-    loadComponent: () => import('./components/home/home').then((m) => m.Home)
+    loadComponent: () => import('./components/home/home')
+    .then((m) => m.Home)
   },
 
   { path: 'products',
-    loadComponent: () => import('./components/products/product-list/product-list').then((m) => m.ProductList)
+    loadComponent: () => import('./components/products/product-list/product-list')
+    .then((m) => m.ProductList)
   },
 
   { path: 'product/:id',
-    loadComponent: () => import('./components/products/product-details/product-details').then((m) => m.ProductDetails),
+    loadComponent: () => import('./components/products/product-details/product-details')
+    .then((m) => m.ProductDetails),
     data: {
       getPrerenderParams: () => generatePrerenderParams(194)
     }
   },
 
   { path: 'cart',
-    loadComponent: () => import('./components/cart/cart').then((m) => m.Cart)
+    loadComponent: () => import('./components/cart/cart')
+    .then((m) => m.Cart)
   },
 
   { path: 'checkout',
-    loadComponent: () => import('./components/checkout/checkout').then((m) => m.Checkout)
+    loadComponent: () => import('./components/checkout/checkout')
+    .then((m) => m.Checkout)
   },
 
   { path: 'about',
-    loadComponent: () => import('./components/about/about').then((m) => m.About)
+    loadComponent: () => import('./components/about/about')
+    .then((m) => m.About)
   },
 
   { path: 'shop',
-    loadComponent: () => import('./components/shop/shop').then((m) => m.Shop)
+    loadComponent: () => import('./components/shop/shop')
+    .then((m) => m.Shop)
   },
 
   { path: 'categories',
-    loadComponent: () => import('./components/categories/categories').then((m) => m.Categories)
+    loadComponent: () => import('./components/categories/categories')
+    .then((m) => m.Categories)
   },
 
   { path: 'categories-child',
-    loadChildren: () => import('./components/categories/categories-child/categories.routes').then((m) => m.categoriesRoutes),
+    loadChildren: () => import('./components/categories/categories-child/categories.routes')
+    .then((m) => m.categoriesRoutes),
     data: {
       getPrerenderParams: () => generatePrerenderParams(194)
     }
   },
 
   { path: 'contact',
-    loadComponent: () => import('./components/contact/contact').then((m) => m.Contact)
+    loadComponent: () => import('./components/contact/contact')
+    .then((m) => m.Contact)
   },
 
   { path: 'login', component: Login },
