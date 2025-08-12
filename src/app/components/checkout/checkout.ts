@@ -51,7 +51,6 @@ export class Checkout implements OnInit {
   @ViewChild('alertToast') alertToast!: AlertToasts;
   @ViewChild('addToast') addToast!: AddToasts;
 
-
   // user object
   user: {
     name: Signal<string>;
