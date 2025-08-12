@@ -19,6 +19,7 @@
     "@emailjs/browser": "^4.4.1",
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
+    "aos": "^2.3.4",
     "bootstrap": "^5.3.7",
     "chart.js": "^4.5.0",
     "ng2-charts": "^4.1.1",
