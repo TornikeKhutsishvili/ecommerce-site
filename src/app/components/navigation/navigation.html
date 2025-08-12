@@ -77,6 +77,7 @@
       </ul>
 
 
+
       <!-- Right Side Actions -->
       <div class="d-flex align-items-center navbar-actions flex-wrap gap-2">
 
@@ -89,6 +90,7 @@
             </span>
           }
         </a>
+
 
 
         <!-- Search -->
@@ -177,7 +179,7 @@
         <!-- Filter -->
         @if( currentUrl() !== '/contact' ) {
           <select class="form-select" name="select"
-                  (change)="filterByPrice($event, products())"
+                  (change)="filterByPrice($event)"
           >
             <option value="">{{ 'Price' | translate}}</option>
             <option value="low">{{ 'Low → High' | translate }}</option>

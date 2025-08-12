@@ -22,6 +22,12 @@ import {
   TranslateService
 } from '@ngx-translate/core';
 
+import {
+  BehaviorSubject,
+  combineLatest,
+  map
+} from 'rxjs';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product-service';
@@ -51,6 +57,10 @@ export class Navigation implements AfterViewInit, OnInit {
   @ViewChild('navbarCollapse') navbarCollapse!: ElementRef;
 
   products = signal<any[]>([]);
+  filteredProducts = signal<any[]>([]);
+
+  private priceFilter$ = new BehaviorSubject<string>('');
+
   cartItemCount = signal<number>(0);
 
   isDarkMode = signal<boolean>(false);
@@ -86,6 +96,8 @@ export class Navigation implements AfterViewInit, OnInit {
   ];
 
 
+
+  // constructor
   constructor() {
 
     this.isDarkMode.set(this.themeService.getSavedTheme() === 'dark');
@@ -107,19 +119,51 @@ export class Navigation implements AfterViewInit, OnInit {
   }
 
 
+
+  // ngOnInit
   ngOnInit(): void {
     this.updateNavbarTheme();
 
     this.productService.getProducts().subscribe((data) => {
       this.products.set(data);
     });
+
+
+    // Combine products, search query and price filter to update filteredProducts signal
+    combineLatest([
+      this.productService.getProducts(),
+      this.searchService.searchQuery$,
+      this.priceFilter$
+    ]).pipe(
+      map(([products, query, priceFilter]) => {
+        let filtered = products;
+
+        if (query) {
+          filtered = this.searchService.search(query, filtered);
+        }
+
+        if (priceFilter === 'low') {
+          filtered = filtered.slice().sort((a, b) => a.price - b.price);
+        } else if (priceFilter === 'high') {
+          filtered = filtered.slice().sort((a, b) => b.price - a.price);
+        }
+
+        return filtered;
+      })
+    ).subscribe(filtered => {
+      this.filteredProducts.set(filtered);
+      this.filterApplied.emit(filtered);
+    });
+
   }
+
 
 
   // collapse instance
   ngAfterViewInit(): void {
     this.collapseInstance = new Collapse(this.navbarCollapse.nativeElement, { toggle: false });
   }
+
 
 
   // change language
@@ -129,12 +173,14 @@ export class Navigation implements AfterViewInit, OnInit {
   }
 
 
+
   // change theme
   toggleTheme(): void {
     this.themeService.toggleTheme();
     this.isDarkMode.set(this.themeService.getSavedTheme() === 'dark');
     this.updateNavbarTheme();
   }
+
 
 
   // update navbar theme
@@ -153,11 +199,13 @@ export class Navigation implements AfterViewInit, OnInit {
   }
 
 
+
   // update navbar theme
   toggleMenu(): void {
     this.isMenuOpen.set(!this.isMenuOpen());
     this.collapseInstance.toggle();
   }
+
 
 
   // close menu
@@ -167,6 +215,7 @@ export class Navigation implements AfterViewInit, OnInit {
   }
 
 
+
   // search
   onSearch(event: any) {
     const query = event.target.value.trim();
@@ -174,22 +223,33 @@ export class Navigation implements AfterViewInit, OnInit {
   }
 
 
+
+
   // filter by price
-  filterByPrice(event: any, products: any[]) {
+  filterByPrice(event: any) {
     const value = event.target.value;
-
-    if (!products || products.length === 0) return;
-
-    let sortedProducts = [...products];
-
-    if (value === 'low') {
-      sortedProducts.sort((a, b) => a.price - b.price);
-    } else if (value === 'high') {
-      sortedProducts.sort((a, b) => b.price - a.price);
-    }
-
-    this.filterService.setFilteredProducts(sortedProducts);
+    this.priceFilter$.next(value);
   }
+
+
+
+  // // filter by price
+  // filterByPrice(event: any, products: any[]) {
+  //   const value = event.target.value;
+
+  //   if (!products || products.length === 0) return;
+
+  //   let sortedProducts = [...products];
+
+  //   if (value === 'low') {
+  //     sortedProducts.sort((a, b) => a.price - b.price);
+  //   } else if (value === 'high') {
+  //     sortedProducts.sort((a, b) => b.price - a.price);
+  //   }
+
+  //   this.filterService.setFilteredProducts(sortedProducts);
+  // }
+
 
 
   // logout
