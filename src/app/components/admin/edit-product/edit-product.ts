@@ -1,6 +1,7 @@
 import {
   Component,
   inject,
+  OnInit,
   signal,
   ViewChild
 } from '@angular/core';
@@ -38,14 +39,13 @@ import { AddToasts } from '../../toasts/add-toasts/add-toasts';
   templateUrl: './edit-product.html',
   styleUrls: ['./edit-product.scss']
 })
-export class EditProduct {
+export class EditProduct implements OnInit {
 
   productService = inject(ProductService);
   route = inject(ActivatedRoute);
   router = inject(Router);
 
   product = signal<any>({});
-
 
   // All ViewChild
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;

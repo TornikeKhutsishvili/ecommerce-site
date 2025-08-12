@@ -1,6 +1,7 @@
 import {
   Component,
   inject,
+  OnInit,
   signal
 } from '@angular/core';
 
@@ -23,13 +24,12 @@ import { dummyProductModel } from '../../models/product.model';
   templateUrl: './categories.html',
   styleUrls: ['./categories.scss']
 })
-export class Categories {
+export class Categories implements OnInit {
 
   products = signal<dummyProductModel[]>([]);
   categories = signal<string[]>([]);
 
   private productService = inject(ProductService);
-
 
   // ngOnInit
   ngOnInit(): void {

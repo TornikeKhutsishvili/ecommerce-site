@@ -1,5 +1,9 @@
+import {
+  Component,
+  signal
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({

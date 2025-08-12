@@ -1,15 +1,20 @@
 import {
   Component,
   inject,
+  OnInit,
   signal,
   ViewChild
 } from '@angular/core';
+
+import {
+  RouterLink,
+  RouterModule
+} from '@angular/router';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductService } from '../../../services/product-service';
-import { RouterLink, RouterModule } from '@angular/router';
 import { DeleteToasts } from '../../toasts/delete-toasts/delete-toasts';
 import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
 import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
@@ -29,7 +34,7 @@ import { AddToasts } from '../../toasts/add-toasts/add-toasts';
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']
 })
-export class Dashboard {
+export class Dashboard implements OnInit {
 
   productService = inject(ProductService);
   products = signal<any[]>([]);

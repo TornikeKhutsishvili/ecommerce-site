@@ -33,8 +33,8 @@ import { CartService } from '../../services/cart-service';
 import { dummyProductModel } from '../../models/product.model';
 import { FilterService } from '../../services/filter-service';
 import { AddToasts } from '../toasts/add-toasts/add-toasts';
-import AOS from 'aos';
 import { SearchService } from '../../services/search-service';
+import AOS from 'aos';
 
 @Component({
   selector: 'app-shop',

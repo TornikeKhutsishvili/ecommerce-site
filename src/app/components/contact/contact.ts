@@ -48,6 +48,7 @@ export class Contact implements OnInit {
   // mapUrl: SafeResourceUrl;
   mapUrl = signal<SafeResourceUrl | null>(null);
 
+
   // ViewChilds
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
   @ViewChild('alertToast') alertToast!: AlertToasts;
