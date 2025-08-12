@@ -1,8 +1,10 @@
 import {
   Component,
   computed,
+  Inject,
   inject,
   OnInit,
+  PLATFORM_ID,
   signal,
   ViewChild
 } from '@angular/core';
@@ -12,7 +14,11 @@ import {
   RouterModule
 } from '@angular/router';
 
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule,
+  isPlatformBrowser
+} from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
@@ -23,6 +29,7 @@ import { CartService } from '../../../services/cart-service';
 import { SearchService } from '../../../services/search-service';
 import { AddToasts } from '../../toasts/add-toasts/add-toasts';
 import { dummyProductModel } from '../../../models/product.model';
+import AOS from 'aos';
 
 @Component({
   selector: 'app-product-list',
@@ -69,9 +76,15 @@ export class ProductList implements OnInit {
   });
 
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
 
   // ngOnInit
   ngOnInit() {
+
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.init();
+    }
 
     // filtered products
     this.productService.getProducts().subscribe((data: any) => {
@@ -104,6 +117,15 @@ export class ProductList implements OnInit {
     // cart item count
     this.cartItemCount.set(this.cartService.getCartItems().length);
 
+  }
+
+
+
+  // AOS refresh
+  ngAfterViewChecked(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.refresh(); // Reflects changes in animations
+    }
   }
 
 

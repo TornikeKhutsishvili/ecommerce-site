@@ -1,8 +1,9 @@
 import {
   Component,
-  computed,
+  Inject,
   inject,
   OnInit,
+  PLATFORM_ID,
   signal,
   ViewChild
 } from '@angular/core';
@@ -17,7 +18,11 @@ import {
   takeUntil
 } from 'rxjs';
 
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule,
+  isPlatformBrowser
+} from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -26,6 +31,7 @@ import { CartService } from '../../services/cart-service';
 import { dummyProductModel } from '../../models/product.model';
 import { FilterService } from '../../services/filter-service';
 import { AddToasts } from '../toasts/add-toasts/add-toasts';
+import AOS from 'aos';
 
 @Component({
   selector: 'app-shop',
@@ -51,6 +57,7 @@ export class Shop implements OnInit {
   page = signal<number>(1);
   itemsPerPage = signal<number>(12);
 
+
   // ViewChild to addToast
   @ViewChild('addToast') addToast!: AddToasts;
 
@@ -60,8 +67,16 @@ export class Shop implements OnInit {
   private filterService = inject(FilterService);
 
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+
   // ngOnInit
   ngOnInit(): void {
+
+    // AOS init
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.init();
+    }
 
     this.productService.getProducts()
       .pipe(takeUntil(this.destroy$))
@@ -81,6 +96,16 @@ export class Shop implements OnInit {
   }
 
 
+
+  // AOS refresh
+  ngAfterViewChecked(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.refresh(); // Reflects changes in animations
+    }
+  }
+
+
+
   // search
   onSearch(event: Event) {
     const query = (event.target as HTMLInputElement).value.toLowerCase();
@@ -89,6 +114,7 @@ export class Shop implements OnInit {
     );
     this.page.set(1);
   }
+
 
 
   // filter by category
@@ -101,6 +127,7 @@ export class Shop implements OnInit {
   }
 
 
+
   // apply Price Filter
   applyPriceFilter(price: number) {
     const filtered = this.filterService.filterByPrice(this.products(), price);
@@ -109,11 +136,13 @@ export class Shop implements OnInit {
   }
 
 
+
   // add to cart
   addToCart(product: dummyProductModel) {
     this.cartService.addToCart(product);
     this.addToast.openToast(`${product.title} added to cart! 🛒`);
   }
+
 
 
   // ngOnDestroy

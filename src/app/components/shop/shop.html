@@ -41,7 +41,11 @@
     <!-- control flow syntax -->
     @let paginated = (filteredProducts() | paginate: { itemsPerPage: itemsPerPage(), currentPage: page() });
     @for( product of paginated; track $index ) {
-      <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="col-lg-3 col-md-4 col-sm-6 mb-4"
+          data-aos="fade-up"
+          data-aos-duration="1200"
+          data-aos-anchor-placement="center-bottom"
+      >
         <div class="card product-card h-100 shadow-sm">
           <img [src]="product.thumbnail"
               class="card-img-top"
@@ -79,6 +83,7 @@
   </div>
 
 </div>
+
 
 
 <!-- Toast Components -->
