@@ -9,18 +9,23 @@ import {
   isPlatformBrowser
 } from '@angular/common';
 
+import {
+  Observable,
+  of,
+  tap
+} from 'rxjs';
 
-interface User {
-  name: string;
-  email: string;
-  password: string;
-  role: 'user' | 'admin';
-}
+import { User } from '../interfaces/auth-user.interface';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  private accessToken: string | null = null;
+  private refreshTokenValue: string | null = null;
+
 
   // Signals
   isLoggedIn = signal(false);
@@ -32,7 +37,26 @@ export class AuthService {
     this.loadFromStorage();
   }
 
-  /** Login */
+
+  getAccessToken(): string | null {
+    return this.accessToken;
+  }
+
+
+  refreshToken(): Observable<any> {
+    // აქ უნდა გავიდე სერვერზე refresh token-ით და ახალი access token ავიღო
+    // მაგალითად: this.http.post('/api/refresh', { token: this.refreshTokenValue })
+
+    // mock მაგალითი:
+    return of(true).pipe(
+      tap(() => {
+        this.accessToken = 'new_access_token';
+      })
+    );
+  }
+
+
+  // Login
   login(email: string, password: string): boolean {
     const storedUser = this.getUserByEmail(email);
     if (!storedUser) return false;
@@ -46,7 +70,8 @@ export class AuthService {
     return false;
   }
 
-  /** Register */
+
+  // Register
   register(name: string, email: string, password: string): boolean {
     if (this.getUserByEmail(email)) return false;
 
@@ -61,30 +86,38 @@ export class AuthService {
     return true;
   }
 
-  /** Logout */
+
+  // Logout
   logout(): void {
     this.safeRemoveItem(this.STORAGE_KEY);
     this.isLoggedIn.set(false);
     this.currentUser.set(null);
+
+    this.accessToken = null;
+    this.refreshTokenValue = null;
   }
 
-  /** Check if logged in */
+
+  // Check if logged in
   checkLogin(): boolean {
     return this.isLoggedIn();
   }
 
-  /** Get current user */
+
+  // Get current user
   getUser(): User | null {
     return this.currentUser();
   }
 
-  /** Search by email */
+
+  // Search by email
   getUserByEmail(email: string): User | null {
     const data = this.safeGetItem(email);
     return data ? JSON.parse(data) : null;
   }
 
-  /** Load from storage */
+
+  // Load from storage
   public loadFromStorage() {
     const storedUserStr = this.safeGetItem(this.STORAGE_KEY);
     if (storedUserStr) {
@@ -94,12 +127,14 @@ export class AuthService {
     }
   }
 
-  /** Is admin? */
+
+  // Is admin?
   isAdmin(): boolean {
     return this.currentUser()?.role === 'admin';
   }
 
-  /** Safe storage access */
+
+  // Safe storage access
   private safeGetItem(key: string): string | null {
     if (isPlatformBrowser(this.platformId)) {
       try { return localStorage.getItem(key); }
@@ -108,12 +143,14 @@ export class AuthService {
     return null;
   }
 
+
   private safeSetItem(key: string, value: string): void {
     if (isPlatformBrowser(this.platformId)) {
       try { localStorage.setItem(key, value); }
       catch {}
     }
   }
+
 
   private safeRemoveItem(key: string): void {
     if (isPlatformBrowser(this.platformId)) {

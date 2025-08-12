@@ -11,9 +11,16 @@ import {
 } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withFetch
+} from '@angular/common/http';
+
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
 
@@ -29,7 +36,6 @@ export const appConfig: ApplicationConfig = {
     provideTranslateHttpLoader(),
 
 
-
     // Provide ngx-translate core
     importProvidersFrom(
       TranslateModule.forRoot({
@@ -37,13 +43,17 @@ export const appConfig: ApplicationConfig = {
       })
     ),
 
-
-
     // Provide ngx-translate http-loader (new API)
     provideTranslateHttpLoader({
       prefix: '../assets/i18n/',
       suffix: '.json'
-    })
+    }),
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
 
   ]
 
