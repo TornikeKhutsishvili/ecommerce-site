@@ -82,7 +82,10 @@
       <div class="d-flex align-items-center navbar-actions flex-wrap gap-2">
 
         <!-- Cart -->
-        <a [routerLink]="['/cart']" class="btn btn-outline-primary position-relative cart-btn">
+        <a [routerLink]="['/cart']"
+          class="btn btn-outline-primary position-relative cart-btn"
+          (click)="closeMenu()"
+        >
           🛒
           @if( cartItemCount() > 0 ) {
             <span class="cart-badge">
@@ -152,7 +155,6 @@
         </div>
 
 
-
         <!-- Theme Toggle -->
         <button type="button"
           class="btn btn-outline-secondary theme-btn"
@@ -160,7 +162,6 @@
         >
           {{ isDarkMode() ? sun() : moon() }}
         </button>
-
 
 
         <!-- language selector -->
@@ -178,7 +179,6 @@
             </select>
           </li>
         </ul>
-
 
 
         <!-- Filter -->
