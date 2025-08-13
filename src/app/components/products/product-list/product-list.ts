@@ -5,6 +5,7 @@ import {
   Inject,
   inject,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   PLATFORM_ID,
@@ -48,7 +49,7 @@ import AOS from 'aos';
   templateUrl: './product-list.html',
   styleUrls: ['./product-list.scss']
 })
-export class ProductList implements OnInit, OnDestroy, AfterViewChecked {
+export class ProductList implements OnInit, OnDestroy, AfterViewChecked, OnChanges {
 
   // This is where the Home data comes from
   @Input() productsInput: any[] = [];
@@ -104,6 +105,13 @@ export class ProductList implements OnInit, OnDestroy, AfterViewChecked {
     this.cartItemCount.set(this.cartService.getCartItems().length);
   }
 
+  // when will be change to routing
+  ngOnChanges() {
+    if(this.productsInput && this.productsInput.length) {
+      this.filteredProducts.set([...this.productsInput]);
+    }
+  }
+
   ngAfterViewChecked(): void {
     if (isPlatformBrowser(this.platformId)) {
       AOS.refresh();
@@ -116,6 +124,7 @@ export class ProductList implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
+  // stars fill percent
   getStarFillPercent(productRating: number, star: number): number {
     if (star <= Math.floor(productRating)) {
       return 100;
