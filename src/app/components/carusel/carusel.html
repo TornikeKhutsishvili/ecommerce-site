@@ -1,6 +1,6 @@
 <div id="carouselExampleCaptions" class="carousel slide">
 
-  <!-- logic -->
+  <!-- carousel-indicators logic -->
   <div class="carousel-indicators">
     @for( item of products; track $index; let i = $index ) {
       <button type="button" name="button"
@@ -52,7 +52,9 @@
           title="Previous"
   >
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">{{ 'Previous' | translate }}</span>
+    <span class="visually-hidden">
+      {{ 'Previous' | translate }}
+    </span>
   </button>
 
   <!-- next btn -->
@@ -62,7 +64,9 @@
           title="Next"
   >
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">{{ 'Next' | translate }}</span>
+    <span class="visually-hidden">
+      {{ 'Next' | translate }}
+    </span>
   </button>
 
 
