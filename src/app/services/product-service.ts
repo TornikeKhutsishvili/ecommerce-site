@@ -1,6 +1,19 @@
-import { inject, Injectable } from '@angular/core';
-import { DummyApiResponse, dummyProductModel } from '../models/product.model';
-import { map, Observable } from 'rxjs';
+import {
+  inject,
+  Injectable,
+  signal
+} from '@angular/core';
+
+import {
+  DummyApiResponse,
+  dummyProductModel
+} from '../models/product.model';
+
+import {
+  map,
+  Observable
+} from 'rxjs';
+
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -56,6 +69,15 @@ export class ProductService {
     return this.http.get<DummyApiResponse>(`${this.apiUrl}/category/${category}`).pipe(
       map(res => res.products)
     );
+  }
+
+
+  // load products
+  loadproducts = signal<dummyProductModel[]>([]);
+
+  loadProducts() {
+    this.http.get<dummyProductModel[]>(this.apiUrl + this.limit)
+      .subscribe(data => this.loadproducts.set(data));
   }
 
 }

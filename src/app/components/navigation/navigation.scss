@@ -149,11 +149,12 @@
 
 
 
-  // responsive
+
+  /*********** responsive ***********/
+
   @media (max-width: 768px) {
 
     .auth-links {
-
       .login {
         margin: 0px 5px 0px 0px !important;
       }
@@ -161,7 +162,6 @@
       .register {
         margin: 0px 0px 0px 5px !important;
       }
-
     }
 
   }
