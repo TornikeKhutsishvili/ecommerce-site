@@ -117,7 +117,7 @@
               <a [routerLink]="['/login']"
                 [routerLinkActive]="['active']"
                 [routerLinkActiveOptions]="{ exact: true }"
-                class="text-decoration-none me-2"
+                class="text-decoration-none me-2 login"
                 (click)="closeMenu()"
                 >{{ 'Login' | translate }}
               </a>
@@ -127,7 +127,7 @@
               <a [routerLink]="['/register']"
                 [routerLinkActive]="['active']"
                 [routerLinkActiveOptions]="{ exact: true }"
-                class="text-decoration-none ms-2"
+                class="text-decoration-none ms-2 register"
                 (click)="closeMenu()"
               >
                 {{ 'Register' | translate}}
