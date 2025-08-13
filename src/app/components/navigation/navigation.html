@@ -92,7 +92,6 @@
         </a>
 
 
-
         <!-- Search -->
         @if( currentUrl() !== '/shop' && currentUrl() !== '/contact' ) {
           <div class="search-box">
@@ -113,14 +112,20 @@
 
             <ng-container>
               <a [routerLink]="['/login']"
+                [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{ exact: true }"
                 class="text-decoration-none me-2"
+                (click)="closeMenu()"
                 >{{ 'Login' | translate }}
               </a>
 
               <span>|</span>
 
               <a [routerLink]="['/register']"
+                [routerLinkActive]="['active']"
+                [routerLinkActiveOptions]="{ exact: true }"
                 class="text-decoration-none ms-2"
+                (click)="closeMenu()"
               >
                 {{ 'Register' | translate}}
               </a>

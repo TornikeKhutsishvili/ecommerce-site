@@ -1,16 +1,24 @@
 import {
+  AfterViewChecked,
   Component,
+  Inject,
   inject,
   OnInit,
+  PLATFORM_ID,
   signal
 } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule,
+  isPlatformBrowser
+} from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductService } from '../../services/product-service';
 import { dummyProductModel } from '../../models/product.model';
+import AOS from 'aos';
 
 @Component({
   selector: 'app-categories',
@@ -24,15 +32,22 @@ import { dummyProductModel } from '../../models/product.model';
   templateUrl: './categories.html',
   styleUrls: ['./categories.scss']
 })
-export class Categories implements OnInit {
+export class Categories implements OnInit, AfterViewChecked {
 
   products = signal<dummyProductModel[]>([]);
   categories = signal<string[]>([]);
 
   private productService = inject(ProductService);
 
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
   // ngOnInit
   ngOnInit(): void {
+
+    // AOS init
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.init();
+    }
 
     this.productService.getProducts().subscribe(data => {
       this.products.set(data);
@@ -40,6 +55,15 @@ export class Categories implements OnInit {
     });
 
   }
+
+
+  // AOS refresh
+  ngAfterViewChecked(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.refresh(); // Reflects changes in animations
+    }
+  }
+
 
 
   // categories image

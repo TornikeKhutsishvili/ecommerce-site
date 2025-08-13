@@ -11,7 +11,7 @@
   }
 
   .carousel-caption {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.2);
     padding: 1rem;
     border-radius: 8px;
 
@@ -66,9 +66,9 @@
       background-color: #2199E8 !important;
       opacity: 0.5;
       border: none;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
+      width: 12px !important;
+      height: 12px !important;
+      border-radius: 50% !important;
       transition: all 0.3s ease;
 
       &.active {
@@ -78,7 +78,10 @@
     }
   }
 
+
+  // responsive
   @media (max-width: 768px) {
+
     img {
       height: 250px;
     }
@@ -91,5 +94,7 @@
         font-size: 0.9rem;
       }
     }
+
   }
+
 }
