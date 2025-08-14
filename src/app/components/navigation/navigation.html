@@ -80,124 +80,132 @@
       <!-- Right Side Actions -->
       <div class="d-flex align-items-center navbar-actions flex-wrap gap-2">
 
-        <!-- Cart -->
-        <a [routerLink]="['/cart']"
-          class="btn btn-outline-primary position-relative cart-btn"
-          (click)="closeMenu()"
-        >
-          🛒
-          @if( cartItemCount() > 0 ) {
-            <span class="cart-badge">
-              {{ cartItemCount() }}
-            </span>
-          }
-        </a>
+        <!-- first line -->
+        <div class="rightSide-first-line">
+
+          <!-- Cart -->
+          <a [routerLink]="['/cart']"
+            class="btn btn-outline-primary position-relative cart-btn"
+            (click)="closeMenu()"
+          >
+            🛒
+            @if( cartItemCount() > 0 ) {
+              <span class="cart-badge">
+                {{ cartItemCount() }}
+              </span>
+            }
+          </a>
 
 
-        <!-- Search -->
-        @if( currentUrl() !== '/shop' &&
-            currentUrl() !== '/contact' &&
-            currentUrl() !== '/checkout'
-        ) {
-          <div class="search-box">
-            <input type="text"
-              id="search"
-              name="search"
-              class="form-control"
-              placeholder="{{ 'Search...' | translate }}"
-              (input)="onSearch($event)"
-            >
-          </div>
-        }
 
+          <!-- Auth Links -->
+          <div class="auth-links d-flex align-items-center">
+            @if( !isLoggedIn() ) {
 
-        <!-- Auth Links -->
-        <div class="auth-links d-flex align-items-center">
-          @if( !isLoggedIn() ) {
+              <ng-container>
+                <a class="text-decoration-none me-2 login"
+                  [routerLink]="['/login']"
+                  [routerLinkActive]="['active']"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="closeMenu()"
+                  >{{ 'LogIn' | translate }}
+                </a>
 
-            <ng-container>
-              <a class="text-decoration-none me-2 login"
-                [routerLink]="['/login']"
-                [routerLinkActive]="['active']"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="closeMenu()"
-                >{{ 'Login' | translate }}
+                <span>|</span>
+
+                <a class="text-decoration-none ms-2 register"
+                  [routerLink]="['/register']"
+                  [routerLinkActive]="['active']"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="closeMenu()"
+                >
+                  {{ 'SignUp' | translate}}
+                </a>
+              </ng-container>
+
+            } @else {
+
+              <a [routerLink]="['/profile']"
+                class="text-decoration-none me-2 btn btn-primary text-light"
+              >
+                {{ 'Profile' | translate }}
               </a>
 
               <span>|</span>
 
-              <a class="text-decoration-none ms-2 register"
-                [routerLink]="['/register']"
-                [routerLinkActive]="['active']"
-                [routerLinkActiveOptions]="{ exact: true }"
-                (click)="closeMenu()"
+              <a [routerLink]="['/']"
+                class="text-decoration-none ms-2 btn btn-danger text-light"
+                (click)="logout()"
               >
-                {{ 'Register' | translate}}
+                {{ 'Logout' | translate }}
               </a>
-            </ng-container>
 
-          } @else {
+            }
+          </div>
 
-            <a [routerLink]="['/profile']"
-              class="text-decoration-none me-2 btn btn-primary text-light"
-            >
-              {{ 'Profile' | translate }}
-            </a>
 
-            <span>|</span>
+          <!-- Theme Toggle -->
+          <button type="button"
+            class="btn btn-outline-secondary theme-btn"
+            (click)="toggleTheme()"
+          >
+            {{ isDarkMode() ? sun() : moon() }}
+          </button>
 
-            <a [routerLink]="['/']"
-              class="text-decoration-none ms-2 btn btn-danger text-light"
-              (click)="logout()"
-            >
-              {{ 'Logout' | translate }}
-            </a>
 
-          }
+          <!-- language selector -->
+          <ul class="text-decoration-none list-unstyled m-0">
+            <li class="language-switcher">
+              <select [ngModel]="selectedLanguage()"
+                      (ngModelChange)="changeLanguage($event)"
+                      title="language"
+              >
+                @for( lang of languages; track $index ) {
+                  <option [value]="lang.code"
+                          (change)="closeMenu()"
+                  >
+                    {{ lang.code | translate }}
+                  </option>
+                }
+              </select>
+            </li>
+          </ul>
         </div>
 
 
-        <!-- Theme Toggle -->
-        <button type="button"
-          class="btn btn-outline-secondary theme-btn"
-          (click)="toggleTheme()"
-        >
-          {{ isDarkMode() ? sun() : moon() }}
-        </button>
+        <!-- second line -->
+        <div class="rightSide-second-line">
+          <!-- Search -->
+          @if( currentUrl() !== '/shop' &&
+              currentUrl() !== '/contact' &&
+              currentUrl() !== '/checkout'
+          ) {
+            <div class="search-box">
+              <input type="text"
+                id="search"
+                name="search"
+                class="form-control"
+                placeholder="{{ 'Search...' | translate }}"
+                (input)="onSearch($event)"
+              >
+            </div>
+          }
 
 
-        <!-- language selector -->
-        <ul class="text-decoration-none list-unstyled m-0">
-          <li class="language-switcher">
-            <select [ngModel]="selectedLanguage()"
-                    (ngModelChange)="changeLanguage($event)"
-                    title="language"
+          <!-- Filter -->
+          @if( currentUrl() !== '/contact' &&
+              currentUrl() !== '/checkout'
+          ) {
+            <select class="form-select sortPriceSelect"
+                    name="select"
+                    (change)="sortByPrice($any($event.target).value)"
             >
-              @for( lang of languages; track $index ) {
-                <option [value]="lang.code"
-                        (change)="closeMenu()"
-                >
-                  {{ lang.code | translate }}
-                </option>
-              }
+              <option value="">{{ 'Price' | translate}}</option>
+              <option value="low">{{ 'Low → High' | translate }}</option>
+              <option value="high">{{ 'High → Low' | translate }}</option>
             </select>
-          </li>
-        </ul>
-
-
-        <!-- Filter -->
-        @if( currentUrl() !== '/contact' &&
-            currentUrl() !== '/checkout'
-        ) {
-          <select class="form-select"
-                  name="select"
-                  (change)="sortByPrice($any($event.target).value)"
-          >
-            <option value="">{{ 'Price' | translate}}</option>
-            <option value="low">{{ 'Low → High' | translate }}</option>
-            <option value="high">{{ 'High → Low' | translate }}</option>
-          </select>
-        }
+          }
+        </div>
 
       </div>
 

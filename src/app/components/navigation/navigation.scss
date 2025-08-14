@@ -1,5 +1,8 @@
+/* Main navbar */
 .main-navbar {
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 8px 0;
   transition: all 0.3s ease;
 
@@ -10,21 +13,51 @@
 
   .mobile-slide {
     .navbar-actions {
-      justify-content: space-between;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-start;
+      gap: 10px;
+      width: 100%;
 
-      .search-box input {
-        border-radius: 20px;
-        padding: 3px 8px;
-        min-width: 150px;
-        min-height: 40px;
+      /* First line */
+      .rightSide-first-line {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+        width: 100%;
+
       }
 
-      .form-select {
-        border-radius: 20px;
-        padding: 3px 8px;
-        min-height: 40px;
+      /* Second line */
+      .rightSide-second-line {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+        width: 100%;
+
+        .search-box input {
+          border-radius: 20px;
+          padding: 3px 8px;
+          min-width: 150px;
+          min-height: 40px;
+          flex: 1 1 auto;
+        }
+
+        .form-select {
+          border-radius: 20px;
+          padding: 3px 8px;
+          min-height: 40px;
+          flex: 1 1 auto;
+          max-width: 200px;
+        }
       }
 
+      /* Cart */
       .cart-btn {
         display: flex;
         align-items: center;
@@ -32,6 +65,7 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
+        position: relative;
       }
 
       .cart-badge {
@@ -41,10 +75,11 @@
         background: #ff4757;
         color: white;
         border-radius: 50%;
-        font-size: 7px;
+        font-size: 10px;
         padding: 2px 6px;
       }
 
+      /* Theme toggle button */
       .theme-btn {
         border-radius: 50%;
         width: 40px;
@@ -54,8 +89,12 @@
         justify-content: center;
       }
 
+      /* Auth links */
       .auth-links {
         font-size: 17px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
 
         a {
           color: inherit;
@@ -65,8 +104,8 @@
         span {
           opacity: 0.6;
         }
-
       }
+
 
       /* Language Switcher */
       .language-switcher {
@@ -144,26 +183,72 @@
           color: #2592ff;
         }
       }
+
     }
   }
 
 
 
 
-  /*********** responsive ***********/
+  /*********** Responsive ***********/
 
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 
-    .auth-links {
-      .login {
-        margin: 0px 5px 0px 0px !important;
+    .navbar-actions {
+      width: 100%;
+      align-items: stretch !important;
+
+      .rightSide-first-line,
+      .rightSide-second-line {
+        justify-content: space-between;
       }
 
-      .register {
-        margin: 0px 0px 0px 5px !important;
+      .rightSide-first-line,
+      .rightSide-second-line {
+        justify-content: flex-start !important;
       }
     }
+  }
 
+
+  @media (max-width: 768px) {
+    .navbar-actions {
+      .rightSide-first-line {
+        justify-content: center !important;
+      }
+
+      .rightSide-second-line {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .rightSide-second-line .search-box input {
+        min-width: 275px !important;
+      }
+
+      .rightSide-second-line .sortPriceSelect {
+        min-width: 275px !important;
+      }
+
+      .auth-links {
+        .login {
+          margin: 0 0 5px 0 !important;
+        }
+        .register {
+          margin: 0 0 0 0 !important;
+        }
+      }
+    }
+  }
+
+
+  @media (max-width: 576px) {
+    .navbar-actions {
+      gap: 8px;
+    }
   }
 
 }
