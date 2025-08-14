@@ -1,39 +1,70 @@
-import { Injectable, signal } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {
+  computed,
+  Injectable,
+  signal
+} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilterService {
 
-  private filteredProducts = signal<any[]>([]); // save filtered products
+  // Filters
+  priceFilter = signal<number | null>(null);
+  sortOrder = signal<'low' | 'high' | null>(null);
+  categoryFilter = signal<string>('all');
+  searchFilter = signal<string>('');
 
-  // Create a BehaviorSubject to hold filtered products
-  private filteredProductsSubject = new BehaviorSubject<any[]>(this.filteredProducts()); // Start with an empty array
-  filteredProducts$ = this.filteredProductsSubject.asObservable(); // Observable to subscribe to
+  // All products (raw)
+  private allProducts = signal<any[]>([]);
 
-  // Set filtered products and notify subscribers
-  setFilteredProducts(products: any[]) {
-    this.filteredProducts.set(products);
-    this.filteredProductsSubject.next(this.filteredProducts());  // Update the BehaviorSubject
-  }
 
-  // Get filtered products directly from the service (it returns the current state)
-  getFilteredProducts(): any[] {
-    return this.filteredProducts();
-  }
+  // Filtered + Sorted
+  filteredProducts = computed(() => {
+    let items = [...this.allProducts()];
 
-  // Apply price filter
-  filterByPrice(items: any[] | undefined, price: number): any[] {
-    if (!items) {
-      return [];
+    // Category
+    const category = this.categoryFilter();
+    if (category && category !== 'all') {
+      items = items.filter(p => p.category === category);
     }
-    return items.filter(item => item.price <= price);
-  }
 
-  // Sort products by price
-  sortByPrice(items: any[], order: string): any[] {
-    return items.sort((a, b) => order === 'low' ? a.price - b.price : b.price - a.price);
-  }
+    // Search
+    const search = this.searchFilter().toLowerCase();
+    if (search) {
+      items = items.filter(p =>
+        p.title.toLowerCase().includes(search) ||
+        p.category.toLowerCase().includes(search)
+      );
+    }
+
+    // Price
+    const maxPrice = this.priceFilter();
+    if (maxPrice != null) {
+      items = items.filter(p => p.price <= maxPrice);
+    }
+
+    // Sort
+    const order = this.sortOrder();
+    if (order) {
+      items = items.sort((a, b) =>
+        order === 'low' ? a.price - b.price : b.price - a.price
+      );
+    }
+
+    return items;
+  });
+
+
+  // Setters
+  setAllProducts(products: any[]) { this.allProducts.set(products); }
+  setPriceFilter(price: number | null) { this.priceFilter.set(price); }
+  setSortOrder(order: 'low' | 'high' | null) { this.sortOrder.set(order); }
+  setCategory(category: string) { this.categoryFilter.set(category); }
+  setSearchQuery(query: string) { this.searchFilter.set(query); }
+
+
+  // Getter
+  getFilteredProducts(): any[] { return this.filteredProducts(); }
 
 }

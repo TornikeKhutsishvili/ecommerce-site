@@ -1,8 +1,7 @@
 import {
   Component,
+  computed,
   inject,
-  OnInit,
-  Signal,
   signal,
   ViewChild
 } from '@angular/core';
@@ -37,13 +36,7 @@ import { AddToasts } from '../toasts/add-toasts/add-toasts';
   templateUrl: './checkout.html',
   styleUrls: ['./checkout.scss']
 })
-export class Checkout implements OnInit {
-
-  paymentMethod = signal('Cash_on_Delivery');
-  cartItems = signal<any[]>([]);
-  totalPrice = signal<number>(0);
-
-  private cartService = inject(CartService);
+export class Checkout {
 
   // ViewChilds all Toasts
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
@@ -51,105 +44,77 @@ export class Checkout implements OnInit {
   @ViewChild('alertToast') alertToast!: AlertToasts;
   @ViewChild('addToast') addToast!: AddToasts;
 
-  // user object
-  user: {
-    name: Signal<string>;
-    email: Signal<string>;
-    address: Signal<string>;
-    paymentMethod: Signal<string>;
-  } = {
+  // Payment method
+  paymentMethod = signal<'Cash_on_Delivery' | 'Credit Card' | 'PayPal'>('Cash_on_Delivery');
+
+  // Inject services
+  private cartService = inject(CartService);
+
+  // Reactive cart items directly from CartService
+  cartItems = computed(() => this.cartService.cartItems());
+
+  // Total price computed automatically
+  totalPrice = computed(() =>
+    this.cartItems().reduce((acc, item) => acc + (item.price * item.quantity), 0)
+  );
+
+  // User object
+  user = {
     name: signal(''),
     email: signal(''),
     address: signal(''),
-    paymentMethod: signal('Credit Card')
+    paymentMethod: signal<'Cash_on_Delivery' | 'Credit Card' | 'PayPal'>('Credit Card')
   };
 
-
   // Form fields
-  cardNumber = signal<string>('');
-  expiryDate = signal<string>('');
-  cvv = signal<string>('');
-  paypalEmail = signal<string>('');
+  cardNumber = signal('');
+  expiryDate = signal('');
+  cvv = signal('');
+  paypalEmail = signal('');
 
 
-  // ngOnInit
-  ngOnInit(): void {
-    this.cartItems.set(this.cartService.getCartItems() || []);
-    this.calculateTotalPrice();
+  // Update quantity
+  updateQuantity(productId: number, newQuantity: number) {
+    if (newQuantity <= 0) {
+      this.removeFromCart(productId);
+      return;
+    }
+    this.cartService.updateQuantity(productId, newQuantity);
   }
 
 
-  // Complete the checkout process  // Form submission handler
-  completeCheckout(): void {
+  // Remove product
+  removeFromCart(productId: number) {
+    this.cartService.removeFromCart(productId);
+    this.deleteToast.openToast('Product deleted');
+  }
+
+
+  // Complete checkout
+  completeCheckout() {
     if (!this.user.name() || !this.user.email() || !this.user.address()) {
-      this.alertToast.openToast(`warning`);
+      this.alertToast.openToast('Please fill all required fields');
       return;
     }
 
-    // Empty the cart
     this.cartService.clearCart();
     this.acceptToast.openToast(`Checkout completed for ${this.user.name()}`);
   }
 
 
-  // calculate Total Price
-  calculateTotalPrice(): void {
-    const total = this.cartItems().reduce((acc, item) => {
-      return acc + (item?.price * item?.quantity || 0);
-    }, 0);
-
-    this.totalPrice.set(total);  // update signal
-  }
-
-
-  // Handle payment method selection change
-  onPaymentMethodChange(newMethod: string) {
+  // Handle payment method change
+  onPaymentMethodChange(newMethod: 'Cash_on_Delivery' | 'Credit Card' | 'PayPal') {
     this.paymentMethod.set(newMethod);
-    this.acceptToast.openToast(`Order submitted with payment method: ${this.paymentMethod()}`);
+    this.acceptToast.openToast(`Payment method: ${this.paymentMethod()}`);
   }
 
-
-  // Format the card number as the user types
-  formatCardNumber(): void {
-    // Remove all non-digit characters
-    let formattedCardNumber = this.cardNumber().replace(/\D/g, '');
-
-    // Split the digits into groups of 4 and join with '-'
-    if (formattedCardNumber.length > 4) {
-      formattedCardNumber = formattedCardNumber.replace(/(\d{4})(?=\d)/g, '$1-');
+  // Format card number
+  formatCardNumber() {
+    let formatted = this.cardNumber().replace(/\D/g, '');
+    if (formatted.length > 4) {
+      formatted = formatted.replace(/(\d{4})(?=\d)/g, '$1-');
     }
-
-    // Update the cardNumber with formatted value
-    this.cardNumber.set(formattedCardNumber);
-  }
-
-
-  // update Quantity
-  updateQuantity(productId: number, newQuantity: number): void {
-    if (newQuantity <= 0) {
-      this.removeFromCart(productId);
-      return;
-    }
-
-    this.cartItems.update(items =>
-      items.map(item =>
-        item.id === productId ? { ...item, quantity: newQuantity } : item
-      )
-    );
-
-    this.calculateTotalPrice();
-    this.cartService.updateQuantity(productId, newQuantity);
-  }
-
-
-  // Product remove from cart
-  removeFromCart(productId: number): void {
-
-    this.cartItems.update(items => items.filter(item => item.id !== productId));
-    this.calculateTotalPrice();
-    this.cartService.removeFromCart(productId);
-    this.deleteToast.openToast(`delete product`);
-
+    this.cardNumber.set(formatted);
   }
 
 }

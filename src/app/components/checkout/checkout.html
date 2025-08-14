@@ -8,7 +8,7 @@
 
       <!-- Left side: Cart items -->
       <section class="cart-items">
-        <h3 class="text-dark">
+        <h3>
           {{ 'Your Cart' | translate }}
         </h3>
 
@@ -16,30 +16,20 @@
           <div class="cart-item">
 
             <img [src]="item.thumbnail || item.image"
-                  alt="{{ item.title }}"
-                  class="cart-item-img"
-                  loading="lazy"
+                alt="{{ item.title }}"
+                class="cart-item-img"
+                loading="lazy"
             />
 
             <div class="cart-item-info">
               <h4>{{ item.title | translate }}</h4>
-              <p class="category">
-                {{ item.category | translate }}
-              </p>
-              <p class="price">
-                {{ '$' | translate }}{{ item.price.toFixed(2) }}
-              </p>
+              <p class="category">{{ item.category | translate }}</p>
+              <p class="price">{{ '$' | translate }}{{ item.price.toFixed(2) }}</p>
 
               <div class="quantity-control">
-                <button (click)="updateQuantity(item.id, item.quantity - 1)"
-                        aria-label="Decrease quantity"
-                >-
-                </button>
+                <button (click)="updateQuantity(item.id, item.quantity - 1)">-</button>
                 <span class="text-dark">{{ item.quantity }}</span>
-                <button (click)="updateQuantity(item.id, item.quantity + 1)"
-                        aria-label="Increase quantity"
-                >+
-                </button>
+                <button (click)="updateQuantity(item.id, item.quantity + 1)">+</button>
               </div>
 
               <p class="total">
@@ -58,11 +48,10 @@
       </section>
 
 
+
       <!-- Right side: Checkout form -->
       <section class="checkout-form-section">
-        <h3 class="text-dark text-center">
-          {{ 'Shipping & Payment' | translate }}
-        </h3>
+        <h3 class="text-center">{{ 'Shipping & Payment' | translate }}</h3>
 
         <form (ngSubmit)="completeCheckout()" #checkoutForm="ngForm" novalidate>
 
@@ -72,13 +61,12 @@
                 name="name"
                 type="text"
                 required
-                [(ngModel)]="user.name"
+                [ngModel]="user.name()"
+                (ngModelChange)="user.name.set($event)"
                 #nameInput="ngModel"
           />
           @if( nameInput.invalid && nameInput.touched ) {
-            <div class="error">
-              {{ 'Full Name is required' | translate }}
-            </div>
+            <div class="error">{{ 'Full Name is required' | translate }}</div>
           }
 
           <!-- Email -->
@@ -88,18 +76,17 @@
                 type="email"
                 required
                 pattern="^[^@]+@[^@]+\.[^@]+$"
-                [(ngModel)]="user.email"
+                [ngModel]="user.email()"
+                (ngModelChange)="user.email.set($event)"
                 #emailInput="ngModel"
           />
           @if( emailInput.invalid && emailInput.touched ) {
-            <div class="error">
-              @if( emailInput.errors?.['required'] ) {
-                <div>{{ 'Email is required' | translate }}</div>
-              }
-              @if( emailInput.errors?.['pattern'] ) {
-                <div>{{ 'Invalid email format' | translate }}</div>
-              }
-            </div>
+            @if( emailInput.errors?.['required'] ) {
+              <div>{{ 'Email is required' | translate }}</div>
+            }
+            @if( emailInput.errors?.['pattern'] ) {
+              <div>{{ 'Invalid email format' | translate }}</div>
+            }
           }
 
           <!-- Shipping Address -->
@@ -108,23 +95,22 @@
                 name="address"
                 type="text"
                 required
-                [(ngModel)]="user.address"
+                [ngModel]="user.address()"
+                (ngModelChange)="user.address.set($event)"
                 #addressInput="ngModel"
           />
-          @if( addressInput.invalid && addressInput.touched ){
-            <div class="error">
-              {{ 'Shipping Address is required' | translate }}
-            </div>
+          @if( addressInput.invalid && addressInput.touched ) {
+            <div class="error">{{ 'Shipping Address is required' | translate }}</div>
           }
 
           <!-- Payment Method -->
           <label for="paymentMethod">{{ 'Payment Method' | translate }} *</label>
           <select id="paymentMethod"
                   name="paymentMethod"
-                  [(ngModel)]="paymentMethod"
-                  (ngModelChange)="onPaymentMethodChange($event)"
+                  [ngModel]="paymentMethod()"
+                  (ngModelChange)="paymentMethod.set($event)"
           >
-            <option value="Cash on Delivery">{{ 'Cash on Delivery' | translate }}</option>
+            <option value="Cash_on_Delivery">{{ 'Cash on Delivery' | translate }}</option>
             <option value="PayPal">{{ 'PayPal' | translate }}</option>
             <option value="Credit Card">{{ 'Credit Card' | translate }}</option>
           </select>
@@ -139,14 +125,13 @@
                     maxlength="19"
                     placeholder="1234-5678-9012-3456"
                     required
-                    [(ngModel)]="cardNumber"
+                    [ngModel]="cardNumber()"
+                    (ngModelChange)="cardNumber.set($event)"
                     #cardNumberInput="ngModel"
                     (input)="formatCardNumber()"
               />
               @if( cardNumberInput.invalid && cardNumberInput.touched ) {
-                <div class="error">
-                  {{ 'Card Number is required' | translate }}
-                </div>
+                <div class="error">{{ 'Card Number is required' | translate }}</div>
               }
 
               <label for="expiryDate">{{ 'Expiry Date' | translate }} *</label>
@@ -154,13 +139,12 @@
                     name="expiryDate"
                     type="month"
                     required
-                    [(ngModel)]="expiryDate"
+                    [ngModel]="expiryDate()"
+                    (ngModelChange)="expiryDate.set($event)"
                     #expiryDateInput="ngModel"
               />
-              @if( expiryDateInput.invalid && expiryDateInput.touched ){
-                <div class="error">
-                  {{ 'Expiry Date is required' | translate }}
-                </div>
+              @if( expiryDateInput.invalid && expiryDateInput.touched ) {
+                <div class="error">{{ 'Expiry Date is required' | translate }}</div>
               }
 
               <label for="cvv">{{ 'CVV' | translate }} *</label>
@@ -170,13 +154,12 @@
                     maxlength="3"
                     placeholder="123"
                     required
-                    [(ngModel)]="cvv"
+                    [ngModel]="cvv()"
+                    (ngModelChange)="cvv.set($event)"
                     #cvvInput="ngModel"
               />
               @if( cvvInput.invalid && cvvInput.touched ) {
-                <div class="error">
-                  {{ 'CVV is required' | translate }}
-                </div>
+                <div class="error">{{ 'CVV is required' | translate }}</div>
               }
             </div>
           }
@@ -188,36 +171,38 @@
                     name="paypalEmail"
                     type="email"
                     placeholder="you@example.com"
-                    required [(ngModel)]="paypalEmail"
+                    required
+                    [ngModel]="paypalEmail()"
+                    (ngModelChange)="paypalEmail.set($event)"
                     #paypalEmailInput="ngModel"
               />
               @if( paypalEmailInput.invalid && paypalEmailInput.touched ) {
-                <div class="error">
-                  {{ 'PayPal email is required' | translate }}
-                </div>
+                <div class="error">{{ 'PayPal email is required' | translate }}</div>
               }
             </div>
           }
 
-          @if( paymentMethod() === 'Cash on Delivery' ) {
+          @if( paymentMethod() === 'Cash_on_Delivery' ) {
             <div class="payment-cash">
               <p>{{ 'You will pay upon delivery.' | translate }}</p>
             </div>
           }
 
-          <button type="submit" [disabled]="checkoutForm.invalid" class="btn-submit">
+          <button type="submit"
+                  [disabled]="checkoutForm.invalid"
+                  class="btn-submit"
+          >
             {{ 'Complete Checkout' | translate }}
           </button>
+
         </form>
 
         <div class="total-price">
-          <h4>
-            {{ 'Total' | translate }}: {{ '$' | translate }}{{ totalPrice().toFixed(2) }}
-          </h4>
+          <h4>{{ 'Total' | translate }}: {{ '$' | translate }}{{ totalPrice().toFixed(2) }}</h4>
         </div>
 
         <a [routerLink]="['/cart']"
-            class="btn-back"
+          class="btn-back"
         >
           {{ 'Back to Cart' | translate }}
         </a>
@@ -225,11 +210,9 @@
     </div>
   } @else {
 
-    <p>
-      {{ 'Your cart is empty. Add some products!' | translate }}
-    </p>
+    <p>{{ 'Your cart is empty. Add some products!' | translate }}</p>
     <a [routerLink]="['/']"
-        class="btn-back-home"
+      class="btn-back-home"
     >
       {{ 'Back to Home' | translate }}
     </a>
@@ -237,9 +220,10 @@
   }
 
 
+
   <!-- Toast Components -->
   <app-alert-toasts #alertToast></app-alert-toasts>
-  <app-accept-toasts class="mt-3" #acceptToast></app-accept-toasts>
+  <app-accept-toasts #acceptToast class="mt-3"></app-accept-toasts>
   <app-delete-toasts #deleteToast></app-delete-toasts>
 
 

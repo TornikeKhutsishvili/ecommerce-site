@@ -2,7 +2,6 @@
 <nav class="navbar navbar-expand-lg main-navbar"
     [ngClass]="isDarkMode() ? 'navbar-dark bg-dark' : 'navbar-light bg-light'"
 >
-
   <div class="container">
 
     <!-- Logo -->
@@ -96,7 +95,10 @@
 
 
         <!-- Search -->
-        @if( currentUrl() !== '/shop' && currentUrl() !== '/contact' ) {
+        @if( currentUrl() !== '/shop' &&
+            currentUrl() !== '/contact' &&
+            currentUrl() !== '/checkout'
+        ) {
           <div class="search-box">
             <input type="text"
               id="search"
@@ -114,20 +116,20 @@
           @if( !isLoggedIn() ) {
 
             <ng-container>
-              <a [routerLink]="['/login']"
+              <a class="text-decoration-none me-2 login"
+                [routerLink]="['/login']"
                 [routerLinkActive]="['active']"
                 [routerLinkActiveOptions]="{ exact: true }"
-                class="text-decoration-none me-2 login"
                 (click)="closeMenu()"
                 >{{ 'Login' | translate }}
               </a>
 
               <span>|</span>
 
-              <a [routerLink]="['/register']"
+              <a class="text-decoration-none ms-2 register"
+                [routerLink]="['/register']"
                 [routerLinkActive]="['active']"
                 [routerLinkActiveOptions]="{ exact: true }"
-                class="text-decoration-none ms-2 register"
                 (click)="closeMenu()"
               >
                 {{ 'Register' | translate}}
@@ -167,12 +169,14 @@
         <!-- language selector -->
         <ul class="text-decoration-none list-unstyled m-0">
           <li class="language-switcher">
-            <select [(ngModel)]="selectedLanguage"
+            <select [ngModel]="selectedLanguage()"
                     (ngModelChange)="changeLanguage($event)"
                     title="language"
             >
               @for( lang of languages; track $index ) {
-                <option [value]="lang.code" (change)="closeMenu()">
+                <option [value]="lang.code"
+                        (change)="closeMenu()"
+                >
                   {{ lang.code | translate }}
                 </option>
               }
@@ -182,9 +186,12 @@
 
 
         <!-- Filter -->
-        @if( currentUrl() !== '/contact' ) {
-          <select class="form-select" name="select"
-                  (change)="filterByPrice($event)"
+        @if( currentUrl() !== '/contact' &&
+            currentUrl() !== '/checkout'
+        ) {
+          <select class="form-select"
+                  name="select"
+                  (change)="sortByPrice($any($event.target).value)"
           >
             <option value="">{{ 'Price' | translate}}</option>
             <option value="low">{{ 'Low → High' | translate }}</option>

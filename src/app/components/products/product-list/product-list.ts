@@ -2,11 +2,11 @@ import {
   AfterViewChecked,
   Component,
   computed,
+  effect,
   Inject,
   inject,
   Input,
   OnChanges,
-  OnDestroy,
   OnInit,
   PLATFORM_ID,
   signal,
@@ -24,7 +24,6 @@ import {
 } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterService } from '../../../services/filter-service';
@@ -49,9 +48,8 @@ import AOS from 'aos';
   templateUrl: './product-list.html',
   styleUrls: ['./product-list.scss']
 })
-export class ProductList implements OnInit, OnDestroy, AfterViewChecked, OnChanges {
+export class ProductList implements OnInit, AfterViewChecked, OnChanges {
 
-  // This is where the Home data comes from
   @Input() productsInput: any[] = [];
 
   filteredProducts = signal<any[]>([]);
@@ -61,53 +59,46 @@ export class ProductList implements OnInit, OnDestroy, AfterViewChecked, OnChang
   itemsPerPage = signal<number>(12);
   stars = signal<any>([1, 2, 3, 4, 5]);
 
-  private filterSubscription: Subscription | null = null;
-
   private filterService = inject(FilterService);
   private cartService = inject(CartService);
   private searchService = inject(SearchService);
 
   @ViewChild('addToast') addToast!: AddToasts;
 
+
+  // Paginated view
   readonly paginatedProducts = computed(() => {
     const start = (this.page() - 1) * this.itemsPerPage();
     return this.filteredProducts().slice(start, start + this.itemsPerPage());
   });
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    // Reactively update filteredProducts whenever searchQuery or priceFilter changes
+    effect(() => {
+      this.applyFilters();
+    });
+  }
+
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       AOS.init();
     }
 
-    // We set filteredProducts directly from Input
+    this.filterService.setAllProducts(this.productsInput);
+
+    // Initialize filtered products
     this.filteredProducts.set([...this.productsInput]);
 
-    // If a filter already exists in the filterService — we set it
-    const existingFiltered = this.filterService.getFilteredProducts();
-    if (existingFiltered.length) {
-      this.filteredProducts.set(existingFiltered);
-    }
-
-    // listening to search
-    this.searchService.searchQuery$.subscribe(query => {
-      const filtered = this.searchService.search(query, this.productsInput);
-      this.filteredProducts.set(filtered);
-    });
-
-    // listening to filterService
-    this.filterSubscription = this.filterService.filteredProducts$.subscribe((filtered) => {
-      this.filteredProducts.set(filtered);
-    });
-
-    // Cart quantity
-    this.cartItemCount.set(this.cartService.getCartItems().length);
+    // Set initial cart count
+    this.cartItemCount.set(this.cartService.cartItems().length);
   }
 
-  // when will be change to routing
+
   ngOnChanges() {
-    if(this.productsInput && this.productsInput.length) {
+    if (this.productsInput && this.productsInput.length) {
+      this.filterService.setAllProducts(this.productsInput);
       this.filteredProducts.set([...this.productsInput]);
     }
   }
@@ -118,13 +109,24 @@ export class ProductList implements OnInit, OnDestroy, AfterViewChecked, OnChang
     }
   }
 
-  ngOnDestroy() {
-    if (this.filterSubscription) {
-      this.filterSubscription.unsubscribe();
+
+  private applyFilters() {
+    // let filtered = [...this.productsInput];
+    let products = [...this.filterService.filteredProducts()];
+
+    // Search filter (reactive)
+    const query = this.searchService.searchQuery().trim().toLowerCase();
+    if (query) {
+      products = products.filter(p =>
+        p.title.toLowerCase().includes(query) ||
+        p.category.toLowerCase().includes(query)
+      );
     }
+
+    this.filteredProducts.set(products);
   }
 
-  // stars fill percent
+
   getStarFillPercent(productRating: number, star: number): number {
     if (star <= Math.floor(productRating)) {
       return 100;
@@ -135,14 +137,27 @@ export class ProductList implements OnInit, OnDestroy, AfterViewChecked, OnChang
     return 0;
   }
 
-  applyPriceFilter(price: number) {
-    const filtered = this.filterService.filterByPrice(this.productsInput, price);
-    this.filterService.setFilteredProducts(filtered);
+
+  applyPriceFilter(price: number | null) {
+    this.filterService.setPriceFilter(price);
   }
+
+
+  applySort(order: 'low' | 'high') {
+    this.filterService.setSortOrder(order);
+  }
+
+
+  showMore() {
+    const current = this.page() * this.itemsPerPage();
+    const nextPage = Math.min(current + this.itemsPerPage(), this.filteredProducts().length);
+    this.page.set(Math.ceil(nextPage / this.itemsPerPage()));
+  }
+
 
   addToCart(product: dummyProductModel): void {
     this.cartService.addToCart(product);
-    this.cartItemCount.set(this.cartService.getCartItems().length);
+    this.cartItemCount.set(this.cartService.cartItems().length);
     this.addToast.openToast(`${product.title} added to cart! 🛒`);
   }
 

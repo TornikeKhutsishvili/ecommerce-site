@@ -1,12 +1,11 @@
 import {
   AfterViewChecked,
   Component,
+  computed,
   Inject,
   inject,
-  OnDestroy,
   OnInit,
   PLATFORM_ID,
-  signal,
   ViewChild
 } from '@angular/core';
 
@@ -24,7 +23,6 @@ import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart-service';
 import { SearchService } from '../../services/search-service';
 import { FilterService } from '../../services/filter-service';
-import { Subscription } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { AlertToasts } from "../toasts/alert-toasts/alert-toasts";
 import { DeleteToasts } from "../toasts/delete-toasts/delete-toasts";
@@ -45,150 +43,78 @@ import AOS from 'aos';
   templateUrl: './cart.html',
   styleUrls: ['./cart.scss']
 })
-export class Cart implements OnInit, OnDestroy, AfterViewChecked {
+export class Cart implements OnInit, AfterViewChecked {
 
   // variables
-  cartItems = signal<any[]>([]);
-  filteredProducts = signal<any[]>([]);
-  totalPrice = signal<number>(0);
-
-  private filterSubscription: Subscription | null = null;
-
   private cartService = inject(CartService);
   private filterService = inject(FilterService);
   private searchService = inject(SearchService);
 
+  // Computed: search + price filter
+  filteredProducts = computed(() => {
+    // let products = this.cartService.cartItems();
+    let products = this.filterService.filteredProducts();
 
+    const cartIds = this.cartService.cartItems().map(p => p.id);
+    products = products.filter(p => cartIds.includes(p.id));
+
+    // Search
+    const query = this.searchService.searchQuery().trim().toLowerCase();
+    if (query) {
+      products = products.filter(p =>
+        p.title.toLowerCase().includes(query)
+      );
+    }
+
+    // Add subtotal field
+    return products.map(p => ({
+      ...p,
+      quantity: this.cartService.cartItems().find(ci => ci.id === p.id)?.quantity || 1,
+      subtotal: p.price * (this.cartService.cartItems().find(ci => ci.id === p.id)?.quantity || 1)
+    }));
+
+  });
+
+
+  // Computed: total price
+  totalPrice = computed(() =>
+    this.filteredProducts().reduce((acc, p) => acc + p.subtotal, 0)
+  );
 
   // ViewChild deleteToast
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
 
-
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  // ngOnInit
   ngOnInit(): void {
-
     if (isPlatformBrowser(this.platformId)) {
       AOS.init();
     }
-
-    const items = this.cartService.getCartItems();
-
-    this.cartItems.set(items);
-    this.filteredProducts.set(items);
-    this.calculateTotalPrice();
-
-
-    // Insert in filter service
-    this.filterService.setFilteredProducts(items);
-
-
-    // All Products Search
-    // this.searchService.searchQuery$.subscribe(query => {
-    //   const filtered = this.filterService.getFilteredProducts()
-    //     .filter(product => product.title.toLowerCase().includes(query.toLowerCase()));
-    //   this.filteredProducts.set(filtered);
-    // });
-
-
-    // All Products Filter
-    // this.filterSubscription = this.filterService.filteredProducts$.subscribe(filtered => {
-    //   this.filteredProducts.set(filtered);
-    // });
-
-
-
-    // search products
-    this.searchService.searchQuery$.subscribe(query => {
-      if (!query.trim()) {
-        this.filteredProducts.set(this.cartItems()); // All on empty
-      } else {
-        const filtered = this.cartItems().filter(product =>
-          product.title.toLowerCase().includes(query.toLowerCase())
-        );
-
-        this.filteredProducts.set(filtered);
-      }
-    });
-
-
-
-    // Subscribe to filtered products updates from the service
-    this.filterSubscription = this.filterService.filteredProducts$.subscribe(filtered => {
-      if (filtered.length > 0) {
-        const categoryFiltered = filtered.filter(p =>
-          this.cartItems().some(prod => prod.id === p.id)
-        );
-        this.filteredProducts.set(categoryFiltered);
-      } else {
-        this.filteredProducts.set(this.cartItems());
-      }
-    });
-
   }
 
-
-  // AOS refresh
   ngAfterViewChecked(): void {
     if (isPlatformBrowser(this.platformId)) {
-      AOS.refresh(); // Reflects changes in animations
+      AOS.refresh();
     }
   }
 
-
-  // Update quantity
   updateQuantity(productId: number, quantity: number): void {
-    if (quantity >= 1) { // At least 1 product
-      this.cartService.updateQuantity(productId, quantity); // Update to LocalStorage
-
-      const updated = this.cartService.getCartItems();
-      this.cartItems.set(updated);
-      this.filteredProducts.set(updated);
-      this.calculateTotalPrice();
+    if (quantity >= 1) {
+      this.cartService.updateQuantity(productId, quantity);
     }
   }
 
-
-
-  // Remove product from cart
   removeFromCart(productId: number): void {
-    this.cartService.removeFromCart(productId); // Delete from localStorage
-
-    const updated = this.cartService.getCartItems();
-    this.cartItems.set(updated);
-    this.filteredProducts.set(updated);
-    this.calculateTotalPrice();
-
+    this.cartService.removeFromCart(productId);
     this.deleteToast.openToast('delete product');
   }
 
-
-
-  // Calculate the total amount
-  calculateTotalPrice(): void {
-    const total = this.cartItems().reduce((acc, item) => {
-      return acc + (item?.price * item?.quantity || 0);
-    }, 0);
-
-    this.totalPrice.set(total);
-  }
-
-
-
-  // apply filter
   applyPriceFilter(price: number) {
-    const filtered = this.filterService.filterByPrice(this.filteredProducts(), price);
-    this.filterService.setFilteredProducts(filtered); // Set filtered products in the service
+    this.filterService.priceFilter.set(price);
   }
 
-
-
-  // ngOnDestroy
-  ngOnDestroy() {
-    if (this.filterSubscription) {
-      this.filterSubscription.unsubscribe();
-    }
+  updateSearch(query: string) {
+    this.searchService.searchQuery.set(query);
   }
 
 }

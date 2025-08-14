@@ -1,10 +1,10 @@
 import {
   AfterViewInit,
   Component,
+  effect,
   ElementRef,
   EventEmitter,
   inject,
-  OnInit,
   Output,
   Renderer2,
   signal,
@@ -21,12 +21,6 @@ import {
   TranslateModule,
   TranslateService
 } from '@ngx-translate/core';
-
-import {
-  BehaviorSubject,
-  combineLatest,
-  map
-} from 'rxjs';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -51,30 +45,25 @@ import { Collapse } from 'bootstrap';
   templateUrl: './navigation.html',
   styleUrls: ['./navigation.scss']
 })
-export class Navigation implements AfterViewInit, OnInit {
+export class Navigation implements AfterViewInit {
 
   @Output() filterApplied = new EventEmitter<any[]>();
   @ViewChild('navbarCollapse') navbarCollapse!: ElementRef;
 
   products = signal<any[]>([]);
   filteredProducts = signal<any[]>([]);
-
-  private priceFilter$ = new BehaviorSubject<string>('');
-
   cartItemCount = signal<number>(0);
 
   isDarkMode = signal<boolean>(false);
   isMenuOpen = signal<boolean>(false);
-
-  isblack = signal<string>('');
-  islight = signal<string>('');
+  isblack = signal('');
+  islight = signal('');
   sun = signal('☀');
   moon = signal('🌙');
-
-  private router = inject(Router);
-  currentUrl = signal<string>('');
+  currentUrl = signal('');
 
   private collapseInstance!: Collapse;
+  private router = inject(Router);
 
   private productService = inject(ProductService);
   private filterService = inject(FilterService);
@@ -83,176 +72,108 @@ export class Navigation implements AfterViewInit, OnInit {
   private renderer = inject(Renderer2);
   private authService = inject(AuthService);
 
+  searchQuery = this.searchService.searchQuery;
   currentUser = this.authService.currentUser;
   isLoggedIn = this.authService.isLoggedIn;
 
   public translate = inject(TranslateService);
   public languageService = inject(Language);
-  selectedLanguage: string;
 
+  selectedLanguage = signal<string>('en');
   languages = [
     { code: 'en', name: 'English' },
     { code: 'ge', name: 'ქართული' }
   ];
 
 
-
   // constructor
   constructor() {
+    // Load products
+    this.productService.getProducts().subscribe(data => {
+      this.products.set(data);
+      this.filterService.setAllProducts(data);
+    });
+
+    // Reactive filteredProducts
+    effect(() => {
+      const query = this.searchQuery().toLowerCase();
+      const filtered = this.filterService.filteredProducts().filter(p =>
+        p.title.toLowerCase().includes(query) ||
+        p.category.toLowerCase().includes(query)
+      );
+      this.filteredProducts.set(filtered);
+    });
+
+    this.router.events.subscribe(() => {
+      this.currentUrl.set(this.router.url);
+    });
 
     this.isDarkMode.set(this.themeService.getSavedTheme() === 'dark');
 
     this.isblack.set('#343a40');
     this.islight.set('#f8f9fa');
 
-
     this.authService.loadFromStorage();
 
-
-    this.router.events.subscribe(() => {
-      this.currentUrl.set(this.router.url);
-    });
-
-
-    this.selectedLanguage = this.languageService.getCurrentLang();
-
+    this.selectedLanguage.set(this.languageService.getCurrentLang());
   }
 
-
-
-  // ngOnInit
-  ngOnInit(): void {
-    this.updateNavbarTheme();
-
-    this.productService.getProducts().subscribe((data) => {
-      this.products.set(data);
-    });
-
-
-    // Combine products, search query and price filter to update filteredProducts signal
-    combineLatest([
-      this.productService.getProducts(),
-      this.searchService.searchQuery$,
-      this.priceFilter$
-    ]).pipe(
-      map(([products, query, priceFilter]) => {
-        let filtered = products;
-
-        if (query) {
-          filtered = this.searchService.search(query, filtered);
-        }
-
-        if (priceFilter === 'low') {
-          filtered = filtered.slice().sort((a, b) => a.price - b.price);
-        } else if (priceFilter === 'high') {
-          filtered = filtered.slice().sort((a, b) => b.price - a.price);
-        }
-
-        return filtered;
-      })
-    ).subscribe(filtered => {
-      this.filteredProducts.set(filtered);
-      this.filterApplied.emit(filtered);
-    });
-
+  // search
+  onSearch(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.searchService.updateSearchQuery(target.value);
   }
 
+  // Price filter
+  filterByPrice(event: any) {
+    const target = event.target as HTMLSelectElement;
+    const value = parseFloat(target.value) || null;
+    this.filterService.setPriceFilter(value);
+  }
 
+  // Sort filter
+  sortByPrice(order: 'low' | 'high' | null) {
+    this.filterService.setSortOrder(order);
+  }
 
-  // collapse instance
+  // collapse
   ngAfterViewInit(): void {
-    this.collapseInstance = new Collapse(this.navbarCollapse.nativeElement, { toggle: false });
+    this.collapseInstance = new Collapse(
+      this.navbarCollapse.nativeElement,
+      { toggle: false }
+    );
   }
 
-
-
-  // change language
-  changeLanguage(lang: string): void {
-    this.languageService.setLanguage(lang);
-    this.selectedLanguage = lang;
+  // Toggle menu
+  toggleMenu() {
+    this.isMenuOpen.set(!this.isMenuOpen());
+    this.collapseInstance.toggle();
   }
 
+  closeMenu() {
+    this.isMenuOpen.set(false);
+    this.collapseInstance.hide();
+  }
 
-
-  // change theme
-  toggleTheme(): void {
+  toggleTheme() {
     this.themeService.toggleTheme();
     this.isDarkMode.set(this.themeService.getSavedTheme() === 'dark');
     this.updateNavbarTheme();
   }
 
-
-
-  // update navbar theme
-  updateNavbarTheme(): void {
+  updateNavbarTheme() {
     const navbar = document.querySelector('.navbar');
-    if (navbar) {
-      this.renderer.removeClass(navbar, 'navbar-light');
-      this.renderer.removeClass(navbar, 'navbar-dark');
-
-      if (this.isDarkMode()) {
-        this.renderer.addClass(navbar, 'navbar-dark');
-      } else {
-        this.renderer.addClass(navbar, 'navbar-light');
-      }
-    }
+    if (!navbar) return;
+    this.renderer.removeClass(navbar, 'navbar-light');
+    this.renderer.removeClass(navbar, 'navbar-dark');
+    this.renderer.addClass(navbar, this.isDarkMode() ? 'navbar-dark' : 'navbar-light');
   }
 
-
-
-  // update navbar theme
-  toggleMenu(): void {
-    this.isMenuOpen.set(!this.isMenuOpen());
-    this.collapseInstance.toggle();
+  changeLanguage(lang: string) {
+    this.languageService.setLanguage(lang);
+    this.selectedLanguage.set(lang);
   }
 
-
-
-  // close menu
-  closeMenu(): void {
-    this.isMenuOpen.set(false);
-    this.collapseInstance.hide();
-  }
-
-
-
-  // search
-  onSearch(event: any) {
-    const query = event.target.value.trim();
-    this.searchService.updateSearchQuery(query);
-  }
-
-
-
-
-  // filter by price
-  filterByPrice(event: any) {
-    const value = event.target.value;
-    this.priceFilter$.next(value);
-  }
-
-
-
-  // // filter by price
-  // filterByPrice(event: any, products: any[]) {
-  //   const value = event.target.value;
-
-  //   if (!products || products.length === 0) return;
-
-  //   let sortedProducts = [...products];
-
-  //   if (value === 'low') {
-  //     sortedProducts.sort((a, b) => a.price - b.price);
-  //   } else if (value === 'high') {
-  //     sortedProducts.sort((a, b) => b.price - a.price);
-  //   }
-
-  //   this.filterService.setFilteredProducts(sortedProducts);
-  // }
-
-
-
-  // logout
   logout() {
     this.authService.logout();
   }

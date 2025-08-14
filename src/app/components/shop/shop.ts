@@ -3,7 +3,6 @@ import {
   Component,
   Inject,
   inject,
-  OnDestroy,
   OnInit,
   PLATFORM_ID,
   signal,
@@ -14,11 +13,6 @@ import {
   RouterLink,
   RouterModule
 } from '@angular/router';
-
-import {
-  Subject,
-  takeUntil
-} from 'rxjs';
 
 import {
   CommonModule,
@@ -51,144 +45,71 @@ import AOS from 'aos';
   templateUrl: './shop.html',
   styleUrls: ['./shop.scss']
 })
-export class Shop implements OnInit, OnDestroy, AfterViewChecked {
+export class Shop implements OnInit, AfterViewChecked {
 
-  // variables
-  products = signal<dummyProductModel[]>([]);
-  filteredProducts = signal<dummyProductModel[]>([]);
   categories = signal<string[]>([]);
   page = signal<number>(1);
   itemsPerPage = signal<number>(12);
 
-
-  // ViewChild to addToast
   @ViewChild('addToast') addToast!: AddToasts;
-
-  private destroy$ = new Subject<void>();
 
   private productService = inject(ProductService);
   private cartService = inject(CartService);
   private filterService = inject(FilterService);
   private searchService = inject(SearchService);
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  selectedCategory = signal<string>('all');
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 
 
-  // ngOnInit
   ngOnInit(): void {
-
-    // AOS init
     if (isPlatformBrowser(this.platformId)) {
       AOS.init();
     }
 
-    this.productService.getProducts()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(data => {
-        this.products.set(data);
-
-        const cats = Array.from(new Set(data.map(p => p.category)));
-        this.categories.set([...cats]);
-
-        this.filteredProducts.set(data);
-      });
-
-    // Subscribe to filtered products updates from the service
-    this.filterService.filteredProducts$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((filtered) => {
-        this.filteredProducts.set(filtered);
-      });
-
-    // In SearchService
-    this.searchService.searchQuery$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(query => {
-        this.applyAllFilters(query);
-      });
-
+    this.productService.getProducts().subscribe(data => {
+      this.filterService.setAllProducts(data);
+      const cats = Array.from(new Set(data.map(p => p.category)));
+      this.categories.set([...cats]);
+    });
   }
 
-
-
-  // AOS refresh
   ngAfterViewChecked(): void {
     if (isPlatformBrowser(this.platformId)) {
-      AOS.refresh(); // Reflects changes in animations
+      AOS.refresh();
     }
   }
 
-
-
-  // search
+  // Filter changes
   onSearch(event: Event) {
-    const query = (event.target as HTMLInputElement).value.toLowerCase();
-    this.searchService.updateSearchQuery(query);
+    const query = (event.target as HTMLInputElement).value.trim();
+    this.filterService.setSearchQuery(query);
     this.page.set(1);
   }
 
-
-
-  // filter by category
   filterByCategory(event: Event) {
     const category = (event.target as HTMLSelectElement).value;
-    this.selectedCategory.set(category);
-    this.applyAllFilters(this.searchService.getSearchQueryValue());
+    this.filterService.setCategory(category);
     this.page.set(1);
   }
 
-
-
-  // apply Price Filter
   applyPriceFilter(price: number) {
-    this.applyAllFilters(this.searchService.getSearchQueryValue(), price);
+    this.filterService.setPriceFilter(price);
     this.page.set(1);
   }
 
-
-
-  // In the main filtering function, we collect all the criteria - category, search, price
-  private applyAllFilters(searchQuery: string, maxPrice?: number) {
-
-    // Let's start with the product.
-    let filtered = [...this.products()];
-
-    // If category is not All, filter by category
-    const cat = this.selectedCategory();
-    if (cat && cat !== 'all') {
-      filtered = filtered.filter(p => p.category === cat);
-    }
-
-    // Search using the search() method of SearchService (which uses Georgian-English regex)
-    filtered = this.searchService.search(searchQuery, filtered);
-
-    // Price filter if maxPrice is present
-    if (maxPrice !== undefined) {
-      filtered = this.filterService.filterByPrice(filtered, maxPrice);
-    }
-
-    // Update on both signals
-    this.filteredProducts.set(filtered);
-    this.filterService.setFilteredProducts(filtered);
-
+  applySort(order: 'low' | 'high' | null) {
+    this.filterService.setSortOrder(order);
+    this.page.set(1);
   }
 
+  get AllFilteredProducts() {
+    return this.filterService.filteredProducts();
+  }
 
-
-  // add to cart
   addToCart(product: dummyProductModel) {
     this.cartService.addToCart(product);
     this.addToast.openToast(`${product.title} added to cart! 🛒`);
-  }
-
-
-
-  // ngOnDestroy
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
 }

@@ -1,69 +1,60 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  private cartKey = 'cartItems'; // Key of LocalStorage
+  cartItems = signal<any[]>([]);
 
-  private cartKey = 'cartItems';  // Key of LocalStorage
+  constructor() {
+    this.loadFromStorage();
+  }
 
+  private loadFromStorage() {
+    const stored = localStorage.getItem(this.cartKey);
+    this.cartItems.set(stored ? JSON.parse(stored) : []);
+  }
 
-  // Add product to cart
+  private saveToStorage() {
+    localStorage.setItem(this.cartKey, JSON.stringify(this.cartItems()));
+  }
+
   addToCart(product: any): void {
-    let cartItems = this.getCartItems();  // Restore cart from LocalStorage
-    const existingProduct = cartItems.find(item => item.id === product.id);
+    const items = [...this.cartItems()];
+    const existing = items.find(i => i.id === product.id);
 
-    if (existingProduct) {
-      existingProduct.quantity += 1; // If the product already exists, the quantity should be increased
+    if (existing) {
+      existing.quantity += 1;
     } else {
-      cartItems.push({
+      items.push({
         ...product,
         image: product.thumbnail || product.images?.[0],
         quantity: 1
-      }); // Add new product
+      });
     }
-
-    this.saveCartItems(cartItems);  // save cart in LocalStorage
+    this.cartItems.set(items);
+    this.saveToStorage();
   }
 
-
-  // Return the list of products in the cart
-  getCartItems(): any[] {
-    const cartItems = localStorage.getItem(this.cartKey);
-    return cartItems ? JSON.parse(cartItems) : [];  // If LocalStorage is empty, then return an empty array
-  }
-
-
-  // Update product quantity in the cart
   updateQuantity(productId: number, quantity: number): void {
-    let cartItems = this.getCartItems();
-    const product = cartItems.find(item => item.id === productId);
-
-    if (product) {
-      product.quantity = quantity;  // Update product quantity
-      this.saveCartItems(cartItems);  // Update the cart in LocalStorage
-    }
+    const items = this.cartItems().map(i =>
+      i.id === productId ? { ...i, quantity } : i
+    );
+    this.cartItems.set(items);
+    this.saveToStorage();
   }
 
-
-  // Delete product from cart
   removeFromCart(productId: number): void {
-    let cartItems = this.getCartItems();
-    cartItems = cartItems.filter(item => item.id !== productId);  // Remove product from the cart
-
-    this.saveCartItems(cartItems);  /// Update the cart in LocalStorage
+    const items = this.cartItems().filter(i => i.id !== productId);
+    this.cartItems.set(items);
+    this.saveToStorage();
   }
-
-
-  // Save cart data to LocalStorage
-  private saveCartItems(cartItems: any[]): void {
-    localStorage.setItem(this.cartKey, JSON.stringify(cartItems));  // Save cart to LocalStorage
-  }
-
 
   // Clear the cart
   clearCart(): void {
-    localStorage.removeItem(this.cartKey);  // Clear cart data from LocalStorage
+    this.cartItems.set([]);
+    localStorage.removeItem(this.cartKey); // Clear cart data from LocalStorage
   }
 
 }

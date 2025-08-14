@@ -1,7 +1,7 @@
 import {
   Component,
+  computed,
   inject,
-  OnDestroy,
   OnInit,
   signal
 } from '@angular/core';
@@ -10,11 +10,6 @@ import {
   RouterLink,
   RouterModule
 } from '@angular/router';
-
-import {
-  Subject,
-  takeUntil
-} from 'rxjs';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -37,24 +32,36 @@ import { SearchService } from '../../../../services/search-service';
   templateUrl: './furniture.html',
   styleUrls: ['./furniture.scss']
 })
-export class Furniture implements OnInit, OnDestroy {
+export class Furniture implements OnInit {
 
   // variables
-  products = signal<dummyProductModel[]>([]);
-  filteredProducts = signal<dummyProductModel[]>([]);
-
-  private destroy$ = new Subject<void>();
+  productsToShow = signal(12);
 
   private productService = inject(ProductService);
   private filterService = inject(FilterService);
   private searchService = inject(SearchService);
 
+  // Computed: filtered + searched + category
+  filteredProducts = computed(() => {
+    let products = this.filterService.filteredProducts();
 
-  // Show products
-  productsToShow = signal(12);
+    const query = this.searchService.searchQuery().trim().toLowerCase();
+    if (query) {
+      products = products.filter(p =>
+        p.title?.toLowerCase().includes(query)
+      );
+    }
 
-  get visibleProducts() {
-    return this.filteredProducts().slice(0, this.productsToShow());
+    products = products.filter(p => p.category === 'furniture');
+
+    return products;
+  });
+
+  ngOnInit() {
+    this.productService.getProductsByCategory('furniture')
+      .subscribe((data: dummyProductModel[]) => {
+        this.filterService.setAllProducts(data);
+      });
   }
 
   showMore() {
@@ -64,57 +71,8 @@ export class Furniture implements OnInit, OnDestroy {
     this.productsToShow.set(nextCount);
   }
 
-
-
-  ngOnInit(): void {
-
-    this.productService.getProductsByCategory('furniture')
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(data => {
-      this.products.set(data);
-      this.filteredProducts.set(data);
-
-      this.filterService.setFilteredProducts(data);
-      });
-
-
-    // Search filter
-    this.searchService.searchQuery$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(query => {
-        if (!query.trim()) {
-          this.filteredProducts.set(this.products());
-        } else {
-
-          const filtered = this.products().filter(product =>
-            product.title.toLowerCase().includes(query.toLowerCase())
-          );
-          this.filteredProducts.set(filtered);
-
-        }
-      });
-
-
-    // Category filter
-    this.filterService.filteredProducts$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(filtered => {
-        if (filtered.length > 0) {
-
-          const categoryFiltered = filtered.filter(p => p.category === 'furniture');
-          this.filteredProducts.set(categoryFiltered);
-
-        } else {
-          this.filteredProducts.set(this.products());
-        }
-      });
-
-  }
-
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
+  get visibleProducts() {
+    return this.filteredProducts().slice(0, this.productsToShow());
   }
 
 }

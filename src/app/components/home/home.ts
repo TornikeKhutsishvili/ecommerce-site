@@ -1,21 +1,15 @@
 import {
   Component,
+  effect,
   inject,
-  OnDestroy,
   OnInit,
   signal
 } from '@angular/core';
 
 import {
-  NavigationEnd,
   Router,
   RouterModule
 } from '@angular/router';
-
-import {
-  filter,
-  Subscription
-} from 'rxjs';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -24,6 +18,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Carusel } from "../carusel/carusel";
 import { ProductService } from '../../services/product-service';
 import { dummyProductModel } from '../../models/product.model';
+import { FilterService } from '../../services/filter-service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
@@ -39,30 +35,54 @@ import { dummyProductModel } from '../../models/product.model';
   templateUrl: './home.html',
   styleUrls: ['./home.scss']
 })
-export class Home implements OnInit, OnDestroy {
+export class Home implements OnInit {
 
-  // variables
-  carouselProducts = signal<dummyProductModel[]>([]);
+  // Signals
   allProducts = signal<dummyProductModel[]>([]);
+  carouselProducts = signal<dummyProductModel[]>([]);
 
+  // Inject services
   private router = inject(Router);
   private productService = inject(ProductService);
-  private routerSub!: Subscription;
+  private filterService = inject(FilterService);
 
+  // Signals for async data
+  private productsSignal = toSignal(this.productService.getProducts());
+  private carouselSignal = toSignal(this.productService.getRandomProductCarusel());
 
-  // ngOnInit
-  ngOnInit() {
+  constructor() {
 
-    this.loadData();
+    // All products effect
+    effect(() => {
+      const data = this.productsSignal();
+      if (data) {
+        this.allProducts.set(data);
+        this.filterService.setAllProducts(data);
+      }
+    });
 
-    this.routerSub = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.loadData();
-      });
+    // Initial carousel effect
+    effect(() => {
+      const data = this.carouselSignal();
+      if (data) {
+        this.carouselProducts.set(data);
+      }
+    });
+
+    // Update carousel on route change
+    effect(() => {
+      const url = this.router.url; // reactive read
+      const data = this.carouselSignal(); // read existing signal
+      if (data) {
+        this.carouselProducts.set(data);
+      }
+    });
 
   }
 
+  ngOnInit() {
+    this.loadData();
+  }
 
   // load Data
   private loadData() {
@@ -80,21 +100,11 @@ export class Home implements OnInit, OnDestroy {
     this.loadRandomCarousel();
   }
 
-
-
   // random carousel
   loadRandomCarousel() {
     this.productService.getRandomProductCarusel().subscribe(data => {
       this.carouselProducts.set(data);
     });
-  }
-
-
-  // ngOnDestroy
-  ngOnDestroy() {
-    if (this.routerSub) {
-      this.routerSub.unsubscribe();
-    }
   }
 
 }
