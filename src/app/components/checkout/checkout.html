@@ -8,7 +8,7 @@
 
       <!-- Left side: Cart items -->
       <section class="cart-items">
-        <h3>
+        <h3 class="text-dark">
           {{ 'Your Cart' | translate }}
         </h3>
 
@@ -50,13 +50,15 @@
 
 
       <!-- Right side: Checkout form -->
-      <section class="checkout-form-section">
-        <h3 class="text-center">{{ 'Shipping & Payment' | translate }}</h3>
+      <section id="checkoutFormSection" class="checkout-form-section">
+        <h3 class="text-center text-dark">
+          {{ 'Shipping & Payment' | translate }}
+        </h3>
 
         <form (ngSubmit)="completeCheckout()" #checkoutForm="ngForm" novalidate>
 
           <!-- Full Name -->
-          <label for="name">{{ 'Full Name' | translate }} *</label>
+          <label for="name">{{ 'Full Name' | translate }}</label>
           <input id="name"
                 name="name"
                 type="text"
@@ -70,7 +72,7 @@
           }
 
           <!-- Email -->
-          <label for="email">{{ 'Email' | translate }} *</label>
+          <label for="email">{{ 'Email' | translate }}</label>
           <input id="email"
                 name="email"
                 type="email"
@@ -90,7 +92,7 @@
           }
 
           <!-- Shipping Address -->
-          <label for="address">{{ 'Shipping Address' | translate }} *</label>
+          <label for="address">{{ 'Shipping Address' | translate }}</label>
           <input id="address"
                 name="address"
                 type="text"
@@ -104,7 +106,7 @@
           }
 
           <!-- Payment Method -->
-          <label for="paymentMethod">{{ 'Payment Method' | translate }} *</label>
+          <label for="paymentMethod">{{ 'Payment Method' | translate }}</label>
           <select id="paymentMethod"
                   name="paymentMethod"
                   [ngModel]="paymentMethod()"
@@ -207,6 +209,7 @@
           {{ 'Back to Cart' | translate }}
         </a>
       </section>
+
     </div>
   } @else {
 
