@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 export const CHECKOUT_ROUTES: Routes = [
 
-  { path: 'checkout',
+  { path: '',
     loadComponent: () =>import('./checkout')
     .then((m) => m.Checkout), title: 'Checkout'
   },

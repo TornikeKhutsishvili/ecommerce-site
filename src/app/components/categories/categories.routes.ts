@@ -8,7 +8,7 @@ function generatePrerenderParams(count: number): { id: string }[] {
 export const CATEGORIES_ROUTES: Routes = [
 
   {
-    path: 'categories',
+    path: '',
     loadComponent: () => import('./categories')
     .then(m => m.Categories), title: 'Categories'
   },
