@@ -57,7 +57,7 @@
             <p class="text-muted mb-1">{{ product.category | translate }}</p>
             <p class="fw-bold mb-2">{{ '$' | translate }}{{ product.price }}</p>
             <a class="btn btn-outline-primary btn-sm mt-auto"
-              [routerLink]="['/product', product.id]"
+              [routerLink]="['/products', 'product-details', product.id]"
             >
               {{ 'View Details' | translate }}
             </a>

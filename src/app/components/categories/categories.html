@@ -8,7 +8,7 @@
       <div class="col-lg-3 col-md-4 col-sm-6 mb-4" style="cursor: pointer">
         <div
           class="card h-100 shadow-sm category-card"
-          [routerLink]="['/categories-child', categ]"
+          [routerLink]="['/categories', 'categories-child', categ]"
           data-aos="fade-up"
           data-aos-duration="1200"
           data-aos-anchor-placement="center-bottom"
@@ -16,7 +16,7 @@
           <img
             ngSrc="{{ categoryImages[categ] }}"
             width="400"
-            height="220"
+            height="200"
             class="card-img-top"
             alt="{{ categ | translate }}"
             loading="lazy"

@@ -19,7 +19,7 @@
       <div class="carousel-item"
           [class.active]="i === currentIndex()"
       >
-        <img [src]="item.images[0]"
+        <img ngSrc="{{ item.images[0] }}"
               class="d-block w-100"
               alt="{{ item.title | translate }}"
               loading="lazy"
