@@ -15,7 +15,11 @@
 
 
   <!-- content -->
-  <div class="carousel-inner">
+  <div class="carousel-inner"
+      id="productCarousel"
+      data-bs-ride="carousel"
+      data-bs-interval="3000"
+  >
     @for( item of products; track $index; let i = $index ) {
       <div class="carousel-item"
           [class.active]="i === currentIndex()"
@@ -45,6 +49,7 @@
       </div>
     }
   </div>
+
 
   <!-- prev btn -->
   <button class="carousel-control-prev"

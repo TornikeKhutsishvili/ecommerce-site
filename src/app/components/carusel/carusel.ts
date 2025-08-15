@@ -2,6 +2,7 @@ import {
   Component,
   computed,
   Input,
+  OnInit,
   signal
 } from '@angular/core';
 
@@ -23,8 +24,7 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './carusel.html',
   styleUrls: ['./carusel.scss']
 })
-export class Carusel {
-
+export class Carusel implements OnInit {
 
   // get products
   @Input() products: dummyProductModel[] = [];
@@ -55,13 +55,18 @@ export class Carusel {
   }
 
 
+  ngOnInit() {
+    setInterval(() => {
+      this.nextSlide();
+    }, 3000);
+  }
+
   // next slide
   nextSlide() {
     if (this.products.length > 0) {
       this.currentIndex.set((this.currentIndex() + 1) % this.products.length);
     }
   }
-
 
   // previous slide
   prevSlide() {
