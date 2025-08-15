@@ -43,6 +43,10 @@ import { RouterModule } from '@angular/router';
 })
 export class Contact {
 
+  address = signal('https://maps.google.com/?q=123+Popular+St,+Tbilisi,+Georgia');
+  phone = signal('+995599123456789');
+  email = signal('support@tkshop.com');
+
   // map Url
   mapUrl = signal<SafeResourceUrl | null>(null);
 

@@ -43,7 +43,7 @@
         <h5>{{ 'Contact Us' | translate }}</h5>
         <p class="small mb-1">
           <strong>{{ 'Email' | translate }}: </strong>
-          <a href="mailto:support@tkshop.com"
+          <a [href]="'mailto:' + email()"
             class="text-light text-decoration-none"
           >
             support&#64;tkshop.com
@@ -52,7 +52,7 @@
 
         <p class="small mb-1">
           <strong>{{ 'Phone' | translate }}: </strong>
-          <a href="tel:+995599123456789"
+          <a [href]="'tel:' + phone()"
             class="text-light text-decoration-none"
           >
             +995 (599) 123-456-789
@@ -61,7 +61,7 @@
 
         <p class="small">
           <strong>{{ 'Address' | translate }}: </strong>
-          <a href="https://maps.google.com/?q=123+Popular+St,+Tbilisi,+Georgia"
+          <a [href]="address()"
             target="_blank"
             rel="noopener noreferrer"
             class="text-light text-decoration-none"
@@ -91,38 +91,43 @@
         &copy; {{ currentYear() }} {{ 'TKShop. All rights reserved.' | translate }}
       </p>
       <div>
+
         <!-- facebook -->
-        <a href="https://facebook.com"
+        <a [href]="facebook()"
           target="_blank"
           rel="noopener noreferrer"
           class="text-light me-3"
         >
           <i class="bi bi-facebook"></i>
         </a>
+
         <!-- twitter -->
-        <a href="https://twitter.com"
+        <a [href]="twitter()"
           target="_blank"
           rel="noopener noreferrer"
           class="text-light me-3"
         >
           <i class="bi bi-twitter"></i>
         </a>
+
         <!-- instagram -->
-        <a href="https://instagram.com"
+        <a [href]="instagram()"
           target="_blank"
           rel="noopener noreferrer"
           class="text-light me-3"
         >
           <i class="bi bi-instagram"></i>
         </a>
+
         <!-- linkedin -->
-        <a href="https://linkedin.com"
+        <a [href]="linkedIn()"
           target="_blank"
           rel="noopener noreferrer"
           class="text-light"
         >
           <i class="bi bi-linkedin"></i>
         </a>
+
       </div>
     </div>
 
