@@ -76,7 +76,7 @@ export class Register {
       const success = this.auth.register(this.name(), this.email(), this.password());
 
       if (success) {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth/login']);
         this.acceptToast.openToast('User is register!');
       } else {
         this.alertToast.openToast('User with this email already exists!');

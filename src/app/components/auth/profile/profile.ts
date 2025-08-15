@@ -43,13 +43,19 @@ export class Profile implements OnInit {
   // logout
   logout() {
     this.auth.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth/login']);
   }
 
 
-  // goToEditProfile
+  // Edit Profile
   goToEditProfile(): void {
-    this.router.navigate(['/edit-profile']);
+    this.router.navigate(['/auth/edit-profile']);
+  }
+
+
+  // reset password
+  resetPass() {
+    this.router.navigate(['/auth/reset-password']);
   }
 
 }

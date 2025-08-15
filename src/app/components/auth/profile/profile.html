@@ -9,8 +9,28 @@
     <p>Your email: <strong>{{ user?.email }}</strong></p>
 
     <div class="profile-actions">
-      <button type="button" (click)="goToEditProfile()" class="me-1">✏️ Edit Profile</button>
-      <button type="button" (click)="logout()" class="ms-1">🚪 Logout</button>
+
+      <button type="button"
+              (click)="goToEditProfile()"
+              class="me-1"
+      >
+        <i class="fa fa-pencil-alt"></i> Edit Profile
+      </button>
+
+      <button type="button"
+              (click)="resetPass()"
+              class="me-1 bg-warning text-white"
+      >
+        <i class="fa fa-key"></i> Reset Password
+      </button>
+
+      <button type="button"
+              (click)="logout()"
+              class="ms-1"
+      >
+        <i class="fa fa-sign-out-alt"></i> Logout
+      </button>
+
     </div>
   </div>
 

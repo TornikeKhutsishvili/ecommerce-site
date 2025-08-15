@@ -25,17 +25,6 @@
 
         <!-- Rating -->
         <div class="mb-3">
-          <!-- @for( star of [1,2,3,4,5]; track $index ) {
-            <ng-container>
-              <i class="bi"
-                [ngClass]="{
-                  'bi-star-fill text-warning': star <= product().rating,
-                  'bi-star text-secondary': star > product().rating
-                }">
-              </i>
-            </ng-container>
-          } -->
-
           @for( star of stars(); track $index ) {
             <div class="star-container">
               <i class="bi bi-star text-secondary"></i>

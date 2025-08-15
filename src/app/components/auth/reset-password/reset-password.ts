@@ -16,6 +16,7 @@ import {
 } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
+import { Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../../services/auth-service';
 import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
@@ -44,6 +45,7 @@ export class ResetPassword {
 
   private auth = inject(AuthService)
   private router = inject(Router);
+  private location = inject(Location);
 
   @ViewChild('alertToast') alertToast!: AlertToasts;
 
@@ -94,6 +96,18 @@ export class ResetPassword {
   onPasswordInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.newPassword.set(input.value);
+  }
+
+
+  // back
+  goBack(scrollToTop: boolean = false) {
+    this.location.back();
+
+    if (scrollToTop) {
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+    }
   }
 
 }

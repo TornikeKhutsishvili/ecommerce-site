@@ -95,7 +95,7 @@ export class EditProfile implements OnInit {
 
     const storedUser = localStorage.getItem('auth_user');
     if (!storedUser) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth/login']);
       return;
     }
 
@@ -104,13 +104,13 @@ export class EditProfile implements OnInit {
       user = JSON.parse(storedUser);
     } catch {
       localStorage.removeItem('auth_user');
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth/login']);
       return;
     }
 
     if (!user || !user.email) {
       localStorage.removeItem('auth_user');
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth/login']);
       return;
     }
 
@@ -130,7 +130,7 @@ export class EditProfile implements OnInit {
       this.success.set(true);
       this.errorMessage.set('');
 
-      setTimeout(() => this.router.navigate(['/profile']), 1500);
+      setTimeout(() => this.router.navigate(['/auth/profile']), 1500);
 
     } catch (error) {
       this.errorMessage.set('Failed to save user data.');
@@ -143,7 +143,7 @@ export class EditProfile implements OnInit {
 
   // go back to profile
   goBack(): void {
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/auth/profile']);
   }
 
 
