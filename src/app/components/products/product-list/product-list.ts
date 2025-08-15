@@ -20,7 +20,8 @@ import {
 
 import {
   CommonModule,
-  isPlatformBrowser
+  isPlatformBrowser,
+  NgOptimizedImage
 } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
@@ -43,7 +44,8 @@ import AOS from 'aos';
     RouterModule,
     NgxPaginationModule,
     TranslateModule,
-    AddToasts
+    AddToasts,
+    NgOptimizedImage
 ],
   templateUrl: './product-list.html',
   styleUrls: ['./product-list.scss']

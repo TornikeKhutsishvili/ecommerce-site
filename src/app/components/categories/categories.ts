@@ -10,7 +10,8 @@ import {
 
 import {
   CommonModule,
-  isPlatformBrowser
+  isPlatformBrowser,
+  NgOptimizedImage
 } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
@@ -28,6 +29,7 @@ import AOS from 'aos';
     FormsModule,
     RouterModule,
     TranslateModule,
+    NgOptimizedImage
 ],
   templateUrl: './categories.html',
   styleUrls: ['./categories.scss']

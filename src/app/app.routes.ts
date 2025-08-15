@@ -111,7 +111,7 @@ export const routes: Routes = [
   {
     path: 'contact',
     loadChildren: () => import('./components/contact/contact.routes')
-    .then(m => m.CONTACT_ROUTES), title: 'Contact',
+    .then(m => m.CONTACT_ROUTES), title: 'Contact'
   },
 
   // {
@@ -123,7 +123,7 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./components/auth/auth.routes')
-    .then(m => m.AUTH_ROUTES), title: 'Auth',
+    .then(m => m.AUTH_ROUTES), title: 'Auth'
   },
 
   // { path: 'login', component: Login },
@@ -137,7 +137,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () => import('./components/admin/admin.routes')
-    .then(m => m.ADMIN_ROUTES), title: 'Admin',
+    .then(m => m.ADMIN_ROUTES), title: 'Admin'
   },
 
   // { path: 'admin', component: Dashboard, canActivate: [adminGuard] },

@@ -25,7 +25,9 @@
             <!-- Product Image -->
             <div class="position-relative overflow-hidden">
               <img
-                [src]="product.thumbnail || product.image"
+                ngSrc="{{ product.thumbnail || product.image }}"
+                width="1000"
+                height="1000"
                 class="card-img-top img-fluid product-img"
                 alt="{{ product.title | translate }}"
                 loading="lazy"

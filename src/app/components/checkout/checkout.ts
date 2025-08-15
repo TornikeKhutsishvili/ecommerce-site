@@ -19,6 +19,12 @@ import { DeleteToasts } from '../toasts/delete-toasts/delete-toasts';
 import { AcceptToasts } from "../toasts/accept-toasts/accept-toasts";
 import { AlertToasts } from "../toasts/alert-toasts/alert-toasts";
 import { AddToasts } from '../toasts/add-toasts/add-toasts';
+import { OrderService } from '../../services/orders-service';
+
+import {
+  PaymentProvider,
+  PaymentService
+} from '../../services/payment-service';
 
 @Component({
   selector: 'app-checkout',
@@ -49,6 +55,28 @@ export class Checkout {
 
   // Inject services
   private cartService = inject(CartService);
+  private orderService = inject(OrderService);
+  private paymentService = inject(PaymentService);
+
+
+  // Order ID for payment
+  orderId!: string;
+
+  pay(provider: PaymentProvider) {
+    this.paymentService.createCheckout({
+      provider,
+      orderId: this.orderId,
+      successUrl: window.location.origin + '/checkout/success',
+      cancelUrl: window.location.origin + '/checkout/cancel',
+    }).subscribe((res) => {
+      if (res.checkoutUrl) {
+        window.location.href = res.checkoutUrl; // hosted redirect
+      } else {
+        // თუ SDK იყენებ (e.g. Stripe redirectToCheckout(sessionId))
+        // აქ ჩასვი შესაბამისი ლოგიკა
+      }
+    });
+  }
 
   // Reactive cart items directly from CartService
   cartItems = computed(() => this.cartService.cartItems());

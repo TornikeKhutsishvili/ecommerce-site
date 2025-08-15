@@ -14,7 +14,9 @@
           data-aos-anchor-placement="center-bottom"
         >
           <img
-            [src]="categoryImages[categ]"
+            ngSrc="{{ categoryImages[categ] }}"
+            width="400"
+            height="220"
             class="card-img-top"
             alt="{{ categ | translate }}"
             loading="lazy"
