@@ -5,11 +5,7 @@ import {
   signal
 } from '@angular/core';
 
-import {
-  CommonModule,
-  NgOptimizedImage
-} from '@angular/common';
-
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { dummyProductModel } from '../../models/product.model';
@@ -22,8 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     FormsModule,
     RouterModule,
-    TranslateModule,
-    NgOptimizedImage
+    TranslateModule
   ],
   templateUrl: './carusel.html',
   styleUrls: ['./carusel.scss']
