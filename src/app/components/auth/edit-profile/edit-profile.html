@@ -1,13 +1,10 @@
 <!-- edit profile -->
 <div class="edit-profile-container-main">
   <div class="edit-profile-container">
-
-    <!-- title -->
     <h2 id="editProf">
       {{ 'Edit Profile' | translate }} 📝
     </h2>
 
-    <!-- start form -->
     <form (ngSubmit)="save()" #profileForm="ngForm">
       <div class="form-group">
         <input
@@ -15,14 +12,13 @@
           id="name"
           name="name"
           minlength="3"
-          [(ngModel)]="usernameValue"
+          [ngModel]="usernameValue()"
+          (ngModelChange)="usernameValue.set($event)"
           #nameInput="ngModel"
           placeholder="{{ 'Name' | translate }}"
           required
         />
-        <label for="name">
-          {{ 'Name' | translate }}
-        </label>
+        <label for="name">{{ 'Name' | translate }}</label>
       </div>
 
       <div class="form-group">
@@ -30,13 +26,12 @@
           type="email"
           id="email"
           name="email"
-          [(ngModel)]="email"
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
           placeholder="{{ 'Email' | translate }}"
           readonly
         />
-        <label for="email">
-          {{ 'Email' | translate }}
-        </label>
+        <label for="email">{{ 'Email' | translate }}</label>
       </div>
 
       <div class="form-group password-group">
@@ -45,86 +40,63 @@
           id="password"
           name="password"
           minlength="6"
-          [(ngModel)]="passwordValue"
+          [ngModel]="passwordValue()"
+          (ngModelChange)="passwordValue.set($event)"
           #passwordInput="ngModel"
           placeholder=" "
         />
-        <label for="password">
-          {{ 'New Password' | translate }}
-        </label>
-        <button type="button"
-                class="toggle-password"
-                (click)="togglePassword()"
-        >
+        <label for="password">{{ 'New Password' | translate }}</label>
+
+        <button type="button" class="toggle-password" (click)="togglePassword()">
           {{ showPassword() ? hide() : show() }}
         </button>
       </div>
 
-      @if(passwordValue().length >= 6){
+      @if (passwordValue().length >= 6) {
         <div class="form-group password-group">
           <input
             [type]="showPassword() ? 'text' : 'password'"
             id="confirmPassword"
             name="confirmPassword"
-            [(ngModel)]="confirmPasswordValue"
+            [ngModel]="confirmPasswordValue()"
+            (ngModelChange)="confirmPasswordValue.set($event)"
             #confirmPasswordInput="ngModel"
             placeholder=" "
             required
           />
-          <label for="confirmPassword">
-            {{ 'Confirm Password' | translate }}
-          </label>
+          <label for="confirmPassword">{{ 'Confirm Password' | translate }}</label>
         </div>
       }
 
-
-      <!-- Validation Summary -->
-      @if(profileForm.submitted || profileForm.touched){
+      @if (profileForm.submitted || profileForm.touched) {
         <div class="error-summary">
-          @if(nameInput.invalid && nameInput.touched){
+          @if (nameInput.invalid && nameInput.touched) {
             <div>🔸 {{ 'Name is required and must be at least 3 characters.' | translate }}</div>
           }
-          @if(passwordInput.invalid && passwordInput.touched){
+          @if (passwordInput.invalid && passwordInput.touched) {
             <div>🔸 {{ 'Password must be at least 6 characters.' | translate }}</div>
           }
-          @if(confirmPasswordValue() && confirmPasswordValue() !== passwordValue()){
+          @if (confirmPasswordValue() && confirmPasswordValue() !== passwordValue()) {
             <div>🔸 {{ 'Passwords do not match.' | translate }}</div>
           }
         </div>
       }
 
-      <!-- btns -->
       <div class="button-group">
-        <!-- save btn -->
-        <button type="submit"
-                [disabled]="profileForm.invalid"
-                class="me-1"
-        >
+        <button type="submit" [disabled]="profileForm.invalid" class="me-1">
           💾 {{ 'Save' | translate }}
         </button>
-
-        <!-- back btn -->
-        <button type="button"
-                (click)="goBack()"
-                class="ms-1"
-        >
+        <button type="button" (click)="goBack()" class="ms-1">
           🔙 {{ 'Back' | translate }}
         </button>
       </div>
 
-      @if(success()){
-        <p class="success-msg">
-          ✅ {{ 'Profile updated successfully!' | translate }}
-        </p>
+      @if (success()) {
+        <p class="success-msg">✅ {{ 'Profile updated successfully!' | translate }}</p>
       }
-
     </form>
-    <!-- end form -->
-
   </div>
 </div>
 
 
-
-<!-- toasts -->
 <app-alert-toasts #alertToast></app-alert-toasts>

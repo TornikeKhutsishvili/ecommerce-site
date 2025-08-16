@@ -28,32 +28,23 @@ import { Router } from '@angular/router';
 })
 export class Profile implements OnInit {
 
-  // varibles
   auth = inject(AuthService);
   private router = inject(Router);
-
   user: any;
 
-  // ngOnInit
   ngOnInit(): void {
     this.user = this.auth.getUser();
   }
 
-
-  // logout
   logout() {
     this.auth.logout();
     this.router.navigate(['/auth/login']);
   }
 
-
-  // Edit Profile
   goToEditProfile(): void {
     this.router.navigate(['/auth/edit-profile']);
   }
 
-
-  // reset password
   resetPass() {
     this.router.navigate(['/auth/reset-password']);
   }

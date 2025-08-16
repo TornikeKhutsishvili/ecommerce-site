@@ -40,21 +40,17 @@ import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
 })
 export class Login {
 
-  // variables
   email = signal('');
   password = signal('');
 
   private router = inject(Router);
   private auth = inject(AuthService);
 
-  // ViewChild acceptToast and alertToast
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
   @ViewChild('alertToast') alertToast!: AlertToasts;
 
-  // onSubmit
   onSubmit() {
     if (this.email() && this.password()) {
-
       const success = this.auth.login(this.email(), this.password());
 
       if (success) {
@@ -64,7 +60,6 @@ export class Login {
       } else {
         this.alertToast.openToast('Invalid email or password!');
       }
-
     }
   }
 

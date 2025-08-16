@@ -1,13 +1,9 @@
 import {
-  Inject,
   Injectable,
+  Inject,
   PLATFORM_ID,
   signal
 } from '@angular/core';
-
-import {
-  isPlatformBrowser
-} from '@angular/common';
 
 import {
   Observable,
@@ -15,17 +11,20 @@ import {
   tap
 } from 'rxjs';
 
-import { User } from '../interfaces/auth-user.interface';
+import { isPlatformBrowser } from '@angular/common';
 
+export interface User {
+  name: string;
+  email: string;
+  password: string;
+  role: 'admin' | 'user';
+}
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
 
   private accessToken: string | null = null;
   private refreshTokenValue: string | null = null;
-
 
   // Signals
   isLoggedIn = signal(false);
@@ -37,26 +36,16 @@ export class AuthService {
     this.loadFromStorage();
   }
 
-
   getAccessToken(): string | null {
     return this.accessToken;
   }
 
-
   refreshToken(): Observable<any> {
-    // აქ უნდა გავიდე სერვერზე refresh token-ით და ახალი access token ავიღო
-    // მაგალითად: this.http.post('/api/refresh', { token: this.refreshTokenValue })
-
-    // mock მაგალითი:
     return of(true).pipe(
-      tap(() => {
-        this.accessToken = 'new_access_token';
-      })
+      tap(() => { this.accessToken = 'new_access_token'; })
     );
   }
 
-
-  // Login
   login(email: string, password: string): boolean {
     const storedUser = this.getUserByEmail(email);
     if (!storedUser) return false;
@@ -65,13 +54,13 @@ export class AuthService {
       this.safeSetItem(this.STORAGE_KEY, JSON.stringify(storedUser));
       this.isLoggedIn.set(true);
       this.currentUser.set(storedUser);
+      this.accessToken = 'mock_access_token';
+      this.refreshTokenValue = 'mock_refresh_token';
       return true;
     }
     return false;
   }
 
-
-  // Register
   register(name: string, email: string, password: string): boolean {
     if (this.getUserByEmail(email)) return false;
 
@@ -86,39 +75,24 @@ export class AuthService {
     return true;
   }
 
-
-  // Logout
   logout(): void {
     this.safeRemoveItem(this.STORAGE_KEY);
     this.isLoggedIn.set(false);
     this.currentUser.set(null);
-
     this.accessToken = null;
     this.refreshTokenValue = null;
   }
 
-
-  // Check if logged in
-  checkLogin(): boolean {
-    return this.isLoggedIn();
-  }
-
-
-  // Get current user
   getUser(): User | null {
     return this.currentUser();
   }
 
-
-  // Search by email
   getUserByEmail(email: string): User | null {
     const data = this.safeGetItem(email);
     return data ? JSON.parse(data) : null;
   }
 
-
-  // Load from storage
-  public loadFromStorage() {
+  private loadFromStorage() {
     const storedUserStr = this.safeGetItem(this.STORAGE_KEY);
     if (storedUserStr) {
       const user: User = JSON.parse(storedUserStr);
@@ -127,35 +101,26 @@ export class AuthService {
     }
   }
 
-
-  // Is admin?
   isAdmin(): boolean {
     return this.currentUser()?.role === 'admin';
   }
 
-
-  // Safe storage access
   private safeGetItem(key: string): string | null {
     if (isPlatformBrowser(this.platformId)) {
-      try { return localStorage.getItem(key); }
-      catch { return null; }
+      try { return localStorage.getItem(key); } catch { return null; }
     }
     return null;
   }
 
-
   private safeSetItem(key: string, value: string): void {
     if (isPlatformBrowser(this.platformId)) {
-      try { localStorage.setItem(key, value); }
-      catch {}
+      try { localStorage.setItem(key, value); } catch {}
     }
   }
 
-
   private safeRemoveItem(key: string): void {
     if (isPlatformBrowser(this.platformId)) {
-      try { localStorage.removeItem(key); }
-      catch {}
+      try { localStorage.removeItem(key); } catch {}
     }
   }
 

@@ -1,24 +1,24 @@
 import {
-    inject,
-    Injectable
+  inject,
+  Injectable
 } from '@angular/core';
 
 import {
-    HttpEvent,
-    HttpHandler,
-    HttpInterceptor,
-    HttpRequest,
-    HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpErrorResponse
 } from '@angular/common/http';
 
 import {
-    Observable,
-    throwError
+  Observable,
+  throwError
 } from 'rxjs';
 
 import {
-    catchError,
-    switchMap
+  catchError,
+  switchMap
 } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
@@ -31,15 +31,12 @@ export class AuthInterceptor implements HttpInterceptor {
   private router = inject(Router);
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
     const accessToken = this.authService.getAccessToken();
 
     let authReq = req;
     if (accessToken) {
       authReq = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+        setHeaders: { Authorization: `Bearer ${accessToken}` }
       });
     }
 
@@ -50,13 +47,13 @@ export class AuthInterceptor implements HttpInterceptor {
             switchMap(() => {
               const newToken = this.authService.getAccessToken();
               const newReq = req.clone({
-                setHeaders: { Authorization: `Bearer ${newToken}` },
+                setHeaders: { Authorization: `Bearer ${newToken}` }
               });
               return next.handle(newReq);
             }),
             catchError(() => {
               this.authService.logout();
-              this.router.navigate(['/login']);
+              this.router.navigate(['/auth/login']);
               return throwError(() => error);
             })
           );
@@ -64,7 +61,6 @@ export class AuthInterceptor implements HttpInterceptor {
         return throwError(() => error);
       })
     );
-
   }
 
 }

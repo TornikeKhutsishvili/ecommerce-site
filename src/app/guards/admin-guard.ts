@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { Router, CanActivateFn } from '@angular/router';
 import { AuthService } from '../services/auth-service';
 
 export const adminGuard: CanActivateFn = (route, state) => {
@@ -10,9 +10,10 @@ export const adminGuard: CanActivateFn = (route, state) => {
   if (auth.isLoggedIn() && auth.isAdmin()) {
     return true;
   } else {
-    router.navigate(['/']), {
-      queryParams: { returnUrl: state.url }
-    };
+    router.navigate(
+      ['/'],
+      { queryParams: { returnUrl: state.url } }
+    );
     return false;
   }
 

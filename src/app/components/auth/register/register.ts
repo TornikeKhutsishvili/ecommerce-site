@@ -17,10 +17,10 @@ import {
 } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../services/auth-service';
 import { TranslateModule } from '@ngx-translate/core';
 import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
 import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-register',
@@ -34,33 +34,31 @@ import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
     TranslateModule,
     AlertToasts,
     AcceptToasts
-],
+  ],
   templateUrl: './register.html',
   styleUrls: ['./register.scss']
 })
 export class Register {
 
-  // Variables
+  // variables
   name = signal('');
   email = signal('');
   password = signal('');
   confirmPassword = signal('');
 
+  // signals
   private router = inject(Router);
   private auth = inject(AuthService);
-
 
 
   // ViewChild acceptToast and alertToast
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
   @ViewChild('alertToast') alertToast!: AlertToasts;
 
-
-
+  // Show and hide password
   get passwordMismatch() {
     return this.password() !== this.confirmPassword();
   }
-
 
 
   // onSubmit
@@ -72,16 +70,14 @@ export class Register {
     }
 
     if (this.name() && this.email() && this.password()) {
-
       const success = this.auth.register(this.name(), this.email(), this.password());
 
       if (success) {
         this.router.navigate(['/auth/login']);
-        this.acceptToast.openToast('User is register!');
+        this.acceptToast.openToast('User registered successfully!');
       } else {
         this.alertToast.openToast('User with this email already exists!');
       }
-
     }
 
   }

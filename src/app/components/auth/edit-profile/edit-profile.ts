@@ -37,7 +37,6 @@ import { AlertToasts } from "../../toasts/alert-toasts/alert-toasts";
 })
 export class EditProfile implements OnInit {
 
-  // variables
   username = signal('');
   password = signal('');
   confirmPassword = signal('');
@@ -56,30 +55,20 @@ export class EditProfile implements OnInit {
   private auth = inject(AuthService);
   private router = inject(Router);
 
-
-  // ViewChild alertToast
   @ViewChild('alertToast') alertToast!: AlertToasts;
 
-
-  // ng on init
   ngOnInit(): void {
-
     const user = this.auth.getUser();
     if (user) {
       this.username.set(user.name ?? '');
       this.email.set(user.email ?? '');
-
       this.usernameValue.set(this.username());
       this.passwordValue.set('');
       this.confirmPasswordValue.set('');
     }
-
   }
 
-
-  // save
   save(): void {
-
     if (this.usernameValue().trim().length < 3) {
       this.errorMessage.set('Username must be at least 3 characters long.');
       return;
@@ -99,7 +88,7 @@ export class EditProfile implements OnInit {
       return;
     }
 
-    let user;
+    let user: any;
     try {
       user = JSON.parse(storedUser);
     } catch {
@@ -114,40 +103,28 @@ export class EditProfile implements OnInit {
       return;
     }
 
-    // Let's set up the latest debts in Signals
     this.username.set(this.usernameValue().trim());
-    this.password.set(this.passwordValue() || user.password());
+    this.password.set(this.passwordValue() || user.password);
 
-    const updated = {
-      ...user,
-      username: this.username(),
-      password: this.password(),
-    };
+    const updated = { ...user, name: this.username(), password: this.password() };
 
     try {
       localStorage.setItem(user.email, JSON.stringify(updated));
       localStorage.setItem('auth_user', JSON.stringify(updated));
       this.success.set(true);
       this.errorMessage.set('');
-
       setTimeout(() => this.router.navigate(['/auth/profile']), 1500);
-
     } catch (error) {
       this.errorMessage.set('Failed to save user data.');
       console.error(error);
       this.alertToast.openToast(this.errorMessage());
     }
-
   }
 
-
-  // go back to profile
   goBack(): void {
     this.router.navigate(['/auth/profile']);
   }
 
-
-  // toggle password
   togglePassword(): void {
     this.showPassword.set(!this.showPassword());
   }
