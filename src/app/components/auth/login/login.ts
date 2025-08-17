@@ -56,7 +56,10 @@ export class Login {
       if (success) {
         const user = this.auth.getUser();
         this.acceptToast.openToast(`Welcome back, ${user?.name || 'User'}!`);
-        this.router.navigate(['/']);
+        setTimeout(() => {
+          this.acceptToast.closeToast();
+          this.router.navigate(['/']);
+        }, 2000);
       } else {
         this.alertToast.openToast('Invalid email or password!');
       }

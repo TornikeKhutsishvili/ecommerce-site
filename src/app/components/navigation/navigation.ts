@@ -113,8 +113,6 @@ export class Navigation implements AfterViewInit {
     this.isblack.set('#343a40');
     this.islight.set('#f8f9fa');
 
-    this.authService.loadFromStorage();
-
     this.selectedLanguage.set(this.languageService.getCurrentLang());
   }
 

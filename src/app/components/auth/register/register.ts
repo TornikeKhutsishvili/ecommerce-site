@@ -73,8 +73,11 @@ export class Register {
       const success = this.auth.register(this.name(), this.email(), this.password());
 
       if (success) {
-        this.router.navigate(['/auth/login']);
         this.acceptToast.openToast('User registered successfully!');
+        setTimeout(() => {
+          this.acceptToast.closeToast();
+          this.router.navigate(['/auth/login']);
+        }, 2000);
       } else {
         this.alertToast.openToast('User with this email already exists!');
       }
