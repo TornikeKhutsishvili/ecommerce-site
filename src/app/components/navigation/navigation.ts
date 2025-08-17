@@ -88,6 +88,7 @@ export class Navigation implements AfterViewInit {
 
   // constructor
   constructor() {
+
     // Load products
     this.productService.getProducts().subscribe(data => {
       this.products.set(data);
@@ -97,17 +98,17 @@ export class Navigation implements AfterViewInit {
     // Reactive filteredProducts
     effect(() => {
       const query = this.searchQuery().toLowerCase();
+
       const filtered = this.filterService.filteredProducts().filter(p => {
         const title = this.translate.instant(p.title).toLowerCase();
         const category = this.translate.instant(p.category).toLowerCase();
         return title.includes(query) || category.includes(query);
-      }
-        // p.title.toLowerCase().includes(query) ||
-        // p.category.toLowerCase().includes(query)
-      );
+      });
+
       this.filteredProducts.set(filtered);
     });
 
+    // router events to update current URL
     this.router.events.subscribe(() => {
       this.currentUrl.set(this.router.url);
     });
@@ -118,13 +119,16 @@ export class Navigation implements AfterViewInit {
     this.islight.set('#f8f9fa');
 
     this.selectedLanguage.set(this.languageService.getCurrentLang());
+
   }
+
 
   // search
   onSearch(event: Event) {
     const target = event.target as HTMLInputElement;
     this.searchService.updateSearchQuery(target.value);
   }
+
 
   // Price filter
   filterByPrice(event: any) {
@@ -133,10 +137,12 @@ export class Navigation implements AfterViewInit {
     this.filterService.setPriceFilter(value);
   }
 
+
   // Sort filter
   sortByPrice(order: 'low' | 'high' | null) {
     this.filterService.setSortOrder(order);
   }
+
 
   // collapse
   ngAfterViewInit(): void {
@@ -146,22 +152,26 @@ export class Navigation implements AfterViewInit {
     );
   }
 
+
   // Toggle menu
   toggleMenu() {
     this.isMenuOpen.set(!this.isMenuOpen());
     this.collapseInstance.toggle();
   }
 
+
   closeMenu() {
     this.isMenuOpen.set(false);
     this.collapseInstance.hide();
   }
+
 
   toggleTheme() {
     this.themeService.toggleTheme();
     this.isDarkMode.set(this.themeService.getSavedTheme() === 'dark');
     this.updateNavbarTheme();
   }
+
 
   updateNavbarTheme() {
     const navbar = document.querySelector('.navbar');
@@ -171,10 +181,12 @@ export class Navigation implements AfterViewInit {
     this.renderer.addClass(navbar, this.isDarkMode() ? 'navbar-dark' : 'navbar-light');
   }
 
+
   changeLanguage(lang: string) {
     this.languageService.setLanguage(lang);
     this.selectedLanguage.set(lang);
   }
+
 
   logout() {
     this.authService.logout();
