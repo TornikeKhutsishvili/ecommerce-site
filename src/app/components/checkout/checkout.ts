@@ -50,6 +50,7 @@ export class Checkout {
   @ViewChild('alertToast') alertToast!: AlertToasts;
   @ViewChild('addToast') addToast!: AddToasts;
 
+
   // Payment method
   paymentMethod = signal<'Cash_on_Delivery' | 'Credit Card' | 'PayPal'>('Cash_on_Delivery');
 
@@ -72,8 +73,8 @@ export class Checkout {
       if (res.checkoutUrl) {
         window.location.href = res.checkoutUrl; // hosted redirect
       } else {
-        // თუ SDK იყენებ (e.g. Stripe redirectToCheckout(sessionId))
-        // აქ ჩასვი შესაბამისი ლოგიკა
+        // If you are using an SDK (e.g. Stripe redirectToCheckout(sessionId))
+        // Insert relevant logic here
       }
     });
   }
@@ -135,6 +136,7 @@ export class Checkout {
     this.paymentMethod.set(newMethod);
     this.acceptToast.openToast(`Payment method: ${this.paymentMethod()}`);
   }
+
 
   // Format card number
   formatCardNumber() {

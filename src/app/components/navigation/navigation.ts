@@ -97,9 +97,13 @@ export class Navigation implements AfterViewInit {
     // Reactive filteredProducts
     effect(() => {
       const query = this.searchQuery().toLowerCase();
-      const filtered = this.filterService.filteredProducts().filter(p =>
-        p.title.toLowerCase().includes(query) ||
-        p.category.toLowerCase().includes(query)
+      const filtered = this.filterService.filteredProducts().filter(p => {
+        const title = this.translate.instant(p.title).toLowerCase();
+        const category = this.translate.instant(p.category).toLowerCase();
+        return title.includes(query) || category.includes(query);
+      }
+        // p.title.toLowerCase().includes(query) ||
+        // p.category.toLowerCase().includes(query)
       );
       this.filteredProducts.set(filtered);
     });

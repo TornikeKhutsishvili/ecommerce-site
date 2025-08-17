@@ -1,7 +1,6 @@
 import {
   Component,
   inject,
-  OnInit,
   signal,
   ViewChild
 } from '@angular/core';
@@ -47,12 +46,14 @@ export class Contact {
   phone = signal('+995599123456789');
   email = signal('support@tkshop.com');
 
+
   // map Url
   mapUrl = signal<SafeResourceUrl | null>(null);
 
   // Injecting services
   private sanitizer = inject(DomSanitizer);
   private emailService = inject(EmailService);
+
 
   // ViewChilds
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;

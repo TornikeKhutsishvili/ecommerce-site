@@ -3,7 +3,9 @@ import {
   Injectable,
   signal
 } from '@angular/core';
-
+import { TranslateService } from '@ngx-translate/core';
+import en from '../../assets/i18n/en.json';
+import ge from '../../assets/i18n/ge.json';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +20,7 @@ export class FilterService {
   // All products (raw)
   private allProducts = signal<any[]>([]);
 
+  constructor(private translate: TranslateService) {}
 
   // Filtered + Sorted
   filteredProducts = computed(() => {
@@ -29,13 +32,27 @@ export class FilterService {
       items = items.filter(p => p.category === category);
     }
 
-    // Search
+    // // Search
+    // const search = this.searchFilter().toLowerCase();
+    // if (search) {
+    //   items = items.filter(p =>
+    //     p.title.toLowerCase().includes(search) ||
+    //     p.category.toLowerCase().includes(search)
+    //   );
+    // }
+
+    // Search filter
     const search = this.searchFilter().toLowerCase();
     if (search) {
-      items = items.filter(p =>
-        p.title.toLowerCase().includes(search) ||
-        p.category.toLowerCase().includes(search)
-      );
+      items = items.filter(p => {
+        const title = this.translate.instant(p.title)?.toLowerCase() || '';
+        const category = this.translate.instant(p.category)?.toLowerCase() || '';
+
+        return (
+          title.includes(search) ||
+          category.includes(search)
+        );
+      });
     }
 
     // Price

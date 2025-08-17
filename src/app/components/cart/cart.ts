@@ -19,11 +19,15 @@ import {
   isPlatformBrowser
 } from '@angular/common';
 
+import {
+  TranslateModule,
+  TranslateService
+} from '@ngx-translate/core';
+
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart-service';
 import { SearchService } from '../../services/search-service';
 import { FilterService } from '../../services/filter-service';
-import { TranslateModule } from '@ngx-translate/core';
 import { AlertToasts } from "../toasts/alert-toasts/alert-toasts";
 import { DeleteToasts } from "../toasts/delete-toasts/delete-toasts";
 import AOS from 'aos';
@@ -49,6 +53,7 @@ export class Cart implements OnInit, AfterViewChecked {
   private cartService = inject(CartService);
   private filterService = inject(FilterService);
   private searchService = inject(SearchService);
+  private translate = inject(TranslateService);
 
   // Computed: search + price filter
   filteredProducts = computed(() => {
@@ -61,8 +66,11 @@ export class Cart implements OnInit, AfterViewChecked {
     // Search
     const query = this.searchService.searchQuery().trim().toLowerCase();
     if (query) {
-      products = products.filter(p =>
-        p.title.toLowerCase().includes(query)
+      products = products.filter(p => {
+          const title = this.translate.instant(p.title).toLowerCase();
+          const category = this.translate.instant(p.category).toLowerCase();
+          return title.includes(query) || category.includes(query);
+        }
       );
     }
 
@@ -81,10 +89,12 @@ export class Cart implements OnInit, AfterViewChecked {
     this.filteredProducts().reduce((acc, p) => acc + p.subtotal, 0)
   );
 
+
   // ViewChild deleteToast
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {

@@ -25,7 +25,7 @@ import {
 } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FilterService } from '../../../services/filter-service';
 import { CartService } from '../../../services/cart-service';
@@ -64,6 +64,7 @@ export class ProductList implements OnInit, AfterViewChecked, OnChanges {
   private filterService = inject(FilterService);
   private cartService = inject(CartService);
   private searchService = inject(SearchService);
+  private translate = inject(TranslateService);
 
   @ViewChild('addToast') addToast!: AddToasts;
 
@@ -120,8 +121,13 @@ export class ProductList implements OnInit, AfterViewChecked, OnChanges {
     const query = this.searchService.searchQuery().trim().toLowerCase();
     if (query) {
       products = products.filter(p =>
-        p.title.toLowerCase().includes(query) ||
-        p.category.toLowerCase().includes(query)
+        // p.title.toLowerCase().includes(query) ||
+        // p.category.toLowerCase().includes(query)
+        {
+          const title = this.translate.instant(p.title).toLowerCase();
+          const category = this.translate.instant(p.category).toLowerCase();
+          return title.includes(query) || category.includes(query);
+        }
       );
     }
 
