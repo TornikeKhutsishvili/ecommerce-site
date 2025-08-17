@@ -1,7 +1,9 @@
 import {
+  AfterViewChecked,
   Component,
   computed,
   inject,
+  PLATFORM_ID,
   signal,
   ViewChild
 } from '@angular/core';
@@ -11,7 +13,16 @@ import {
   RouterModule
 } from '@angular/router';
 
-import { CommonModule } from '@angular/common';
+import {
+  CommonModule,
+  isPlatformBrowser
+} from '@angular/common';
+
+import {
+  PaymentProvider,
+  PaymentService
+} from '../../services/payment-service';
+
 import { CartService } from '../../services/cart-service';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -20,11 +31,8 @@ import { AcceptToasts } from "../toasts/accept-toasts/accept-toasts";
 import { AlertToasts } from "../toasts/alert-toasts/alert-toasts";
 import { AddToasts } from '../toasts/add-toasts/add-toasts';
 import { OrderService } from '../../services/orders-service';
-
-import {
-  PaymentProvider,
-  PaymentService
-} from '../../services/payment-service';
+import { OrderItem } from '../../interfaces/order-item.interface';
+import { CreateOrderDto } from '../../interfaces/order.interface';
 
 @Component({
   selector: 'app-checkout',
@@ -42,109 +50,141 @@ import {
   templateUrl: './checkout.html',
   styleUrls: ['./checkout.scss']
 })
-export class Checkout {
+export class Checkout implements AfterViewChecked {
 
-  // ViewChilds all Toasts
+  // Toasts
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
   @ViewChild('alertToast') alertToast!: AlertToasts;
   @ViewChild('addToast') addToast!: AddToasts;
 
+  // Signals
+  cartItems = computed(() => this.cartService.cartItems());
+  totalPrice = computed(() => this.cartItems().reduce((acc, i) => acc + i.price * i.quantity, 0));
 
-  // Payment method
   paymentMethod = signal<'Cash_on_Delivery' | 'Credit Card' | 'PayPal'>('Cash_on_Delivery');
 
-  // Inject services
-  private cartService = inject(CartService);
-  private orderService = inject(OrderService);
-  private paymentService = inject(PaymentService);
-
-
-  // Order ID for payment
-  orderId!: string;
-
-  pay(provider: PaymentProvider) {
-    this.paymentService.createCheckout({
-      provider,
-      orderId: this.orderId,
-      successUrl: window.location.origin + '/checkout/success',
-      cancelUrl: window.location.origin + '/checkout/cancel',
-    }).subscribe((res) => {
-      if (res.checkoutUrl) {
-        window.location.href = res.checkoutUrl; // hosted redirect
-      } else {
-        // If you are using an SDK (e.g. Stripe redirectToCheckout(sessionId))
-        // Insert relevant logic here
-      }
-    });
-  }
-
-  // Reactive cart items directly from CartService
-  cartItems = computed(() => this.cartService.cartItems());
-
-  // Total price computed automatically
-  totalPrice = computed(() =>
-    this.cartItems().reduce((acc, item) => acc + (item.price * item.quantity), 0)
-  );
-
-  // User object
-  user = {
-    name: signal(''),
-    email: signal(''),
-    address: signal(''),
-    paymentMethod: signal<'Cash_on_Delivery' | 'Credit Card' | 'PayPal'>('Credit Card')
-  };
-
-  // Form fields
+  userName = signal('');
+  userEmail = signal('');
+  userAddress = signal('');
   cardNumber = signal('');
   expiryDate = signal('');
   cvv = signal('');
   paypalEmail = signal('');
 
+  orderId = signal('');
 
-  // Update quantity
-  updateQuantity(productId: number, newQuantity: number) {
-    if (newQuantity <= 0) {
-      this.removeFromCart(productId);
-      return;
+  private cartService = inject(CartService);
+  private orderService = inject(OrderService);
+  private paymentService = inject(PaymentService);
+  private platformId = inject(PLATFORM_ID);
+
+
+  ngAfterViewChecked() {
+    if (isPlatformBrowser(this.platformId)) {
+      // Optional: refresh AOS or animations here
     }
-    this.cartService.updateQuantity(productId, newQuantity);
   }
 
 
-  // Remove product
+  // Cart operations
+  updateQuantity(productId: number, quantity: number) {
+    if (quantity <= 0) return this.removeFromCart(productId);
+    this.cartService.updateQuantity(productId, quantity);
+  }
+
+
+  // remove product from cart
   removeFromCart(productId: number) {
     this.cartService.removeFromCart(productId);
-    this.deleteToast.openToast('Product deleted');
+    this.deleteToast.openToast('Product removed from cart');
   }
 
 
-  // Complete checkout
+  // Checkout
   completeCheckout() {
-    if (!this.user.name() || !this.user.email() || !this.user.address()) {
-      this.alertToast.openToast('Please fill all required fields');
-      return;
+    if (!this.userName() || !this.userEmail() || !this.userAddress()) {
+      return this.alertToast.openToast('Please fill all required fields');
     }
 
-    this.cartService.clearCart();
-    this.acceptToast.openToast(`Checkout completed for ${this.user.name()}`);
+    if (this.cartItems().length === 0) {
+      return this.alertToast.openToast('Cart is empty');
+    }
+
+    const orderItems: OrderItem[] = this.cartItems().map(item => ({
+      productId: item.id,
+      title: item.title,
+      price: item.price,
+      quantity: item.quantity,
+      image: item.image
+    }));
+
+    const orderDto: CreateOrderDto = {
+      userId: this.userEmail(),
+      items: orderItems,
+      currency: 'USD',
+      address: {
+        fullName: this.userName(),
+        phone: '',
+        line1: this.userAddress(),
+        city: '',
+        country: '',
+        zip: ''
+      }
+    };
+
+    this.orderService.createOrder(orderDto).subscribe(order => {
+      if (!order) return this.alertToast.openToast('Failed to create order');
+
+      this.orderId.set(order.id);
+
+      if (this.paymentMethod() === 'Cash_on_Delivery') {
+        this.cartService.clearCart();
+        this.acceptToast.openToast(`Order ${order.id} completed successfully!`);
+      } else {
+        this.pay(this.paymentMethod() === 'Credit Card' ? 'stripe' : 'paypal');
+      }
+    });
   }
 
 
-  // Handle payment method change
-  onPaymentMethodChange(newMethod: 'Cash_on_Delivery' | 'Credit Card' | 'PayPal') {
-    this.paymentMethod.set(newMethod);
-    this.acceptToast.openToast(`Payment method: ${this.paymentMethod()}`);
+  // Payment
+  pay(provider: PaymentProvider) {
+    this.paymentService.createCheckout({
+      provider,
+      orderId: this.orderId(),
+      successUrl: window.location.origin + '/checkout/success',
+      cancelUrl: window.location.origin + '/checkout/cancel'
+    }).subscribe(res => {
+      if (res.checkoutUrl) {
+        window.location.href = res.checkoutUrl;
+      } else {
+        this.alertToast.openToast('Failed to initialize payment');
+      }
+    });
   }
 
 
-  // Format card number
+  // Payment method selection
+  onPaymentMethodChange(method: 'Cash_on_Delivery' | 'Credit Card' | 'PayPal') {
+    this.paymentMethod.set(method);
+    this.acceptToast.openToast(`Payment method selected: ${method}`);
+  }
+
+
+  // Card formatting
   formatCardNumber() {
     let formatted = this.cardNumber().replace(/\D/g, '');
     if (formatted.length > 4) {
       formatted = formatted.replace(/(\d{4})(?=\d)/g, '$1-');
     }
     this.cardNumber.set(formatted);
+  }
+
+
+  // Form validation
+  get isFormValid() {
+    return !!(this.userName() && this.userEmail() && this.userAddress());
   }
 
 }

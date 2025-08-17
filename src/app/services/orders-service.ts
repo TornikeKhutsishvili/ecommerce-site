@@ -14,43 +14,8 @@ import {
   shareReplay
 } from 'rxjs';
 
-export type OrderStatus = 'pending' | 'paid' | 'shipped' | 'delivered' | 'cancelled';
-
-export interface OrderItem {
-  productId: number | string;
-  title: string;
-  price: number;
-  quantity: number;
-  image?: string;
-}
-
-export interface CreateOrderDto {
-  userId: string;
-  items: OrderItem[];
-  currency: string;
-  address: {
-    fullName: string;
-    phone: string;
-    line1: string;
-    line2?: string;
-    city: string;
-    country: string;
-    zip: string;
-  };
-  notes?: string;
-}
-
-export interface Order extends CreateOrderDto {
-  id: string;
-  status: OrderStatus;
-  subtotal: number;
-  shipping: number;
-  total: number;
-  createdAt: string;
-  updatedAt: string;
-  paymentProvider?: 'stripe' | 'paypal';
-  paymentRef?: string;
-}
+import { CreateOrderDto, Order } from '../interfaces/order.interface';
+import { OrderStatus } from '../interfaces/order-status.type';
 
 @Injectable({ providedIn: 'root' })
 export class OrderService {

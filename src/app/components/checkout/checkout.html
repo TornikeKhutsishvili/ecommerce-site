@@ -63,8 +63,8 @@
                 name="name"
                 type="text"
                 required
-                [ngModel]="user.name()"
-                (ngModelChange)="user.name.set($event)"
+                [ngModel]="userName()"
+                (ngModelChange)="userName.set($event)"
                 #nameInput="ngModel"
           />
           @if( nameInput.invalid && nameInput.touched ) {
@@ -78,8 +78,8 @@
                 type="email"
                 required
                 pattern="^[^@]+@[^@]+\.[^@]+$"
-                [ngModel]="user.email()"
-                (ngModelChange)="user.email.set($event)"
+                [ngModel]="userEmail()"
+                (ngModelChange)="userEmail.set($event)"
                 #emailInput="ngModel"
           />
           @if( emailInput.invalid && emailInput.touched ) {
@@ -97,8 +97,8 @@
                 name="address"
                 type="text"
                 required
-                [ngModel]="user.address()"
-                (ngModelChange)="user.address.set($event)"
+                [ngModel]="userAddress()"
+                (ngModelChange)="userAddress.set($event)"
                 #addressInput="ngModel"
           />
           @if( addressInput.invalid && addressInput.touched ) {

@@ -10,22 +10,9 @@ import {
   map
 } from 'rxjs';
 
-export type PaymentProvider = 'stripe' | 'paypal';
-
-export interface CreateCheckoutRequest {
-  orderId: string;            // ჩვენი OrderService-ით შექმნილი order.id
-  provider: PaymentProvider;  // 'stripe' | 'paypal'
-  // სურვილისამებრ: success/cancel redirect URI-ები
-  successUrl?: string;
-  cancelUrl?: string;
-}
-
-export interface CreateCheckoutResponse {
-  provider: PaymentProvider;
-  checkoutUrl?: string;   // Stripe hosted page ან PayPal approval URL
-  sessionId?: string;     // Stripe session id, თუ front-ზე გინდა SDK redirect
-  orderId?: string;       // PayPal order id
-}
+import { CreateCheckoutRequest } from '../interfaces/create-checkout-request.interface';
+import { CreateCheckoutResponse } from '../interfaces/create-checkout-response.interface';
+import { PaymentProvider } from '../interfaces/payment-provider.type';
 
 @Injectable({ providedIn: 'root' })
 export class PaymentService {
@@ -55,3 +42,5 @@ export class PaymentService {
   }
 
 }
+
+export { PaymentProvider };
