@@ -24,7 +24,7 @@
           <a [href]="'mailto:' + email()"
             class="text-decoration-none"
           >
-            support&#64;tkshop.com
+            {{ email() }}
           </a>
         </p>
 
@@ -33,7 +33,7 @@
           <a [href]="'tel:' + phone()"
             class="text-decoration-none"
           >
-            +995 (599) 123-456-789
+            {{ phone() }}
           </a>
         </p>
 
@@ -44,7 +44,7 @@
             rel="noopener noreferrer"
             class="text-decoration-none"
           >
-            13 Popular St, {{ 'Tbilisi' | translate }}, {{ 'Georgia' | translate }}
+            {{ street() }}, {{ 'Tbilisi' | translate }}, {{ 'Georgia' | translate }}
           </a>
         </p>
       </div>

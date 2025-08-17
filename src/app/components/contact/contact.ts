@@ -46,6 +46,7 @@ export class Contact {
   phone = signal('+995599123456789');
   email = signal('support@tkshop.com');
 
+  street = signal('123 Popular St');
 
   // map Url
   mapUrl = signal<SafeResourceUrl | null>(null);
