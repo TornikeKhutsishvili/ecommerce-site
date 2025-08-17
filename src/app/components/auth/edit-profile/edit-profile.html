@@ -36,6 +36,24 @@
 
       <div class="form-group password-group">
         <input
+          [type]="showOldPassword() ? 'text' : 'password'"
+          id="oldPassword"
+          name="oldPassword"
+          minlength="6"
+          [ngModel]="oldPasswordValue()"
+          (ngModelChange)="oldPasswordValue.set($event)"
+          #oldPasswordInput="ngModel"
+          placeholder=" "
+        />
+        <label for="oldPassword">{{ 'Old Password' | translate }}</label>
+
+        <button type="button" class="toggle-password" (click)="toggleOldPassword()">
+          {{ showOldPassword() ? hide() : show() }}
+        </button>
+      </div>
+
+      <div class="form-group password-group">
+        <input
           [type]="showPassword() ? 'text' : 'password'"
           id="password"
           name="password"
@@ -92,7 +110,9 @@
       </div>
 
       @if (success()) {
-        <p class="success-msg">✅ {{ 'Profile updated successfully!' | translate }}</p>
+        <p class="success-msg">
+          ✅ {{ 'Profile updated successfully!' | translate }}
+        </p>
       }
     </form>
   </div>

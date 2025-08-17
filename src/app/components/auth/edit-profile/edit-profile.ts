@@ -43,8 +43,10 @@ export class EditProfile implements OnInit {
   email = signal('');
   success = signal(false);
   showPassword = signal(false);
+  showOldPassword = signal(false);
   errorMessage = signal('');
 
+  oldPasswordValue = signal('');
   usernameValue = signal('');
   passwordValue = signal('');
   confirmPasswordValue = signal('');
@@ -63,24 +65,14 @@ export class EditProfile implements OnInit {
       this.username.set(user.name ?? '');
       this.email.set(user.email ?? '');
       this.usernameValue.set(this.username());
+      this.oldPasswordValue.set('');
       this.passwordValue.set('');
       this.confirmPasswordValue.set('');
     }
   }
 
   save(): void {
-    if (this.usernameValue().trim().length < 3) {
-      this.errorMessage.set('Username must be at least 3 characters long.');
-      return;
-    }
-    if (this.passwordValue() && this.passwordValue().length < 6) {
-      this.errorMessage.set('Password must be at least 6 characters.');
-      return;
-    }
-    if (this.passwordValue() && this.passwordValue() !== this.confirmPasswordValue()) {
-      this.errorMessage.set('Passwords do not match!');
-      return;
-    }
+    this.errorMessage.set('');
 
     const storedUser = localStorage.getItem('auth_user');
     if (!storedUser) {
@@ -97,12 +89,38 @@ export class EditProfile implements OnInit {
       return;
     }
 
-    if (!user || !user.email) {
-      localStorage.removeItem('auth_user');
-      this.router.navigate(['/auth/login']);
+    if (this.oldPasswordValue() !== user.password) {
+      this.alertToast.openToast('Old Password is incorrect.');
+      this.errorMessage.set('Old Password is incorrect.');
       return;
     }
 
+    // Username validation
+    if (this.usernameValue().trim().length < 3) {
+      this.alertToast.openToast('Username must be at least 3 characters long.');
+      this.errorMessage.set('Username must be at least 3 characters long.');
+      return;
+    }
+
+    if (this.passwordValue() && this.passwordValue().length < 6) {
+      this.alertToast.openToast('Password must be at least 6 characters.');
+      this.errorMessage.set('Password must be at least 6 characters.');
+      return;
+    }
+
+    if (this.confirmPasswordValue() && this.confirmPasswordValue().length < 6) {
+      this.alertToast.openToast('Confirm Password must be at least 6 characters.');
+      this.errorMessage.set('Confirm Password must be at least 6 characters.');
+      return;
+    }
+
+    if (this.passwordValue() && this.passwordValue() !== this.confirmPasswordValue()) {
+      this.alertToast.openToast('Passwords do not match.');
+      this.errorMessage.set('Passwords do not match!');
+      return;
+    }
+
+    // Update user
     this.username.set(this.usernameValue().trim());
     this.password.set(this.passwordValue() || user.password);
 
@@ -121,12 +139,17 @@ export class EditProfile implements OnInit {
     }
   }
 
-  goBack(): void {
-    this.router.navigate(['/auth/profile']);
-  }
-
+  // Toggle visibility methods
   togglePassword(): void {
     this.showPassword.set(!this.showPassword());
+  }
+
+  toggleOldPassword(): void {
+    this.showOldPassword.set(!this.showOldPassword());
+  }
+
+  goBack(): void {
+    this.router.navigate(['/auth/profile']);
   }
 
 }
