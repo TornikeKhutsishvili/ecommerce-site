@@ -20,7 +20,7 @@ import {
 } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProductService } from '../../services/product-service';
 import { CartService } from '../../services/cart-service';
@@ -57,6 +57,7 @@ export class Shop implements OnInit, AfterViewChecked {
   private cartService = inject(CartService);
   private filterService = inject(FilterService);
   private searchService = inject(SearchService);
+  private translate = inject(TranslateService);
 
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) { }

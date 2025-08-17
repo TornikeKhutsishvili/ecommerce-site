@@ -11,9 +11,13 @@ import {
   RouterModule
 } from '@angular/router';
 
+import {
+  TranslateModule,
+  TranslateService
+} from '@ngx-translate/core';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
 import { dummyProductModel } from '../../../../models/product.model';
 import { ProductService } from '../../../../services/product-service';
 import { FilterService } from '../../../../services/filter-service';
@@ -40,6 +44,7 @@ export class Smartphones implements OnInit {
   private productService = inject(ProductService);
   private filterService = inject(FilterService);
   private searchService = inject(SearchService);
+  private translate = inject(TranslateService);
 
   // Computed: filtered + searched + category
   filteredProducts = computed(() => {
@@ -47,9 +52,11 @@ export class Smartphones implements OnInit {
 
     const query = this.searchService.searchQuery().trim().toLowerCase();
     if (query) {
-      products = products.filter(p =>
-        p.title?.toLowerCase().includes(query)
-      );
+      products = products.filter(p => {
+        const title = this.translate.instant(p.title).toLowerCase();
+        const category = this.translate.instant(p.category).toLowerCase();
+        return title.includes(query) || category.includes(query);
+      });
     }
 
     products = products.filter(p => p.category === 'smartphones');

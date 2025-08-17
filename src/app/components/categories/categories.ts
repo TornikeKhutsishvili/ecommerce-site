@@ -14,9 +14,13 @@ import {
   NgOptimizedImage
 } from '@angular/common';
 
+import {
+  TranslateModule,
+  TranslateService
+} from '@ngx-translate/core';
+
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 import { ProductService } from '../../services/product-service';
 import { dummyProductModel } from '../../models/product.model';
 import AOS from 'aos';
@@ -40,6 +44,7 @@ export class Categories implements OnInit, AfterViewChecked {
   categories = signal<string[]>([]);
 
   private productService = inject(ProductService);
+  private translate = inject(TranslateService);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
@@ -58,14 +63,12 @@ export class Categories implements OnInit, AfterViewChecked {
 
   }
 
-
   // AOS refresh
   ngAfterViewChecked(): void {
     if (isPlatformBrowser(this.platformId)) {
       AOS.refresh(); // Reflects changes in animations
     }
   }
-
 
 
   // categories image
