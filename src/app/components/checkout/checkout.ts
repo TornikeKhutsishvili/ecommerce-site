@@ -1,9 +1,7 @@
 import {
-  AfterViewChecked,
   Component,
   computed,
   inject,
-  PLATFORM_ID,
   signal,
   ViewChild
 } from '@angular/core';
@@ -14,12 +12,10 @@ import {
 } from '@angular/router';
 
 import {
-  CommonModule,
-  isPlatformBrowser
+  CommonModule
 } from '@angular/common';
 
 import {
-  PaymentProvider,
   PaymentService
 } from '../../services/payment-service';
 
@@ -33,6 +29,7 @@ import { AddToasts } from '../toasts/add-toasts/add-toasts';
 import { OrderService } from '../../services/orders-service';
 import { OrderItem } from '../../interfaces/order-item.interface';
 import { CreateOrderDto } from '../../interfaces/order.interface';
+import { PaymentProvider } from '../../interfaces/payment-provider.type';
 
 @Component({
   selector: 'app-checkout',
@@ -50,7 +47,7 @@ import { CreateOrderDto } from '../../interfaces/order.interface';
   templateUrl: './checkout.html',
   styleUrls: ['./checkout.scss']
 })
-export class Checkout implements AfterViewChecked {
+export class Checkout {
 
   // Toasts
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
@@ -74,17 +71,10 @@ export class Checkout implements AfterViewChecked {
 
   orderId = signal('');
 
+  // Inject services
   private cartService = inject(CartService);
   private orderService = inject(OrderService);
   private paymentService = inject(PaymentService);
-  private platformId = inject(PLATFORM_ID);
-
-
-  ngAfterViewChecked() {
-    if (isPlatformBrowser(this.platformId)) {
-      // Optional: refresh AOS or animations here
-    }
-  }
 
 
   // Cart operations
