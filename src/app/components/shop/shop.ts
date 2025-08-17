@@ -6,7 +6,7 @@ import {
   OnInit,
   PLATFORM_ID,
   signal,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 
 import {
@@ -19,8 +19,12 @@ import {
   isPlatformBrowser
 } from '@angular/common';
 
+import {
+  TranslateModule,
+  TranslateService
+} from '@ngx-translate/core';
+
 import { FormsModule } from '@angular/forms';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProductService } from '../../services/product-service';
 import { CartService } from '../../services/cart-service';
@@ -81,10 +85,19 @@ export class Shop implements OnInit, AfterViewChecked {
     }
   }
 
-  // Filter changes
+  // get all products with applied filters and search
+  get AllFilteredProducts() {
+    const query = this.searchService.searchQuery().trim().toLowerCase();
+    return this.filterService.filteredProducts().filter(p => {
+      const title = this.translate.instant(p.title).toLowerCase();
+      const category = this.translate.instant(p.category).toLowerCase();
+      return title.includes(query) || category.includes(query);
+    });
+  }
+
   onSearch(event: Event) {
     const query = (event.target as HTMLInputElement).value.trim();
-    this.filterService.setSearchQuery(query);
+    this.searchService.updateSearchQuery(query);
     this.page.set(1);
   }
 
@@ -102,10 +115,6 @@ export class Shop implements OnInit, AfterViewChecked {
   applySort(order: 'low' | 'high' | null) {
     this.filterService.setSortOrder(order);
     this.page.set(1);
-  }
-
-  get AllFilteredProducts() {
-    return this.filterService.filteredProducts();
   }
 
   addToCart(product: dummyProductModel) {

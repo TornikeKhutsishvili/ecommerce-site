@@ -3,7 +3,12 @@ import {
   ChartType
 } from 'chart.js';
 
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit
+} from '@angular/core';
+
 import { NgChartsModule } from 'ng2-charts';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
