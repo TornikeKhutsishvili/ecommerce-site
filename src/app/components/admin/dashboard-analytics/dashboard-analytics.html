@@ -5,7 +5,7 @@
 
   <!-- content -->
   <div class="card">
-    <h3>{{ 'Sales' | translate }}</h3>
+    <h3 class="text-dark">{{ 'Sales' | translate }}</h3>
     <canvas baseChart
             [data]="salesChartData"
             [type]="salesChartType"
@@ -13,7 +13,7 @@
   </div>
 
   <div class="card">
-    <h3>{{ 'Users' | translate }}</h3>
+    <h3 class="text-dark">{{ 'Users' | translate }}</h3>
     <canvas baseChart
             [data]="usersChartData"
             [type]="usersChartType"
@@ -21,7 +21,7 @@
   </div>
 
   <div class="card col-span">
-    <h3>{{ 'Revenue' | translate }}</h3>
+    <h3 class="text-dark">{{ 'Revenue' | translate }}</h3>
     <canvas baseChart
             [data]="revenueChartData"
             [type]="revenueChartType"
