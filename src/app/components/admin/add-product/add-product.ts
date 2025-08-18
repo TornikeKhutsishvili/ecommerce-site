@@ -33,7 +33,6 @@ export class AddProduct {
   // ViewChild addToast
   @ViewChild('addToast') addToast!: AddToasts;
 
-
   // product object
   product: {
     title: Signal<string>;
@@ -49,11 +48,12 @@ export class AddProduct {
     image: signal('')
   };
 
-
   // save product
   saveProduct() {
     this.addToast.openToast(`Adding product: ${this.product.title()}`);
-    this.router.navigate(['/admin']);
+    setTimeout(() => {
+      this.router.navigate(['/admin']);
+    }, 1000)
   }
 
 }
