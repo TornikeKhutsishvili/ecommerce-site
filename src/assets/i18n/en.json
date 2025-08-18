@@ -45,6 +45,8 @@
     "Sales": "Sales",
     "Users": "Users",
     "Revenue": "Revenue",
+    "Active": "Active",
+    "Inactive": "Inactive",
     "Analytics": "Analytics",
     "Admin Analytics Dashboard": "Admin Analytics Dashboard",
     "cancel": "Cancel",

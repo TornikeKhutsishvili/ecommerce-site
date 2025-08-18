@@ -45,6 +45,8 @@
     "Sales": "გაყიდვები",
     "Users": "მომხმარებლები",
     "Revenue": "შემოსავალი",
+    "Active": "აქტიური",
+    "Inactive": "არააქტიური",
     "Analytics": "ანალიტიკა",
     "Admin Analytics Dashboard": "ადმინისტრატორის ანალიტიკის დაფა",
     "cancel": "გაუქმება",
