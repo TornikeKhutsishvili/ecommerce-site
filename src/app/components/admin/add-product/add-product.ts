@@ -2,16 +2,22 @@ import {
   Component,
   inject,
   signal,
-  Signal,
-  ViewChild
+  ViewChild,
+  WritableSignal
 } from '@angular/core';
+
+import {
+  Router,
+  RouterLink,
+  RouterModule
+} from '@angular/router';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductService } from '../../../services/product-service';
-import { Router } from '@angular/router';
 import { AddToasts } from "../../toasts/add-toasts/add-toasts";
+import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
 
 @Component({
   selector: 'app-add-product',
@@ -20,7 +26,10 @@ import { AddToasts } from "../../toasts/add-toasts/add-toasts";
     CommonModule,
     FormsModule,
     TranslateModule,
-    AddToasts
+    AddToasts,
+    AlertToasts,
+    RouterLink,
+    RouterModule
 ],
   templateUrl: './add-product.html',
   styleUrls: ['./add-product.scss']
@@ -32,14 +41,16 @@ export class AddProduct {
 
   // ViewChild addToast
   @ViewChild('addToast') addToast!: AddToasts;
+  @ViewChild('alertToast') alertToast!: AlertToasts;
+
 
   // product object
   product: {
-    title: Signal<string>;
-    price: Signal<number>;
-    description: Signal<string>;
-    category: Signal<string>;
-    image: Signal<string>;
+    title: WritableSignal<string>;
+    price: WritableSignal<number>;
+    description: WritableSignal<string>;
+    category: WritableSignal<string>;
+    image: WritableSignal<string>;
   } = {
     title: signal(''),
     price: signal(0),
@@ -48,12 +59,26 @@ export class AddProduct {
     image: signal('')
   };
 
-  // save product
+
+  // save product method
   saveProduct() {
-    this.addToast.openToast(`Adding product: ${this.product.title()}`);
-    setTimeout(() => {
-      this.router.navigate(['/admin']);
-    }, 1000)
+    const payload = {
+      title: this.product.title(),
+      price: this.product.price(),
+      description: this.product.description(),
+      category: this.product.category(),
+      thumbnail: this.product.image()
+    } as any;
+
+    if (!payload.title || !payload.price) {
+      this.alertToast.openToast('Please fill Title and Price');
+      return;
+    }
+
+    // If you have a real API, call productService.addProduct(payload)
+    // For now, just show toast and navigate
+    this.addToast.openToast(`Adding product: ${payload.title}`);
+    setTimeout(() => this.router.navigate(['/admin/dashboard']), 900);
   }
 
 }

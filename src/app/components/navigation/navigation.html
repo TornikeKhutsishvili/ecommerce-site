@@ -73,6 +73,17 @@
             {{ 'contact' | translate }}
           </a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link"
+            [routerLink]="['/admin']"
+            [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeMenu()"
+          >
+            {{ 'Admin' | translate }}
+          </a>
+        </li>
       </ul>
 
 

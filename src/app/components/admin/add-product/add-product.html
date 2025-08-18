@@ -1,94 +1,79 @@
-<div class="container mt-4">
+<form class="card"
+      (ngSubmit)="saveProduct()"
+      #f="ngForm"
+>
 
+  <!-- title -->
   <h2>➕ {{ 'Add Product' | translate }}</h2>
 
-  <!-- form for add products -->
-  <form (ngSubmit)="saveProduct()">
-    <div class="mb-3">
-      <label class="form-label">
-        {{ 'Title' | translate }}
-      </label>
-      <input type="text"
-            class="form-control"
-            [(ngModel)]="product.title"
-            name="title"
-            id="title"
-            title="title"
-            required
-      >
-    </div>
+  <div class="grid">
+    <label>
+      {{ 'Title' | translate }}
+      <input
+        name="title"
+        [ngModel]="product.title()"
+        (ngModelChange)="product.title.set($event)"
+        required
+      />
+    </label>
 
-    <div class="mb-3">
-      <label class="form-label">
-        {{ 'Price' | translate }}
-      </label>
-      <input type="number"
-            class="form-control"
-            [(ngModel)]="product.price"
-            name="price"
-            id="price"
-            title="price"
-            required
-      >
-    </div>
+    <label>
+      {{ 'Price' | translate}}
+      <input
+        name="price"
+        type="number"
+        min="0"
+        [ngModel]="product.price()"
+        (ngModelChange)="product.price.set($event)"
+        required
+      />
+    </label>
 
-    <div class="mb-3">
-      <label class="form-label">
-        {{ 'Description' | translate }}
-      </label>
-      <textarea class="form-control"
-                [(ngModel)]="product.description"
-                name="description"
-                title="description"
-      >
+    <label>
+      {{ 'Category' | translate }}
+      <input
+        name="category"
+        [ngModel]="product.category()"
+        (ngModelChange)="product.category.set($event)"
+      />
+    </label>
+
+    <label>
+      {{ 'Image URL' | translate }}
+      <input
+        name="image"
+        [ngModel]="product.image()"
+        (ngModelChange)="product.image.set($event)"
+      />
+    </label>
+
+    <label class="col-span">
+      {{ 'Description' | translate }}
+      <textarea
+        name="description"
+        rows="4"
+        [ngModel]="product.description()"
+        (ngModelChange)="product.description.set($event)">
       </textarea>
-    </div>
+    </label>
+  </div>
 
-    <div class="mb-3">
-      <label class="form-label">
-        {{ 'Category' | translate }}
-      </label>
-      <input type="text"
-            class="form-control"
-            [(ngModel)]="product.category"
-            name="category"
-            id="category"
-            title="category"
-      >
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">
-        {{ 'Image URL' | translate }}
-      </label>
-      <input type="text"
-            class="form-control"
-            [(ngModel)]="product.image"
-            name="image"
-            id="image"
-            title="image"
-      >
-    </div>
-
-
-    <!-- add toasts -->
-    <app-add-toasts #addToast></app-add-toasts>
-
-
-    <!-- add -->
-    <button
-      type="submit"
-      class="btn btn-success"
-      (click)="addToast.openToast(`Add Product`)"
-    >
-      {{ 'Add Product' | translate }}
+  <div class="actions">
+    <button type="submit">
+      {{ 'Save' | translate }}
     </button>
-
-
-    <!-- cancel -->
-    <a routerLink="/admin" class="btn btn-secondary">
+    <button type="button"
+            class="btn-secondary"
+            [routerLink]="['/admin/dashboard']"
+    >
       {{ 'Cancel' | translate }}
-    </a>
-  </form>
+    </button>
+  </div>
 
-</div>
+</form>
+
+
+
+<!-- toasts -->
+<app-add-toasts #addToast></app-add-toasts>
+<app-alert-toasts #alertToast></app-alert-toasts>

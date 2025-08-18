@@ -1,89 +1,76 @@
-<div class="container mt-4">
+@if (product(); as p) {
+  <form class="card" (ngSubmit)="updateProduct()">
 
-  <h2>✏ {{ 'Edit Product' | translate }}</h2>
+    <h2>✏ {{ 'Edit Product' | translate }} · #{{ p.id }}</h2>
 
-  <form (ngSubmit)="updateProduct()">
-
-    <div class="mb-3">
-      <label class="form-label">
-        {{ 'Title' | translate }}
+    <div class="grid">
+      <label>
+        {{'Title' | translate }}
+        <input
+          name="title"
+          [(ngModel)]="p.title"
+          (ngModelChange)="onTitleChange($event)"
+          required
+      />
       </label>
-      <input type="text"
-            class="form-control"
-            [(ngModel)]="product().title"
-            name="title"
-            id="title"
-            title="title"
-            required
-      >
-    </div>
 
-    <div class="mb-3">
-      <label class="form-label">
+      <label>
         {{ 'Price' | translate }}
+        <input
+          name="price"
+          type="number"
+          min="0"
+          [(ngModel)]="p.price"
+          (ngModelChange)="onPriceChange($event)"
+          required
+      />
       </label>
-      <input type="number"
-            class="form-control"
-            [(ngModel)]="product().price"
-            name="price"
-            id="price"
-            title="price"
-            required
-      >
-    </div>
 
-    <div class="mb-3">
-      <label class="form-label">
-        {{ 'Description' | translate }}
-      </label>
-      <textarea class="form-control"
-                [(ngModel)]="product().description"
-                name="description"
-                title="description"
-      >
-      </textarea>
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">
+      <label>
         {{ 'Category' | translate }}
+        <input
+          name="category"
+          [(ngModel)]="p.category"
+          (ngModelChange)="onCategoryChange($event)"
+      />
       </label>
-      <input type="text"
-            class="form-control"
-            [(ngModel)]="product().category"
-            title="category"
-            id="category"
-            name="category"
-      >
-    </div>
 
-    <div class="mb-3">
-      <label class="form-label">
+      <label>
         {{ 'Image URL' | translate }}
+        <input
+          name="image"
+          [(ngModel)]="p.thumbnail"
+          (ngModelChange)="onThumbChange($event)"
+      />
       </label>
-      <input type="text"
-            class="form-control"
-            [(ngModel)]="product().image"
-            title="image"
-            id="image"
-            name="image"
-      >
+
+      <label class="col-span">
+        {{ 'Description' | translate }}
+        <textarea
+          name="description"
+          rows="4"
+          [(ngModel)]="p.description"
+          (ngModelChange)="onDescChange($event)"
+        >
+        </textarea>
+      </label>
     </div>
 
-    <button type="submit"
-            class="btn btn-success"
-    >
-      {{ 'Update' | translate }}
-    </button>
-    <a [routerLink]="['/admin']"
-        class="btn btn-secondary"
-    >
-      {{ 'Cancel' | translate }}
-    </a>
+    <div class="actions">
+      <button type="submit">
+        {{ 'Save changes' | translate }}
+      </button>
+      <button type="button"
+              class="btn-secondary"
+              [routerLink]="['/admin/dashboard']"
+      >
+        {{ 'Cancel' | translate }}
+      </button>
+    </div>
 
   </form>
+}
 
-</div>
 
 
 

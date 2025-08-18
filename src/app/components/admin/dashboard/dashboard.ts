@@ -29,7 +29,10 @@ import { AddToasts } from '../../toasts/add-toasts/add-toasts';
     TranslateModule,
     RouterLink,
     RouterModule,
-    DeleteToasts
+    DeleteToasts,
+    AcceptToasts,
+    AlertToasts,
+    AddToasts
 ],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']
@@ -48,7 +51,6 @@ export class Dashboard implements OnInit {
   @ViewChild('addToast') addToast!: AddToasts;
 
 
-  // ngOnInit
   ngOnInit() {
     this.loadProducts();
   }
@@ -57,9 +59,9 @@ export class Dashboard implements OnInit {
   // load products
   loadProducts() {
     this.loading.set(true);
-    this.productService.getProducts().subscribe(data => {
-      this.products.set(data);
-      this.loading.set(false);
+    this.productService.getProducts().subscribe({
+      next: (data) => { this.products.set(data); this.loading.set(false); },
+      error: () => { this.alertToast.openToast('Failed to load products'); this.loading.set(false); }
     });
   }
 

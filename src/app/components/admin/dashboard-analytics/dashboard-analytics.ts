@@ -34,18 +34,8 @@ export class DashboardAnalytics implements OnInit {
   private analytics = inject(AnalyticsService);
 
   ngOnInit() {
-
-    this.analytics.trackPageView('/products');
-
-    // this.analytics.track('purchase', {
-    //   orderId,
-    //   revenue: total,
-    //   currency: 'USD',
-    //   items: order.items.map(i => ({ id: i.productId, q: i.quantity, price: i.price })),
-    // }, userId);
-
+    this.analytics.trackPageView('/admin/dashboard-analytics');
   }
-
 
 
   // Reactive data from AnalyticsService

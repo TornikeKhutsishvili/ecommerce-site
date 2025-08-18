@@ -1,0 +1,52 @@
+.card {
+    max-width: 860px;
+    margin: 1.25rem auto;
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 1rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,.06);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: .75rem;
+}
+
+.col-span {
+    grid-column: 1/-1;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    font-weight: 600;
+}
+
+input,textarea {
+    padding: .6rem .7rem;
+    border: 1px solid #ddd;
+    border-radius: .6rem;
+}
+
+.actions {
+    display: flex;
+    gap: .5rem;
+    justify-content: flex-end;
+    margin-top: .75rem;
+}
+
+button {
+    padding: .55rem .9rem;
+    border-radius: .6rem;
+    border: 0;
+    background: #111;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background: #e9ecef;
+    color: #111
+}

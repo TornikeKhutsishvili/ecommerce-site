@@ -58,12 +58,8 @@ export class EditProduct implements OnInit {
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.productService.getProductById(id).subscribe({
-      next: (product) => {
-        this.product.set(product);
-      },
-      error: () => {
-        this.alertToast.openToast('not found products');
-      }
+      next: (product) => this.product.set(product),
+      error: () => this.alertToast.openToast('Product not found')
     });
   }
 
@@ -71,15 +67,34 @@ export class EditProduct implements OnInit {
   // update product
   updateProduct() {
     const prod = this.product();
-
     if (!prod.title || !prod.price) {
-      this.alertToast.openToast('not update');
+      this.alertToast.openToast('Title and Price are required');
       return;
     }
+    // call ProductService.updateProduct if available
+    this.acceptToast.openToast(`Updating product: ${prod.title}`);
+    setTimeout(() => this.router.navigate(['/admin/dashboard']), 600);
+  }
 
-    console.log('Updating product:', prod);
-    this.acceptToast.openToast(`Updating product: ${prod}`);
-    this.router.navigate(['/admin']);
+  onTitleChange(val: string) {
+  this.product.update(p => ({ ...p, title: val }));
+  }
+
+  onPriceChange(val: number | string) {
+    const num = typeof val === 'string' ? +val : val;
+    this.product.update(p => ({ ...p, price: num ?? 0 }));
+  }
+
+  onCategoryChange(val: string) {
+    this.product.update(p => ({ ...p, category: val }));
+  }
+
+  onThumbChange(val: string) {
+    this.product.update(p => ({ ...p, thumbnail: val }));
+  }
+
+  onDescChange(val: string) {
+    this.product.update(p => ({ ...p, description: val }));
   }
 
 }

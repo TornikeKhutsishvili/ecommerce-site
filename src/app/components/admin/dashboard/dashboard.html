@@ -1,64 +1,64 @@
-<div class="container mt-4">
+<section class="toolbar">
+  <h2>{{ 'Admin' | translate }} · {{ 'Products' | translate }}</h2>
 
-  <h2>🛠 {{ 'Admin Dashboard' | translate }}</h2>
+  <div class="spacer"></div>
   <a [routerLink]="['/admin/add-product']"
-      class="btn btn-primary mb-3"
+    class="btn"
   >
     ➕ {{ 'Add Product' | translate }}
   </a>
+</section>
 
-  @if( !loading() ) {
+@if(loading()){
+  <section class="skeleton">
+    {{ 'Loading products' | translate }}…
+  </section>
+}
 
-    <table class="table table-bordered table-hover">
+@if(!loading()){
+  <table class="table">
+    <thead>
+    <tr>
+      <th>{{ 'ID' | translate }}</th>
+      <th>{{ 'Title' | translate }}</th>
+      <th>{{ 'Price' | translate }}</th>
+      <th>{{ 'Category' | translate }}</th>
+      <th>{{ 'Rating' | translate }}</th>
+      <th class="right">{{ 'Actions' | translate }}</th>
+    </tr>
+    </thead>
 
-      <!-- table head -->
-      <thead class="table-dark">
-        <tr>
-          <th>{{ 'ID' | translate }}</th>
-          <th>{{ 'Image' | translate }}</th>
-          <th>{{ 'Title' | translate }}</th>
-          <th>{{ 'Price' | translate }}</th>
-          <th style="width: 150px;">
-            {{ 'Actions' | translate }}
-          </th>
-        </tr>
-      </thead>
+    <tbody>
+    @for(p of products(); track $index) {
+      <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.title | translate }}</td>
+        <td>{{ p.price | currency:'USD':'symbol' }}</td>
+        <td>{{ p.category | translate }}</td>
+        <td>{{ p.rating }}</td>
+        <td class="right">
+          <a [routerLink]="['/admin/edit-product', p.id]"
+            class="btn btn-sm"
+          >
+            {{ 'Edit' | translate }} ✏️
+          </a>
+          <button type="button"
+                  class="btn btn-sm btn-danger"
+                  (click)="deleteProduct(p.id)"
+          >
+            {{ 'Delete' | translate }} 🗑️
+          </button>
+        </td>
+      </tr>
+    }
+    </tbody>
 
-      <!-- table body -->
-      <tbody>
-        @for( product of products(); track $index ) {
-          <tr>
-            <td>{{ product.id }}</td>
-            <td><img [src]="product.image" alt="img" width="50"></td>
-            <td>{{ product.title }}</td>
-            <td>{{ product.price | currency }}</td>
-            <td>
-              <a class="btn btn-warning btn-sm"
-                [routerLink]="['/admin/edit-product', product().id]"
-              >
-                ✏ {{ 'Edit' | translate }}
-              </a>
-              <button class="btn btn-danger btn-sm"
-                      (click)="deleteProduct(product.id)"
-              >
-                {{ 'Delete' | translate }}
-              </button>
-            </td>
-          </tr>
-        }
-      </tbody>
-
-    </table>
-
-  } @else {
-
-    <p>{{ 'Loading products' | translate }}...</p>
-
-  }
-
-</div>
-
+  </table>
+}
 
 
 <!-- toasts -->
 <app-delete-toasts #deleteToast></app-delete-toasts>
+<app-accept-toasts #acceptToast></app-accept-toasts>
+<app-alert-toasts #alertToast></app-alert-toasts>
+<app-add-toasts #addToast></app-add-toasts>
