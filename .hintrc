@@ -25,6 +25,12 @@
           "input[type=month]"
         ]
       }
+    ],
+    "axe/structure": [
+      "default",
+      {
+        "list": "off"
+      }
     ]
   }
 }

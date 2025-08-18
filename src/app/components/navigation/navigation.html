@@ -74,6 +74,7 @@
           </a>
         </li>
 
+        @if(isAdmin()) {
         <li class="nav-item">
           <a class="nav-link"
             [routerLink]="['/admin']"
@@ -84,6 +85,7 @@
             {{ 'Admin' | translate }}
           </a>
         </li>
+        }
       </ul>
 
 

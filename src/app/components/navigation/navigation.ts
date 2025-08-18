@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  computed,
   effect,
   ElementRef,
   EventEmitter,
@@ -79,11 +80,15 @@ export class Navigation implements AfterViewInit {
   public translate = inject(TranslateService);
   public languageService = inject(Language);
 
+  // Language selection
   selectedLanguage = signal<string>('en');
   languages = [
     { code: 'en', name: 'English' },
     { code: 'ge', name: 'ქართული' }
   ];
+
+  // Computed property to check if the user is an admin
+  isAdmin = computed(() => this.authService.currentUser()?.role === 'admin');
 
 
   // constructor
