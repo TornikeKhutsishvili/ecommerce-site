@@ -1,12 +1,51 @@
 <section class="toolbar">
-  <h2>{{ 'Admin' | translate }} · {{ 'Products' | translate }}</h2>
 
-  <div class="spacer"></div>
-  <a [routerLink]="['/admin/add-product']"
-    class="btn"
-  >
-    ➕ {{ 'Add Product' | translate }}
-  </a>
+<nav class="nav navbar navbar-expand-lg main-navbar">
+  <ul class="nav-list navbar-nav mx-auto">
+    <li class="nav-item">
+      <a class="nav-link"
+        [routerLink]="['/admin/dashboard']"
+        [routerLinkActive]="['active']"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        🏠 {{ 'Dashboard' | translate }}
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+        [routerLink]="['/admin/add-product']"
+        [routerLinkActive]="['active']"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        ➕ {{ 'Add Product' | translate }}
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+        [routerLink]="['/admin/edit-product']"
+        [routerLinkActive]="['active']"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        ✏️ {{ 'Edit Product' | translate }}
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"
+        [routerLink]="['/admin/dashboard-analytics']"
+        [routerLinkActive]="['active']"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        📊 {{ 'Analytics' | translate }}
+      </a>
+    </li>
+  </ul>
+</nav>
+
+</section>
+
+
+<section class="text-center w-100 mb-5">
+  <h2>{{ 'Admin' | translate }} · {{ 'Products' | translate }}</h2>
 </section>
 
 @if(loading()){
