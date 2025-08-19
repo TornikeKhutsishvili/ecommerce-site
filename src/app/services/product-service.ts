@@ -1,7 +1,8 @@
 import {
   inject,
   Injectable,
-  signal
+  signal,
+  ViewChild
 } from '@angular/core';
 
 import {
@@ -78,6 +79,12 @@ export class ProductService {
   loadProducts() {
     this.http.get<dummyProductModel[]>(this.apiUrl + this.limit)
       .subscribe(data => this.loadproducts.set(data));
+  }
+
+
+  addProduct(payload: any): Observable<any> {
+    // return this.http.post(this.apiUrl, payload);
+    return this.http.post(`${this.apiUrl}/add`, payload);
   }
 
 }

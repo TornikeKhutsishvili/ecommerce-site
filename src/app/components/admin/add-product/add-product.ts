@@ -36,8 +36,8 @@ import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
 })
 export class AddProduct {
 
-  productService = inject(ProductService);
-  router = inject(Router);
+  private productService = inject(ProductService);
+  private router = inject(Router);
 
   // ViewChild addToast
   @ViewChild('addToast') addToast!: AddToasts;
@@ -75,17 +75,22 @@ export class AddProduct {
       return;
     }
 
-    // If you have a real API, call productService.addProduct(payload)
-    // this.productService.addProduct(payload).subscribe({
-    //   next: () => this.handleSuccess(payload),
-    //   error: (error) => {
-    //     console.error('Error adding product:', error);
-    //     this.alertToast.openToast('Failed to add product. Please try again.');
-    //   }
-    // });
+    this.productService.addProduct(payload).subscribe({
+      next: () => this.handleSuccess(payload),
+      complete: () => {},
+      error: (error) => {
+        console.error('Error adding product:', error);
+        this.alertToast.openToast('Failed to add product. Please try again.');
+      }
+    });
 
     // For now, just show toast and navigate
-    this.addToast.openToast(`Adding product: ${payload.title}`);
+    // this.addToast.openToast(`Adding product: ${payload.title}`);
+    // setTimeout(() => this.router.navigate(['/admin/dashboard']), 900);
+  }
+
+  private handleSuccess(payload: any) {
+    this.addToast.openToast(`✅ Product added: ${payload.title}`);
     setTimeout(() => this.router.navigate(['/admin/dashboard']), 900);
   }
 
