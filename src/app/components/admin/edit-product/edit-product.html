@@ -1,5 +1,62 @@
+<!-- top -->
+
+<hr>
+
+<section class="toolbar d-flex justify-content-center">
+
+  <!-- navbar -->
+  <nav class="nav navbar navbar-expand-lg main-navbar">
+    <ul class="nav-list navbar-nav mx-auto">
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/dashboard']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          🏠 {{ 'Dashboard' | translate }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/add-product']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          ➕ {{ 'Add Product' | translate }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/edit-product/:id']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          ✏️ {{ 'Edit Product' | translate }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/dashboard-analytics']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          📊 {{ 'Analytics' | translate }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+</section>
+
+<hr>
+
+
+
+
+<!-- content -->
+
 @if (product(); as p) {
-  <form class="card" (ngSubmit)="updateProduct()">
+  <form class="card my-5" (ngSubmit)="updateProduct()">
 
     <h2>✏ {{ 'Edit Product' | translate }} · #{{ p.id }}</h2>
 

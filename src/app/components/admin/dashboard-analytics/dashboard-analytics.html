@@ -1,7 +1,64 @@
+<!-- top -->
+
+<hr>
+
+<section class="toolbar d-flex justify-content-center">
+
+  <!-- navbar -->
+  <nav class="nav navbar navbar-expand-lg main-navbar">
+    <ul class="nav-list navbar-nav mx-auto">
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/dashboard']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          🏠 {{ 'Dashboard' | translate }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/add-product']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          ➕ {{ 'Add Product' | translate }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/edit-product/:id']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          ✏️ {{ 'Edit Product' | translate }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/dashboard-analytics']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          📊 {{ 'Analytics' | translate }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+</section>
+
+<hr>
+
+
+
+
+<!-- content -->
+
 <section class="grid container">
 
   <!-- title -->
-  <h2 class="display-5 mt-3 mb-5 text-center">{{ 'Admin Analytics Dashboard' | translate }}</h2>
+  <h2 class="display-5 my-5 text-center">{{ 'Admin Analytics Dashboard' | translate }}</h2>
 
   <!-- content -->
   <div class="cards">

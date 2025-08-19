@@ -1,50 +1,60 @@
-<section class="toolbar">
+<!-- top -->
 
-<nav class="nav navbar navbar-expand-lg main-navbar">
-  <ul class="nav-list navbar-nav mx-auto">
-    <li class="nav-item">
-      <a class="nav-link"
-        [routerLink]="['/admin/dashboard']"
-        [routerLinkActive]="['active']"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        🏠 {{ 'Dashboard' | translate }}
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link"
-        [routerLink]="['/admin/add-product']"
-        [routerLinkActive]="['active']"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        ➕ {{ 'Add Product' | translate }}
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link"
-        [routerLink]="['/admin/edit-product']"
-        [routerLinkActive]="['active']"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        ✏️ {{ 'Edit Product' | translate }}
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link"
-        [routerLink]="['/admin/dashboard-analytics']"
-        [routerLinkActive]="['active']"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        📊 {{ 'Analytics' | translate }}
-      </a>
-    </li>
-  </ul>
-</nav>
+<hr>
+
+<section class="toolbar d-flex justify-content-center">
+
+  <!-- navbar -->
+  <nav class="nav navbar navbar-expand-lg main-navbar">
+    <ul class="nav-list navbar-nav mx-auto">
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/dashboard']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          🏠 {{ 'Dashboard' | translate }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/add-product']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          ➕ {{ 'Add Product' | translate }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/edit-product/:id']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          ✏️ {{ 'Edit Product' | translate }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/dashboard-analytics']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          📊 {{ 'Analytics' | translate }}
+        </a>
+      </li>
+    </ul>
+  </nav>
 
 </section>
 
+<hr>
 
-<section class="text-center w-100 mb-5">
+
+
+<!-- content -->
+
+<section class="text-center w-100 my-5">
   <h2>{{ 'Admin' | translate }} · {{ 'Products' | translate }}</h2>
 </section>
 
@@ -54,46 +64,62 @@
   </section>
 }
 
-@if(!loading()){
-  <table class="table">
-    <thead>
-    <tr>
-      <th>{{ 'ID' | translate }}</th>
-      <th>{{ 'Title' | translate }}</th>
-      <th>{{ 'Price' | translate }}</th>
-      <th>{{ 'Category' | translate }}</th>
-      <th>{{ 'Rating' | translate }}</th>
-      <th class="right">{{ 'Actions' | translate }}</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    @for(p of products(); track $index) {
+<div class="d-flex justify-content-center align-items-center mb-4">
+  @if(!loading()){
+    <table class="table">
+      <thead>
       <tr>
-        <td>{{ p.id }}</td>
-        <td>{{ p.title | translate }}</td>
-        <td>{{ p.price | currency:'USD':'symbol' | translate }}</td>
-        <td>{{ p.category | translate }}</td>
-        <td>{{ p.rating | translate }} </td>
-        <td class="right">
-          <a [routerLink]="['/admin/edit-product', p.id]"
-            class="btn btn-sm"
-          >
-            {{ 'Edit' | translate }} ✏️
-          </a>
-          <button type="button"
-                  class="btn btn-sm btn-danger"
-                  (click)="deleteProduct(p.id)"
-          >
-            {{ 'Delete' | translate }} 🗑️
-          </button>
-        </td>
+        <th>{{ 'ID' | translate }}</th>
+        <th>{{ 'Title' | translate }}</th>
+        <th>{{ 'Price' | translate }}</th>
+        <th>{{ 'Category' | translate }}</th>
+        <th>{{ 'Rating' | translate }}</th>
+        <th class="right">{{ 'Actions' | translate }}</th>
       </tr>
-    }
-    </tbody>
+      </thead>
 
-  </table>
-}
+      <tbody>
+      @let paginated = (filteredProducts() | paginate: { itemsPerPage: itemsPerPage(), currentPage: page() });
+      @for( p of paginated; track $index) {
+        <tr>
+          <td>{{ p.id }}</td>
+          <td>{{ p.title | translate }}</td>
+          <td>{{ p.price | currency:'USD':'symbol' | translate }}</td>
+          <td>{{ p.category | translate }}</td>
+          <td>{{ p.rating | translate }} </td>
+          <td class="right">
+            <a [routerLink]="['/admin/edit-product', p.id]"
+              class="btn btn-sm me-2"
+            >
+              {{ 'Edit' | translate }} ✏️
+            </a>
+            <button type="button"
+                    class="btn btn-sm btn-danger"
+                    (click)="deleteProduct(p.id)"
+            >
+              {{ 'Delete' | translate }} 🗑️
+            </button>
+          </td>
+        </tr>
+      }
+      </tbody>
+
+    </table>
+  }
+</div>
+
+
+
+
+<!-- Pagination -->
+<div class="d-flex justify-content-center mb-4">
+  <pagination-controls
+    (pageChange)="page.set($event)"
+    class="page"
+  ></pagination-controls>
+</div>
+
+
 
 
 <!-- toasts -->

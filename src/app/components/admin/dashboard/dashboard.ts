@@ -1,5 +1,6 @@
 import {
   Component,
+  computed,
   inject,
   OnInit,
   signal,
@@ -14,6 +15,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { ProductService } from '../../../services/product-service';
 import { DeleteToasts } from '../../toasts/delete-toasts/delete-toasts';
 import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
@@ -29,6 +31,7 @@ import { AddToasts } from '../../toasts/add-toasts/add-toasts';
     TranslateModule,
     RouterLink,
     RouterModule,
+    NgxPaginationModule,
     DeleteToasts,
     AcceptToasts,
     AlertToasts,
@@ -42,6 +45,8 @@ export class Dashboard implements OnInit {
   productService = inject(ProductService);
   products = signal<any[]>([]);
   loading = signal<boolean>(true);
+  page = signal<number>(1);
+  itemsPerPage = signal<number>(25);
 
 
   // All ViewChild
@@ -59,11 +64,28 @@ export class Dashboard implements OnInit {
   // load products
   loadProducts() {
     this.loading.set(true);
-    this.productService.getProducts().subscribe({
-      next: (data) => { this.products.set(data); this.loading.set(false); },
-      error: () => { this.alertToast.openToast('Failed to load products'); this.loading.set(false); }
+
+    const getProducts = this.productService.getProducts();
+    getProducts.subscribe({
+      next: (data) => {
+        this.products.set(data);
+        this.loading.set(false);
+        this.acceptToast.openToast('Products loaded successfully');
+      },
+      error: () => {
+        this.alertToast.openToast('Failed to load products');
+        this.loading.set(false);
+      }
     });
   }
+
+
+  // Paginated view
+  readonly filteredProducts = computed(() => this.products());
+  readonly paginatedProducts = computed(() => {
+    const start = (this.page() - 1) * this.itemsPerPage();
+    return this.filteredProducts().slice(start, start + this.itemsPerPage());
+  });
 
 
   // delete product by id
@@ -73,5 +95,6 @@ export class Dashboard implements OnInit {
       this.deleteToast.openToast(`🗑 Product deleted: ${id}`);
     }
   }
+
 
 }
