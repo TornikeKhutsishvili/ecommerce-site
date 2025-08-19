@@ -84,9 +84,9 @@
         <tr>
           <td>{{ p.id }}</td>
           <td>{{ p.title | translate }}</td>
-          <td>{{ p.price | currency:'USD':'symbol' | translate }}</td>
+          <td>{{ p.price }} {{ '$' | translate }}</td>
           <td>{{ p.category | translate }}</td>
-          <td>{{ p.rating | translate }} </td>
+          <td>{{ p.rating | translate }} <i class="fa fa-star"></i></td>
           <td class="right">
             <a [routerLink]="['/admin/edit-product', p.id]"
               class="btn btn-sm me-2"
