@@ -1,31 +1,219 @@
 <section class="grid container">
 
   <!-- title -->
-  <h2>{{ 'Admin Analytics Dashboard' | translate }}</h2>
+  <h2 class="display-5 mt-3 mb-5 text-center">{{ 'Admin Analytics Dashboard' | translate }}</h2>
 
   <!-- content -->
-  <div class="card">
-    <h3 class="text-dark">{{ 'Sales' | translate }}</h3>
-    <canvas baseChart
-            [data]="salesChartData"
-            [type]="salesChartType"
-    ></canvas>
-  </div>
+  <div class="cards">
 
-  <div class="card">
-    <h3 class="text-dark">{{ 'Users' | translate }}</h3>
-    <canvas baseChart
-            [data]="usersChartData"
-            [type]="usersChartType"
-    ></canvas>
-  </div>
+    <div class="card">
+      <h3 class="text-dark">{{ 'Sales' | translate }}</h3>
+      <canvas baseChart
+              [data]="salesChartData"
+              [type]="salesChartType"
+      ></canvas>
+    </div>
 
-  <div class="card col-span">
-    <h3 class="text-dark">{{ 'Revenue' | translate }}</h3>
-    <canvas baseChart
-            [data]="revenueChartData"
-            [type]="revenueChartType"
-    ></canvas>
+    <div class="card">
+      <h3 class="text-dark">{{ 'Products Sold' | translate }}</h3>
+      <canvas baseChart
+              [data]="productChartData"
+              [type]="productChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Sales By Category' | translate }}</h3>
+      <canvas baseChart
+              [data]="salesByCategoryChartData"
+              [type]="salesByCategoryChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Users' | translate }}</h3>
+      <canvas baseChart
+              [data]="usersChartData"
+              [type]="usersChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'User Activity' | translate }}</h3>
+      <canvas baseChart
+              [data]="userActivityChartData"
+              [type]="userActivityChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'User Demographics' | translate }}</h3>
+      <canvas baseChart
+              [data]="userDemographicsChartData"
+              [type]="userDemographicsChartType"
+      ></canvas>
+    </div>
+
+    <div class="card col-span">
+      <h3 class="text-dark">{{ 'Revenue' | translate }}</h3>
+      <canvas baseChart
+              [data]="revenueChartData"
+              [type]="revenueChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Revenue By Category' | translate }}</h3>
+      <canvas baseChart
+              [data]="revenueByCategoryChartData"
+              [type]="revenueByCategoryChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Revenue By Top Category' | translate }}</h3>
+      <canvas baseChart
+              [data]="revenueByTopCategoryChartData"
+              [type]="revenueByTopCategoryChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Revenue In Months' | translate }}</h3>
+      <canvas baseChart
+              [data]="revenueByMonthChartData"
+              [type]="revenueByMonthChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Revenue In Years' | translate }}</h3>
+      <canvas baseChart
+              [data]="revenueByYearChartData"
+              [type]="revenueByYearChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Traffic' | translate }}</h3>
+      <canvas baseChart
+              [data]="trafficChartData"
+              [type]="trafficChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'traffic Sources' | translate }}</h3>
+      <canvas baseChart
+              [data]="trafficSourcesChartData"
+              [type]="trafficSourcesChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Conversion' | translate }}</h3>
+      <canvas baseChart
+              [data]="conversionChartData"
+              [type]="conversionChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Engagement' | translate }}</h3>
+      <canvas baseChart
+              [data]="engagementChartData"
+              [type]="engagementChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Engagement Rate' | translate }}</h3>
+      <canvas baseChart
+              [data]="engagementRateChartData"
+              [type]="engagementRateChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'User Engagement' | translate }}</h3>
+      <canvas baseChart
+              [data]="userEngagementChartData"
+              [type]="userEngagementChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Retention' | translate }}</h3>
+      <canvas baseChart
+              [data]="retentionChartData"
+              [type]="retentionChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Satisfaction' | translate }}</h3>
+      <canvas baseChart
+              [data]="satisfactionChartData"
+              [type]="satisfactionChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Feedback' | translate }}</h3>
+      <canvas baseChart
+              [data]="feedbackChartData"
+              [type]="feedbackChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'User Retention' | translate }}</h3>
+      <canvas baseChart
+              [data]="userRetentionChartData"
+              [type]="userRetentionChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'User Satisfaction' | translate }}</h3>
+      <canvas baseChart
+              [data]="userSatisfactionChartData"
+              [type]="userSatisfactionChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Amount Spent' | translate }}</h3>
+      <canvas baseChart
+              [data]="amountSpentChartData"
+              [type]="amountSpentChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Amount Spent in Years' | translate }}</h3>
+      <canvas baseChart
+              [data]="amountSpentYearsChartData"
+              [type]="amountSpentYearsChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Amount Saved' | translate }}</h3>
+      <canvas baseChart
+              [data]="amountSavedChartData"
+              [type]="amountSavedChartType"
+      ></canvas>
+    </div>
+
+    <div class="card">
+      <h3 class="text-dark">{{ 'Amount Saved in Years' | translate }}</h3>
+      <canvas baseChart
+              [data]="amountSavedYearsChartData"
+              [type]="amountSavedYearsChartType"
+      ></canvas>
+    </div>
+
   </div>
 
 </section>

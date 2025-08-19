@@ -47,18 +47,18 @@ export class DashboardAnalytics implements OnInit {
   // Chart configurations
   salesChartData: ChartConfiguration<'bar'>['data'] = {
     labels: [
-        this.translate.instant('Jan'),
-        this.translate.instant('Feb'),
-        this.translate.instant('Mar'),
-        this.translate.instant('Apr'),
+        this.translate.instant('January'),
+        this.translate.instant('February'),
+        this.translate.instant('March'),
+        this.translate.instant('April'),
         this.translate.instant('May'),
-        this.translate.instant('Jun'),
-        this.translate.instant('Jul'),
-        this.translate.instant('Aug'),
-        this.translate.instant('Sep'),
-        this.translate.instant('Oct'),
-        this.translate.instant('Nov'),
-        this.translate.instant('Dec')
+        this.translate.instant('June'),
+        this.translate.instant('July'),
+        this.translate.instant('August'),
+        this.translate.instant('September'),
+        this.translate.instant('October'),
+        this.translate.instant('November'),
+        this.translate.instant('December')
       ],
     datasets: [
       {
@@ -121,6 +121,93 @@ export class DashboardAnalytics implements OnInit {
     ]
   };
   revenueChartType: ChartType = this.translate.instant('line');
+
+  revenueByCategoryChartData: ChartConfiguration<'doughnut'>['data'] = {
+    labels: [
+      this.translate.instant('Electronics'),
+      this.translate.instant('Clothing'),
+      this.translate.instant('Home & Kitchen'),
+      this.translate.instant('Beauty & Health'),
+      this.translate.instant('Sports & Outdoors'),
+      this.translate.instant('Automotive'),
+      this.translate.instant('Grocery'),
+      this.translate.instant('Pet Supplies'),
+      this.translate.instant('Jewelry & Accessories'),
+      this.translate.instant('Mens'),
+      this.translate.instant('Womens'),
+      this.translate.instant('Kids')
+    ],
+    datasets: [
+      {
+        data: [12000, 3000, 20000, 600, 300, 80000, 700, 200, 15000, 2000, 2500, 900],
+        backgroundColor: [
+          '#FF6384', '#36A2EB', '#FFCF23', '#4bc0c0', '#9966FF', '#FF9F40',
+          '#FF6384', '#36A2EB', '#FFCE56', '#4bc0c0', '#9966FF', '#FF3F80'
+        ],
+        label: this.translate.instant('Revenue by Category')
+      }
+    ]
+  };
+  revenueByCategoryChartType: ChartType = this.translate.instant('doughnut');
+
+  revenueByTopCategoryChartData: ChartConfiguration<'doughnut'>['data'] = {
+    labels: [
+      this.translate.instant('Home & Kitchen'),
+      this.translate.instant('Electronics'),
+      this.translate.instant('Automotive'),
+      this.translate.instant('Jewelry & Accessories')
+    ],
+    datasets: [
+      {
+        data: [20000, 12000, 80000, 15000],
+        backgroundColor: ['#FFCF23', '#FF6384', '#FF9F40', '#FFCE56'],
+        label: this.translate.instant('Revenue by Top Category')
+      }
+    ]
+  };
+  revenueByTopCategoryChartType: ChartType = this.translate.instant('doughnut');
+
+  revenueByMonthChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: [
+      this.translate.instant('January'),
+      this.translate.instant('February'),
+      this.translate.instant('March'),
+      this.translate.instant('April'),
+      this.translate.instant('May'),
+      this.translate.instant('June'),
+      this.translate.instant('July'),
+      this.translate.instant('August'),
+      this.translate.instant('September'),
+      this.translate.instant('October'),
+      this.translate.instant('November'),
+      this.translate.instant('December')
+    ],
+    datasets: [
+      {
+        data: [5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000, 15000, 16000],
+        label: this.translate.instant('Revenue by Month'),
+        backgroundColor: '#FF6384'
+      }
+    ]
+  };
+  revenueByMonthChartType: ChartType = this.translate.instant('bar');
+
+  revenueByYearChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: [
+      this.translate.instant('2020'),
+      this.translate.instant('2021'),
+      this.translate.instant('2022'),
+      this.translate.instant('2023')
+    ],
+    datasets: [
+      {
+        data: [50000, 60000, 70000, 80000],
+        label: this.translate.instant('Revenue by Year'),
+        backgroundColor: '#4bc0c0'
+      }
+    ]
+  };
+  revenueByYearChartType: ChartType = this.translate.instant('bar');
 
 
   trafficChartData: ChartConfiguration<'line'>['data'] = {
@@ -312,7 +399,7 @@ export class DashboardAnalytics implements OnInit {
     ],
     datasets: [
       {
-        data: [100, 150, 200, 250],
+        data: [100, 250, 150, 200],
         label: this.translate.instant('User Engagement'),
         borderColor: '#FF6384',
         fill: false
@@ -357,5 +444,73 @@ export class DashboardAnalytics implements OnInit {
     ]
   };
   userSatisfactionChartType: ChartType = this.translate.instant('polarArea');
+
+  amountSpentChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: [
+      this.translate.instant('Week 1'),
+      this.translate.instant('Week 2'),
+      this.translate.instant('Week 3'),
+      this.translate.instant('Week 4')
+    ],
+    datasets: [
+      {
+        data: [200, 300, 150, 650],
+        label: this.translate.instant('Amount Spent'),
+        borderColor: '#4bc0c0',
+      }
+    ],
+  };
+  amountSpentChartType: ChartType = this.translate.instant('bar');
+
+  amountSpentYearsChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: [
+      this.translate.instant('2020'),
+      this.translate.instant('2021'),
+      this.translate.instant('2022'),
+      this.translate.instant('2023')
+    ],
+    datasets: [
+      {
+        data: [500, 800, 700, 400],
+        label: this.translate.instant('Amount Spent'),
+        borderColor: '#4bc0c0',
+      }
+    ]
+  };
+  amountSpentYearsChartType: ChartType = this.translate.instant('bar');
+
+  amountSavedChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: [
+      this.translate.instant('Week 1'),
+      this.translate.instant('Week 2'),
+      this.translate.instant('Week 3'),
+      this.translate.instant('Week 4')
+    ],
+    datasets: [
+      {
+        data: [50, 100, 75, 125],
+        label: this.translate.instant('Amount Saved'),
+        backgroundColor: '#4bc0c0'
+      }
+    ]
+  };
+  amountSavedChartType: ChartType = this.translate.instant('bar');
+
+  amountSavedYearsChartData: ChartConfiguration<'bar'>['data'] = {
+    labels: [
+      this.translate.instant('2020'),
+      this.translate.instant('2021'),
+      this.translate.instant('2022'),
+      this.translate.instant('2023')
+    ],
+    datasets: [
+      {
+        data: [300, 400, 250, 100],
+        label: this.translate.instant('Amount Saved'),
+        backgroundColor: '#4bc0c0'
+      }
+    ]
+  };
+  amountSavedYearsChartType: ChartType = this.translate.instant('bar');
 
 }

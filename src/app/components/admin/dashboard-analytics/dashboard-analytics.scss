@@ -1,16 +1,24 @@
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 1rem;
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 .card {
-    background: #fff;
-    padding: 1rem;
-    border-radius: 1rem;
-    box-shadow: 0 8px 24px rgba(0,0,0,.06);
+  flex: 0 0 calc(50% - 20px);
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.1);
 }
 
 .col-span {
-    grid-column:1/-1;
+  flex: 0 0 100%;
 }
