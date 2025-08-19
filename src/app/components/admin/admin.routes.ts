@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { adminGuard } from '../../guards/admin-guard';
 
 export const ADMIN_ROUTES: Routes = [
+
     {
         path: '',
         redirectTo: 'dashboard',
