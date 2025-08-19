@@ -1,24 +1,126 @@
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px;
+// .cards {
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: space-between;
+//   gap: 20px;
+// }
+
+// .card {
+//   flex: 0 0 calc(50% - 20px);
+//   background: #fff;
+//   padding: 20px;
+//   border-radius: 16px;
+//   box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+//   transition: transform 0.2s ease, box-shadow 0.2s ease;
+// }
+
+// .card:hover {
+//   transform: translateY(-4px);
+//   box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+// }
+
+// .col-span {
+//   flex: 0 0 100%;
+// }
+
+
+
+
+
+:host {
+  display: block;
+  padding: 1rem;
+  font-family: 'Inter', sans-serif;
+  background-color: #f8f9fa;
+  min-height: 100vh;
 }
 
-.card {
-  flex: 0 0 calc(50% - 20px);
-  background: #fff;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+// -------------------------
+// KPI CARDS
+// -------------------------
+.row > .col {
+  margin-bottom: 1rem;
+
+  .card {
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    padding: 1rem 0.5rem;
+    background-color: #ffffff;
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+
+    h5 {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #6c757d;
+      margin-bottom: 0.3rem;
+    }
+
+    p {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin: 0;
+      color: #343a40;
+    }
+  }
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+// -------------------------
+// CHARTS
+// -------------------------
+canvas {
+  width: 100% !important;
+  height: 250px !important;
+  margin-bottom: 2rem;
 }
 
-.col-span {
-  flex: 0 0 100%;
+// -------------------------
+// TABLE
+// -------------------------
+.table-responsive {
+  margin-top: 2rem;
+
+  table {
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+    th, td {
+      padding: 0.75rem 1rem;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    th {
+      background-color: #e9ecef;
+      font-weight: 600;
+      color: #495057;
+    }
+
+    tbody tr {
+      &:hover {
+        background-color: #f1f3f5;
+      }
+    }
+  }
 }
+
+// -------------------------
+// LOADING & ERROR
+// -------------------------
+.text-center {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.alert {
+  text-align: center;
+  font-weight: 500;
+}
+// -------------------------
+// End of Dashboard Analytics Styles

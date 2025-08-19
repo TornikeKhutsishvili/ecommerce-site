@@ -6,7 +6,8 @@ import {
 import {
   Component,
   inject,
-  OnInit
+  OnInit,
+  signal
 } from '@angular/core';
 
 import {
@@ -19,6 +20,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AnalyticsService } from '../../../services/analytics-service';
+import { AdminAnalyticsService } from '../../../services/admin-analytics-service';
 
 @Component({
   selector: 'app-dashboard-analytics',
@@ -37,6 +39,12 @@ export class DashboardAnalytics implements OnInit {
 
   private analytics = inject(AnalyticsService);
   private translate = inject(TranslateService);
+  private adminAnalytics = inject(AdminAnalyticsService);
+
+  // Signals
+  analyticsData = signal<any>(null);
+  loading = signal(true);
+  error = signal<string | null>(null);
 
   ngOnInit() {
     this.analytics.trackPageView('/admin/dashboard-analytics');
@@ -514,3 +522,64 @@ export class DashboardAnalytics implements OnInit {
   amountSavedYearsChartType: ChartType = this.translate.instant('bar');
 
 }
+
+
+// export class DashboardAnalytics implements OnInit {
+
+//   // inject services
+//   private adminAnalytics = inject(AdminAnalyticsService);
+//   private translate = inject(TranslateService);
+
+//   // reactive signals
+//   loading = signal(true);
+//   error = signal<string | null>(null);
+
+//   // charts
+//   charts = signal<{ title: string; data: any; type: ChartType; wide?: boolean }[]>([]);
+
+//   ngOnInit() {
+//     this.adminAnalytics.loadAnalytics().subscribe({
+//       next: data => {
+//         this.charts.set([
+//           { title: this.translate.instant('Sales'), data: data.salesChart, type: 'bar' },
+//           { title: this.translate.instant('Products Sold'), data: data.productsChart, type: 'bar' },
+//           { title: this.translate.instant('Sales By Category'), data: data.salesByCategoryChart, type: 'pie' },
+//           { title: this.translate.instant('Users'), data: data.usersChart, type: 'pie' },
+//           { title: this.translate.instant('User Activity'), data: data.userActivityChart, type: 'bar' },
+//           { title: this.translate.instant('User Demographics'), data: data.userDemographicsChart, type: 'doughnut' },
+//           { title: this.translate.instant('Revenue'), data: data.revenueChart, type: 'line', wide: true },
+//           { title: this.translate.instant('Revenue By Category'), data: data.revenueByCategoryChart, type: 'bar' },
+//           { title: this.translate.instant('Revenue By Top Category'), data: data.revenueByTopCategoryChart, type: 'bar' },
+//           { title: this.translate.instant('Revenue In Months'), data: data.revenueByMonthChart, type: 'line' },
+//           { title: this.translate.instant('Revenue In Years'), data: data.revenueByYearChart, type: 'line' },
+//           { title: this.translate.instant('Traffic'), data: data.trafficChart, type: 'bar' },
+//           { title: this.translate.instant('Traffic Sources'), data: data.trafficSourcesChart, type: 'pie' },
+//           { title: this.translate.instant('Conversion'), data: data.conversionChart, type: 'line' },
+//           { title: this.translate.instant('Engagement'), data: data.engagementChart, type: 'bar' },
+//           { title: this.translate.instant('Engagement Rate'), data: data.engagementRateChart, type: 'line' },
+//           { title: this.translate.instant('User Engagement'), data: data.userEngagementChart, type: 'bar' },
+//           { title: this.translate.instant('Retention'), data: data.retentionChart, type: 'line' },
+//           { title: this.translate.instant('Satisfaction'), data: data.satisfactionChart, type: 'pie' },
+//           { title: this.translate.instant('Feedback'), data: data.feedbackChart, type: 'bar' },
+//           { title: this.translate.instant('User Retention'), data: data.userRetentionChart, type: 'bar' },
+//           { title: this.translate.instant('User Satisfaction'), data: data.userSatisfactionChart, type: 'doughnut' },
+//           { title: this.translate.instant('Amount Spent'), data: data.amountSpentChart, type: 'line' },
+//           { title: this.translate.instant('Amount Spent in Years'), data: data.amountSpentYearsChart, type: 'line' },
+//           { title: this.translate.instant('Amount Saved'), data: data.amountSavedChart, type: 'bar' },
+//           { title: this.translate.instant('Amount Saved in Years'), data: data.amountSavedYearsChart, type: 'bar' },
+//         ]);
+//         this.loading.set(false);
+//       },
+//       error: err => {
+//         this.error.set(err.message || 'Failed to load analytics');
+//         this.loading.set(false);
+//       }
+//     });
+//   }
+
+//   // expose chart types
+//   salesChartType: ChartType = 'bar';
+//   usersChartType: ChartType = 'pie';
+//   productsChartType: ChartType = 'bar';
+
+// }

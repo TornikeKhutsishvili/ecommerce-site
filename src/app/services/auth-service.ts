@@ -18,6 +18,7 @@ export interface User {
   email: string;
   password: string;
   role: 'admin' | 'user';
+  active: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -25,6 +26,7 @@ export class AuthService {
 
   private accessToken: string | null = null;
   private refreshTokenValue: string | null = null;
+  users = this.loadFromStorage();
 
   // Signals
   isLoggedIn = signal(false);
@@ -34,6 +36,24 @@ export class AuthService {
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.loadFromStorage();
+  }
+
+  getAllUsers(): any[] {
+    const users: any[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key) continue;
+      try {
+        const data = localStorage.getItem(key);
+        if (data) {
+          const parsed = JSON.parse(data);
+          if (parsed?.email) {
+            users.push(parsed);
+          }
+        }
+      } catch {}
+    }
+    return users;
   }
 
   getAccessToken(): string | null {
@@ -61,13 +81,14 @@ export class AuthService {
     return false;
   }
 
-  register(name: string, email: string, password: string): boolean {
+  register(name: string, email: string, password: string, active: boolean): boolean {
     if (this.getUserByEmail(email)) return false;
 
     const newUser: User = {
       name,
       email,
       password,
+      active,
       role: email === 'admin@example.com' ? 'admin' : 'user'
     };
 
@@ -92,7 +113,7 @@ export class AuthService {
     return data ? JSON.parse(data) : null;
   }
 
-  private loadFromStorage() {
+  private loadFromStorage(): void {
     const storedUserStr = this.safeGetItem(this.STORAGE_KEY);
     if (storedUserStr) {
       const user: User = JSON.parse(storedUserStr);

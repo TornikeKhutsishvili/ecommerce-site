@@ -57,10 +57,8 @@
 
 <section class="grid container">
 
-  <!-- title -->
   <h2 class="display-5 my-5 text-center">{{ 'Admin Analytics Dashboard' | translate }}</h2>
 
-  <!-- content -->
   <div class="cards">
 
     <div class="card">
@@ -274,3 +272,48 @@
   </div>
 
 </section>
+
+
+
+
+
+
+
+
+
+
+
+<!-- @if(loading()){
+  <div class="text-center my-4">
+    Loading analytics...
+  </div>
+}
+
+@if(error()){
+  <div class="alert alert-danger">
+    {{ error() }}
+  </div>
+}
+
+
+<section class="grid container">
+
+  <h2 class="display-5 my-5 text-center">
+    {{ 'Admin Analytics Dashboard' | translate }}
+  </h2>
+
+  <div class="cards">
+    @for(chart of charts(); track $index){
+      <ng-container>
+        <div class="card" [class.col-span]="chart.wide">
+          <h3 class="text-dark">{{ chart.title | translate }}</h3>
+          <canvas baseChart
+                  [data]="chart.data"
+                  [type]="chart.type">
+          </canvas>
+        </div>
+      </ng-container>
+    }
+  </div>
+
+</section> -->

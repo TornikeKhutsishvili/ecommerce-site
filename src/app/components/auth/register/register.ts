@@ -45,6 +45,8 @@ export class Register {
   email = signal('');
   password = signal('');
   confirmPassword = signal('');
+  active = signal(false);
+
 
   // signals
   private router = inject(Router);
@@ -69,8 +71,8 @@ export class Register {
       return;
     }
 
-    if (this.name() && this.email() && this.password()) {
-      const success = this.auth.register(this.name(), this.email(), this.password());
+    if (this.name() && this.email() && this.password() && this.active() && this.confirmPassword()) {
+      const success = this.auth.register(this.name(), this.email(), this.password(), this.active());
 
       if (success) {
         this.acceptToast.openToast('User registered successfully!');

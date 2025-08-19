@@ -13,9 +13,13 @@ import {
   RouterModule
 } from '@angular/router';
 
+import {
+  TranslateModule,
+  TranslateService
+} from '@ngx-translate/core';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
 import { ProductService } from '../../../services/product-service';
 import { DeleteToasts } from '../../toasts/delete-toasts/delete-toasts';
 import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
@@ -42,6 +46,7 @@ import { AddToasts } from '../../toasts/add-toasts/add-toasts';
 export class EditProduct implements OnInit {
 
   productService = inject(ProductService);
+  private translate = inject(TranslateService);
   route = inject(ActivatedRoute);
   router = inject(Router);
 
@@ -77,24 +82,34 @@ export class EditProduct implements OnInit {
   }
 
   onTitleChange(val: string) {
-  this.product.update(p => ({ ...p, title: val }));
+    this.product.update(p => (
+      { ...p, title: this.translate.instant(val) }
+    ));
   }
 
   onPriceChange(val: number | string) {
     const num = typeof val === 'string' ? +val : val;
-    this.product.update(p => ({ ...p, price: num ?? 0 }));
+    this.product.update(p => (
+      { ...p, price: num ?? 0 }
+    ));
   }
 
   onCategoryChange(val: string) {
-    this.product.update(p => ({ ...p, category: val }));
+    this.product.update(p => (
+      { ...p, category: this.translate.instant(val) }
+    ));
   }
 
   onThumbChange(val: string) {
-    this.product.update(p => ({ ...p, thumbnail: val }));
+    this.product.update(p => (
+      { ...p, thumbnail: this.translate.instant(val) }
+    ));
   }
 
   onDescChange(val: string) {
-    this.product.update(p => ({ ...p, description: val }));
+    this.product.update(p => (
+      { ...p, description: this.translate.instant(val) }
+    ));
   }
 
 }
