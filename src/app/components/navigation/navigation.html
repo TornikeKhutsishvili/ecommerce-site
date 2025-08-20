@@ -191,7 +191,13 @@
           <!-- Search -->
           @if( currentUrl() !== '/shop' &&
               currentUrl() !== '/contact' &&
-              currentUrl() !== '/checkout'
+              currentUrl() !== '/checkout' &&
+              currentUrl() !== '/auth/profile' &&
+              currentUrl() !== '/auth/edit-profile' &&
+              currentUrl() !== '/auth/login' &&
+              currentUrl() !== '/auth/register' &&
+              currentUrl() !== '/auth/reset-password' &&
+              currentUrl() !== '/auth/user-profile'
           ) {
             <div class="search-box">
               <input type="text"
@@ -207,7 +213,13 @@
 
           <!-- Filter -->
           @if( currentUrl() !== '/contact' &&
-              currentUrl() !== '/checkout'
+              currentUrl() !== '/checkout' &&
+              currentUrl() !== '/auth/profile' &&
+              currentUrl() !== '/auth/edit-profile' &&
+              currentUrl() !== '/auth/login' &&
+              currentUrl() !== '/auth/register' &&
+              currentUrl() !== '/auth/reset-password' &&
+              currentUrl() !== '/auth/user-profile'
           ) {
             <select class="form-select sortPriceSelect"
                     name="select"

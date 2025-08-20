@@ -53,7 +53,7 @@ export class Profile implements OnInit {
   }
 
   goToMyProfile(): void {
-    this.router.navigate(['/auth/my-profile']);
+    this.router.navigate(['/auth/user-profile']);
   }
 
 }
