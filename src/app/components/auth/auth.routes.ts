@@ -31,6 +31,12 @@ export const AUTH_ROUTES: Routes = [
         path: 'reset-password',
         loadComponent: () => import('./reset-password/reset-password')
         .then((m) => m.ResetPassword), title: 'Reset Password', canActivate: [authGuard]
+    },
+
+    {
+        path: 'my-profile',
+        loadComponent: () => import('./user-profile-info/user-profile-info')
+        .then(m => m.UserProfileInfo), title: 'My Profile', canActivate: [authGuard]
     }
 
 ];

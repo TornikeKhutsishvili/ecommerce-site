@@ -11,6 +11,13 @@
     <div class="profile-actions">
 
       <button type="button"
+              (click)="goToMyProfile()"
+              class="me-1"
+      >
+        <i class="fa fa-user-alt"></i> My Profile
+      </button>
+
+      <button type="button"
               (click)="goToEditProfile()"
               class="me-1"
       >
@@ -37,4 +44,5 @@
   } @else {
     <p>empty!</p>
   }
+
 </div>
