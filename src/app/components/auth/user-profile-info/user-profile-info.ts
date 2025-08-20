@@ -60,7 +60,20 @@ export class UserProfileInfo implements OnInit {
   // lifecycle hook ngOnInit
   ngOnInit(): void {
     this.user = this.auth.getUser();
+
+    if (this.user && !this.user.city) {
+      this.user.city = '';
+    }
   }
+
+
+  // Georgian Cities
+  cities = signal<string[]>([
+    'Tbilisi', 'Batumi', 'Kutaisi', 'Rustavi', 'Zugdidi', 'Poti', 'Gori', 'Samtredia', 'Senaki',
+    'Akhaltsikhe', 'Telavi', 'Khashuri', 'Marneuli', 'Chiatura', 'Borjomi', 'Ozurgeti', 'Kobuleti',
+    'Gardabani', 'Ambrolauri', 'Tkibuli', 'Baghdati', 'Sachkhere', 'Vani', 'Tqibuli', 'Kaspi', 'Dusheti',
+    'Lagodekhi', 'Kareli', 'Sighnaghi', 'Mtskheta', 'Signagi', 'Adigeni'
+  ]);
 
 
   // method to save profile
@@ -84,6 +97,22 @@ export class UserProfileInfo implements OnInit {
   // error on Image
   onImgError(event: Event) {
     (event.target as HTMLImageElement).src = this.avatarImg();
+  }
+
+
+  // Upload photo
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (this.user) {
+          this.user.photoUrl = reader.result as string;
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
 }
