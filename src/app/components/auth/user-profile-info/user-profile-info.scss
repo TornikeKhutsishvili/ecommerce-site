@@ -1,49 +1,125 @@
-.user-profile-container {
-  max-width: 800px;
-  margin: 0 auto;
+// .user-profile-container {
+//   max-width: 800px;
+//   margin: 0 auto;
+//   background: #fff;
+//   border-radius: 12px;
+//   overflow: hidden;
+//   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+// }
+
+// .cover-photo {
+//   height: 200px;
+//   background: url('/assets/cover.jpg') center/cover no-repeat;
+// }
+
+// .profile-header {
+//   text-align: center;
+//   padding: 16px;
+//   margin-top: -80px;
+
+//   .profile-pic {
+//     width: 150px;
+//     height: 150px;
+//     border-radius: 50%;
+//     border: 4px solid #fff;
+//     object-fit: cover;
+//     margin-bottom: 8px;
+//   }
+
+//   h2 {
+//     margin: 0;
+//     font-size: 1.5rem;
+//   }
+
+//   p {
+//     color: #666;
+//   }
+// }
+
+// .profile-details {
+//   padding: 20px;
+
+//   h3 {
+//     margin-bottom: 10px;
+//   }
+
+//   p {
+//     margin: 5px 0;
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+.profile-card {
+  max-width: 400px;
+  margin: 20px auto;
   background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.cover-photo {
-  height: 200px;
-  background: url('/assets/cover.jpg') center/cover no-repeat;
-}
-
-.profile-header {
-  text-align: center;
-  padding: 16px;
-  margin-top: -80px;
-
-  .profile-pic {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 4px solid #fff;
-    object-fit: cover;
-    margin-bottom: 8px;
-  }
-
-  h2 {
-    margin: 0;
-    font-size: 1.5rem;
-  }
-
-  p {
-    color: #666;
-  }
-}
-
-.profile-details {
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   padding: 20px;
+  text-align: center;
 
-  h3 {
-    margin-bottom: 10px;
+  .profile-header {
+    margin-bottom: 20px;
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ddd;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    p {
+      color: #555;
+      font-size: 0.9rem;
+    }
   }
 
-  p {
-    margin: 5px 0;
+  .profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+
+    input, textarea {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .btn-save {
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+
+      &:hover {
+        background: #0056b3;
+      }
+    }
   }
 }

@@ -11,14 +11,8 @@ import {
   RouterModule
 } from '@angular/router';
 
-import {
-  CommonModule
-} from '@angular/common';
-
-import {
-  PaymentService
-} from '../../services/payment-service';
-
+import { CommonModule } from '@angular/common';
+import { PaymentService } from '../../services/payment-service';
 import { CartService } from '../../services/cart-service';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';

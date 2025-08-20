@@ -19,6 +19,10 @@ export interface User {
   password: string;
   role: 'admin' | 'user';
   active: boolean;
+  bio?: string;
+  photoUrl?: string;
+  telephone?: number;
+  city?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -143,6 +147,22 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
       try { localStorage.removeItem(key); } catch {}
     }
+  }
+
+
+  // update user
+  updateUser(updatedUser: User): boolean {
+    if (!updatedUser?.email) return false;
+
+    // Save updated user under main STORAGE_KEY
+    this.safeSetItem(this.STORAGE_KEY, JSON.stringify(updatedUser));
+    this.currentUser.set(updatedUser);
+    this.isLoggedIn.set(true);
+
+    // ასევე განვაახლოთ user ჩანაწერი email key-ზეც
+    this.safeSetItem(updatedUser.email, JSON.stringify(updatedUser));
+
+    return true;
   }
 
 }

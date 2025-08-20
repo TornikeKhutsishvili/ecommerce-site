@@ -1,24 +1,54 @@
-
 @if(user){
-  <div class="user-profile-container">
-
-    <div class="cover-photo"></div>
-
-    <div class="profile-header">
-      <img class="profile-pic"
-          [src]="user?.photoUrl || 'assets/default-avatar.png'"
-          alt="Profile Picture"
-          onerror="this.onerror=null; this.src='assets/default-avatar.png';"
-      >
-      <h2>{{ user?.name }}</h2>
-      <p>{{ user?.email }}</p>
-    </div>
-
-    <div class="profile-details">
-      <h3>About</h3>
-      <p><strong>Joined:</strong> {{ user?.createdAt | date }}</p>
-      <p><strong>Role:</strong> {{ user?.role }}</p>
-      <p><strong>Bio:</strong> {{ user?.bio || 'No bio yet...' }}</p>
-    </div>
+<div class="profile-card">
+  <div class="profile-header">
+    <img
+      class="avatar"
+      [src]="user.photoUrl || avatarImg()"
+      alt="Profile Picture"
+      (error)="onImgError($event)"
+    >
+    <h2>{{ user.name || 'User' }}</h2>
+    <p>{{ user.email }}</p>
   </div>
+
+  <div class="profile-form">
+    <label>
+      Name:
+      <input type="text" [(ngModel)]="user.name">
+    </label>
+
+    <label>
+      Telephone:
+      <input type="number" [(ngModel)]="user.telephone">
+    </label>
+
+    <label>
+      City:
+      <select name="city" id="city">
+        <option value="city" [(ngModel)]="user.city">
+          {{ user.city }}
+        </option>
+      </select>
+    </label>
+
+    <label>
+      Bio:
+      <textarea type="textarea" [(ngModel)]="user.bio"></textarea>
+    </label>
+
+    <label>
+      Profile Picture URL:
+      <input type="text" [(ngModel)]="user.photoUrl">
+    </label>
+
+    <button class="btn-save" (click)="saveProfile()">💾 Save Changes</button>
+  </div>
+</div>
 }
+
+
+
+<!-- Toast Components -->
+<app-alert-toasts #alertToast></app-alert-toasts>
+<app-accept-toasts #acceptToast class="mt-3"></app-accept-toasts>
+<app-delete-toasts #deleteToast></app-delete-toasts>
