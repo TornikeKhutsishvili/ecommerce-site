@@ -5,44 +5,43 @@
   @if( user ) {
 
   <div class="profile-container">
-    <h2>Welcome, {{ user?.name || 'User' }}! 👋</h2>
-    <p>Your email: <strong>{{ user?.email }}</strong></p>
+    <h2>{{ 'Welcome' | translate }}, {{ user?.name || 'User' | translate }}! 👋</h2>
 
-    <div class="profile-actions">
+    <div class="profile-actions mt-5">
 
       <button type="button"
               (click)="goToMyProfile()"
               class="me-1"
       >
-        <i class="fa fa-user-alt"></i> My Profile
+        <i class="fa fa-user-alt"></i> {{ 'My Profile' | translate }}
       </button>
 
       <button type="button"
               (click)="goToEditPassword()"
               class="me-1"
       >
-        <i class="fa fa-pencil-alt"></i> Edit Password
+        <i class="fa fa-pencil-alt"></i> {{ 'Edit Password' | translate }}
       </button>
 
       <button type="button"
               (click)="resetPass()"
               class="me-1 bg-warning text-white"
       >
-        <i class="fa fa-key"></i> Reset Password
+        <i class="fa fa-key"></i> {{ 'Reset Password' | translate }}
       </button>
 
       <button type="button"
               (click)="logout()"
               class="ms-1"
       >
-        <i class="fa fa-sign-out-alt"></i> Logout
+        <i class="fa fa-sign-out-alt"></i> {{ 'Logout' | translate }}
       </button>
 
     </div>
   </div>
 
   } @else {
-    <p>empty!</p>
+    <p>{{ 'empty' | translate }}!</p>
   }
 
 </div>
