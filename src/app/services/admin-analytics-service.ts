@@ -26,6 +26,7 @@ export class AdminAnalyticsService {
   private authService = inject(AuthService);
   private translate = inject(TranslateService);
 
+
   /**
    * Loads all analytics data in parallel (orders, products, cart, users)
    */
@@ -48,9 +49,12 @@ export class AdminAnalyticsService {
     );
   }
 
+
+
   // -------------------------
   // Chart & Table Builders
   // -------------------------
+
 
   /** Orders by month with revenue */
   private buildSalesChart(orders: any[]): any {
@@ -72,6 +76,7 @@ export class AdminAnalyticsService {
     };
   }
 
+
   /** Products sold from cart items */
   private buildProductsChart(cart: any[]): any {
     const grouped: Record<string, number> = {};
@@ -89,6 +94,7 @@ export class AdminAnalyticsService {
       ]
     };
   }
+
 
   /** Active vs Inactive users */
   private buildUsersChart(users: any[]): any {
@@ -109,6 +115,7 @@ export class AdminAnalyticsService {
     };
   }
 
+
   /** Revenue table per product */
   private buildRevenueTable(orders: any[], products: any[]): any[] {
     return products.map(p => {
@@ -124,6 +131,7 @@ export class AdminAnalyticsService {
       };
     });
   }
+
 
   /** General summary KPIs */
   private buildSummary(orders: any[], products: any[], users: any[], cart: any[]) {

@@ -1,5 +1,3 @@
-import { HttpClient } from '@angular/common/http';
-
 import {
   Injectable,
   inject,
@@ -14,7 +12,12 @@ import {
   shareReplay
 } from 'rxjs';
 
-import { CreateOrderDto, Order } from '../interfaces/order.interface';
+import {
+  CreateOrderDto,
+  Order
+} from '../interfaces/order.interface';
+
+import { HttpClient } from '@angular/common/http';
 import { OrderStatus } from '../interfaces/order-status.type';
 
 @Injectable({ providedIn: 'root' })

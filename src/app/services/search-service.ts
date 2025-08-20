@@ -1,12 +1,13 @@
-import { Injectable, signal } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  Injectable,
+  signal
+} from '@angular/core';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
-
-  constructor(private translate: TranslateService) {}
 
   // Reactive search query
   searchQuery = signal<string>('');

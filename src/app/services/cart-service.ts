@@ -1,25 +1,33 @@
-import { Injectable, signal } from '@angular/core';
+import {
+  Injectable,
+  signal
+} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+
   private cartKey = 'cartItems'; // Key of LocalStorage
   cartItems = signal<any[]>([]);
 
+  // constructor
   constructor() {
     this.loadFromStorage();
   }
 
+  // load from storage
   private loadFromStorage() {
     const stored = localStorage.getItem(this.cartKey);
     this.cartItems.set(stored ? JSON.parse(stored) : []);
   }
 
+  // save to storage
   private saveToStorage() {
     localStorage.setItem(this.cartKey, JSON.stringify(this.cartItems()));
   }
 
+  // add to cart
   addToCart(product: any): void {
     const items = [...this.cartItems()];
     const existing = items.find(i => i.id === product.id);
@@ -37,6 +45,7 @@ export class CartService {
     this.saveToStorage();
   }
 
+  // update quantity
   updateQuantity(productId: number, quantity: number): void {
     const items = this.cartItems().map(i =>
       i.id === productId ? { ...i, quantity } : i
@@ -45,6 +54,7 @@ export class CartService {
     this.saveToStorage();
   }
 
+  // remove from cart
   removeFromCart(productId: number): void {
     const items = this.cartItems().filter(i => i.id !== productId);
     this.cartItems.set(items);

@@ -10,14 +10,13 @@ import {
   withEnabledBlockingInitialNavigation
 } from '@angular/router';
 
-import { routes } from './app.routes';
-
 import {
   HTTP_INTERCEPTORS,
   provideHttpClient,
   withFetch
 } from '@angular/common/http';
 
+import { routes } from './app.routes';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthInterceptor } from './interceptors/auth.interceptor';

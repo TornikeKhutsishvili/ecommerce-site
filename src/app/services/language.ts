@@ -1,4 +1,10 @@
-import { Inject, PLATFORM_ID, Injectable, inject } from '@angular/core';
+import {
+  Inject,
+  PLATFORM_ID,
+  Injectable,
+  inject
+} from '@angular/core';
+
 import { isPlatformBrowser } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 

@@ -2,7 +2,6 @@ import {
   inject,
   Injectable,
   signal,
-  ViewChild
 } from '@angular/core';
 
 import {
