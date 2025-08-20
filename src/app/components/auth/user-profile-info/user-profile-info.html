@@ -1,81 +1,121 @@
 @if(user){
 
-  <div class="profile-card">
-    <div class="profile-header">
+  <!-- Edit Profile Form -->
+  @if(editMode()){
+    <div class="profile-card">
+      <div class="profile-header">
 
-      <div class="avatar-wrapper">
+        <div class="avatar-wrapper">
+          <img
+            class="avatar"
+            [src]="user.photoUrl || avatarImg()"
+            alt="{{ 'Profile Picture' | translate }}"
+            (error)="onImgError($event)"
+            (click)="fileInput.click()"
+          >
+          <span class="upload-label">
+            {{ 'Upload image' | translate }}
+          </span>
+          <input
+            type="file"
+            #fileInput
+            accept="image/*"
+            hidden
+            (change)="onFileSelected($event)"
+          >
+        </div>
+
+        <h2 class="text-dark">{{ user.name || 'User' | translate }}</h2>
+        <p class="text-dark">{{ user.email | translate }}</p>
+      </div>
+
+      <div class="profile-form">
+        <label>
+          {{ 'Name' | translate }}:
+          <input
+            type="text"
+            [(ngModel)]="user.name"
+            class="form-control"
+          >
+        </label>
+
+        <label>
+          {{ 'Telephone' | translate }}:
+          <input
+            type="number"
+            [(ngModel)]="user.telephone"
+            class="form-control"
+          >
+        </label>
+
+        <label>
+          {{ 'City' | translate }}:
+          <select [(ngModel)]="user.city"
+                  class="form-select"
+          >
+            <option value="" disabled>
+              {{ 'Select city' | translate }}
+            </option>
+            @for(city of cities(); track $index){
+              <option [value]="city">{{ city | translate }}</option>
+            }
+          </select>
+        </label>
+
+        <label>
+          Bio:
+          <textarea [(ngModel)]="user.bio"
+                    class="form-text"
+          ></textarea>
+        </label>
+
+        <button class="btn-save"
+                (click)="saveProfile()"
+        >
+          {{ 'Save Changes' | translate }}
+        </button>
+      </div>
+    </div>
+  }
+
+
+  <!-- Profile Info (View Mode) -->
+  @if(!editMode()){
+    <div class="profile-info">
+      <div class="profile-header">
         <img
           class="avatar"
           [src]="user.photoUrl || avatarImg()"
-          alt="Profile Picture"
+          alt="{{ 'Profile Picture' | translate }}"
           (error)="onImgError($event)"
-          (click)="fileInput.click()"
         >
-        <span class="upload-label">
-          Upload image
-        </span>
-        <input
-          type="file"
-          #fileInput
-          accept="image/*"
-          hidden
-          (change)="onFileSelected($event)"
-        >
+        <h2 class="text-dark">{{ user.name || 'User' | translate }}</h2>
+        <p class="text-dark">{{ user.email }}</p>
       </div>
 
-      <h2 class="text-dark">{{ user.name || 'User' }}</h2>
-      <p class="text-dark">{{ user.email }}</p>
-    </div>
+      <div class="info-body">
+        <p><b>{{ 'Telephone' | translate }}:</b> {{ user.telephone || '-' }}</p>
+        <p><b>{{ 'City' | translate }}:</b> {{ user.city || '-' | translate }}</p>
+        <p><b>{{ 'Bio' | translate }}:</b> {{ user.bio || '-' | translate }}</p>
+      </div>
 
-    <div class="profile-form">
-      <label>
-        Name:
-        <input
-          type="text"
-          [(ngModel)]="user.name"
-          class="form-control"
-        >
-      </label>
-
-      <label>
-        Telephone:
-        <input
-          type="number"
-          [(ngModel)]="user.telephone"
-          class="form-control"
-        >
-      </label>
-
-      <label>
-        City:
-        <select [(ngModel)]="user.city"
-                class="form-select"
-        >
-          <option value="" disabled>
-            Select city
-          </option>
-          @for(city of cities(); track $index){
-            <option [value]="city">{{ city }}</option>
-          }
-        </select>
-      </label>
-
-      <label>
-        Bio:
-        <textarea [(ngModel)]="user.bio"
-                  class="form-text"
-        ></textarea>
-      </label>
-
-      <button class="btn-save"
-              (click)="saveProfile()"
+      <button class="btn btn-edit"
+              (click)="editMode.set(true)"
       >
-        {{ 'Save Changes' | translate }}
+        ✏️ {{ 'Edit Profile' | translate }}
+      </button>
+      <button type="button"
+              (click)="goBack()"
+              class="ms-1 btn btn-back"
+      >
+        {{ 'Back' | translate }}
       </button>
     </div>
-  </div>
+  }
 
 }
+
+
 
 
 <!-- Toast Components -->

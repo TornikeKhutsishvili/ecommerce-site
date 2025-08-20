@@ -10,9 +10,9 @@ import {
 } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../services/auth-service';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth-service';
 
 @Component({
   selector: 'app-profile',
@@ -44,7 +44,7 @@ export class Profile implements OnInit {
     this.router.navigate(['/auth/login']);
   }
 
-  goToEditProfile(): void {
+  goToEditPassword(): void {
     this.router.navigate(['/auth/edit-profile']);
   }
 

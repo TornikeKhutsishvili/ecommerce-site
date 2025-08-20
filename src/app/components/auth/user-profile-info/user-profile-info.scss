@@ -1,4 +1,5 @@
-.profile-card {
+.profile-card,
+.profile-info {
   max-width: 400px;
   margin: 20px auto;
   background: #fff;
@@ -6,66 +7,129 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   padding: 20px;
   text-align: center;
+  transition: all 0.3s ease-in-out;
+}
 
-  .profile-header {
-    margin-bottom: 20px;
+.profile-header {
+  margin-bottom: 20px;
 
-    .avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #ddd;
-      margin-bottom: 10px;
-    }
+  .avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ddd;
+    margin-bottom: 10px;
+  }
 
-    h2 {
-      margin: 0;
-      font-size: 1.4rem;
-    }
+  h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #333;
+  }
+
+  p {
+    color: #555;
+    font-size: 0.9rem;
+    margin: 5px 0 0;
+  }
+}
+
+/* view რეჟიმისთვის body */
+.profile-info {
+  .info-body {
+    text-align: left;
+    margin-top: 15px;
 
     p {
-      color: #555;
-      font-size: 0.9rem;
+      margin: 6px 0;
+      font-size: 0.95rem;
+      color: #444;
+
+      b {
+        color: #000;
+      }
     }
   }
 
-  .profile-form {
+  .btn-edit,
+  .btn-back {
+    margin-top: 15px;
+    padding: 10px 16px;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background-color 0.2s, transform 0.2s;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  .btn-edit {
+    background-color: #28a745;
+
+    &:hover {
+      background-color: #1e7e34;
+    }
+  }
+
+  .btn-back {
+    background-color: #007bff;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+}
+
+
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  label {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    font-size: 0.9rem;
+    text-align: left;
+  }
 
-    label {
-      display: flex;
-      flex-direction: column;
-      font-size: 0.9rem;
-      text-align: left;
-    }
+  input, textarea, select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem;
+  }
 
-    input, textarea {
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 0.9rem;
-    }
+  .btn-save {
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
 
-    .btn-save {
-      padding: 10px;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.2s;
-
-      &:hover {
-        background: #0056b3;
-      }
+    &:hover {
+      background: #0056b3;
     }
   }
 }
 
 
+
+
+/* upload avatar */
 .avatar-wrapper {
   position: relative;
   display: inline-block;
@@ -96,5 +160,6 @@
     border-radius: 10px;
     pointer-events: none;
     width: 100px;
+    text-align: center;
   }
 }
