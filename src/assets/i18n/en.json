@@ -120,6 +120,12 @@
     "Stock": "Stock",
     "SKU": "SKU",
     "Rating": "Rating",
+    "Telephone": "Telephone",
+    "City": "City",
+    "Bio": "Bio",
+    "Save Changes": "Save Changes",
+    "Upload image": "Upload image",
+    "If is empty, just edit profile info": "If is empty, just edit profile info",
 
     "Beauty": "Beauty",
     "beauty": "Beauty",

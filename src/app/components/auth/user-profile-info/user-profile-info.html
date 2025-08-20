@@ -30,7 +30,7 @@
       </div>
 
       <div class="profile-form">
-        <label>
+        <label class="text-dark">
           {{ 'Name' | translate }}:
           <input
             type="text"
@@ -39,7 +39,7 @@
           >
         </label>
 
-        <label>
+        <label class="text-dark">
           {{ 'Telephone' | translate }}:
           <input
             type="number"
@@ -48,7 +48,7 @@
           >
         </label>
 
-        <label>
+        <label class="text-dark">
           {{ 'City' | translate }}:
           <select [(ngModel)]="user.city"
                   class="form-select"
@@ -62,8 +62,8 @@
           </select>
         </label>
 
-        <label>
-          Bio:
+        <label class="text-dark">
+          {{ 'Bio' | translate }}:
           <textarea [(ngModel)]="user.bio"
                     class="form-text"
           ></textarea>
@@ -102,7 +102,7 @@
       <button class="btn btn-edit"
               (click)="editMode.set(true)"
       >
-        ✏️ {{ 'Edit Profile' | translate }}
+        ✏️ {{ 'Edit' | translate }}
       </button>
       <button type="button"
               (click)="goBack()"
@@ -110,11 +110,16 @@
       >
         {{ 'Back' | translate }}
       </button>
+
+      @if( !user.telephone || !user.city || !user.bio || !user.photoUrl ){
+        <p class="text-dark mt-3">
+          {{ 'If is empty, just edit profile info' | translate }}
+        </p>
+      }
     </div>
   }
 
 }
-
 
 
 
