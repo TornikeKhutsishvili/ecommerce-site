@@ -524,6 +524,11 @@ export class DashboardAnalytics implements OnInit {
 }
 
 
+
+
+
+// If we have really API:
+
 // export class DashboardAnalytics implements OnInit {
 
 //   // inject services
