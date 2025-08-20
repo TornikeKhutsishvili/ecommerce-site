@@ -44,6 +44,8 @@ export class dummyProductModel {
 }
 
 
+
+// dummy api response
 export class DummyApiResponse {
     products: dummyProductModel[] = [];
     total: number = 0;

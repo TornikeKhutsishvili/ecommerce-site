@@ -26,6 +26,7 @@ export class LanguagePipe implements PipeTransform {
     });
   }
 
+  // get available language
   getAvailableLanguages(): string[] {
     return Object.keys({ en, ge });
   }
