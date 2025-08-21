@@ -1,11 +1,13 @@
-<div class="container mt-4">
+<div class="container-lg mt-4">
 
   <!-- Categories Cards -->
   <div class="row mb-5">
 
     @for( categ of categories(); track $index ) {
 
-      <div class="col-lg-3 col-md-4 col-sm-6 mb-4" style="cursor: pointer">
+      <div class="col-lg-3 col-md-4 col-sm-6 mb-4"
+          style="cursor: pointer"
+      >
         <div
           class="card h-100 shadow-sm category-card"
           [routerLink]="['/categories', 'categories-child', categ]"
