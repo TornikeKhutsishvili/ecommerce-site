@@ -1,0 +1,40 @@
+<div class="particles-bg"
+      id="tsparticles"
+>
+</div>
+
+<div class="error-container">
+  <div class="glitch-wrapper">
+    <h1 class="glitch"
+        data-text="404"
+    >
+      404
+    </h1>
+  </div>
+
+  <h2 class="subtitle">
+    {{ 'Page not found' | translate }}
+  </h2>
+
+  <p class="description">
+    {{ 'The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.' | translate }}
+  </p>
+
+  <div class="actions">
+    <button class="home-btn"
+            (click)="goHome()"
+    >
+      🏠 {{ 'Go Back Home' | translate }}
+    </button>
+
+    <button class="mute-btn"
+            (click)="toggleMute()"
+    >
+      {{ isMuted() ? '🔇 Mute' : '🔊 Unmute' }}
+    </button>
+  </div>
+</div>
+
+
+<!-- toasts -->
+<app-alert-toasts #alertToast></app-alert-toasts>

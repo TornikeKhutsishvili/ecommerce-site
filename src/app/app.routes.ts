@@ -71,6 +71,10 @@ export const routes: Routes = [
     .then(m => m.ADMIN_ROUTES), title: 'Admin'
   },
 
-  { path: '**', redirectTo: '' } // Wildcard route for a 404 page
+  {
+    path: '**',
+    loadComponent: () => import('./components/error-page/error-page')
+    .then(m => m.ErrorPage), title: '404 - Not Found'
+  },
 
 ];
