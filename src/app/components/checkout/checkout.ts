@@ -95,13 +95,15 @@ export class Checkout {
       return this.alertToast.openToast('Cart is empty');
     }
 
-    const orderItems: OrderItem[] = this.cartItems().map(item => ({
-      productId: item.id,
-      title: item.title,
-      price: item.price,
-      quantity: item.quantity,
-      image: item.image
-    }));
+    const orderItems: OrderItem[] = this.cartItems()
+      .map(item => ({
+          productId: item.id,
+          title: item.title,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image
+        })
+      );
 
     const orderDto: CreateOrderDto = {
       userId: this.userEmail(),

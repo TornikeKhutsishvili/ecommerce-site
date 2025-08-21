@@ -150,6 +150,10 @@
     height: max-content;
     z-index: 1000;
 
+    .payment-credit-card {
+      display: contents;
+    }
+
     h3 {
       font-weight: 600;
       font-size: 1.8rem;
