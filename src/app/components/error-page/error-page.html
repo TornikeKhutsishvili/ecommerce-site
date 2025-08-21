@@ -4,6 +4,7 @@
 </div>
 
 <div class="error-container">
+
   <div class="glitch-wrapper">
     <h1 class="glitch"
         data-text="404"
@@ -27,12 +28,16 @@
       🏠 {{ 'Go Back Home' | translate }}
     </button>
 
-    <button class="mute-btn"
-            (click)="toggleMute()"
+    <button
+      class="mute-btn"
+      (click)="toggleMute()"
+      [attr.aria-pressed]="isMuted()"
+      [title]="isMuted() ? ('🔊 Unmute' | translate) : ('🔇 Mute' | translate)"
     >
-      {{ isMuted() ? '🔇 Mute' : '🔊 Unmute' }}
+      {{ (isMuted() ? '🔊 Unmute' : '🔇 Mute') | translate }}
     </button>
   </div>
+
 </div>
 
 

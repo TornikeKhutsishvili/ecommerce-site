@@ -38,7 +38,7 @@ export class ErrorPage implements OnInit, OnDestroy {
   // injects
   private audio: HTMLAudioElement | null = null;
   private router = inject(Router);
-  isMuted = signal(false);
+  isMuted = signal(true);
 
   // ViewChild alertToast
   @ViewChild('alertToast') alertToast!: AlertToasts;
@@ -46,6 +46,8 @@ export class ErrorPage implements OnInit, OnDestroy {
 
   // when init component
   async ngOnInit() {
+    this.isMuted = signal(false);
+    const isMuted = this.isMuted();
     // particles init
     await loadFull(tsParticles);
     tsParticles.load("tsparticles", {
@@ -67,19 +69,29 @@ export class ErrorPage implements OnInit, OnDestroy {
       detectRetina: true
     });
 
+
     // background music
     this.audio = new Audio('assets/sounds/error-bg.mp3');
     this.audio.loop = true;
     this.audio.volume = 0.4;
+    this.audio.muted = isMuted;
     this.audio.play().catch(() => {});
   }
 
+
   // mute and unmute
   toggleMute() {
-    if (!this.audio) return;
-    this.isMuted.set(!this.isMuted);
-    this.audio.muted = this.isMuted();
+    const audio = this.audio;
+    if (!audio) return;
+
+    this.isMuted.update(v => !v);
+    audio.muted = this.isMuted();
+
+    if (!audio.muted && audio.paused) {
+      audio.play().catch(() => {});
+    }
   }
+
 
   // when destroy component
   ngOnDestroy() {
@@ -93,7 +105,7 @@ export class ErrorPage implements OnInit, OnDestroy {
 
   // go to home
   goHome() {
-    this.alertToast.openToast('Ooops! Page Not Found!');
+    this.alertToast.openToast('back to home');
 
     setTimeout(() => {
       this.alertToast.closeToast(),
