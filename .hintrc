@@ -31,6 +31,16 @@
       {
         "list": "off"
       }
-    ]
+    ],
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "mask-image",
+          "backdrop-filter"
+        ]
+      }
+    ],
+    "disown-opener": "off"
   }
 }
