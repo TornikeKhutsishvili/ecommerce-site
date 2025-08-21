@@ -12,9 +12,9 @@ import {
 } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { PaymentService } from '../../services/payment-service';
 import { CartService } from '../../services/cart-service';
-import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { DeleteToasts } from '../toasts/delete-toasts/delete-toasts';
 import { AcceptToasts } from "../toasts/accept-toasts/accept-toasts";
@@ -60,7 +60,7 @@ export class Checkout {
   expiryDate = signal('');
   cvv = signal('');
   paypalEmail = signal('');
-  orderId = signal<string | number>('');
+  orderId = signal<string>('');
 
   private cartService = inject(CartService);
   private orderService = inject(OrderService);
@@ -85,13 +85,15 @@ export class Checkout {
       return this.alertToast.openToast('Cart is empty');
     }
 
-    const orderItems: OrderItem[] = this.cartItems().map(item => ({
-      productId: item.id,
-      title: item.title,
-      price: item.price,
-      quantity: item.quantity,
-      image: item.image
-    }));
+    const orderItems: OrderItem[] = this.cartItems()
+      .map(item => ({
+          productId: item.id,
+          title: item.title,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image
+        }
+      ));
 
     const orderDto: CreateOrderDto = {
       userId: this.userEmail(),
@@ -110,13 +112,15 @@ export class Checkout {
     this.orderService.createOrder(orderDto).subscribe(order => {
       if (!order) return this.alertToast.openToast('Failed to create order');
 
-      this.orderId.set(order.id);
+      this.orderId.set(String(order.id));
 
       if (this.paymentMethod() === 'Cash_on_Delivery') {
         this.cartService.clearCart();
         this.acceptToast.openToast(`Order ${order.id} completed successfully!`);
       } else {
-        this.pay(this.paymentMethod() === 'Credit Card' ? 'stripe' : 'paypal');
+        if(this.paymentMethod() === 'Credit Card'){
+          this.pay('paypal')
+        }
       }
     });
   }
