@@ -11,6 +11,8 @@
     letter-spacing: 1px;
   }
 
+
+  // mobile styles
   .mobile-slide {
     .navbar-actions {
       display: flex;
@@ -28,7 +30,6 @@
         justify-content: flex-end;
         gap: 10px;
         width: 100%;
-
       }
 
       /* Second line */
@@ -190,7 +191,11 @@
 
 
 
-  /*********** Responsive ***********/
+  /********************************
+  *********************************
+              Responsive
+  *********************************
+  *********************************/
 
   @media (max-width: 992px) {
     flex-direction: column;

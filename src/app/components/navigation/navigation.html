@@ -75,16 +75,16 @@
         </li>
 
         @if(isAdmin()) {
-        <li class="nav-item">
-          <a class="nav-link"
-            [routerLink]="['/admin']"
-            [routerLinkActive]="['active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-            (click)="closeMenu()"
-          >
-            {{ 'Admin' | translate }}
-          </a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link"
+              [routerLink]="['/admin']"
+              [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="closeMenu()"
+            >
+              {{ 'Admin' | translate }}
+            </a>
+          </li>
         }
       </ul>
 
@@ -228,9 +228,15 @@
                     name="select"
                     (change)="sortByPrice($any($event.target).value)"
             >
-              <option value="">{{ 'Price' | translate}}</option>
-              <option value="low">{{ 'Low → High' | translate }}</option>
-              <option value="high">{{ 'High → Low' | translate }}</option>
+              <option value="">
+                {{ 'Price' | translate}}
+              </option>
+              <option value="low">
+                {{ 'Low → High' | translate }}
+              </option>
+              <option value="high">
+                {{ 'High → Low' | translate }}
+              </option>
             </select>
           }
         </div>
