@@ -1,22 +1,20 @@
 import { OrderItem } from "./order-item.interface";
 import { OrderStatus } from "./order-status.type";
+import { PaymentProvider } from "./payment-provider.type";
 
 export interface Order extends CreateOrderDto {
-
-  id: string;
+  id: string | number;
   status: OrderStatus;
   subtotal: number;
   shipping: number;
   total: number;
   createdAt: string;
   updatedAt: string;
-  paymentProvider?: 'stripe' | 'paypal';
+  paymentProvider?: PaymentProvider;
   paymentRef?: string;
-
 }
 
 export interface CreateOrderDto {
-
   userId: string;
   items: OrderItem[];
   currency: string;
@@ -24,11 +22,8 @@ export interface CreateOrderDto {
     fullName: string;
     phone: string;
     line1: string;
-    line2?: string;
     city: string;
     country: string;
     zip: string;
   };
-  notes?: string;
-
 }

@@ -23,12 +23,11 @@ import { OrderStatus } from '../interfaces/order-status.type';
 @Injectable({ providedIn: 'root' })
 export class OrderService {
 
-  // Inject HttpClient
+  // injects
   private http = inject(HttpClient);
   private baseUrl = '/api/orders';
-
-  // Simple client cache
   private lastOrders = signal<Order[] | null>(null);
+
 
   createOrder(payload: CreateOrderDto): Observable<Order | null> {
     return this.http.post<Order>(`${this.baseUrl}`, payload).pipe(

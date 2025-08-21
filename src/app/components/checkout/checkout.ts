@@ -49,12 +49,10 @@ export class Checkout {
   @ViewChild('alertToast') alertToast!: AlertToasts;
   @ViewChild('addToast') addToast!: AddToasts;
 
-  // Signals
   cartItems = computed(() => this.cartService.cartItems());
   totalPrice = computed(() => this.cartItems().reduce((acc, i) => acc + i.price * i.quantity, 0));
 
   paymentMethod = signal<'Cash_on_Delivery' | 'Credit Card' | 'PayPal'>('Cash_on_Delivery');
-
   userName = signal('');
   userEmail = signal('');
   userAddress = signal('');
@@ -62,30 +60,22 @@ export class Checkout {
   expiryDate = signal('');
   cvv = signal('');
   paypalEmail = signal('');
+  orderId = signal<string | number>('');
 
-  orderId = signal<string>('');
-
-  // Inject services
   private cartService = inject(CartService);
   private orderService = inject(OrderService);
   private paymentService = inject(PaymentService);
 
-
-  // Cart operations
   updateQuantity(productId: number, quantity: number) {
     if (quantity <= 0) return this.removeFromCart(productId);
     this.cartService.updateQuantity(productId, quantity);
   }
 
-
-  // remove product from cart
   removeFromCart(productId: number) {
     this.cartService.removeFromCart(productId);
     this.deleteToast.openToast('Product removed from cart');
   }
 
-
-  // Checkout
   completeCheckout() {
     if (!this.userName() || !this.userEmail() || !this.userAddress()) {
       return this.alertToast.openToast('Please fill all required fields');
@@ -95,15 +85,13 @@ export class Checkout {
       return this.alertToast.openToast('Cart is empty');
     }
 
-    const orderItems: OrderItem[] = this.cartItems()
-      .map(item => ({
-          productId: item.id,
-          title: item.title,
-          price: item.price,
-          quantity: item.quantity,
-          image: item.image
-        })
-      );
+    const orderItems: OrderItem[] = this.cartItems().map(item => ({
+      productId: item.id,
+      title: item.title,
+      price: item.price,
+      quantity: item.quantity,
+      image: item.image
+    }));
 
     const orderDto: CreateOrderDto = {
       userId: this.userEmail(),
@@ -129,13 +117,10 @@ export class Checkout {
         this.acceptToast.openToast(`Order ${order.id} completed successfully!`);
       } else {
         this.pay(this.paymentMethod() === 'Credit Card' ? 'stripe' : 'paypal');
-        this.pay(this.paymentMethod() === 'Credit Card' ? 'stripe' : 'paypal');
       }
     });
   }
 
-
-  // Payment
   pay(provider: PaymentProvider) {
     this.paymentService.createCheckout({
       provider,
@@ -151,15 +136,11 @@ export class Checkout {
     });
   }
 
-
-  // Payment method selection
   onPaymentMethodChange(method: 'Cash_on_Delivery' | 'Credit Card' | 'PayPal') {
     this.paymentMethod.set(method);
     this.acceptToast.openToast(`Payment method selected: ${method}`);
   }
 
-
-  // Card formatting
   formatCardNumber() {
     let formatted = this.cardNumber().replace(/\D/g, '');
     if (formatted.length > 4) {
@@ -168,8 +149,6 @@ export class Checkout {
     this.cardNumber.set(formatted);
   }
 
-
-  // Form validation
   get isFormValid() {
     return !!(this.userName() && this.userEmail() && this.userAddress());
   }
