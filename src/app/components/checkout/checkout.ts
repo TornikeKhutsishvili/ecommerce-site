@@ -63,7 +63,7 @@ export class Checkout {
   cvv = signal('');
   paypalEmail = signal('');
 
-  orderId = signal('');
+  orderId = signal<string>('');
 
   // Inject services
   private cartService = inject(CartService);
@@ -128,6 +128,7 @@ export class Checkout {
         this.cartService.clearCart();
         this.acceptToast.openToast(`Order ${order.id} completed successfully!`);
       } else {
+        this.pay(this.paymentMethod() === 'Credit Card' ? 'stripe' : 'paypal');
         this.pay(this.paymentMethod() === 'Credit Card' ? 'stripe' : 'paypal');
       }
     });

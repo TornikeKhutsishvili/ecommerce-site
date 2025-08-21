@@ -30,9 +30,9 @@ export class OrderService {
   // Simple client cache
   private lastOrders = signal<Order[] | null>(null);
 
-  createOrder(payload: CreateOrderDto): Observable<Order> {
+  createOrder(payload: CreateOrderDto): Observable<Order | null> {
     return this.http.post<Order>(`${this.baseUrl}`, payload).pipe(
-      catchError(() => of(null as unknown as Order))
+      catchError(() => of(null))
     );
   }
 

@@ -2,21 +2,22 @@ import { Routes } from '@angular/router';
 
 export const CHECKOUT_ROUTES: Routes = [
 
-  { path: '',
+  {
+    path: '',
     loadComponent: () =>import('./checkout')
     .then((m) => m.Checkout), title: 'Checkout'
   },
 
-//   {
-//     path: 'success',
-//     loadComponent: () =>
-//       import('./checkout-success/checkout-success.component').then(m => m.CheckoutSuccessComponent),
-//   },
+  {
+    path: 'success',
+    loadComponent: () => import('./success/success')
+    .then(m => m.Success), title: 'Success'
+  },
 
-//   {
-//     path: 'cancel',
-//     loadComponent: () =>
-//       import('./checkout-cancel/checkout-cancel.component').then(m => m.CheckoutCancelComponent),
-//   },
+  {
+    path: 'cancel',
+    loadComponent: () => import('./cancel/cancel')
+    .then(m => m.Cancel), title: 'Cancel'
+  },
 
 ];
