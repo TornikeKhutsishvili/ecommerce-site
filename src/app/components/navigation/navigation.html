@@ -116,23 +116,24 @@
             @if( !isLoggedIn() ) {
 
               <ng-container>
-                <a class="text-decoration-none me-2 login"
+                <a class="text-decoration-none me-2 login btn btn-outline-success"
                   [routerLink]="['/auth/login']"
                   [routerLinkActive]="['active']"
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="closeMenu()"
-                  >{{ 'Log In' | translate }}
+                  >
+                    <i class="fa-solid fa-right-to-bracket"></i>
                 </a>
 
                 <span>|</span>
 
-                <a class="text-decoration-none ms-2 register"
+                <a class="text-decoration-none ms-2 register btn btn-outline-warning"
                   [routerLink]="['/auth/register']"
                   [routerLinkActive]="['active']"
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="closeMenu()"
                 >
-                  {{ 'Sign Up' | translate}}
+                  <i class="fa-solid fa-user-plus"></i>
                 </a>
               </ng-container>
 
@@ -141,7 +142,7 @@
               <a [routerLink]="['/auth/profile']"
                 class="text-decoration-none me-2 btn btn-primary text-light"
               >
-                {{ 'Profile' | translate }}
+                <i class="fa-solid fa-user"></i>
               </a>
 
               <span>|</span>
@@ -150,7 +151,7 @@
                 class="text-decoration-none ms-2 btn btn-danger text-light"
                 (click)="logout()"
               >
-                {{ 'Logout' | translate }}
+                <i class="fa-solid fa-right-from-bracket"></i>
               </a>
 
             }
