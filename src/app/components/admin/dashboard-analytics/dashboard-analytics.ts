@@ -55,18 +55,18 @@ export class DashboardAnalytics implements OnInit {
   // Chart configurations
   salesChartData: ChartConfiguration<'bar'>['data'] = {
     labels: [
-        this.translate.instant('January'),
-        this.translate.instant('February'),
-        this.translate.instant('March'),
-        this.translate.instant('April'),
+        this.translate.instant('Jan'),
+        this.translate.instant('Feb'),
+        this.translate.instant('Mar'),
+        this.translate.instant('Apr'),
         this.translate.instant('May'),
-        this.translate.instant('June'),
-        this.translate.instant('July'),
-        this.translate.instant('August'),
-        this.translate.instant('September'),
-        this.translate.instant('October'),
-        this.translate.instant('November'),
-        this.translate.instant('December')
+        this.translate.instant('Jun'),
+        this.translate.instant('Jul'),
+        this.translate.instant('Aug'),
+        this.translate.instant('Sep'),
+        this.translate.instant('Oct'),
+        this.translate.instant('Nov'),
+        this.translate.instant('Dec')
       ],
     datasets: [
       {
@@ -94,12 +94,12 @@ export class DashboardAnalytics implements OnInit {
 
   productChartData: ChartConfiguration<'bar'>['data'] = {
     labels: [
-      this.translate.instant('Product A'),
-      this.translate.instant('Product B'),
-      this.translate.instant('Product C'),
-      this.translate.instant('Product D'),
-      this.translate.instant('Product E'),
-      this.translate.instant('Product F')
+      this.translate.instant('Prod A'),
+      this.translate.instant('Prod B'),
+      this.translate.instant('Prod C'),
+      this.translate.instant('Prod D'),
+      this.translate.instant('Prod E'),
+      this.translate.instant('Prod F')
     ],
     datasets: [
       {
@@ -177,18 +177,18 @@ export class DashboardAnalytics implements OnInit {
 
   revenueByMonthChartData: ChartConfiguration<'bar'>['data'] = {
     labels: [
-      this.translate.instant('January'),
-      this.translate.instant('February'),
-      this.translate.instant('March'),
-      this.translate.instant('April'),
+      this.translate.instant('Jan'),
+      this.translate.instant('Feb'),
+      this.translate.instant('Mar'),
+      this.translate.instant('Apr'),
       this.translate.instant('May'),
-      this.translate.instant('June'),
-      this.translate.instant('July'),
-      this.translate.instant('August'),
-      this.translate.instant('September'),
-      this.translate.instant('October'),
-      this.translate.instant('November'),
-      this.translate.instant('December')
+      this.translate.instant('Jun'),
+      this.translate.instant('Jul'),
+      this.translate.instant('Aug'),
+      this.translate.instant('Sep'),
+      this.translate.instant('Oct'),
+      this.translate.instant('Nov'),
+      this.translate.instant('Dec')
     ],
     datasets: [
       {
@@ -220,13 +220,13 @@ export class DashboardAnalytics implements OnInit {
 
   trafficChartData: ChartConfiguration<'line'>['data'] = {
     labels: [
-      this.translate.instant('Monday'),
-      this.translate.instant('Tuesday'),
-      this.translate.instant('Wednesday'),
-      this.translate.instant('Thursday'),
-      this.translate.instant('Friday'),
-      this.translate.instant('Saturday'),
-      this.translate.instant('Sunday')
+      this.translate.instant('Mon'),
+      this.translate.instant('Tue'),
+      this.translate.instant('Wed'),
+      this.translate.instant('Thu'),
+      this.translate.instant('Fri'),
+      this.translate.instant('Sat'),
+      this.translate.instant('Sun')
     ],
     datasets: [
       {

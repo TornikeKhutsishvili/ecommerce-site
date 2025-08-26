@@ -55,3 +55,22 @@ th {
 .fa-star {
   color: gold;
 }
+
+
+@media (max-width: 575px) {
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    min-width: 600px;
+  }
+
+  th, td {
+    padding: .5rem .6rem;
+    font-size: .85rem;
+  }
+
+}

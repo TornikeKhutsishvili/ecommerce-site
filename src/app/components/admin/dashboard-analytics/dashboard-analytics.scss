@@ -22,3 +22,9 @@
 .col-span {
   flex: 0 0 100%;
 }
+
+@media (max-width: 992px) {
+  .card {
+    flex: 0 0 100%;
+  }
+}
