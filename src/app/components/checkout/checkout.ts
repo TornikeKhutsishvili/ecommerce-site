@@ -63,8 +63,8 @@ export class Checkout {
   orderId = signal<string>('');
 
   private cartService = inject(CartService);
-  private orderService = inject(OrderService);
-  private paymentService = inject(PaymentService);
+  // private orderService = inject(OrderService);
+  // private paymentService = inject(PaymentService);
 
   updateQuantity(productId: number, quantity: number) {
     if (quantity <= 0) return this.removeFromCart(productId);
@@ -84,61 +84,74 @@ export class Checkout {
     if (this.cartItems().length === 0) {
       return this.alertToast.openToast('Cart is empty');
     }
-
-    const orderItems: OrderItem[] = this.cartItems()
-      .map(item => ({
-          productId: item.id,
-          title: item.title,
-          price: item.price,
-          quantity: item.quantity,
-          image: item.image
-        }
-      ));
-
-    const orderDto: CreateOrderDto = {
-      userId: this.userEmail(),
-      items: orderItems,
-      currency: 'USD',
-      address: {
-        fullName: this.userName(),
-        phone: '',
-        line1: this.userAddress(),
-        city: '',
-        country: '',
-        zip: ''
-      }
-    };
-
-    this.orderService.createOrder(orderDto).subscribe(order => {
-      if (!order) return this.alertToast.openToast('Failed to create order');
-
-      this.orderId.set(String(order.id));
-
-      if (this.paymentMethod() === 'Cash_on_Delivery') {
-        this.cartService.clearCart();
-        this.acceptToast.openToast(`Order ${order.id} completed successfully!`);
-      } else {
-        if(this.paymentMethod() === 'Credit Card'){
-          this.pay('paypal')
-        }
-      }
-    });
   }
 
-  pay(provider: PaymentProvider) {
-    this.paymentService.createCheckout({
-      provider,
-      orderId: this.orderId(),
-      successUrl: window.location.origin + '/checkout/success',
-      cancelUrl: window.location.origin + '/checkout/cancel'
-    }).subscribe(res => {
-      if (res.checkoutUrl) {
-        window.location.href = res.checkoutUrl;
-      } else {
-        this.alertToast.openToast('Failed to initialize payment');
-      }
-    });
-  }
+  // completeCheckout() {
+  //   if (!this.userName() || !this.userEmail() || !this.userAddress()) {
+  //     return this.alertToast.openToast('Please fill all required fields');
+  //   }
+
+  //   if (this.cartItems().length === 0) {
+  //     return this.alertToast.openToast('Cart is empty');
+  //   }
+
+  //   const orderItems: OrderItem[] = this.cartItems()
+  //     .map(item => ({
+  //         productId: item.id,
+  //         title: item.title,
+  //         price: item.price,
+  //         quantity: item.quantity,
+  //         image: item.image
+  //       }
+  //     ));
+
+  //   const orderDto: CreateOrderDto = {
+  //     userId: this.userEmail(),
+  //     items: orderItems,
+  //     currency: 'USD',
+  //     address: {
+  //       fullName: this.userName(),
+  //       phone: '',
+  //       line1: this.userAddress(),
+  //       city: '',
+  //       country: '',
+  //       zip: ''
+  //     }
+  //   };
+
+  //   this.orderService.createOrder(orderDto).subscribe(order => {
+  //     if (!order) return this.alertToast.openToast('Failed to create order');
+
+  //     this.orderId.set(String(order.id));
+
+  //     if (this.paymentMethod() === 'Cash_on_Delivery') {
+  //       this.cartService.clearCart();
+  //       this.acceptToast.openToast(`Order ${order.id} completed successfully!`);
+  //     } else {
+  //       if (this.paymentMethod() === 'Credit Card') {
+  //         this.pay('card');
+  //       }
+  //       if (this.paymentMethod() === 'PayPal') {
+  //         this.pay('paypal');
+  //       }
+  //     }
+  //   });
+  // }
+
+  // pay(provider: PaymentProvider) {
+  //   this.paymentService.createCheckout({
+  //     provider,
+  //     orderId: this.orderId(),
+  //     successUrl: window.location.origin + '/checkout/success',
+  //     cancelUrl: window.location.origin + '/checkout/cancel'
+  //   }).subscribe(res => {
+  //     if (res.checkoutUrl) {
+  //       window.location.href = res.checkoutUrl;
+  //     } else {
+  //       this.alertToast.openToast('Failed to initialize payment');
+  //     }
+  //   });
+  // }
 
   onPaymentMethodChange(method: 'Cash_on_Delivery' | 'Credit Card' | 'PayPal') {
     this.paymentMethod.set(method);

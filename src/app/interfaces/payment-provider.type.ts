@@ -1,1 +1,1 @@
-export type PaymentProvider = 'paypal';
+export type PaymentProvider = 'paypal' | 'card';
