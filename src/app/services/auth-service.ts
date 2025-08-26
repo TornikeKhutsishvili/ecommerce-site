@@ -2,7 +2,8 @@ import {
   Injectable,
   Inject,
   PLATFORM_ID,
-  signal
+  signal,
+  inject
 } from '@angular/core';
 
 import {
@@ -12,6 +13,7 @@ import {
 } from 'rxjs';
 
 import { isPlatformBrowser } from '@angular/common';
+import { EmailService } from './email-service';
 
 export interface User {
   name: string;
@@ -28,6 +30,7 @@ export interface User {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
+  private emailService = inject(EmailService);
   private accessToken: string | null = null;
   private refreshTokenValue: string | null = null;
   users = this.loadFromStorage();
@@ -41,6 +44,7 @@ export class AuthService {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.loadFromStorage();
   }
+
 
   getAllUsers(): any[] {
     const users: any[] = [];
@@ -60,15 +64,18 @@ export class AuthService {
     return users;
   }
 
+
   getAccessToken(): string | null {
     return this.accessToken;
   }
+
 
   refreshToken(): Observable<any> {
     return of(true).pipe(
       tap(() => { this.accessToken = 'new_access_token'; })
     );
   }
+
 
   login(email: string, password: string): boolean {
     const storedUser = this.getUserByEmail(email);
@@ -85,6 +92,7 @@ export class AuthService {
     return false;
   }
 
+
   register(name: string, email: string, password: string, active: boolean): boolean {
     if (this.getUserByEmail(email)) return false;
 
@@ -100,6 +108,7 @@ export class AuthService {
     return true;
   }
 
+
   logout(): void {
     this.safeRemoveItem(this.STORAGE_KEY);
     this.isLoggedIn.set(false);
@@ -108,14 +117,17 @@ export class AuthService {
     this.refreshTokenValue = null;
   }
 
+
   getUser(): User | null {
     return this.currentUser();
   }
+
 
   getUserByEmail(email: string): User | null {
     const data = this.safeGetItem(email);
     return data ? JSON.parse(data) : null;
   }
+
 
   private loadFromStorage(): void {
     const storedUserStr = this.safeGetItem(this.STORAGE_KEY);
@@ -126,9 +138,11 @@ export class AuthService {
     }
   }
 
+
   isAdmin(): boolean {
     return this.currentUser()?.role === 'admin';
   }
+
 
   private safeGetItem(key: string): string | null {
     if (isPlatformBrowser(this.platformId)) {
@@ -137,11 +151,13 @@ export class AuthService {
     return null;
   }
 
+
   private safeSetItem(key: string, value: string): void {
     if (isPlatformBrowser(this.platformId)) {
       try { localStorage.setItem(key, value); } catch {}
     }
   }
+
 
   private safeRemoveItem(key: string): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -159,10 +175,21 @@ export class AuthService {
     this.currentUser.set(updatedUser);
     this.isLoggedIn.set(true);
 
-    // ასევე განვაახლოთ user ჩანაწერი email key-ზეც
+    // also update user email on key
     this.safeSetItem(updatedUser.email, JSON.stringify(updatedUser));
 
     return true;
+  }
+
+
+  sendMessage(email: string) {
+    const formData = {
+      from_name: 'TKShop',
+      user_email: this.getUserByEmail,
+      message: "თქვენ შეიძინეთ პროდუქცია. გმადლობთ შეკვეთისთვის, ჩვენი კურიერი დაგიკავშირდებათ!"
+    };
+
+    return this.emailService.sendEmail(formData);
   }
 
 }

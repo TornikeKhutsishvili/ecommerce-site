@@ -24,6 +24,7 @@ import { OrderService } from '../../services/orders-service';
 import { OrderItem } from '../../interfaces/order-item.interface';
 import { CreateOrderDto } from '../../interfaces/order.interface';
 import { PaymentProvider } from '../../interfaces/payment-provider.type';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-checkout',
@@ -65,6 +66,7 @@ export class Checkout {
   orderId = signal<string>('');
 
   private cartService = inject(CartService);
+  private authService = inject(AuthService);
   // private orderService = inject(OrderService);
   // private paymentService = inject(PaymentService);
 
@@ -87,8 +89,24 @@ export class Checkout {
       return this.alertToast.openToast('Cart is empty');
     }
 
-    this.cartService.clearCart();
-    return this.acceptToast.openToast('complete checkout');
+    const email = this.userEmail();
+    if (!email) {
+      this.alertToast.openToast('User email is missing');
+      return;
+    }
+
+    // Send confirmation email
+    this.authService.sendMessage(this.userEmail()).then(() => {
+      this.acceptToast.openToast('Order completed & email sent!');
+    })
+    .catch(() => {
+      this.alertToast.openToast('Order completed, but failed to send email');
+    });
+
+    // Clear cart with a short delay
+    setTimeout(() => {
+      this.cartService.clearCart();
+    }, 700);
   }
 
   // completeCheckout() {
