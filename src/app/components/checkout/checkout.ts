@@ -50,7 +50,9 @@ export class Checkout {
   @ViewChild('addToast') addToast!: AddToasts;
 
   cartItems = computed(() => this.cartService.cartItems());
-  totalPrice = computed(() => this.cartItems().reduce((acc, i) => acc + i.price * i.quantity, 0));
+  totalPrice = computed(() =>
+    this.cartItems().reduce((acc, i) => acc + i.price * i.quantity, 0)
+  );
 
   paymentMethod = signal<'Cash_on_Delivery' | 'Credit Card' | 'PayPal'>('Cash_on_Delivery');
   userName = signal('');
@@ -84,6 +86,9 @@ export class Checkout {
     if (this.cartItems().length === 0) {
       return this.alertToast.openToast('Cart is empty');
     }
+
+    this.cartService.clearCart();
+    return this.acceptToast.openToast('complete checkout');
   }
 
   // completeCheckout() {
