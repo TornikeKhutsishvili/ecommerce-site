@@ -39,87 +39,88 @@ import AOS from 'aos';
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
-    RouterLink,
-    RouterModule,
-    TranslateModule,
-    AddToasts,
-    NgxPaginationModule,
+    // FormsModule,
+    // RouterLink,
+    // RouterModule,
+    // TranslateModule,
+    // AddToasts,
+    // NgxPaginationModule,
   ],
   templateUrl: './shop.html',
   styleUrls: ['./shop.scss']
 })
-export class Shop implements OnInit, AfterViewChecked {
+export class Shop {}
+// export class Shop implements OnInit, AfterViewChecked {
 
-  categories = signal<string[]>([]);
-  page = signal<number>(1);
-  itemsPerPage = signal<number>(12);
+//   categories = signal<string[]>([]);
+//   page = signal<number>(1);
+//   itemsPerPage = signal<number>(12);
 
-  @ViewChild('addToast') addToast!: AddToasts;
+//   @ViewChild('addToast') addToast!: AddToasts;
 
-  private productService = inject(ProductService);
-  private cartService = inject(CartService);
-  private filterService = inject(FilterService);
-  private searchService = inject(SearchService);
-  private translate = inject(TranslateService);
-
-
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+//   private productService = inject(ProductService);
+//   private cartService = inject(CartService);
+//   private filterService = inject(FilterService);
+//   private searchService = inject(SearchService);
+//   private translate = inject(TranslateService);
 
 
-  ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      AOS.init();
-    }
+//   constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
 
-    this.productService.getProducts().subscribe(data => {
-      this.filterService.setAllProducts(data);
-      const cats = Array.from(new Set(data.map(p => p.category)));
-      this.categories.set([...cats]);
-    });
-  }
 
-  ngAfterViewChecked(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      AOS.refresh();
-    }
-  }
+//   ngOnInit(): void {
+//     if (isPlatformBrowser(this.platformId)) {
+//       AOS.init();
+//     }
 
-  // get all products with applied filters and search
-  get AllFilteredProducts() {
-    const query = this.searchService.searchQuery().trim().toLowerCase();
-    return this.filterService.filteredProducts().filter(p => {
-      const title = this.translate.instant(p.title).toLowerCase();
-      const category = this.translate.instant(p.category).toLowerCase();
-      return title.includes(query) || category.includes(query);
-    });
-  }
+//     this.productService.getProducts().subscribe(data => {
+//       this.filterService.setAllProducts(data);
+//       const cats = Array.from(new Set(data.map(p => p.category)));
+//       this.categories.set([...cats]);
+//     });
+//   }
 
-  onSearch(event: Event) {
-    const query = (event.target as HTMLInputElement).value.trim();
-    this.searchService.updateSearchQuery(query);
-    this.page.set(1);
-  }
+//   ngAfterViewChecked(): void {
+//     if (isPlatformBrowser(this.platformId)) {
+//       AOS.refresh();
+//     }
+//   }
 
-  filterByCategory(event: Event) {
-    const category = (event.target as HTMLSelectElement).value;
-    this.filterService.setCategory(category);
-    this.page.set(1);
-  }
+//   // get all products with applied filters and search
+//   get AllFilteredProducts() {
+//     const query = this.searchService.searchQuery().trim().toLowerCase();
+//     return this.filterService.filteredProducts().filter(p => {
+//       const title = this.translate.instant(p.title).toLowerCase();
+//       const category = this.translate.instant(p.category).toLowerCase();
+//       return title.includes(query) || category.includes(query);
+//     });
+//   }
 
-  applyPriceFilter(price: number) {
-    this.filterService.setPriceFilter(price);
-    this.page.set(1);
-  }
+//   onSearch(event: Event) {
+//     const query = (event.target as HTMLInputElement).value.trim();
+//     this.searchService.updateSearchQuery(query);
+//     this.page.set(1);
+//   }
 
-  applySort(order: 'low' | 'high' | null) {
-    this.filterService.setSortOrder(order);
-    this.page.set(1);
-  }
+//   filterByCategory(event: Event) {
+//     const category = (event.target as HTMLSelectElement).value;
+//     this.filterService.setCategory(category);
+//     this.page.set(1);
+//   }
 
-  addToCart(product: dummyProductModel) {
-    this.cartService.addToCart(product);
-    this.addToast.openToast(`${product.title} added to cart! 🛒`);
-  }
+//   applyPriceFilter(price: number) {
+//     this.filterService.setPriceFilter(price);
+//     this.page.set(1);
+//   }
 
-}
+//   applySort(order: 'low' | 'high' | null) {
+//     this.filterService.setSortOrder(order);
+//     this.page.set(1);
+//   }
+
+//   addToCart(product: dummyProductModel) {
+//     this.cartService.addToCart(product);
+//     this.addToast.openToast(`${product.title} added to cart! 🛒`);
+//   }
+
+// }

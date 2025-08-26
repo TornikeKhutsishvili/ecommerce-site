@@ -41,11 +41,11 @@ export const routes: Routes = [
     .then(m => m.ABOUT_ROUTES), title: 'About'
   },
 
-  {
-    path: 'shop',
-    loadChildren: () => import('./components/shop/shop.routes')
-    .then((m) => m.SHOP_ROUTES), title: 'Shop'
-  },
+  // {
+  //   path: 'shop',
+  //   loadChildren: () => import('./components/shop/shop.routes')
+  //   .then((m) => m.SHOP_ROUTES), title: 'Shop'
+  // },
 
   {
     path: 'categories',
