@@ -90,6 +90,13 @@
       <p class="mb-0">
         &copy; {{ currentYear() }} {{ 'TKShop. All rights reserved.' | translate }}
       </p>
+
+      <div class="policy-terms">
+        <a [routerLink]="['/rules/policy']">{{ 'Policy' | translate }}</a>
+          |
+        <a [routerLink]="['/rules/terms']">{{ 'Terms' | translate }}</a>
+      </div>
+
       <div>
 
         <!-- facebook -->

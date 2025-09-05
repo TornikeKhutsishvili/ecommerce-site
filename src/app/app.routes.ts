@@ -24,6 +24,12 @@ export const routes: Routes = [
   },
 
   {
+    path: 'rules',
+    loadChildren: () => import('./components/rules/rules.routes')
+    .then(m => m.RULES_ROUTES), title: 'Rules'
+  },
+
+  {
     path: 'cart',
     loadChildren: () => import('./components/cart/cart.routes')
     .then(m => m.CART_ROUTES), title: 'Cart'
