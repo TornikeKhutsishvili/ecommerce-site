@@ -17,6 +17,13 @@
       </button>
 
       <button type="button"
+              (click)="goToMyOrders()"
+              class="me-1  bg-success"
+      >
+        <i class="fa fa-receipt text-white"></i> {{ 'My Orders' | translate }}
+      </button>
+
+      <button type="button"
               (click)="goToEditPassword()"
               class="me-1"
       >

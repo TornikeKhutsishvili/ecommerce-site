@@ -56,4 +56,8 @@ export class Profile implements OnInit {
     this.router.navigate(['/auth/user-profile']);
   }
 
+  goToMyOrders() {
+    this.router.navigate(['/orders']);
+  }
+
 }

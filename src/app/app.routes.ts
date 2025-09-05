@@ -36,6 +36,12 @@ export const routes: Routes = [
   },
 
   {
+    path: 'orders',
+    loadChildren: () => import('./components/orders/orders.routes')
+    .then(m => m.ORDERS_ROUTES), title: 'Orders'
+  },
+
+  {
     path: 'about',
     loadChildren: () => import('./components/about/about.routes')
     .then(m => m.ABOUT_ROUTES), title: 'About'
