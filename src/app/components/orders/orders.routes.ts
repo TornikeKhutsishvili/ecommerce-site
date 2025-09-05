@@ -8,4 +8,10 @@ export const ORDERS_ROUTES: Routes = [
     .then(m => m.Orders), title: 'Order'
   },
 
+  {
+    path: 'orders/:id',
+    loadComponent: () => import('./order-details/order-details')
+    .then(m => m.OrderDetails), title: 'Orders details'
+  }
+
 ];
