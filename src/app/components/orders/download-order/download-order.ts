@@ -5,17 +5,17 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-faq',
+  selector: 'app-download-order',
   standalone: true,
   imports: [
     CommonModule,
     FormsModule,
-    TranslateModule,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ],
-  templateUrl: './faq.html',
-  styleUrls: ['./faq.scss']
+  templateUrl: './download-order.html',
+  styleUrls: ['./download-order.scss']
 })
-export class FAQ {
+export class DownloadOrder {
 
 }
