@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 
 import {
+  Router,
   RouterLink,
   RouterModule
 } from '@angular/router';
@@ -26,6 +27,7 @@ import {
 
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart-service';
+import { AuthService } from '../../services/auth-service';
 import { SearchService } from '../../services/search-service';
 import { FilterService } from '../../services/filter-service';
 import { AlertToasts } from "../toasts/alert-toasts/alert-toasts";
@@ -54,6 +56,8 @@ export class Cart implements OnInit, AfterViewChecked {
   private filterService = inject(FilterService);
   private searchService = inject(SearchService);
   private translate = inject(TranslateService);
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   // Computed: search + price filter
   filteredProducts = computed(() => {
@@ -102,11 +106,13 @@ export class Cart implements OnInit, AfterViewChecked {
     }
   }
 
+
   ngAfterViewChecked(): void {
     if (isPlatformBrowser(this.platformId)) {
       AOS.refresh();
     }
   }
+
 
   updateQuantity(productId: number, quantity: number): void {
     if (quantity >= 1) {
@@ -125,6 +131,15 @@ export class Cart implements OnInit, AfterViewChecked {
 
   updateSearch(query: string) {
     this.searchService.searchQuery.set(query);
+  }
+
+
+  proceedToCheckout(): void {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/checkout']);
+    } else {
+      this.router.navigate(['/auth/login']);
+    }
   }
 
 }
