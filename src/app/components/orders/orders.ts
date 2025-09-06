@@ -3,28 +3,24 @@ import {
   Inject,
   inject,
   PLATFORM_ID,
-  ViewChild
+  signal,
 } from '@angular/core';
-
-import {
-  Router,
-  RouterModule
-} from '@angular/router';
-
-import {
-  TranslateModule,
-  TranslateService
-} from '@ngx-translate/core';
 
 import {
   CommonModule,
   isPlatformBrowser
 } from '@angular/common';
 
+import {
+  AuthService,
+  User
+} from '../../services/auth-service';
+
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
-import { CartService } from '../../services/cart-service';
-import { AuthService } from '../../services/auth-service';
 import { OrderService } from '../../services/orders-service';
+import { Order } from '../../interfaces/order.interface';
 
 @Component({
   selector: 'app-orders',
@@ -40,20 +36,30 @@ import { OrderService } from '../../services/orders-service';
 })
 export class Orders {
 
-  // variables
+  // injects
   private orderService = inject(OrderService);
-  private cartService = inject(CartService);
-  private router = inject(Router);
   private authService = inject(AuthService);
-  private translate = inject(TranslateService);
+
+
+  // variables
+  orders = signal<Order[]>([]);
+  currentUser = signal<User | null>(null);
 
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
+      const user = this.authService.getUser();
+      this.currentUser.set(user);
+
+      if (user) {
+        this.orderService.listMyOrders(user.email).subscribe(list => {
+          this.orders.set(list);
+        });
+      }
     }
   }
-
 
 }

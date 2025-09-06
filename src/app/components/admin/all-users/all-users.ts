@@ -9,10 +9,10 @@ import {
   User
 } from '../../../services/auth-service';
 
+import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-all-users',
@@ -28,9 +28,9 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class AllUsers implements OnInit {
 
+  // variables
   private authService = inject(AuthService);
   users: User[] = [];
-
 
   ngOnInit(): void {
     this.loadUsers();

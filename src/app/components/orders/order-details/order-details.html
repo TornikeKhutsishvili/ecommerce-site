@@ -1,1 +1,50 @@
-<p>order-details works!</p>
+@if(order){
+<section class="container my-4" id="order-details">
+
+  <h2>{{ 'Order Details' | translate }} - #{{ order.id }}</h2>
+
+  <p><strong>{{ 'Status' | translate }}:</strong> {{ order.status }}</p>
+  <p><strong>{{ 'Subtotal' | translate }}:</strong> {{ order.subtotal | currency }}</p>
+  <p><strong>{{ 'Shipping' | translate }}:</strong> {{ order.shipping | currency }}</p>
+  <p><strong>{{ 'Total' | translate }}:</strong> {{ order.total | currency }}</p>
+
+  <h5>{{ 'Shipping Address' | translate }}</h5>
+  <p>{{ order.address.fullName }}</p>
+  <p>
+    {{ order.address.line1 }},
+    {{ order.address.city }},
+    {{ order.address.country }}
+  </p>
+  <p>{{ order.address.zip }}</p>
+  <p>{{ order.address.phone }}</p>
+
+  <h5>{{ 'Items' | translate }}</h5>
+  <ul>
+    @for(item of order.items; track item.productId) {
+      <li>{{ item.title }} × {{ item.quantity }} - {{ item.price | currency }}</li>
+    }
+  </ul>
+
+  <button
+    class="btn btn-primary"
+    (click)="downloadPDF()"
+  >
+    {{ 'Download PDF' | translate }}
+  </button>
+  <button
+    class="btn btn-secondary"
+    (click)="downloadPDFfromHTML()"
+  >
+    {{ 'Download from HTML' | translate }}
+  </button>
+
+  <button class="btn btn-outline-secondary mt-3"
+          [routerLink]="['/orders']"
+  >
+    {{ 'Back to Orders' | translate }}
+  </button>
+</section>
+
+} @else {
+  <p>{{ 'Loading order details...' | translate }}</p>
+}

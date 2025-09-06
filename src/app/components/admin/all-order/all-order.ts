@@ -4,10 +4,10 @@ import {
   OnInit
 } from '@angular/core';
 
+import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 import { Order } from '../../../interfaces/order.interface';
 import { OrderService } from '../../../services/orders-service';
 import { OrderStatus } from '../../../interfaces/order-status.type';
@@ -26,8 +26,8 @@ import { OrderStatus } from '../../../interfaces/order-status.type';
 })
 export class AllOrder implements OnInit {
 
+  // variables
   private orderService = inject(OrderService);
-
   orders: Order[] = [];
   loading = true;
 

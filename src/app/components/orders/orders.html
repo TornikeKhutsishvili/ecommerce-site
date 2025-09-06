@@ -1,1 +1,44 @@
-<p>orders works!</p>
+<section class="container my-4">
+
+  <h2>{{ 'My Orders' | translate }}</h2>
+
+  @if(orders().length === 0) {
+    <p>{{ 'No orders found' | translate }}</p>
+  } @else {
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>{{ 'Products' | translate }}</th>
+          <th>{{ 'Status' | translate }}</th>
+          <th>{{ 'Total' | translate }}</th>
+          <th>{{ 'Actions' | translate }}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for(order of orders(); track $index) {
+          <tr>
+            <td>{{ $index + 1 }}</td>
+            <td>
+              <ul>
+                @for(item of order.items; track item.productId) {
+                  <li>{{ item.title }} × {{ item.quantity }}</li>
+                }
+              </ul>
+            </td>
+            <td>{{ order.status }}</td>
+            <td>{{ order.total | currency }}</td>
+            <td>
+              <button class="btn btn-sm btn-primary"
+                      [routerLink]="['/orders', order.id]">
+                {{ 'View Details' | translate }}
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+</section>
