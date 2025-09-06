@@ -7,6 +7,7 @@
   <!-- navbar -->
   <nav class="nav navbar navbar-expand-lg main-navbar">
     <ul class="nav-list navbar-nav mx-auto">
+
       <li class="nav-item">
         <a class="nav-link"
           [routerLink]="['/admin/dashboard']"
@@ -16,24 +17,7 @@
           🏠 {{ 'Dashboard' | translate }}
         </a>
       </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link"
-          [routerLink]="['/admin/add-product']"
-          [routerLinkActive]="['active']"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          ➕ {{ 'Add Product' | translate }}
-        </a>
-      </li> -->
-      <!-- <li class="nav-item">
-        <a class="nav-link"
-          [routerLink]="['/admin/edit-product/:id']"
-          [routerLinkActive]="['active']"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          ✏️ {{ 'Edit Product' | translate }}
-        </a>
-      </li> -->
+
       <li class="nav-item">
         <a class="nav-link"
           [routerLink]="['/admin/dashboard-analytics']"
@@ -43,6 +27,7 @@
           📊 {{ 'Analytics' | translate }}
         </a>
       </li>
+
     </ul>
   </nav>
 
