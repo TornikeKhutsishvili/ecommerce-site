@@ -37,6 +37,12 @@ export const AUTH_ROUTES: Routes = [
         path: 'user-profile',
         loadComponent: () => import('./user-profile-info/user-profile-info')
         .then(m => m.UserProfileInfo), title: 'User Profile', canActivate: [authGuard]
+    },
+
+    {
+        path: 'favorites',
+        loadComponent: () => import('./favorites/favorites')
+        .then(m => m.Favorites), title: 'Favorites', canActivate: [authGuard]
     }
 
 ];
