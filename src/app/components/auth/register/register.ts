@@ -71,7 +71,7 @@ export class Register {
       return;
     }
 
-    if ( this.name() && this.email() && this.password() && this.active() && this.confirmPassword() ) {
+    if ( this.name() && this.email() && this.password() && this.confirmPassword() ) {
       const success = this.auth.register(this.name(), this.email(), this.password(), this.active());
 
       if (success) {
