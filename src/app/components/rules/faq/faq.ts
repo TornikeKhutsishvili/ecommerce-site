@@ -18,4 +18,18 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class FAQ {
 
+  public faqs = [
+
+    {
+      q: 'How do I place an order?',
+      a: 'Add products to cart and follow checkout.'
+    },
+
+    {
+      q: 'What payment methods do you accept?',
+      a: 'We accept cards, Paypal and bank transfer.'
+    }
+
+  ];
+
 }

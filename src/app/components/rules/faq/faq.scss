@@ -1,0 +1,35 @@
+:host {
+  display: block;
+}
+
+
+.page-faq {
+  .page-header {
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .lead {
+      color: #d4dce2;
+    }
+  }
+
+  .accordion {
+    .accordion-item {
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      overflow: hidden;
+
+      .accordion-button {
+        background: #fff;
+        color: #222;
+        font-weight: 600;
+      }
+
+      .accordion-body {
+        line-height: 1.6;
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+:host {
+  display: block;
+}
+
+
+.page-policy {
+
+  .page-header {
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+  }
+
+
+  .page-body {
+    border-radius: 8px;
+    background: #fff;
+    color: #222;
+
+    h2 {
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+    p {
+      line-height: 1.6;
+    }
+  }
+
+}

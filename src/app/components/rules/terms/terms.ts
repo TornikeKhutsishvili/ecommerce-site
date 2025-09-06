@@ -17,5 +17,4 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./terms.scss']
 })
 export class Terms {
-
 }

@@ -17,5 +17,4 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./policy.scss']
 })
 export class Policy {
-
 }
