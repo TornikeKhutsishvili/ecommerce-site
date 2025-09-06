@@ -7,7 +7,11 @@
   </h2>
 
   <!-- start form -->
-  <form (ngSubmit)="onSubmit()" #registerForm="ngForm" novalidate>
+  <form
+    (ngSubmit)="onSubmit()"
+    #registerForm="ngForm"
+    novalidate
+  >
 
     <div class="mb-3">
       <input
@@ -93,10 +97,14 @@
         #confirmPasswordInput="ngModel"
       />
       @if( confirmPasswordInput.invalid && confirmPasswordInput.touched ) {
-        <div class="text-danger small">{{ 'Confirm Password is required' | translate }}</div>
+        <div class="text-danger small">
+          {{ 'Confirm Password is required' | translate }}
+        </div>
       }
       @if( passwordMismatch && confirmPasswordInput.touched ) {
-        <div class="text-danger small">{{ 'Passwords do not match' | translate }}</div>
+        <div class="text-danger small">
+          {{ 'Passwords do not match' | translate }}
+        </div>
       }
     </div>
 
@@ -121,6 +129,8 @@
   </div>
 
 </div>
+
+
 
 
 
