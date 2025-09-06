@@ -16,6 +16,18 @@ export const ADMIN_ROUTES: Routes = [
     },
 
     {
+        path: 'users',
+        loadComponent: () => import('./all-users/all-users')
+        .then(m => m.AllUsers), title: 'All-users', canActivate: [adminGuard]
+    },
+
+    {
+        path: 'orders',
+        loadComponent: () => import('./all-order/all-order')
+        .then(m => m.AllOrder), title: 'All-order', canActivate: [adminGuard]
+    },
+
+    {
         path: 'dashboard-analytics',
         loadComponent: () => import('./dashboard-analytics/dashboard-analytics')
         .then((m) => m.DashboardAnalytics), title: 'Dashboard-analytics', canActivate: [adminGuard]
