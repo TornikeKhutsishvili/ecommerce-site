@@ -65,19 +65,19 @@
     {{ 'All Orders' | translate }}
   </h2>
 
-  @if(loading){
+  @if( loading ) {
     <div class="alert alert-info">
-      {{ 'Loading orders...' | translate }}
+      {{ 'Loading orders' | translate }}...
     </div>
   }
 
-  @if(!loading && orders.length === 0){
+  @if( !loading && orders.length === 0 ) {
     <div class="alert alert-warning">
       {{ 'No orders found' | translate }}
     </div>
   }
 
-  @if(!loading && orders.length > 0){
+  @if( !loading && orders.length > 0 ) {
     <div class="table-responsive">
       <table class="table table-striped table-hover align-middle shadow-sm">
 
@@ -94,43 +94,46 @@
         </thead>
 
         <tbody>
-          @for(order of orders; track $index){
+          @for( order of orders; track $index ) {
             <tr>
               <td>{{ $index + 1 }}</td>
               <td>{{ order.id }}</td>
               <td>{{ order.userId }}</td>
-              <td>{{ order.total | currency:'USD' }}</td>
+              <td>{{ order.total | currency:'USD' | translate }}</td>
               <td>
-                @if(order.status === STATUS.COMPLETED){
-                  <span class="badge bg-success">Completed</span>
+                @if( order.status === STATUS.COMPLETED ) {
+                  <span class="badge bg-success">{{ 'Completed' | translate }}</span>
                 }
 
-                @if(order.status === STATUS.PENDING){
-                  <span class="badge bg-warning text-dark">Pending</span>
+                @if( order.status === STATUS.PENDING ) {
+                  <span class="badge bg-warning text-dark">{{ 'Pending' | translate }}</span>
                 }
 
-                @if(order.status === STATUS.PROCESSING){
-                  <span class="badge bg-info">Processing</span>
+                @if( order.status === STATUS.PROCESSING ) {
+                  <span class="badge bg-info">{{ 'Processing' | translate }}</span>
                 }
 
-                @if(order.status === STATUS.CANCELLED){
-                  <span class="badge bg-danger">Cancelled</span>
+                @if( order.status === STATUS.CANCELLED ) {
+                  <span class="badge bg-danger">{{ 'Cancelled' | translate }}</span>
                 }
               </td>
-              <td>{{ order.createdAt | date:'short' }}</td>
+              <td>{{ order.createdAt | date:'short' | translate }}</td>
               <td>
                 <button class="btn btn-sm btn-outline-primary me-2"
-                        (click)="updateStatus(order.id, STATUS.COMPLETED)">
+                        (click)="updateStatus(order.id, STATUS.COMPLETED)"
+                >
                   <i class="fa fa-check"></i>
                 </button>
 
                 <button class="btn btn-sm btn-outline-warning me-2"
-                        (click)="updateStatus(order.id, STATUS.PROCESSING)">
+                        (click)="updateStatus(order.id, STATUS.PROCESSING)"
+                >
                   <i class="fa fa-cog"></i>
                 </button>
 
                 <button class="btn btn-sm btn-outline-danger"
-                        (click)="cancelOrder(order.id)">
+                        (click)="cancelOrder(order.id)"
+                >
                   <i class="fa fa-times"></i>
                 </button>
               </td>

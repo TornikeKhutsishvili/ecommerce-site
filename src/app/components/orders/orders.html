@@ -1,11 +1,14 @@
 <section class="container my-4">
 
+  <!-- title -->
   <h2>{{ 'My Orders' | translate }}</h2>
 
-  @if(orders().length === 0) {
+  <!-- content -->
+  @if( orders().length === 0 ) {
     <p>{{ 'No orders found' | translate }}</p>
   } @else {
     <table class="table table-striped">
+
       <thead>
         <tr>
           <th>#</th>
@@ -17,27 +20,29 @@
       </thead>
 
       <tbody>
-        @for(order of orders(); track $index) {
+        @for( order of orders(); track $index ) {
           <tr>
             <td>{{ $index + 1 }}</td>
             <td>
               <ul>
-                @for(item of order.items; track item.productId) {
-                  <li>{{ item.title }} × {{ item.quantity }}</li>
+                @for( item of order.items; track item.productId ) {
+                  <li>{{ item.title | translate }} × {{ item.quantity }}</li>
                 }
               </ul>
             </td>
-            <td>{{ order.status }}</td>
-            <td>{{ order.total | currency }}</td>
+            <td>{{ order.status | translate }}</td>
+            <td>{{ order.total | currency | translate }}</td>
             <td>
               <button class="btn btn-sm btn-primary"
-                      [routerLink]="['/orders', order.id]">
+                      [routerLink]="['/orders', order.id]"
+              >
                 {{ 'View Details' | translate }}
               </button>
             </td>
           </tr>
         }
       </tbody>
+
     </table>
   }
 
