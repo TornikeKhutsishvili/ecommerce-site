@@ -4,17 +4,17 @@ This project is a full-featured e-commerce website built with Angular. It includ
 
 # 🚀 Technologies Used
 
-Angular 20+
+- Angular 20
 
-TypeScript
+- TypeScript
 
-HTML5
+- HTML5
 
-CSS3 / SCSS
+- CSS3 / SCSS
 
-Bootstrap
+- Bootstrap
 
-Netlify (for deployment)
+- Netlify (for deployment)
 
 # 🔍 Features
 
@@ -35,29 +35,29 @@ Netlify (for deployment)
 
 # 📦 Installation
 
-Clone the repository:
+## Clone the repository:
 
-git clone https://github.com/TornikeKhutsishvili/ecommerce-site.git
+- git clone https://github.com/TornikeKhutsishvili/ecommerce-site.git
 
 
-Navigate into the project folder:
+# Navigate into the project folder:
 
 - cd ecommerce-site
 
 
-Install dependencies:
+# Install dependencies:
 
 - npm install
 
 
-Run the application:
+# Run the application:
 
 - ng serve
 
 
-Open in browser:
-Go to http://localhost:4200
- to view the app locally.
+# Open in browser:
+ - Go to http://localhost:4200
+     to view the app locally.
 
 # 💻 Development
 
@@ -66,7 +66,7 @@ The project was generated using Angular CLI
 
 Development Server
 
-To start a local development server:
+# To start a local development server:
 
 - ng serve
 
@@ -75,34 +75,34 @@ The application will automatically reload whenever you modify any of the source 
 
 Code Scaffolding
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component:
+# Angular CLI includes powerful code scaffolding tools. To generate a new component:
 
-ng generate component component-name
+- ng generate component component-name
 
 
-For a complete list of available schematics (such as components, directives, or pipes):
+# For a complete list of available schematics (such as components, directives, or pipes):
 
-ng generate --help
+- ng generate --help
 
-Building the Project
+- Building the Project
 
-To build the project:
+- To build the project:
 
-ng build
+- ng build
 
 
 The build artifacts will be stored in the dist/ directory. The production build optimizes your application for performance and speed.
 
-Running Tests
+# Running Tests
 
 Unit Tests (Karma):
 
-ng test
+- ng test
 
 
-End-to-End Tests (E2E):
+# End-to-End Tests (E2E):
 
-ng e2e
+- ng e2e
 
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
