@@ -1,59 +1,135 @@
-# Ecommerce
+# 🛒 Ecommerce Site
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0.
+This project is a full-featured e-commerce website built with Angular. It includes user authentication, product catalog, shopping cart functionality, product detail pages, and user profile management. The project is designed for both practical learning and portfolio purposes.
 
-## Development server
+# 🚀 Technologies Used
 
-To start a local development server, run:
+Angular 20+
 
-```bash
-ng serve
-```
+TypeScript
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+HTML5
 
-## Code scaffolding
+CSS3 / SCSS
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Bootstrap
 
-```bash
+Netlify (for deployment)
+
+# 🔍 Features
+
+📝 Registration and Login – Sign up and log in functionality (stored locally).
+
+🛍️ Products – Browse a collection of trending/popular products.
+
+🎠 Carousel – Highlighted product slider on the home page.
+
+🔎 Search Functionality – Search products by title across multiple routes.
+
+📄 Product Detail Page – View in-depth information like description, price, and categories.
+
+🌐 Routing – Navigate easily between Home, Categories, and Contact pages.
+
+📱 Responsive Design – Mobile-friendly layout using Bootstrap.
+
+
+# 📦 Installation
+
+Clone the repository:
+
+git clone https://github.com/TornikeKhutsishvili/ecommerce-site.git
+
+
+Navigate into the project folder:
+
+- cd ecommerce-site
+
+
+Install dependencies:
+
+- npm install
+
+
+Run the application:
+
+- ng serve
+
+
+Open in browser:
+Go to http://localhost:4200
+ to view the app locally.
+
+# 💻 Development
+
+The project was generated using Angular CLI
+ version 20.0.0. Node.js and npm are required to run the project locally.
+
+Development Server
+
+To start a local development server:
+
+- ng serve
+
+
+The application will automatically reload whenever you modify any of the source files.
+
+Code Scaffolding
+
+Angular CLI includes powerful code scaffolding tools. To generate a new component:
+
 ng generate component component-name
-```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-```bash
+For a complete list of available schematics (such as components, directives, or pipes):
+
 ng generate --help
-```
 
-## Building
+Building the Project
 
-To build the project run:
+To build the project:
 
-```bash
 ng build
-```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
+The build artifacts will be stored in the dist/ directory. The production build optimizes your application for performance and speed.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Running Tests
 
-```bash
+Unit Tests (Karma):
+
 ng test
-```
 
-## Running end-to-end tests
 
-For end-to-end (e2e) testing, run:
+End-to-End Tests (E2E):
 
-```bash
 ng e2e
-```
+
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Additional Resources
+# ⚙️ Configuration Files
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+.editorconfig
+
+.gitignore
+
+tsconfig.json
+
+netlify.toml
+
+# 🌍 Deployment
+
+The project is deployed on Netlify and can be accessed online.
+
+This version is now clean, well-structured, and easy to read.
+
+# 📸 Screenshots
+<img width="1901" height="875" alt="tkshop" src="https://github.com/user-attachments/assets/c6351979-db41-4eaf-bb06-e82e29dd468f" />
+<img width="1894" height="870" alt="tkshop4" src="https://github.com/user-attachments/assets/108a12a9-ec27-4a40-8e24-3251a02115ee" />
+<img width="1896" height="867" alt="tkshop5" src="https://github.com/user-attachments/assets/5d9a3ee8-4756-4f15-9d73-a9a92e81c005" />
+
+
+
+# 👨‍💻 Author
+# Tornike Khutsishvili
+
