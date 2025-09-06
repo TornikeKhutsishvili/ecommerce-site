@@ -1,5 +1,15 @@
+import {
+  Component,
+  inject,
+  OnInit
+} from '@angular/core';
+
+import {
+  AuthService,
+  User
+} from '../../../services/auth-service';
+
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,6 +26,25 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './all-users.html',
   styleUrls: ['./all-users.scss']
 })
-export class AllUsers {
+export class AllUsers implements OnInit {
+
+  private authService = inject(AuthService);
+  users: User[] = [];
+
+
+  ngOnInit(): void {
+    this.loadUsers();
+  }
+
+  loadUsers(): void {
+    this.users = this.authService.getAllUsers();
+  }
+
+  deleteUser(email: string): void {
+    if (confirm(`ნამდვილად გსურს ${email}-ის წაშლა?`)) {
+      localStorage.removeItem(email);
+      this.loadUsers(); // refresh table
+    }
+  }
 
 }

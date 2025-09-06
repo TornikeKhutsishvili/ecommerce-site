@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+h2 {
+  font-weight: 600;
+}
+
+.table {
+  border-radius: 12px;
+  overflow: hidden;
+
+  th {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+
+  td {
+    vertical-align: middle;
+  }
+
+  .btn-danger {
+    border-radius: 8px;
+    padding: 4px 10px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: darken(#dc3545, 8%);
+    }
+  }
+}
