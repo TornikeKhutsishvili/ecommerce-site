@@ -111,6 +111,10 @@
         }
       }
 
+      .auth-links .login {
+        margin-bottom: 0px !important;
+      }
+
 
       /* Language Switcher */
       .language-switcher {
@@ -256,6 +260,21 @@
   @media (max-width: 576px) {
     .navbar-actions {
       gap: 8px;
+    }
+  }
+
+  @media (max-width: 324px) {
+    .navbar-actions .rightSide-first-line .cart-btn {
+      width: 100%;
+    }
+
+    .navbar-actions .rightSide-second-line {
+      width: auto !important;
+    }
+
+    .navbar-actions .rightSide-second-line .search-box input,
+    .navbar-actions .rightSide-second-line .sortPriceSelect {
+      min-width: max-content !important;
     }
   }
 

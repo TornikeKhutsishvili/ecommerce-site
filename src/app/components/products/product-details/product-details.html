@@ -1,9 +1,9 @@
 @if( product() ) {
   <div class="container py-5">
-    <div class="row g-5 align-items-center">
+    <div class="row align-items-center container-main">
 
       <!-- Product Image -->
-      <div class="col-lg-6 text-center">
+      <div class="col-lg-6 text-center product-image">
         <div class="p-3 bg-light rounded shadow-sm product-image-wrapper">
           <img
             [src]="product().thumbnail || product().image"
@@ -15,7 +15,7 @@
       </div>
 
       <!-- Product Info -->
-      <div class="col-lg-6">
+      <div class="col-lg-6 product-info">
         <h1 class="fw-bold mb-3">
           {{ product().title | translate }}
         </h1>
@@ -81,7 +81,7 @@
         </ul>
 
         <!-- Buttons -->
-        <div class="d-flex gap-3">
+        <div class="d-flex gap-3 btns-div">
           <button type="button"
                   class="btn btn-primary btn-lg flex-grow-1"
                   (click)="addToCart()">

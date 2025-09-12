@@ -1,5 +1,24 @@
+
 @media (max-width: 576px) {
   .card-img-top {
     height: 350px;
+  }
+}
+
+@media (max-width: 384px) {
+  .card-img-top {
+    height: 275px;
+  }
+}
+
+@media (max-width: 324px) {
+  .card-img-top {
+    height: 215px;
+  }
+}
+
+@media (max-width: 264px) {
+  .card-img-top {
+    height: 150px;
   }
 }
