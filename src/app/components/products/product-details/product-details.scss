@@ -1,3 +1,5 @@
+@use "../../scss-components/mixins" as *;
+
 html,
 body {
   box-sizing: border-box !important;
@@ -25,19 +27,14 @@ body {
 }
 
 .price {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  @include flex-center(flex-start, center, null, null, null);
 }
 
 .product-image {
   padding-bottom: 40px;
 }
 
-
-
 // media query - responsive
-
 @media (max-width: 584px) {
   .btns-div {
     flex-direction: column;

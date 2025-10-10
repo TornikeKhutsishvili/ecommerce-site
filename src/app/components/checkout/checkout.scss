@@ -1,3 +1,5 @@
+@use "../../scss-components/mixins" as *;
+
 .checkout-container {
   max-width: 1200px;
   margin: 2rem auto;
@@ -48,8 +50,7 @@
     }
 
     .cart-item {
-      display: flex;
-      gap: 1.5rem;
+      @include flex-center(null, null, null, null, 1.5rem);
       margin-bottom: 1.5rem;
       border-bottom: 1px solid #eee;
       padding-bottom: 1.5rem;
@@ -91,9 +92,7 @@
         }
 
         .quantity-control {
-          display: flex;
-          align-items: center;
-          gap: 0.8rem;
+          @include flex-center(null, center, null, null, 0.8rem);
           margin-bottom: 0.7rem;
 
           button {
@@ -161,8 +160,7 @@
     }
 
     form {
-      display: flex;
-      flex-direction: column;
+      @include flex-center(null, null, null, column, null);
 
       label {
         margin-top: 1rem;

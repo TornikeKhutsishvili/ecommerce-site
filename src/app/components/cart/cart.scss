@@ -1,3 +1,5 @@
+@use "../../scss-components/mixins" as *;
+
 .cart-container {
   .cart-card {
     border-radius: 15px;
@@ -37,13 +39,12 @@
       }
 
       .cart-quantity {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
+        @include flex-center(center, center, null, null, 10px);
         margin: 10px 0;
 
         .btn-qty {
+          @include flex-center(center, center, null, null, null);
+
           background: #eee;
           border: none;
           width: 30px;
@@ -51,9 +52,6 @@
           font-weight: bold;
           cursor: pointer;
           border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
 
           &:hover {
             background: #ddd;

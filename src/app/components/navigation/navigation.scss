@@ -1,8 +1,8 @@
+@use "../../scss-components/mixins" as *;
+
 /* Main navbar */
 .main-navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include flex-center(space-between, center, null, null, null);
   padding: 8px 0;
   transition: all 0.3s ease;
 
@@ -15,30 +15,18 @@
   // mobile styles
   .mobile-slide {
     .navbar-actions {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: flex-start;
-      gap: 10px;
+      @include flex-center(flex-start, flex-end, null, column, 10px);
       width: 100%;
 
       /* First line */
       .rightSide-first-line {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 10px;
+        @include flex-center(flex-end, center, wrap, null, 10px);
         width: 100%;
       }
 
       /* Second line */
       .rightSide-second-line {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 10px;
+        @include flex-center(flex-end, center, wrap, null, 10px);
         width: 100%;
 
         .search-box input {
@@ -82,20 +70,16 @@
 
       /* Theme toggle button */
       .theme-btn {
+        @include flex-center(center, center, null, null, null);
         border-radius: 50%;
         width: 40px;
         height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
       }
 
       /* Auth links */
       .auth-links {
+        @include flex-center(null, center, null, null, 5px);
         font-size: 17px;
-        display: flex;
-        align-items: center;
-        gap: 5px;
 
         a {
           color: inherit;
@@ -118,9 +102,8 @@
 
       /* Language Switcher */
       .language-switcher {
+        @include flex-center(null, center, null, null, null);
         position: relative;
-        display: flex;
-        align-items: center;
 
         select {
           -webkit-appearance: none;
