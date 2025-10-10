@@ -1,3 +1,5 @@
+@use "../../../scss-components/mixins" as *;
+
 .profile-container-main {
   min-height: 80vh;
 
@@ -25,10 +27,7 @@
     }
 
     .profile-actions {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
+      @include flex-center(center, null, wrap, null, 1rem);
 
       button {
         padding: 0.8rem 1.6rem;
@@ -61,7 +60,6 @@
   }
 
 
-
   // responsive
   @media (max-width: 480px) {
     .profile-container {
@@ -73,8 +71,7 @@
       }
 
       .profile-actions {
-        flex-direction: column;
-        gap: 0.8rem;
+        @include flex-center(null, null, null, column, 0.8rem);
 
         button {
           width: 100%;

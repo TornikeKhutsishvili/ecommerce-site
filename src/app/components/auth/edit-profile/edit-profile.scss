@@ -1,3 +1,5 @@
+@use "../../../scss-components/mixins" as *;
+
 // Variables
 $primary-color: #4CAF50;
 $primary-hover: #45a049;
@@ -11,10 +13,7 @@ $border-radius: 8px;
 }
 
 .edit-profile-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @include flex-center(center, center, null, column, null);
   padding: 80px 20px;
 
   h2 {
@@ -24,9 +23,7 @@ $border-radius: 8px;
   }
 
   form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include flex-center(null, center, null, column, null);
     width: 100%;
     max-width: 450px;
     background-color: white;
@@ -118,10 +115,8 @@ $border-radius: 8px;
     }
 
     .button-group {
-      display: flex;
-      justify-content: flex-end;
+      @include flex-center(flex-end, null, null, null, 10px);
       width: 100%;
-      gap: 10px;
       margin-top: 20px;
 
       button {
@@ -156,9 +151,7 @@ $border-radius: 8px;
 
   // Profile photo section
   .profile-photo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include flex-center(null, center, null, column, null);
     margin-bottom: 20px;
     position: relative;
 
@@ -190,9 +183,6 @@ $border-radius: 8px;
     }
   }
 }
-
-
-
 
 
 // Responsive styles

@@ -1,3 +1,6 @@
+@use "../../../scss-components/mixins" as *;
+
+// styles
 .profile-card,
 .profile-info {
   max-width: 400px;
@@ -93,14 +96,11 @@
 
 
 .profile-form {
-  display: flex;
-  flex-direction: column;
+  @include flex-center(null, null, null, column, 12px);
   gap: 12px;
 
   label {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.9rem;
+    @include flex-center(null, null, null, column, 0.9rem);
     text-align: left;
   }
 
