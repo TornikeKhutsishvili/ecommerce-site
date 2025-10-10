@@ -1,5 +1,2 @@
 @use '../add-toasts/add-toasts.scss';
-
-.toast-accept {
-  background-color: #17a2b8 !important;
-}
+@use "../../../scss-components/colors" as *;

@@ -1,5 +1,2 @@
 @use '../add-toasts/add-toasts.scss';
-
-.toast-delete {
-    background-color: #dc3545 !important;
-}
+@use "../../../scss-components/colors" as *;

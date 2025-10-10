@@ -1,6 +1,6 @@
 @use '../add-toasts/add-toasts.scss';
+@use "../../../scss-components/colors" as *;
 
 .toast-alert {
-  background-color: #ffc107 !important;
   color: #212529 !important;
 }

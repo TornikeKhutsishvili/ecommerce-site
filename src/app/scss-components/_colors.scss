@@ -1,3 +1,15 @@
-$colors: (
-    
-)
+@use 'variables' as *;
+
+// toast colors
+
+@each $key, $val in $toast-colors {
+  .text-#{$key} {
+    color: $val;
+  }
+  .bg-#{$key} {
+    background-color: $val;
+  }
+}
+
+
+//

@@ -1,0 +1,70 @@
+@use 'sass:math';
+@use "variables" as *;
+
+$utilities: (
+  "padding-top": (
+    "prefix": "p-top",
+    "values": ()
+  ),
+  "padding-right": (
+    "prefix": "p-right",
+    "values": ()
+  ),
+  "padding-bottom": (
+    "prefix": "p-bottom",
+    "values": ()
+  ),
+  "padding-left": (
+    "prefix": "p-left",
+    "values": ()
+  ),
+  "margin-top": (
+    "prefix": "m-top",
+    "values": ()
+  ),
+  "margin-right": (
+    "prefix": "m-right",
+    "values": ()
+  ),
+  "margin-bottom": (
+    "prefix": "m-bottom",
+    "values": ()
+  ),
+  "margin-left": (
+    "prefix": "m-left",
+    "values": ()
+  ),
+  "font-size": (
+    "prefix": "fontSize",
+    "values": ()
+  ),
+  "border-radius": (
+    "prefix": "bord-radius",
+    "values": ()
+  )
+);
+
+@each $key, $data in $utilities {
+  $values: ();
+  @for $i from 0 through 50 {
+    $val: if($i == 0, 0, $padding * $i);
+    $values: map-merge($values, ($i: $val));
+  }
+  $utilities: map-merge(
+    $utilities,
+    (
+      $key: map-merge($data, ("values": $values))
+    )
+  );
+}
+
+@each $key, $data in $utilities {
+  $prefix: map-get($data, "prefix");
+  $values: map-get($data, "values");
+
+  @each $i, $val in $values {
+    .#{$prefix}-#{$i} {
+      #{$key}: $val;
+    }
+  }
+}
