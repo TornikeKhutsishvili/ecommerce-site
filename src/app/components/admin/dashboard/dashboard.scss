@@ -7,7 +7,7 @@
 
 .table-wrapper {
   .table {
-    width: 90%;
+    width: 90% !important;
     border-collapse: collapse;
     overflow: hidden;
     box-shadow: 0 8px 24px rgba(0,0,0,.06);
@@ -23,7 +23,7 @@
     }
 
     .fa-star {
-      color: gold;
+      color: gold !important;
     }
 
     .right {
