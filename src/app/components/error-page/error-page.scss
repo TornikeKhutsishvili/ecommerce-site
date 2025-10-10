@@ -27,9 +27,7 @@
 .glitch::before,
 .glitch::after {
   content: attr(data-text);
-  position: absolute;
-  left: 0;
-  top: 0;
+  @include position(absolute, 0, null, null, 0);
   width: 100%;
   overflow: hidden;
   color: #ff005a;

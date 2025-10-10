@@ -12,18 +12,16 @@ body {
 }
 
 .star-container {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .filled-star {
-    position: absolute;
-    top: 0;
-    left: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    height: 100%;
-    pointer-events: none;
+  @include position(absolute, 0, null, null, 0);
+  white-space: nowrap;
+  overflow: hidden;
+  height: 100%;
+  pointer-events: none;
 }
 
 .price {

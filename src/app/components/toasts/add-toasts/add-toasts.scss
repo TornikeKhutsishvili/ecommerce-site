@@ -1,14 +1,12 @@
+@use "../../../scss-components/mixins" as *;
+
 .toast-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;
+  @include position(fixed, 20px, 20px, null, null);
   z-index: 1055;
 }
 
 .toast {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include flex-center(space-between, center, null, null, null);
   min-width: 250px;
   padding: 10px 15px;
   border-radius: 6px;

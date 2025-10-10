@@ -68,9 +68,7 @@ $border-radius: 8px;
       }
 
       label {
-        position: absolute;
-        top: 12px;
-        left: 12px;
+        @include position(absolute, 12px, null, null, 12px);
         font-size: 0.9rem;
         color: #777;
         background: white;
@@ -82,9 +80,7 @@ $border-radius: 8px;
         position: relative;
 
         .toggle-password {
-          position: absolute;
-          right: 12px;
-          top: 50%;
+          @include position(absolute, 50%, 12px, null, null);
           transform: translateY(-50%);
           background: none;
           border: none;

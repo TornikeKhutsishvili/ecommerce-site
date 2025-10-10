@@ -55,9 +55,7 @@
         width: 150px;
 
         .cart-badge {
-          position: absolute;
-          top: -6px;
-          right: -6px;
+          @include position(absolute, -6px, -6px, null, null);
           background: #ff4757;
           color: white;
           border-radius: 50%;
@@ -166,9 +164,7 @@
         /* Custom Arrow */
         &::after {
           content: "▼";
-          position: absolute;
-          right: 12px;
-          top: 14px;
+          @include position(absolute, 14px, 12px, null, null);
           font-size: 8px;
           pointer-events: none;
           transition: transform 0.2s ease;

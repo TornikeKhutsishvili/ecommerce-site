@@ -4,12 +4,12 @@
 
 body.light-theme {
   background-color: $light-bg;
-  color: $light-text;
+  color: $dark-text;
 }
 
 body.dark-theme {
   background-color: $dark-bg;
-  color: $dark-text;
+  color: $light-text;
 }
 
 .navbar {
@@ -17,11 +17,11 @@ body.dark-theme {
 
   &.navbar-light {
     background-color: $light-bg !important;
-    color: $light-text;
+    color: $dark-text;
   }
 
   &.navbar-dark {
     background-color: $dark-bg !important;
-    color: $dark-text;
+    color: $light-text;
   }
 }

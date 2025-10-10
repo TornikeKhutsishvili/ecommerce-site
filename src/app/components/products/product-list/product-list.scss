@@ -1,12 +1,12 @@
+@use "../../../scss-components/mixins" as *;
+
 .star-container {
   position: relative;
   display: inline-block;
 }
 
 .filled-star {
-  position: absolute;
-  top: 0;
-  left: 0;
+  @include position(absolute, 0, null, null, 0);
   white-space: nowrap;
   overflow: hidden;
   height: 100%;

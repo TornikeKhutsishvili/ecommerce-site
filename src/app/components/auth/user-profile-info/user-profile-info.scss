@@ -149,9 +149,7 @@
   }
 
   .upload-label {
-    position: absolute;
-    bottom: 11px;
-    left: 50%;
+    @include position(absolute, null, 11px, null, 50%);
     transform: translateX(-50%);
     background: rgba(0,0,0,0.6);
     color: #fff;
