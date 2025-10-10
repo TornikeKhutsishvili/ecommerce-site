@@ -1,3 +1,4 @@
+@use "sass:map";
 @use 'sass:math';
 @use "variables" as *;
 
@@ -48,19 +49,19 @@ $utilities: (
   $values: ();
   @for $i from 0 through 50 {
     $val: if($i == 0, 0, $padding * $i);
-    $values: map-merge($values, ($i: $val));
+    $values: map.merge($values, ($i: $val));
   }
-  $utilities: map-merge(
+  $utilities: map.merge(
     $utilities,
     (
-      $key: map-merge($data, ("values": $values))
+      $key: map.merge($data, ("values": $values))
     )
   );
 }
 
 @each $key, $data in $utilities {
-  $prefix: map-get($data, "prefix");
-  $values: map-get($data, "values");
+  $prefix: map.get($data, "prefix");
+  $values: map.get($data, "values");
 
   @each $i, $val in $values {
     .#{$prefix}-#{$i} {
@@ -93,8 +94,8 @@ $fontWeight: (
 );
 
 @each $key, $data in $fontWeight {
-  $prefix: map-get($data, "prefix");
-  $values: map-get($data, "values");
+  $prefix: map.get($data, "prefix");
+  $values: map.get($data, "values");
 
   @each $i, $val in $values {
     .#{$prefix}-#{$i} {
@@ -128,8 +129,8 @@ $opacities: (
 );
 
 @each $key, $data in $opacities {
-  $prefix: map-get($data, "prefix");
-  $values: map-get($data, "values");
+  $prefix: map.get($data, "prefix");
+  $values: map.get($data, "values");
 
   @each $i, $val in $values {
     .#{$prefix}-#{$i} {
