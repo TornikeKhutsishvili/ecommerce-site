@@ -50,7 +50,7 @@
 
 <!-- content -->
 
-<form class="card my-5"
+<form class="card my-5 p-top-16 p-right-16 p-bottom-16 p-left-16 bord-radius-16"
       (ngSubmit)="saveProduct()"
       #f="ngForm"
 >
@@ -59,9 +59,10 @@
   <h2 class="my-3">➕ {{ 'Add Product' | translate }}</h2>
 
   <div class="grid">
-    <label>
+    <label class="f-weight-600">
       {{ 'Title' | translate }}
       <input
+        class="p-top-10 p-right-11 p-bottom-10 p-left-11 bord-radius-10"
         name="title"
         [ngModel]="product.title()"
         (ngModelChange)="product.title.set($event)"
@@ -69,9 +70,10 @@
       />
     </label>
 
-    <label>
+    <label class="f-weight-600">
       {{ 'Price' | translate}}
       <input
+        class="p-top-10 p-right-11 p-bottom-10 p-left-11 bord-radius-10"
         name="price"
         type="number"
         min="0"
@@ -81,27 +83,30 @@
       />
     </label>
 
-    <label>
+    <label class="f-weight-600">
       {{ 'Category' | translate }}
       <input
+        class="p-top-10 p-right-11 p-bottom-10 p-left-11 bord-radius-10"
         name="category"
         [ngModel]="product.category()"
         (ngModelChange)="product.category.set($event)"
       />
     </label>
 
-    <label>
+    <label class="f-weight-600">
       {{ 'Image URL' | translate }}
       <input
+        class="p-top-10 p-right-11 p-bottom-10 p-left-11 bord-radius-10"
         name="image"
         [ngModel]="product.image()"
         (ngModelChange)="product.image.set($event)"
       />
     </label>
 
-    <label class="col-span">
+    <label class="col-span f-weight-600">
       {{ 'Description' | translate }}
       <textarea
+        class="p-top-10 p-right-11 p-bottom-10 p-left-11 bord-radius-10"
         name="description"
         rows="4"
         [ngModel]="product.description()"
@@ -110,12 +115,14 @@
     </label>
   </div>
 
-  <div class="actions">
-    <button type="submit">
+  <div class="actions m-top-12">
+    <button type="submit"
+            class="p-top-8 p-right-14 p-bottom-8 p-left-14 bord-radius-10 text-white bg-black"
+    >
       {{ 'Save' | translate }}
     </button>
     <button type="button"
-            class="btn-secondary"
+            class="btn-secondary p-top-8 p-right-14 p-bottom-8 p-left-14 bord-radius-10 bg-white text-black"
             [routerLink]="['/admin/dashboard']"
     >
       {{ 'Cancel' | translate }}

@@ -1,16 +1,14 @@
 @use "../../../scss-components/mixins" as *;
+@use "../../../scss-components/utilities" as *;
 
 .toolbar {
   @include flex-center(center, center, null, column, 0.75rem);
-  margin: 1rem 0;
 }
 
 .table-wrapper {
   .table {
     width: 90%;
     border-collapse: collapse;
-    background: #fff;
-    border-radius: 1rem;
     overflow: hidden;
     box-shadow: 0 8px 24px rgba(0,0,0,.06);
 
@@ -33,9 +31,7 @@
 
       .btn {
         background: #111;
-        color: #fff;
         padding: .45rem .75rem;
-        border-radius: .6rem;
         text-decoration: none;
       }
 

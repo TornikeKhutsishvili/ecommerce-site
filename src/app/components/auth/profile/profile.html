@@ -4,42 +4,42 @@
   @let user = auth.currentUser();
   @if( user ) {
 
-  <div class="profile-container">
-    <h2>{{ 'Welcome' | translate }}, {{ user?.name || 'User' | translate }}! 👋</h2>
+  <div class="profile-container p-top-32 p-right-32 p-bottom-32 p-left-32 text-center bord-radius-20">
+    <h2 class="fontSize-32 m-bottom-16">{{ 'Welcome' | translate }}, {{ user?.name || 'User' | translate }}! 👋</h2>
 
     <div class="profile-actions mt-5">
 
       <button type="button"
               (click)="goToMyProfile()"
-              class="me-1"
+              class="me-1 f-weight-600 bord-radius-10 fontSize-16"
       >
         <i class="fa fa-user-alt"></i> {{ 'My Profile' | translate }}
       </button>
 
       <button type="button"
               (click)="goToMyOrders()"
-              class="me-1  bg-success"
+              class="me-1 bg-success f-weight-600 bord-radius-10 fontSize-16"
       >
         <i class="fa fa-receipt text-white"></i> {{ 'My Orders' | translate }}
       </button>
 
       <button type="button"
               (click)="goToEditPassword()"
-              class="me-1"
+              class="me-1 f-weight-600 bord-radius-10 fontSize-16"
       >
         <i class="fa fa-pencil-alt"></i> {{ 'Edit Password' | translate }}
       </button>
 
       <button type="button"
               (click)="resetPass()"
-              class="me-1 bg-warning text-white"
+              class="me-1 bg-warning text-white f-weight-600 bord-radius-10 fontSize-16"
       >
         <i class="fa fa-key"></i> {{ 'Reset Password' | translate }}
       </button>
 
       <button type="button"
               (click)="logout()"
-              class="ms-1"
+              class="ms-1 f-weight-600 bord-radius-10 fontSize-16"
       >
         <i class="fa fa-sign-out-alt"></i> {{ 'Logout' | translate }}
       </button>
@@ -48,7 +48,7 @@
   </div>
 
   } @else {
-    <p>{{ 'empty' | translate }}!</p>
+    <p class="m-bottom-32 fontSize-18">{{ 'empty' | translate }}!</p>
   }
 
 </div>

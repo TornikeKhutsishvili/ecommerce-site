@@ -2,7 +2,7 @@
 
 <hr>
 
-<section class="toolbar">
+<section class="toolbar m-top-16 m-right-0 m-bottom-16 m-left-0">
 
   <!-- navbar -->
   <nav class="nav navbar navbar-expand-lg main-navbar">
@@ -81,7 +81,7 @@
 
 <div class="d-flex justify-content-center align-items-center mb-4 table-wrapper">
   @if(!loading()){
-    <table class="table">
+    <table class="table bg-white bord-radius-16">
       <thead>
       <tr>
         <th>{{ 'ID' | translate }}</th>
@@ -104,12 +104,12 @@
           <td>{{ p.rating | translate }} <i class="fa fa-star"></i></td>
           <td class="right">
             <a [routerLink]="['/admin/edit-product', p.id]"
-              class="btn btn-sm me-2"
+              class="btn btn-sm me-2 text-white bord-radius-10"
             >
               {{ 'Edit' | translate }} ✏️
             </a>
             <button type="button"
-                    class="btn btn-sm btn-danger"
+                    class="btn btn-sm btn-danger text-white bord-radius-10"
                     (click)="deleteProduct(p.id)"
             >
               {{ 'Delete' | translate }} 🗑️

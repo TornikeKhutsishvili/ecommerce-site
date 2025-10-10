@@ -1,11 +1,14 @@
 <!-- edit profile -->
 <div class="edit-profile-container-main">
   <div class="edit-profile-container">
-    <h2 id="editProf">
+
+    <h2 class="fontSize-32 m-bottom-20 text-center">
       {{ 'Edit Profile' | translate }} 📝
     </h2>
 
-    <form (ngSubmit)="save()" #profileForm="ngForm">
+    <form (ngSubmit)="save()" #profileForm="ngForm"
+          class="w-100 bord-radius-10 p-top-30 p-right-30 p-bottom-30 p-left-30 bg-light"
+    >
       <div class="form-group">
         <input
           type="text"
@@ -47,7 +50,7 @@
         />
         <label for="oldPassword">{{ 'Old Password' | translate }}</label>
 
-        <button type="button" class="toggle-password" (click)="toggleOldPassword()">
+        <button type="button" class="toggle-password fontSize-19" (click)="toggleOldPassword()">
           {{ showOldPassword() ? hide() : show() }}
         </button>
       </div>
@@ -65,7 +68,7 @@
         />
         <label for="password">{{ 'New Password' | translate }}</label>
 
-        <button type="button" class="toggle-password" (click)="togglePassword()">
+        <button type="button" class="toggle-password fontSize-19" (click)="togglePassword()">
           {{ showPassword() ? hide() : show() }}
         </button>
       </div>
@@ -87,7 +90,7 @@
       }
 
       @if (profileForm.submitted || profileForm.touched) {
-        <div class="error-summary">
+        <div class="error-summary fontSize-14 m-top-10 m-right-0 m-bottom-10 m-left-0 w-100">
           @if (nameInput.invalid && nameInput.touched) {
             <div>🔸 {{ 'Name is required and must be at least 3 characters.' | translate }}</div>
           }
@@ -100,7 +103,7 @@
         </div>
       }
 
-      <div class="button-group">
+      <div class="button-group w-100 m-top-20">
         <button type="submit" [disabled]="profileForm.invalid" class="me-1">
           💾 {{ 'Save' | translate }}
         </button>
@@ -110,7 +113,7 @@
       </div>
 
       @if (success()) {
-        <p class="success-msg">
+        <p class="success-msg fontSize-16 m-top-15 text-center">
           ✅ {{ 'Profile updated successfully!' | translate }}
         </p>
       }

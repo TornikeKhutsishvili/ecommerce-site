@@ -1,15 +1,11 @@
 @use "sass:color";
+@use "../../../scss-components/utilities" as *;
 
 :host {
   display: block;
 }
 
-h2 {
-  font-weight: 600;
-}
-
 .table {
-  border-radius: 12px;
   overflow: hidden;
 
   th {
@@ -23,8 +19,6 @@ h2 {
   }
 
   .btn-danger {
-    border-radius: 8px;
-    padding: 4px 10px;
     transition: background-color 0.2s ease;
 
     &:hover {

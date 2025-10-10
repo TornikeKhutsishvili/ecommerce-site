@@ -3,7 +3,7 @@
     <div class="row align-items-center container-main">
 
       <!-- Product Image -->
-      <div class="col-lg-6 text-center product-image">
+      <div class="col-lg-6 text-center product-image p-bottom-40">
         <div class="p-3 bg-light rounded shadow-sm product-image-wrapper">
           <img
             [src]="product().thumbnail || product().image"
@@ -28,7 +28,7 @@
           @for( star of stars(); track $index ) {
             <div class="star-container">
               <i class="bi bi-star text-secondary"></i>
-              <i class="bi bi-star-fill text-warning filled-star"
+              <i class="bi bi-star-fill text-warning filled-star h-100"
                 [style.width.%]="getStarFillPercent(product().rating, star)"
                 [style.overflow]="'hidden'"
                 [style.position]="'absolute'"

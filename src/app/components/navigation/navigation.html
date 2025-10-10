@@ -1,11 +1,11 @@
 <!-- navbar -->
-<nav class="navbar navbar-expand-lg main-navbar"
+<nav class="navbar navbar-expand-lg main-navbar p-top-8 p-right-0 p-bottom-8 p-left-0"
     [ngClass]="isDarkMode() ? 'navbar-dark bg-dark' : 'navbar-light bg-light'"
 >
   <div class="container">
 
     <!-- Logo -->
-    <a class="navbar-brand fw-bold"
+    <a class="navbar-brand fw-bold fontSize-15"
       [routerLink]="['/']"
       [routerLinkActive]="['active']"
       [routerLinkActiveOptions]="{ exact: true }"
@@ -92,19 +92,19 @@
 
 
       <!-- Right Side Actions -->
-      <div class="d-flex align-items-center navbar-actions flex-wrap gap-2">
+      <div class="d-flex align-items-center navbar-actions w-100 flex-wrap gap-2">
 
         <!-- first line -->
-        <div class="rightSide-first-line">
+        <div class="rightSide-first-line w-100">
 
           <!-- Cart -->
           <a [routerLink]="['/cart']"
-            class="btn btn-outline-primary position-relative cart-btn"
+            class="btn btn-outline-primary position-relative cart-btn text-white"
             (click)="closeMenu()"
           >
             🛒
             @if( cartItemCount() > 0 ) {
-              <span class="cart-badge">
+              <span class="cart-badge text-white fontSize-11 f-weight-600 p-top-2 p-right-6 p-bottom-2 p-left-6">
                 {{ cartItemCount() }}
               </span>
             }
@@ -113,7 +113,7 @@
 
 
           <!-- Auth Links -->
-          <div class="auth-links d-flex align-items-center">
+          <div class="auth-links d-flex align-items-center fontSize-17">
             @if( !isLoggedIn() ) {
 
               <ng-container>
@@ -126,7 +126,7 @@
                     <i class="fa-solid fa-right-to-bracket"></i>
                 </a>
 
-                <span>|</span>
+                <span class="o-6">|</span>
 
                 <a class="text-decoration-none ms-2 register btn btn-outline-warning"
                   [routerLink]="['/auth/register']"
@@ -146,7 +146,7 @@
                 <i class="fa-solid fa-user"></i>
               </a>
 
-              <span>|</span>
+              <span class="o-6">|</span>
 
               <a [routerLink]="['/']"
                 class="text-decoration-none ms-2 btn btn-danger text-light"
@@ -174,6 +174,7 @@
               <select [ngModel]="selectedLanguage()"
                       (ngModelChange)="changeLanguage($event)"
                       title="language"
+                      class="bord-radius-20 fontSize-17 f-weight-500 p-top-7 p-right-22 p-bottom-7 p-left-8"
               >
                 @for( lang of languages; track $index ) {
                   <option [value]="lang.code"
@@ -189,7 +190,7 @@
 
 
         <!-- second line -->
-        <div class="rightSide-second-line">
+        <div class="rightSide-second-line w-100">
           <!-- Search -->
           @if(currentUrl() !== '/shop' &&
               currentUrl() !== '/contact' &&
@@ -206,7 +207,7 @@
               <input type="text"
                 id="search"
                 name="search"
-                class="form-control"
+                class="form-control bord-radius-20 p-top-3 p-right-8 p-bottom-3 p-left-8"
                 placeholder="{{ 'Search...' | translate }}"
                 (input)="onSearch($event)"
               >
@@ -225,7 +226,7 @@
               currentUrl() !== '/auth/reset-password' &&
               currentUrl() !== '/auth/user-profile'
           ) {
-            <select class="form-select sortPriceSelect"
+            <select class="form-select sortPriceSelect bord-radius-20 p-top-3 p-right-8 p-bottom-3 p-left-8"
                     name="select"
                     (change)="sortByPrice($any($event.target).value)"
             >

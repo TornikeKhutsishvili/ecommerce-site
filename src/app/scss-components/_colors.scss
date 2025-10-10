@@ -1,3 +1,4 @@
+@use "sass:color";
 @use 'variables' as *;
 
 // toast colors
@@ -10,6 +11,5 @@
     background-color: $val;
   }
 }
-
 
 //

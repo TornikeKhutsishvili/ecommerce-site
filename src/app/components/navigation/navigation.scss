@@ -1,46 +1,39 @@
 @use "../../scss-components/mixins" as *;
+@use "../../scss-components/utilities" as *;
 
 /* Main navbar */
 .main-navbar {
   @include flex-center(space-between, center, null, null, null);
-  padding: 8px 0;
   transition: all 0.3s ease;
 
   .navbar-brand {
-    font-size: 15px;
     letter-spacing: 1px;
   }
-
 
   // mobile styles
   .mobile-slide {
     .navbar-actions {
       @include flex-center(flex-start, flex-end, null, column, 10px);
-      width: 100%;
 
       /* First line */
       .rightSide-first-line {
         @include flex-center(flex-end, center, wrap, null, 10px);
-        width: 100%;
       }
 
       /* Second line */
       .rightSide-second-line {
         @include flex-center(flex-end, center, wrap, null, 10px);
-        width: 100%;
 
-        .search-box input {
-          border-radius: 20px;
-          padding: 3px 8px;
-          min-width: 150px;
-          min-height: 40px;
-          flex: 1 1 auto;
-          box-shadow: none !important;
+        .search-box {
+          input {
+            min-width: 150px;
+            min-height: 40px;
+            flex: 1 1 auto;
+            box-shadow: none !important;
+          }
         }
 
         .form-select {
-          border-radius: 20px;
-          padding: 3px 8px;
           min-height: 40px;
           flex: 1 1 auto;
           max-width: 200px;
@@ -51,17 +44,12 @@
       .cart-btn {
         position: relative;
         background: linear-gradient(135deg, #4facfe, #00f2fe);
-        color: white;
         width: 150px;
 
         .cart-badge {
           @include position(absolute, -6px, -6px, null, null);
           background: #ff4757;
-          color: white;
           border-radius: 50%;
-          font-size: 11px;
-          font-weight: 600;
-          padding: 2px 6px;
           box-shadow: 0 2px 6px rgba(255,71,87,0.5);
         }
       }
@@ -77,7 +65,6 @@
       /* Auth links */
       .auth-links {
         @include flex-center(null, center, null, null, 5px);
-        font-size: 17px;
 
         a {
           color: inherit;
@@ -87,16 +74,11 @@
         a:hover {
           color: #ffffff !important;
         }
-
-        span {
-          opacity: 0.6;
-        }
       }
 
       .auth-links .login {
         margin-bottom: 0px !important;
       }
-
 
       /* Language Switcher */
       .language-switcher {
@@ -107,10 +89,6 @@
           -webkit-appearance: none;
           -moz-appearance: none;
           appearance: none;
-          border-radius: 20px;
-          padding: 7px 22px 7px 8px;
-          font-size: 17px;
-          font-weight: 500;
           cursor: pointer;
           transition: all 0.3s ease;
           min-width: 54px;
@@ -178,9 +156,7 @@
 
 
   /********************************
-  *********************************
               Responsive
-  *********************************
   *********************************/
 
   @media (max-width: 992px) {

@@ -1,205 +1,144 @@
+@use "../../../scss-components/variables" as *;
 @use "../../../scss-components/mixins" as *;
-
-// Variables
-$primary-color: #4CAF50;
-$primary-hover: #45a049;
-$error-color: #f44336;
-$text-color: #000000;
-$border-radius: 8px;
+@use "../../../scss-components/utilities" as *;
 
 // Main container
 .edit-profile-container-main {
   min-height: 80vh;
-}
 
-.edit-profile-container {
-  @include flex-center(center, center, null, column, null);
-  padding: 80px 20px;
+  .edit-profile-container {
+    @include flex-center(center, center, null, column, null);
+    padding: 80px 20px;
 
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-
-  form {
-    @include flex-center(null, center, null, column, null);
-    width: 100%;
-    max-width: 450px;
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-    .form-group {
-      width: 100%;
-      margin-bottom: 20px;
-      position: relative;
-
-      input[type="text"],
-      input[type="email"],
-      input[type="password"] {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: $border-radius;
-        font-size: 1rem;
-        background-color: white;
-        color: $text-color;
-        transition: all 0.3s ease;
-
-        &:hover {
-          border-color: $primary-color;
-          box-shadow: 0 0 5px $primary-color;
-        }
-
-        &:focus {
-          border-color: $primary-color;
-          box-shadow: 0 0 8px $primary-color;
-          outline: none;
-        }
-
-        &:focus + label,
-        &:not(:placeholder-shown) + label {
-          top: -10px;
-          font-size: 0.8rem;
-          color: $primary-color;
-        }
-      }
-
-      label {
-        @include position(absolute, 12px, null, null, 12px);
-        font-size: 0.9rem;
-        color: #777;
-        background: white;
-        padding: 0 4px;
-        transition: 0.2s;
-      }
-
-      &.password-group {
-        position: relative;
-
-        .toggle-password {
-          @include position(absolute, 50%, 12px, null, null);
-          transform: translateY(-50%);
-          background: none;
-          border: none;
-          font-size: 1.2rem;
-          cursor: pointer;
-        }
-      }
-    }
-
-    .error-summary {
-      width: 100%;
-      color: $error-color;
-      font-size: 0.9rem;
-      margin: 10px 0;
-    }
-
-    .error {
-      color: $error-color;
-      font-size: 0.85rem;
-      margin-top: 5px;
-    }
-
-    .success-msg {
-      color: $primary-color;
-      font-size: 1rem;
-      margin-top: 15px;
+    h2 {
       text-align: center;
     }
 
-    .button-group {
-      @include flex-center(flex-end, null, null, null, 10px);
-      width: 100%;
-      margin-top: 20px;
+    form {
+      @include flex-center(null, center, null, column, null);
+      max-width: 450px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
-      button {
-        padding: 10px 18px;
-        background-color: $primary-color;
-        color: white;
-        border: none;
-        border-radius: $border-radius;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
+      .form-group {
+        width: 100%;
+        margin-bottom: 20px;
+        position: relative;
 
-        &:hover {
-          background-color: $primary-hover;
-        }
-
-        &.secondary {
-          background-color: #777;
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+          width: 100%;
+          padding: 12px;
+          border: 1px solid #ccc;
+          border-radius: $border-radius;
+          font-size: 1rem;
+          background-color: white;
+          color: $text-color;
+          transition: all 0.3s ease;
 
           &:hover {
-            background-color: #5a5a5a;
+            border-color: $primary-color;
+            box-shadow: 0 0 5px $primary-color;
+          }
+
+          &:focus {
+            border-color: $primary-color;
+            box-shadow: 0 0 8px $primary-color;
+            outline: none;
+          }
+
+          &:focus + label,
+          &:not(:placeholder-shown) + label {
+            top: -10px;
+            font-size: 0.8rem;
+            color: $primary-color;
           }
         }
 
-        &:disabled {
-          background-color: #dcdcdc;
-          cursor: not-allowed;
+        label {
+          @include position(absolute, 12px, null, null, 12px);
+          font-size: 0.9rem;
+          color: #777;
+          background: white;
+          padding: 0 4px;
+          transition: 0.2s;
+        }
+
+        &.password-group {
+          position: relative;
+
+          .toggle-password {
+            @include position(absolute, 50%, 12px, null, null);
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .error-summary {
+        color: $error-color;
+      }
+
+      .success-msg {
+        color: $primary-color;
+      }
+
+      .button-group {
+        @include flex-center(flex-end, null, null, null, 10px);
+
+        button {
+          padding: 10px 18px;
+          background-color: $primary-color;
+          color: white;
+          border: none;
+          border-radius: $border-radius;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: $primary-hover;
+          }
+
+          &.secondary {
+            background-color: #777;
+
+            &:hover {
+              background-color: #5a5a5a;
+            }
+          }
+
+          &:disabled {
+            background-color: #dcdcdc;
+            cursor: not-allowed;
+          }
         }
       }
     }
   }
 
-  // Profile photo section
-  .profile-photo {
-    @include flex-center(null, center, null, column, null);
-    margin-bottom: 20px;
-    position: relative;
-
-    img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid $primary-color;
-      margin-bottom: 10px;
-    }
-
-    .upload-label {
-      background-color: $primary-color;
-      color: white;
-      padding: 6px 14px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background-color 0.3s ease;
-
-      &:hover {
-        background-color: $primary-hover;
-      }
-    }
-
-    input[type="file"] {
-      display: none;
-    }
-  }
-}
-
-
-// Responsive styles
-@media (max-width: 480px) {
-  .edit-profile-container {
-    h2 {
-      font-size: 1.6rem;
-    }
-
-    form {
-      padding: 20px;
-      width: 100%;
-
-      input,
-      button {
-        font-size: 0.95rem;
+  // Responsive styles
+  @media (max-width: 480px) {
+    .edit-profile-container {
+      h2 {
+        font-size: 1.6rem;
       }
 
-      .button-group {
-        flex-direction: column;
-        align-items: stretch;
+      form {
+        padding: 20px;
+        width: 100%;
+
+        input,
+        button {
+          font-size: 0.95rem;
+        }
+
+        .button-group {
+          flex-direction: column;
+          align-items: stretch;
+        }
       }
     }
   }

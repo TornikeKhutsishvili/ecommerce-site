@@ -50,7 +50,7 @@
       </div>
 
       <!-- Google Maps -->
-      <div class="map-container">
+      <div class="map-container m-top-16">
         <iframe
           [src]="mapUrl()"
           target="_blank"
@@ -77,7 +77,7 @@
             {{ 'Name' | translate }}
           </label>
           @if( myForm.controls.from_name.invalid && myForm.controls.from_name.touched ) {
-            <div class="error mb-1">
+            <div class="error mb-1 m-top-4 fontSize-13">
               <small>{{ 'Name_is_required' | translate }}</small>
             </div>
           }
@@ -97,7 +97,7 @@
             {{ 'Email' | translate }}
           </label>
           @if( myForm.controls.user_email.invalid && myForm.controls.user_email.touched ) {
-            <div class="error mb-1">
+            <div class="error mb-1 m-top-4 fontSize-13">
               <small>{{ 'Please_enter_a_valid_email' | translate }}</small>
             </div>
           }
@@ -117,7 +117,7 @@
             {{ 'Message' | translate }}
           </label>
           @if( myForm.controls.message.invalid && myForm.controls.message.touched ) {
-            <div class="error mb-1">
+            <div class="error mb-1 m-top-4 fontSize-13">
               <small>{{ 'Message_is_required' | translate }}</small>
             </div>
           }

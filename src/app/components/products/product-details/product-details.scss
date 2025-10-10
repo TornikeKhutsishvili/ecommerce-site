@@ -1,4 +1,6 @@
 @use "../../../scss-components/mixins" as *;
+@use "../../../scss-components/utilities" as *;
+
 
 html,
 body {
@@ -14,22 +16,17 @@ body {
 .star-container {
   position: relative;
   display: inline-block;
-}
 
-.filled-star {
-  @include position(absolute, 0, null, null, 0);
-  white-space: nowrap;
-  overflow: hidden;
-  height: 100%;
-  pointer-events: none;
+  .filled-star {
+    @include position(absolute, 0, null, null, 0);
+    white-space: nowrap;
+    overflow: hidden;
+    pointer-events: none;
+  }
 }
 
 .price {
   @include flex-center(flex-start, center, null, null, null);
-}
-
-.product-image {
-  padding-bottom: 40px;
 }
 
 // media query - responsive

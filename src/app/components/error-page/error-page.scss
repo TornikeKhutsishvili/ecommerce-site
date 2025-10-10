@@ -1,13 +1,13 @@
 @use "../../scss-components/mixins" as *;
+@use "../../scss-components/utilities" as *;
 
 .error-container {
   @include flex-center(center, center, null, column, null);
   height: 100vh;
   background: radial-gradient(circle at top, #141e30, #243b55);
-  color: #fff;
-  text-align: center;
   overflow: hidden;
-  padding: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .glitch-wrapper {
@@ -16,10 +16,8 @@
 
 .glitch {
   font-size: 8rem;
-  font-weight: 900;
   letter-spacing: 5px;
   position: relative;
-  color: #fff;
   text-transform: uppercase;
   animation: flicker 1.5s infinite alternate;
 }
@@ -71,26 +69,18 @@
 }
 
 .subtitle {
-  margin-top: 1rem;
-  font-size: 2rem;
-  font-weight: 500;
   color: #f1f1f1;
 }
 
 .description {
-  margin-top: 0.5rem;
   max-width: 500px;
   line-height: 1.5;
-  opacity: 0.8;
 }
 
-.home-btn {
-  margin-top: 2rem;
-  padding: 0.8rem 2rem;
-  font-size: 1rem;
+.home-btn,
+.mute-btn {
   font-weight: bold;
   border: none;
-  border-radius: 30px;
   cursor: pointer;
   background: linear-gradient(90deg, #ff005a, #00fff7);
   color: #141e30;
@@ -102,12 +92,6 @@
                 0 5px 20px rgba(255, 0, 90, 0.4);
   }
 }
-
-
-
-
-
-
 
 .particles-bg {
   position: fixed;
@@ -115,37 +99,8 @@
   z-index: 0;
 }
 
-.error-container {
-  @include flex-center(center, center, null, column, null);
-  position: relative;
-  z-index: 1;
-  height: 100vh;
-  text-align: center;
-  color: #fff;
-}
-
 .actions {
   @include flex-center(null, null, null, null, 1rem);
-  margin-top: 2rem;
-}
-
-.home-btn,
-.mute-btn {
-  padding: 0.8rem 2rem;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  background: linear-gradient(90deg, #ff005a, #00fff7);
-  color: #141e30;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  &:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 5px 20px rgba(0, 255, 247, 0.4),
-                0 5px 20px rgba(255, 0, 90, 0.4);
-  }
 }
 
 .mute-btn {

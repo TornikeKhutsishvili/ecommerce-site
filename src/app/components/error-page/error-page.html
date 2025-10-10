@@ -3,26 +3,26 @@
 >
 </div>
 
-<div class="error-container">
+<div class="error-container text-white text-center p-top-32 p-right-32 p-bottom-32 p-left-32">
 
   <div class="glitch-wrapper">
-    <h1 class="glitch"
+    <h1 class="glitch f-weight-900 text-white"
         data-text="404"
     >
       404
     </h1>
   </div>
 
-  <h2 class="subtitle">
+  <h2 class="subtitle m-top-16 fontSize-32 f-weight-500">
     {{ 'Page not found' | translate }}
   </h2>
 
-  <p class="description">
+  <p class="description m-top-8 o-8">
     {{ 'The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.' | translate }}
   </p>
 
-  <div class="actions">
-    <button class="home-btn"
+  <div class="actions m-top-32">
+    <button class="home-btn m-top-32 fontSize-16 bord-radius-30 p-top-13 p-right-32 p-bottom-13 p-left-32"
             (click)="goHome()"
     >
       🏠 {{ 'Go Back Home' | translate }}

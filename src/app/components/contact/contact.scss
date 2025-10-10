@@ -1,17 +1,12 @@
 @use "../../scss-components/mixins" as *;
+@use "../../scss-components/utilities" as *;
 
 .error {
-  font-size: 0.85rem;
   color: #e91e63;
-  margin-top: 0.25rem;
 }
 
 .contact-left {
   @include flex-center(null, null, null, column, null);
-
-  .map-container {
-    margin-top: 16px;
-  }
 }
 
 @media (max-width: 991.98px) {

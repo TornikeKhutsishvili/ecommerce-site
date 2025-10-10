@@ -2,18 +2,18 @@
 
   <!-- Edit Profile Form -->
   @if(editMode()){
-    <div class="profile-card">
-      <div class="profile-header">
+    <div class="profile-card bg-white bord-radius-16 text-center p-top-20 p-right-20 p-bottom-20 p-left-20">
+      <div class="profile-header m-bottom-20">
 
         <div class="avatar-wrapper">
           <img
-            class="avatar"
+            class="avatar m-bottom-10"
             [src]="user.photoUrl || avatarImg()"
             alt="{{ 'Profile Picture' | translate }}"
             (error)="onImgError($event)"
             (click)="fileInput.click()"
           >
-          <span class="upload-label">
+          <span class="upload-label text-white fontSize-12 bord-radius-10 p-top-2 p-right-6 p-bottom-2 p-left-6">
             {{ 'Upload image' | translate }}
           </span>
           <input
@@ -25,8 +25,8 @@
           >
         </div>
 
-        <h2 class="text-dark">{{ user.name || 'User' | translate }}</h2>
-        <p class="text-dark">{{ user.email | translate }}</p>
+        <h2 class="text-dark fontSize-22">{{ user.name || 'User' | translate }}</h2>
+        <p class="text-dark fontSize-15">{{ user.email | translate }}</p>
       </div>
 
       <div class="profile-form">
@@ -69,7 +69,7 @@
           ></textarea>
         </label>
 
-        <button class="btn-save"
+        <button class="btn-save text-white p-top-10 p-right-10 p-bottom-10 p-left-10 bord-radius-8"
                 (click)="saveProfile()"
         >
           {{ 'Save Changes' | translate }}
@@ -81,7 +81,7 @@
 
   <!-- Profile Info (View Mode) -->
   @if(!editMode()){
-    <div class="profile-info">
+    <div class="profile-info bg-white bord-radius-16 text-center p-top-20 p-right-20 p-bottom-20 p-left-20">
       <div class="profile-header">
         <img
           class="avatar"
@@ -89,24 +89,24 @@
           alt="{{ 'Profile Picture' | translate }}"
           (error)="onImgError($event)"
         >
-        <h2 class="text-dark">{{ user.name || 'User' | translate }}</h2>
-        <p class="text-dark">{{ user.email }}</p>
+        <h2 class="text-dark fontSize-22">{{ user.name || 'User' | translate }}</h2>
+        <p class="text-dark fontSize-15">{{ user.email }}</p>
       </div>
 
-      <div class="info-body">
-        <p><b>{{ 'Telephone' | translate }}:</b> {{ user.telephone || '-' }}</p>
-        <p><b>{{ 'City' | translate }}:</b> {{ user.city || '-' | translate }}</p>
-        <p><b>{{ 'Bio' | translate }}:</b> {{ user.bio || '-' | translate }}</p>
+      <div class="info-body m-top-15">
+        <p><b class="text-black">{{ 'Telephone' | translate }}:</b> {{ user.telephone || '-' }}</p>
+        <p><b class="text-black">{{ 'City' | translate }}:</b> {{ user.city || '-' | translate }}</p>
+        <p><b class="text-black">{{ 'Bio' | translate }}:</b> {{ user.bio || '-' | translate }}</p>
       </div>
 
-      <button class="btn btn-edit"
+      <button class="btn btn-edit m-top-15 text-white bord-radius-8 fontSize-15 p-top-10 p-right-16 p-bottom-10 p-left-16"
               (click)="editMode.set(true)"
       >
         ✏️ {{ 'Edit' | translate }}
       </button>
       <button type="button"
               (click)="goBack()"
-              class="ms-1 btn btn-back"
+              class="ms-1 btn btn-back m-top-15 text-white bord-radius-8 fontSize-15 p-top-10 p-right-16 p-bottom-10 p-left-16"
       >
         {{ 'Back' | translate }}
       </button>

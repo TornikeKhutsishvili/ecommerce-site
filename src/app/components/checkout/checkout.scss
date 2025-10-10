@@ -1,23 +1,18 @@
 @use "../../scss-components/mixins" as *;
+@use "../../scss-components/utilities" as *;
+
 
 .checkout-container {
   max-width: 1200px;
   margin: 2rem auto;
-  padding: 1rem;
 
   .checkout-title {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 2rem;
 
-    /* Light Theme */
     body.light-theme {
       color: #222;
     }
 
-    /* Dark Theme */
     body.dark-theme {
       color: #fff;
     }
@@ -43,17 +38,9 @@
 
   /* Cart Items */
   .cart-items {
-    h3 {
-      font-weight: 600;
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-    }
-
     .cart-item {
       @include flex-center(null, null, null, null, 1.5rem);
-      margin-bottom: 1.5rem;
       border-bottom: 1px solid #eee;
-      padding-bottom: 1.5rem;
 
       &:last-child {
         border-bottom: none;
@@ -63,7 +50,6 @@
         width: 120px;
         height: 120px;
         object-fit: contain;
-        border-radius: 8px;
         background: #f9f9f9;
       }
 
@@ -71,34 +57,24 @@
         flex-grow: 1;
 
         h4 {
-          font-size: 1.2rem;
-          font-weight: 600;
           color: #111;
-          margin-bottom: 0.3rem;
         }
 
         .category {
-          font-size: 0.9rem;
           color: #777;
-          margin-bottom: 0.7rem;
           font-style: italic;
         }
 
         .price {
-          font-weight: 700;
           color: #009688;
-          margin-bottom: 0.7rem;
-          font-size: 1.1rem;
         }
 
         .quantity-control {
           @include flex-center(null, center, null, null, 0.8rem);
-          margin-bottom: 0.7rem;
 
           button {
             background-color: #009688;
             border: none;
-            color: white;
             font-size: 1.1rem;
             width: 32px;
             height: 32px;
@@ -114,23 +90,16 @@
           span {
             font-size: 1.1rem;
             min-width: 24px;
-            text-align: center;
           }
         }
 
         .total {
-          font-weight: 600;
           color: #333;
-          margin-bottom: 1rem;
         }
 
         .remove-btn {
           background-color: #e91e63;
           border: none;
-          padding: 0.5rem 1rem;
-          color: white;
-          font-weight: 600;
-          border-radius: 4px;
           cursor: pointer;
           transition: background-color 0.3s ease;
 
@@ -151,12 +120,6 @@
 
     .payment-credit-card {
       display: contents;
-    }
-
-    h3 {
-      font-weight: 600;
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
     }
 
     form {
@@ -189,14 +152,8 @@
       }
 
       .btn-submit {
-        margin-top: 2rem;
         background-color: #009688;
-        color: white;
-        padding: 0.75rem;
-        font-size: 1.1rem;
-        font-weight: 700;
         border: none;
-        border-radius: 8px;
         cursor: pointer;
         transition: background-color 0.3s ease;
 
@@ -212,22 +169,15 @@
     }
 
     .total-price {
-      margin-top: 2rem;
-      font-weight: 700;
-      font-size: 1.4rem;
       color: #222;
-      text-align: center;
     }
 
     .btn-back {
       display: block;
       margin: 1.5rem auto 0;
-      text-align: center;
       padding: 0.6rem 1.2rem;
-      border-radius: 8px;
       border: 2px solid #009688;
       color: #009688;
-      font-weight: 600;
       text-decoration: none;
       transition: background-color 0.3s ease, color 0.3s ease;
 
@@ -241,23 +191,16 @@
 
   /* Empty cart template styling */
   p {
-    font-size: 1.2rem;
     color: #777;
-    text-align: center;
-    margin-top: 3rem;
   }
 
   .btn-back-home {
-    display: block;
     margin: 1.5rem auto 0;
-    text-align: center;
     padding: 0.6rem 1.2rem;
-    border-radius: 8px;
     border: 2px solid #009688;
     color: #009688;
-    font-weight: 600;
     text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    @include transitions(background-color, color);
 
     &:hover {
       background-color: #009688;

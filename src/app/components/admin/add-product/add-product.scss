@@ -1,11 +1,10 @@
 @use "../../../scss-components/mixins" as *;
+@use "../../../scss-components/utilities" as *;
 
 .card {
   max-width: 860px;
   margin: 1.25rem auto;
-  padding: 1rem;
   border: 1px solid #eee;
-  border-radius: 1rem;
   box-shadow: 0 8px 24px rgba(0,0,0,.06);
 
   .grid {
@@ -15,14 +14,11 @@
 
     label {
       @include flex-center(null, null, null, column, .35rem);
-      font-weight: 600;
     }
 
     input,
     textarea {
-      padding: .6rem .7rem;
       border: 1px solid #ddd;
-      border-radius: .6rem;
     }
 
     .col-span {
@@ -32,20 +28,10 @@
 
   .actions {
     @include flex-center(flex-end, null, null, null, .5rem);
-    margin-top: .75rem;
 
     button {
-      padding: .55rem .9rem;
-      border-radius: .6rem;
       border: 0;
-      background: #111;
-      color: #fff;
       cursor: pointer;
-    }
-
-    .btn-secondary {
-      background: #e9ecef;
-      color: #111;
     }
   }
 }

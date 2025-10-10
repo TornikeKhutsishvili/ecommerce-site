@@ -35,6 +35,7 @@
   }
 }
 
+// position mixin
 @mixin position($position: absolute, $top: 0, $right: 0, $bottom: 0, $left: 0) {
   @if $position != null {
     position: $position;
@@ -50,5 +51,52 @@
   }
   @if $left != null {
     left: $left;
+  }
+}
+
+
+
+
+// ==============================
+// reset-password mixins
+// ==============================
+@mixin transitions($props...) {
+  transition: $props 0.3s ease;
+}
+
+@mixin button($bg, $color, $hover-bg) {
+  padding: 1rem;
+  background-color: $bg;
+  color: $color;
+  border: none;
+  border-radius: $radius-md;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  @include transitions(background-color);
+
+  &:hover {
+    background-color: $hover-bg;
+  }
+}
+
+@mixin input-style {
+  width: 100%;
+  padding: 0.9rem 1.1rem;
+  border: 2px solid $color-border;
+  border-radius: $radius-md;
+  font-size: 1rem;
+  background-color: #fff;
+  @include transitions(border, box-shadow);
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.15);
+    outline: none;
+  }
+
+  &::placeholder {
+    color: $color-placeholder;
+    font-style: italic;
   }
 }

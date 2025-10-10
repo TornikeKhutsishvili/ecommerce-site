@@ -1,13 +1,10 @@
+@use "../../../scss-components/utilities" as *;
+
 :host {
   display: block;
 }
 
-h2 {
-  font-weight: 600;
-}
-
 .table {
-  border-radius: 12px;
   overflow: hidden;
 
   th {
@@ -21,8 +18,6 @@ h2 {
   }
 
   .btn {
-    border-radius: 8px;
-    padding: 4px 8px;
     transition: 0.2s ease;
 
     &:hover {

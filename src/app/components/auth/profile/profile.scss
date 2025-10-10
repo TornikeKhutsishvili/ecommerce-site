@@ -1,4 +1,5 @@
 @use "../../../scss-components/mixins" as *;
+@use "../../../scss-components/utilities" as *;
 
 .profile-container-main {
   min-height: 80vh;
@@ -6,24 +7,17 @@
   .profile-container {
     max-width: 500px;
     margin: 5rem auto;
-    padding: 2rem;
     background-color: var(--card-bg);
-    border-radius: 20px;
-    text-align: center;
     box-shadow: var(--shadow);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     font-family: 'Segoe UI', sans-serif;
 
     h2 {
-      font-size: 2rem;
       color: var(--text-color);
-      margin-bottom: 1rem;
     }
 
     p {
-      font-size: 1.1rem;
       color: var(--text-color);
-      margin-bottom: 2rem;
     }
 
     .profile-actions {
@@ -31,10 +25,7 @@
 
       button {
         padding: 0.8rem 1.6rem;
-        font-size: 1rem;
-        font-weight: 600;
         border: none;
-        border-radius: 10px;
         cursor: pointer;
         transition: background-color 0.3s ease, transform 0.2s ease;
 
@@ -58,7 +49,6 @@
       }
     }
   }
-
 
   // responsive
   @media (max-width: 480px) {

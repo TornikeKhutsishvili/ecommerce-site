@@ -1,9 +1,9 @@
-<div id="carouselExampleCaptions" class="carousel slide">
+<div id="carouselExampleCaptions" class="carousel slide m-bottom-11">
 
   <!-- carousel-indicators logic -->
   <div class="carousel-indicators">
     @for( item of products; track $index; let i = $index ) {
-      <button type="button" name="button"
+      <button type="button" name="button" class="o-5"
               [attr.aria-label]="'Slide ' + (i + 1)"
               [attr.title]="'Slide ' + (i + 1)"
               [class.active]="i === currentIndex()"
@@ -25,19 +25,21 @@
           [class.active]="i === currentIndex()"
       >
         <img [src]="item.images[0]"
-              class="d-block w-100"
+              class="d-block w-100 bord-radius-10"
               alt="{{ item.title | translate }}"
               loading="lazy"
         />
-        <div class="carousel-caption d-none d-md-block">
+        <div class="carousel-caption d-none d-md-block p-top-16 p-right-16 p-bottom-16 p-left-16 bord-radius-8">
 
-          <h1>{{ item.title | translate }}</h1>
-          <p>{{ 'Price' | translate }}: {{ '$' | translate }}{{ item.price }}</p>
+          <h1 class="text-white fontSize-32">{{ item.title | translate }}</h1>
+          <p class="text-white fontSize-19 m-bottom-5">
+            {{ 'Price' | translate }}: {{ '$' | translate }}{{ item.price }}
+          </p>
 
           @for( star of stars(); track $index ) {
             <div class="star-container">
               <i class="bi bi-star text-secondary"></i>
-              <i class="bi bi-star-fill text-warning filled-star"
+              <i class="bi bi-star-fill text-warning filled-star h-100"
                 [style.width.%]="getStarFillPercent(item.rating, star)"
                 [style.overflow]="'hidden'"
                 [style.position]="'absolute'"

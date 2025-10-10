@@ -1,5 +1,7 @@
+@use "../../../../scss-components/mixins" as *;
+
 .product-card {
-  transition: transform 0.2s ease-in-out;
+  @include transition(all);
   cursor: pointer;
 
   &:hover {

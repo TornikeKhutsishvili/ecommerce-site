@@ -60,7 +60,7 @@
 <!-- content -->
 
 <section class="container my-4">
-  <h2 class="mb-4">
+  <h2 class="mb-4 f-weight-600">
     <i class="fa fa-receipt me-2"></i>
     {{ 'All Orders' | translate }}
   </h2>
@@ -79,7 +79,7 @@
 
   @if( !loading && orders.length > 0 ) {
     <div class="table-responsive">
-      <table class="table table-striped table-hover align-middle shadow-sm">
+      <table class="table bord-radius-12 table-striped table-hover align-middle shadow-sm">
 
         <thead class="table-dark">
           <tr>
@@ -119,19 +119,19 @@
               </td>
               <td>{{ order.createdAt | date:'short' | translate }}</td>
               <td>
-                <button class="btn btn-sm btn-outline-primary me-2"
+                <button class="btn bord-radius-8 p-top-4 p-right-8 p-bottom-4 p-left-8 btn-sm btn-outline-primary me-2"
                         (click)="updateStatus(order.id, STATUS.COMPLETED)"
                 >
                   <i class="fa fa-check"></i>
                 </button>
 
-                <button class="btn btn-sm btn-outline-warning me-2"
+                <button class="btn bord-radius-8 p-top-4 p-right-8 p-bottom-4 p-left-8 btn-sm btn-outline-warning me-2"
                         (click)="updateStatus(order.id, STATUS.PROCESSING)"
                 >
                   <i class="fa fa-cog"></i>
                 </button>
 
-                <button class="btn btn-sm btn-outline-danger"
+                <button class="btn bord-radius-8 p-top-4 p-right-8 p-bottom-4 p-left-8 btn-sm btn-outline-danger"
                         (click)="cancelOrder(order.id)"
                 >
                   <i class="fa fa-times"></i>
