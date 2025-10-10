@@ -1,0 +1,27 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+
+body.light-theme {
+  background-color: $light-bg;
+  color: $light-text;
+}
+
+body.dark-theme {
+  background-color: $dark-bg;
+  color: $dark-text;
+}
+
+.navbar {
+  @include transition(all);
+
+  &.navbar-light {
+    background-color: $light-bg !important;
+    color: $light-text;
+  }
+
+  &.navbar-dark {
+    background-color: $dark-bg !important;
+    color: $dark-text;
+  }
+}

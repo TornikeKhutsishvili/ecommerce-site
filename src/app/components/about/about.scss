@@ -1,3 +1,5 @@
+@use "../../scss-components/mixins" as *;
+
 .about-section {
   padding: 3rem 1rem;
   background: linear-gradient(to bottom, #f9f9f9, #fff);
@@ -24,10 +26,7 @@
   }
 
   .about-details {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
+    @include flex-center(center, null, wrap, null, 24px);
 
     .about-card {
       background: white;

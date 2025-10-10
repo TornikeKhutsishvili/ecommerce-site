@@ -1,0 +1,36 @@
+@use "variables" as *;
+
+// ================================
+// MIXINS
+// ================================
+
+@mixin transition($props...) {
+  transition: $props 0.3s ease-in-out;
+}
+
+// flex center
+@mixin flex-center(
+  $justify-center: center,
+  $align-center: center,
+  $flex-wrap: wrap,
+  $flex-direction: row,
+  $gap: 0
+) {
+  display: flex;
+
+  @if $justify-center != null {
+    justify-content: $justify-center;
+  }
+  @if $align-center != null {
+    align-items: $align-center;
+  }
+  @if $flex-wrap != null {
+    flex-wrap: $flex-wrap;
+  }
+  @if $flex-direction != null {
+    flex-direction: $flex-direction;
+  }
+  @if $gap != null {
+    gap: $gap;
+  }
+}

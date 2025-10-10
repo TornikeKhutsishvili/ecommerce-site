@@ -1,3 +1,5 @@
+@use "../../../scss-components/mixins" as *;
+
 .card {
     max-width: 860px;
     margin: 1.25rem auto;
@@ -18,9 +20,7 @@
 }
 
 label {
-    display: flex;
-    flex-direction: column;
-    gap: .35rem;
+    @include flex-center(null, null, null, column, .35rem);
     font-weight: 600;
 }
 
@@ -31,9 +31,7 @@ input,textarea {
 }
 
 .actions {
-    display: flex;
-    gap: .5rem;
-    justify-content: flex-end;
+    @include flex-center(flex-end, null, null, column, .5rem);
     margin-top: .75rem;
 }
 

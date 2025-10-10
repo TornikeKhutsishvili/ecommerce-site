@@ -1,7 +1,7 @@
+@use "../../../scss-components/mixins" as *;
+
 .toolbar {
-  display: flex;
-  align-items: center;
-  gap: .75rem;
+  @include flex-center(center, center, null, column, 0.75rem);
   margin: 1rem 0;
 }
 

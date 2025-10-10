@@ -1,8 +1,7 @@
+@use "../../../scss-components/mixins" as *;
+
 .cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px;
+  @include flex-center(space-between, null, wrap, null, 20px);
 }
 
 .card {
