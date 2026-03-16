@@ -20,6 +20,7 @@
     "@netlify/angular-runtime": "^2.4.0",
     "@ng-select/ng-select": "^21.5.2",
     "@ngrx/signals": "^21.0.1",
+    "@ngrx/store": "^21.0.1",
     "@ngx-translate/core": "^17.0.0",
     "@ngx-translate/http-loader": "^17.0.0",
     "aos": "^2.3.4",
