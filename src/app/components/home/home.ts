@@ -1,17 +1,6 @@
-import {
-  Component,
-  effect,
-  inject,
-  OnInit,
-  signal
-} from '@angular/core';
-
-import {
-  Router,
-  RouterModule
-} from '@angular/router';
-
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductList } from "../products/product-list/product-list";
 import { TranslateModule } from '@ngx-translate/core';

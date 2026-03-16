@@ -31,6 +31,7 @@ export class Register {
   confirmPassword = signal('');
   active = signal(false);
 
+  // signals
   private router = inject(Router);
   private auth = inject(AuthService);
 

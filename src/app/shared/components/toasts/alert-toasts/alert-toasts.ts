@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule
-  ],
+],
   templateUrl: './alert-toasts.html',
   styleUrls: ['./alert-toasts.scss']
 })

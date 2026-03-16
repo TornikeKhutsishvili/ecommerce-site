@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,7 +12,6 @@ import { AddToasts } from '../../../shared/components/toasts/add-toasts/add-toas
   selector: 'app-product-details',
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     FormsModule,
     TranslateModule,

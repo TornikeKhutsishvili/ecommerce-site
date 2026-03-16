@@ -17,7 +17,7 @@ declare const tsParticles: any;
     TranslateModule,
     RouterModule,
     AlertToasts
-  ],
+],
   templateUrl: './error-page.html',
   styleUrls: ['./error-page.scss']
 })

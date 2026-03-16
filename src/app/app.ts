@@ -1,6 +1,6 @@
 import { Component, computed, inject, OnInit, signal, WritableSignal } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Navigation } from "./shared/components/navigation/navigation";
 import { dummyProductModel } from './core/models/product.model';
@@ -14,15 +14,15 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'app-root',
   standalone: true,
   imports: [
+    CommonModule,
     RouterOutlet,
     RouterModule,
-    CommonModule,
     TranslateModule,
     FormsModule,
     Navigation,
     Footer
   ],
-  templateUrl: './app.html'
+  templateUrl: './app.html',
 })
 export class App implements OnInit {
   protected title = 'TKShop';

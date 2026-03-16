@@ -13,7 +13,7 @@ import { About } from '../about/about';
     RouterModule,
     About,
     TranslateModule
-],
+  ],
   templateUrl: './footer.html',
   styleUrls: ['./footer.scss']
 })

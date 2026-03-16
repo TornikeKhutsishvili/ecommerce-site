@@ -1,21 +1,6 @@
-import {
-  Component,
-  computed,
-  inject,
-  OnInit,
-  signal
-} from '@angular/core';
-
-import {
-  RouterLink,
-  RouterModule
-} from '@angular/router';
-
-import {
-  TranslateModule,
-  TranslateService
-} from '@ngx-translate/core';
-
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { RouterLink, RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { dummyProductModel } from '../../../../core/models/product.model';

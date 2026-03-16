@@ -1,7 +1,7 @@
-import { RouterModule} from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule} from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -11,8 +11,8 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     FormsModule,
     RouterModule,
-    TranslateModule,
-  ],
+    TranslateModule
+],
   templateUrl: './success.html',
   styleUrls: ['./success.scss']
 })

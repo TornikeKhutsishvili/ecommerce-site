@@ -1,6 +1,6 @@
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -11,8 +11,8 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     FormsModule,
     RouterModule,
-    TranslateModule,
-  ],
+    TranslateModule
+],
   templateUrl: './cancel.html',
   styleUrls: ['./cancel.scss']
 })

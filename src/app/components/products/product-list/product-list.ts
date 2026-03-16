@@ -3,7 +3,7 @@ import {
   OnChanges, OnInit, PLATFORM_ID, signal, ViewChild
 } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
-import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
+import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -18,7 +18,6 @@ import AOS from 'aos';
   selector: 'app-product-list',
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     RouterLink,
     RouterModule,
