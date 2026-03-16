@@ -17,6 +17,16 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "aos",
+              "jspdf",
+              "html2canvas",
+              "canvg",
+              "core-js",
+              "raf",
+              "rgbcolor"
+            ],
             "outputPath": "dist/ecommerce",
             "browser": "src/main.ts",
             "polyfills": [
