@@ -1,41 +1,17 @@
 import {
-  AfterViewChecked,
-  Component,
-  computed,
-  effect,
-  Inject,
-  inject,
-  Input,
-  OnChanges,
-  OnInit,
-  PLATFORM_ID,
-  signal,
-  ViewChild
+  AfterViewChecked, Component, computed, effect, Inject, inject, Input,
+  OnChanges, OnInit, PLATFORM_ID, signal, ViewChild
 } from '@angular/core';
-
-import {
-  RouterLink,
-  RouterModule
-} from '@angular/router';
-
-import {
-  CommonModule,
-  isPlatformBrowser,
-  NgOptimizedImage
-} from '@angular/common';
-
-import {
-  TranslateModule,
-  TranslateService
-} from '@ngx-translate/core';
-
+import { RouterLink, RouterModule } from '@angular/router';
+import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FilterService } from '../../../services/filter-service';
-import { CartService } from '../../../services/cart-service';
-import { SearchService } from '../../../services/search-service';
-import { AddToasts } from '../../toasts/add-toasts/add-toasts';
-import { dummyProductModel } from '../../../models/product.model';
+import { FilterService } from '../../../core/services/filter-service';
+import { CartService } from '../../../core/services/cart-service';
+import { SearchService } from '../../../core/services/search-service';
+import { AddToasts } from '../../../shared/components/toasts/add-toasts/add-toasts';
+import { dummyProductModel } from '../../../core/models/product.model';
 import AOS from 'aos';
 
 @Component({
@@ -55,7 +31,6 @@ import AOS from 'aos';
   styleUrls: ['./product-list.scss']
 })
 export class ProductList implements OnInit, AfterViewChecked, OnChanges {
-
   @Input() productsInput: any[] = [];
 
   filteredProducts = signal<any[]>([]);
@@ -73,13 +48,11 @@ export class ProductList implements OnInit, AfterViewChecked, OnChanges {
   // ViewChild for AddToasts component
   @ViewChild('addToast') addToast!: AddToasts;
 
-
   // Paginated view
   readonly paginatedProducts = computed(() => {
     const start = (this.page() - 1) * this.itemsPerPage();
     return this.filteredProducts().slice(start, start + this.itemsPerPage());
   });
-
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     // Reactively update filteredProducts whenever searchQuery or priceFilter changes
@@ -87,7 +60,6 @@ export class ProductList implements OnInit, AfterViewChecked, OnChanges {
       this.applyFilters();
     });
   }
-
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -103,7 +75,6 @@ export class ProductList implements OnInit, AfterViewChecked, OnChanges {
     this.cartItemCount.set(this.cartService.cartItems().length);
   }
 
-
   ngOnChanges() {
     if (this.productsInput && this.productsInput.length) {
       this.filterService.setAllProducts(this.productsInput);
@@ -116,7 +87,6 @@ export class ProductList implements OnInit, AfterViewChecked, OnChanges {
       AOS.refresh();
     }
   }
-
 
   private applyFilters() {
     // let filtered = [...this.productsInput];
@@ -136,7 +106,6 @@ export class ProductList implements OnInit, AfterViewChecked, OnChanges {
     this.filteredProducts.set(products);
   }
 
-
   getStarFillPercent(productRating: number, star: number): number {
     if (star <= Math.floor(productRating)) {
       return 100;
@@ -147,16 +116,13 @@ export class ProductList implements OnInit, AfterViewChecked, OnChanges {
     return 0;
   }
 
-
   applyPriceFilter(price: number | null) {
     this.filterService.setPriceFilter(price);
   }
 
-
   applySort(order: 'low' | 'high') {
     this.filterService.setSortOrder(order);
   }
-
 
   showMore() {
     const current = this.page() * this.itemsPerPage();
@@ -164,11 +130,9 @@ export class ProductList implements OnInit, AfterViewChecked, OnChanges {
     this.page.set(Math.ceil(nextPage / this.itemsPerPage()));
   }
 
-
   addToCart(product: dummyProductModel): void {
     this.cartService.addToCart(product);
     this.cartItemCount.set(this.cartService.cartItems().length);
     this.addToast.openToast(`${product.title} added to cart! 🛒`);
   }
-
 }

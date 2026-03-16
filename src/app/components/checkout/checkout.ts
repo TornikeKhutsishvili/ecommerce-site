@@ -1,30 +1,19 @@
-import {
-  Component,
-  computed,
-  inject,
-  signal,
-  ViewChild
-} from '@angular/core';
-
-import {
-  RouterLink,
-  RouterModule
-} from '@angular/router';
-
+import { Component, computed, inject, signal, ViewChild } from '@angular/core';
+import { RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PaymentService } from '../../services/payment-service';
-import { CartService } from '../../services/cart-service';
+import { CartService } from '../../core/services/cart-service';
 import { TranslateModule } from '@ngx-translate/core';
-import { DeleteToasts } from '../toasts/delete-toasts/delete-toasts';
-import { AcceptToasts } from "../toasts/accept-toasts/accept-toasts";
-import { AlertToasts } from "../toasts/alert-toasts/alert-toasts";
-import { AddToasts } from '../toasts/add-toasts/add-toasts';
-import { OrderService } from '../../services/orders-service';
-import { OrderItem } from '../../interfaces/order-item.interface';
-import { CreateOrderDto } from '../../interfaces/order.interface';
-import { PaymentProvider } from '../../interfaces/payment-provider.type';
-import { AuthService } from '../../services/auth-service';
+import { DeleteToasts } from '../../shared/components/toasts/delete-toasts/delete-toasts';
+import { AcceptToasts } from "../../shared/components/toasts/accept-toasts/accept-toasts";
+import { AlertToasts } from "../../shared/components/toasts/alert-toasts/alert-toasts";
+import { AddToasts } from '../../shared/components/toasts/add-toasts/add-toasts';
+import { AuthService } from '../../core/services/auth-service';
+import { PaymentService } from '../../core/services/payment-service';
+import { OrderService } from '../../core/services/orders-service';
+import { OrderItem } from '../../core/interfaces/order-item.interface';
+import { CreateOrderDto } from '../../core/interfaces/order.interface';
+import { PaymentProvider } from '../../core/interfaces/payment-provider.type';
 
 @Component({
   selector: 'app-checkout',
@@ -43,7 +32,6 @@ import { AuthService } from '../../services/auth-service';
   styleUrls: ['./checkout.scss']
 })
 export class Checkout {
-
   // Toasts
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
@@ -192,5 +180,4 @@ export class Checkout {
   get isFormValid() {
     return !!(this.userName() && this.userEmail() && this.userAddress());
   }
-
 }

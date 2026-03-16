@@ -1,16 +1,11 @@
-import {
-  Component,
-  inject,
-  OnInit
-} from '@angular/core';
-
+import { Component, inject, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { Order } from '../../../interfaces/order.interface';
-import { OrderService } from '../../../services/orders-service';
-import { OrderStatus } from '../../../interfaces/order-status.type';
+import { Order } from '../../../core/interfaces/order.interface';
+import { OrderService } from '../../../core/services/orders-service';
+import { OrderStatus } from '../../../core/interfaces/order-status.type';
 
 @Component({
   selector: 'app-all-order',
@@ -25,12 +20,10 @@ import { OrderStatus } from '../../../interfaces/order-status.type';
   styleUrls: ['./all-order.scss']
 })
 export class AllOrder implements OnInit {
-
   // variables
   private orderService = inject(OrderService);
   orders: Order[] = [];
   loading = true;
-
 
   // expose status constants to the template (no casts in template)
   public readonly STATUS = {
@@ -43,11 +36,9 @@ export class AllOrder implements OnInit {
     DELIVERED: 'delivered' as OrderStatus
   };
 
-
   ngOnInit(): void {
     this.loadOrders();
   }
-
 
   loadOrders(): void {
     this.loading = true;
@@ -63,7 +54,6 @@ export class AllOrder implements OnInit {
     });
   }
 
-
   updateStatus(orderId: string | number, status: OrderStatus): void {
     const id = String(orderId);
     this.orderService.updateStatus(id, status).subscribe({
@@ -71,7 +61,6 @@ export class AllOrder implements OnInit {
       error: () => this.loadOrders()
     });
   }
-
 
   cancelOrder(orderId: string | number): void {
     if (!confirm('გსურთ შეკვეთის გაუქმება?')) return;
@@ -81,5 +70,4 @@ export class AllOrder implements OnInit {
       error: () => this.loadOrders()
     });
   }
-
 }

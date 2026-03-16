@@ -1,7 +1,7 @@
-@use "../../../../scss-components/mixins" as *;
+@use "../../../../shared/scss-components/mixins" as mix;
 
 .product-card {
-  @include transition(all);
+  @include mix.transition(all);
   cursor: pointer;
 
   &:hover {

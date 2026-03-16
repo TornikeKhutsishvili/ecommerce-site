@@ -1,23 +1,12 @@
-import {
-  PLATFORM_ID,
-  Inject,
-  OnInit,
-  inject
-} from '@angular/core';
-
-import {
-  ActivatedRoute,
-  Router,
-  RouterModule
-} from '@angular/router';
-
+import { PLATFORM_ID, Inject, OnInit, inject } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { isPlatformBrowser } from '@angular/common';
-import { OrderService } from '../../../services/orders-service';
-import { Order } from '../../../interfaces/order.interface';
+import { OrderService } from '../../../core/services/orders-service';
+import { Order } from '../../../core/interfaces/order.interface';
 
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -35,7 +24,6 @@ import jsPDF from 'jspdf';
   styleUrls: ['./order-details.scss']
 })
 export class OrderDetails implements OnInit {
-
   // inject
   private orderService = inject(OrderService);
   private route = inject(ActivatedRoute);
@@ -65,7 +53,6 @@ export class OrderDetails implements OnInit {
       }
     }
   }
-
 
   downloadPDF() {
     if (!this.order) return;
@@ -111,5 +98,4 @@ export class OrderDetails implements OnInit {
       pdf.save(`Order-${this.order?.id}.pdf`);
     });
   }
-
 }

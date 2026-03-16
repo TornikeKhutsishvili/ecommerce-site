@@ -18,10 +18,10 @@ import {
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { dummyProductModel } from '../../../../models/product.model';
-import { ProductService } from '../../../../services/product-service';
-import { FilterService } from '../../../../services/filter-service';
-import { SearchService } from '../../../../services/search-service';
+import { dummyProductModel } from '../../../../core/models/product.model';
+import { ProductService } from '../../../../core/services/product-service';
+import { FilterService } from '../../../../core/services/filter-service';
+import { SearchService } from '../../../../core/services/search-service';
 
 @Component({
   selector: 'app-smartphones',
@@ -37,7 +37,6 @@ import { SearchService } from '../../../../services/search-service';
   styleUrls: ['./smartphones.scss']
 })
 export class Smartphones implements OnInit {
-
   // variables
   productsToShow = signal(12);
 
@@ -58,7 +57,6 @@ export class Smartphones implements OnInit {
         return title.includes(query) || category.includes(query);
       });
     }
-
     products = products.filter(p => p.category === 'smartphones');
 
     return products;
@@ -81,5 +79,4 @@ export class Smartphones implements OnInit {
   get visibleProducts() {
     return this.filteredProducts().slice(0, this.productsToShow());
   }
-
 }

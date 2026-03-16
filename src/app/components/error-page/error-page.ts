@@ -1,21 +1,9 @@
-import {
-  Component,
-  inject,
-  OnDestroy,
-  OnInit,
-  signal,
-  ViewChild
-} from '@angular/core';
-
-import {
-  Router,
-  RouterModule
-} from '@angular/router';
-
+import { Component, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { AlertToasts } from '../toasts/alert-toasts/alert-toasts';
+import { AlertToasts } from '../../shared/components/toasts/alert-toasts/alert-toasts';
 import { loadFull } from "tsparticles";
 
 declare const tsParticles: any;
@@ -34,7 +22,6 @@ declare const tsParticles: any;
   styleUrls: ['./error-page.scss']
 })
 export class ErrorPage implements OnInit, OnDestroy {
-
   // injects
   private audio: HTMLAudioElement | null = null;
   private router = inject(Router);
@@ -42,7 +29,6 @@ export class ErrorPage implements OnInit, OnDestroy {
 
   // ViewChild alertToast
   @ViewChild('alertToast') alertToast!: AlertToasts;
-
 
   // when init component
   async ngOnInit() {
@@ -69,7 +55,6 @@ export class ErrorPage implements OnInit, OnDestroy {
       detectRetina: true
     });
 
-
     // background music
     this.audio = new Audio('assets/sounds/error-bg.mp3');
     this.audio.loop = true;
@@ -77,7 +62,6 @@ export class ErrorPage implements OnInit, OnDestroy {
     this.audio.muted = isMuted;
     this.audio.play().catch(() => {});
   }
-
 
   // mute and unmute
   toggleMute() {
@@ -102,7 +86,6 @@ export class ErrorPage implements OnInit, OnDestroy {
     tsParticles.dom().forEach((p: any) => p.destroy());
   }
 
-
   // go to home
   goHome() {
     this.alertToast.openToast('back to home');
@@ -112,5 +95,4 @@ export class ErrorPage implements OnInit, OnDestroy {
       this.router.navigate(['/']);
     }, 700);
   }
-
 }

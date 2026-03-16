@@ -1,33 +1,12 @@
-import {
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms';
-
-import {
-  Component,
-  Inject,
-  inject,
-  OnInit,
-  PLATFORM_ID,
-  signal,
-  ViewChild
-} from '@angular/core';
-
-import {
-  CommonModule,
-  isPlatformBrowser
-} from '@angular/common';
-
-import {
-  AuthService,
-  User
-} from '../../../services/auth-service';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, Inject, inject, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AuthService, User } from '../../../core/services/auth-service';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { AlertToasts } from "../../toasts/alert-toasts/alert-toasts";
-import { AcceptToasts } from "../../toasts/accept-toasts/accept-toasts";
-import { DeleteToasts } from "../../toasts/delete-toasts/delete-toasts";
+import { AlertToasts } from "../../../shared/components/toasts/alert-toasts/alert-toasts";
+import { AcceptToasts } from "../../../shared/components/toasts/accept-toasts/accept-toasts";
+import { DeleteToasts } from "../../../shared/components/toasts/delete-toasts/delete-toasts";
 
 @Component({
   selector: 'app-user-profile-info',
@@ -45,7 +24,6 @@ import { DeleteToasts } from "../../toasts/delete-toasts/delete-toasts";
   styleUrls: ['./user-profile-info.scss']
 })
 export class UserProfileInfo implements OnInit {
-
   // inject Service
   private auth = inject(AuthService);
   private router = inject(Router);
@@ -64,16 +42,11 @@ export class UserProfileInfo implements OnInit {
   // toggle edit/view mode
   editMode = signal<boolean>(false);
 
-
   // lifecycle hook ngOnInit
   ngOnInit(): void {
     this.user = this.auth.getUser();
-
-    if (this.user && !this.user.city) {
-      this.user.city = '';
-    }
+    if (this.user && !this.user.city) this.user.city = '';
   }
-
 
   // Georgian Cities
   cities = signal<string[]>([
@@ -86,12 +59,9 @@ export class UserProfileInfo implements OnInit {
     'Tsageri', 'Tsalenjikha', 'Tsalka', 'Tskaltubo', 'Tskhinvali', 'Vani', 'Zestafoni', 'Zugdidi'
   ]);
 
-
   // method to save profile
   saveProfile() {
-    if (!this.user) {
-      return this.alertToast.openToast('No user found');
-    }
+    if (!this.user) return this.alertToast.openToast('No user found');
 
     if (isPlatformBrowser(this.platformId)) {
       // update storage via AuthService
@@ -105,12 +75,10 @@ export class UserProfileInfo implements OnInit {
     }
   }
 
-
   // error on Image
   onImgError(event: Event) {
     (event.target as HTMLImageElement).src = this.avatarImg();
   }
-
 
   // Upload photo
   onFileSelected(event: Event) {
@@ -127,10 +95,8 @@ export class UserProfileInfo implements OnInit {
     }
   }
 
-
   // go back
   goBack(): void {
     this.router.navigate(['/auth/profile']);
   }
-
 }

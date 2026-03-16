@@ -1,0 +1,22 @@
+@use "./variables" as vars;
+@use "./mixins" as mix;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: vars.$box-sizing;
+}
+
+body {
+  background-color: vars.$light-bg;
+  color: vars.$light-text;
+  @include mix.transition(all);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}

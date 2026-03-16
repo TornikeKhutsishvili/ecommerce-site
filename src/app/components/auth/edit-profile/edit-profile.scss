@@ -1,13 +1,12 @@
-@use "../../../scss-components/variables" as *;
-@use "../../../scss-components/mixins" as *;
-@use "../../../scss-components/utilities" as *;
+@use "../../../shared/scss-components/variables" as vars;
+@use "../../../shared/scss-components/mixins" as mix;
 
 // Main container
 .edit-profile-container-main {
   min-height: 80vh;
 
   .edit-profile-container {
-    @include flex-center(center, center, null, column, null);
+    @include mix.flex-center(center, center, null, column, null);
     padding: 80px 20px;
 
     h2 {
@@ -15,7 +14,7 @@
     }
 
     form {
-      @include flex-center(null, center, null, column, null);
+      @include mix.flex-center(null, center, null, column, null);
       max-width: 450px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 
@@ -30,20 +29,20 @@
           width: 100%;
           padding: 12px;
           border: 1px solid #ccc;
-          border-radius: $border-radius;
+          border-radius: vars.$border-radius;
           font-size: 1rem;
           background-color: white;
-          color: $text-color;
+          color: vars.$text-color;
           transition: all 0.3s ease;
 
           &:hover {
-            border-color: $primary-color;
-            box-shadow: 0 0 5px $primary-color;
+            border-color: vars.$primary-color;
+            box-shadow: 0 0 5px vars.$primary-color;
           }
 
           &:focus {
-            border-color: $primary-color;
-            box-shadow: 0 0 8px $primary-color;
+            border-color: vars.$primary-color;
+            box-shadow: 0 0 8px vars.$primary-color;
             outline: none;
           }
 
@@ -51,12 +50,12 @@
           &:not(:placeholder-shown) + label {
             top: -10px;
             font-size: 0.8rem;
-            color: $primary-color;
+            color: vars.$primary-color;
           }
         }
 
         label {
-          @include position(absolute, 12px, null, null, 12px);
+          @include mix.position(absolute, 12px, null, null, 12px);
           font-size: 0.9rem;
           color: #777;
           background: white;
@@ -68,7 +67,7 @@
           position: relative;
 
           .toggle-password {
-            @include position(absolute, 50%, 12px, null, null);
+            @include mix.position(absolute, 50%, 12px, null, null);
             transform: translateY(-50%);
             background: none;
             border: none;
@@ -78,28 +77,28 @@
       }
 
       .error-summary {
-        color: $error-color;
+        color: vars.$error-color;
       }
 
       .success-msg {
-        color: $primary-color;
+        color: vars.$primary-color;
       }
 
       .button-group {
-        @include flex-center(flex-end, null, null, null, 10px);
+        @include mix.flex-center(flex-end, null, null, null, 10px);
 
         button {
           padding: 10px 18px;
-          background-color: $primary-color;
+          background-color: vars.$primary-color;
           color: white;
           border: none;
-          border-radius: $border-radius;
+          border-radius: vars.$border-radius;
           font-size: 1rem;
           cursor: pointer;
           transition: background-color 0.3s ease;
 
           &:hover {
-            background-color: $primary-hover;
+            background-color: vars.$primary-hover;
           }
 
           &.secondary {

@@ -1,26 +1,11 @@
-import {
-  Component,
-  Inject,
-  inject,
-  PLATFORM_ID,
-  signal,
-} from '@angular/core';
-
-import {
-  CommonModule,
-  isPlatformBrowser
-} from '@angular/common';
-
-import {
-  AuthService,
-  User
-} from '../../services/auth-service';
-
+import { Component, Inject, inject, PLATFORM_ID, signal, } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AuthService, User } from '../../core/services/auth-service';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
-import { OrderService } from '../../services/orders-service';
-import { Order } from '../../interfaces/order.interface';
+import { OrderService } from '../../core/services/orders-service';
+import { Order } from '../../core/interfaces/order.interface';
 
 @Component({
   selector: 'app-orders',
@@ -35,19 +20,15 @@ import { Order } from '../../interfaces/order.interface';
   styleUrls: ['./orders.scss']
 })
 export class Orders {
-
   // injects
   private orderService = inject(OrderService);
   private authService = inject(AuthService);
-
 
   // variables
   orders = signal<Order[]>([]);
   currentUser = signal<User | null>(null);
 
-
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
-
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -61,5 +42,4 @@ export class Orders {
       }
     }
   }
-
 }

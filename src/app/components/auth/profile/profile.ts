@@ -1,18 +1,9 @@
-import {
-  Component,
-  inject,
-  OnInit
-} from '@angular/core';
-
-import {
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms';
-
+import { Component, inject, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../services/auth-service';
+import { AuthService } from '../../../core/services/auth-service';
 
 @Component({
   selector: 'app-profile',
@@ -27,7 +18,6 @@ import { AuthService } from '../../../services/auth-service';
   styleUrls: ['./profile.scss']
 })
 export class Profile implements OnInit {
-
   // inject Service and Router
   auth = inject(AuthService);
   private router = inject(Router);
@@ -59,5 +49,4 @@ export class Profile implements OnInit {
   goToMyOrders() {
     this.router.navigate(['/orders']);
   }
-
 }

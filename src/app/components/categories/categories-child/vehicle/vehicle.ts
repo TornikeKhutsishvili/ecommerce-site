@@ -1,27 +1,12 @@
-import {
-  Component,
-  computed,
-  inject,
-  OnInit,
-  signal
-} from '@angular/core';
-
-import {
-  RouterLink,
-  RouterModule
-} from '@angular/router';
-
-import {
-  TranslateModule,
-  TranslateService
-} from '@ngx-translate/core';
-
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { RouterLink, RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { dummyProductModel } from '../../../../models/product.model';
-import { ProductService } from '../../../../services/product-service';
-import { FilterService } from '../../../../services/filter-service';
-import { SearchService } from '../../../../services/search-service';
+import { dummyProductModel } from '../../../../core/models/product.model';
+import { ProductService } from '../../../../core/services/product-service';
+import { FilterService } from '../../../../core/services/filter-service';
+import { SearchService } from '../../../../core/services/search-service';
 
 @Component({
   selector: 'app-vehicle',
@@ -37,7 +22,6 @@ import { SearchService } from '../../../../services/search-service';
   styleUrls: ['./vehicle.scss']
 })
 export class Vehicle implements OnInit {
-
   // variables
   productsToShow = signal(12);
 
@@ -58,7 +42,6 @@ export class Vehicle implements OnInit {
         return title.includes(query) || category.includes(query);
       });
     }
-
     products = products.filter(p => p.category === 'vehicle');
 
     return products;
@@ -81,5 +64,4 @@ export class Vehicle implements OnInit {
   get visibleProducts() {
     return this.filteredProducts().slice(0, this.productsToShow());
   }
-
 }

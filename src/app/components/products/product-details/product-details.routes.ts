@@ -6,15 +6,13 @@ function generatePrerenderParams(count: number): { id: string }[] {
 }
 
 export const PRODUCTS_DETAILS_ROUTES: Routes = [
-
   {
     path: '',
-    loadComponent: () => import('./product-details')
-    .then(m => m.ProductDetails),
+    loadComponent: () =>
+      import('./product-details').then((m) => m.ProductDetails),
     data: {
-      getPrerenderParams: () => generatePrerenderParams(194)
+      getPrerenderParams: () => generatePrerenderParams(194),
     },
-    title: 'Product Details'
-  }
-
+    title: 'Product Details',
+  },
 ];

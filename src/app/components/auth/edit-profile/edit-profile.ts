@@ -1,25 +1,10 @@
-import {
-  Component,
-  inject,
-  OnInit,
-  signal,
-  ViewChild
-} from '@angular/core';
-
-import {
-  Router,
-  RouterModule
-} from '@angular/router';
-
-import {
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms';
-
+import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { AuthService } from '../../../services/auth-service';
-import { AlertToasts } from "../../toasts/alert-toasts/alert-toasts";
+import { AuthService } from '../../../core/services/auth-service';
+import { AlertToasts } from "../../../shared/components/toasts/alert-toasts/alert-toasts";
 
 @Component({
   selector: 'app-edit-profile',
@@ -36,7 +21,6 @@ import { AlertToasts } from "../../toasts/alert-toasts/alert-toasts";
   styleUrls: ['./edit-profile.scss']
 })
 export class EditProfile implements OnInit {
-
   username = signal('');
   password = signal('');
   confirmPassword = signal('');
@@ -45,12 +29,10 @@ export class EditProfile implements OnInit {
   showPassword = signal(false);
   showOldPassword = signal(false);
   errorMessage = signal('');
-
   oldPasswordValue = signal('');
   usernameValue = signal('');
   passwordValue = signal('');
   confirmPasswordValue = signal('');
-
   show = signal('👁️');
   hide = signal('🙈');
 
@@ -151,5 +133,4 @@ export class EditProfile implements OnInit {
   goBack(): void {
     this.router.navigate(['/auth/profile']);
   }
-
 }

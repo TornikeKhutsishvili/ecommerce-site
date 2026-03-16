@@ -1,8 +1,7 @@
-@use "../../../scss-components/mixins" as *;
-@use "../../../scss-components/utilities" as *;
+@use "../../../shared/scss-components/mixins" as mix;
 
 .cards {
-  @include flex-center(space-between, null, wrap, null, 20px);
+  @include mix.flex-center(space-between, null, wrap, null, 20px);
 
   .card {
     flex: 0 0 calc(50% - 20px);
@@ -26,5 +25,4 @@
       flex: 0 0 100%;
     }
   }
-
 }

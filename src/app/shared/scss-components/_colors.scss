@@ -1,0 +1,12 @@
+@use "sass:color";
+@use './variables' as vars;
+
+// toast colors
+@each $key, $val in vars.$toast-colors {
+  .text-#{$key} {
+    color: $val;
+  }
+  .bg-#{$key} {
+    background-color: $val;
+  }
+}

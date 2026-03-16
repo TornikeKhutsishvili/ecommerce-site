@@ -1,30 +1,16 @@
 import {
-  ApplicationConfig,
-  importProvidersFrom,
-  provideBrowserGlobalErrorListeners,
+  ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection
 } from '@angular/core';
-
-import {
-  provideRouter,
-  withEnabledBlockingInitialNavigation
-} from '@angular/router';
-
-import {
-  HTTP_INTERCEPTORS,
-  provideHttpClient,
-  withFetch
-} from '@angular/common/http';
-
+import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/router';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from '@angular/common/http';
 import { routes } from './app.routes';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule } from '@ngx-translate/core';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
-
   providers: [
-
     provideHttpClient(withFetch()),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -33,7 +19,6 @@ export const appConfig: ApplicationConfig = {
       withEnabledBlockingInitialNavigation(),
     ),
     provideTranslateHttpLoader(),
-
 
     // Provide ngx-translate core
     importProvidersFrom(
@@ -53,7 +38,5 @@ export const appConfig: ApplicationConfig = {
       useClass: AuthInterceptor,
       multi: true,
     },
-
   ]
-
 };

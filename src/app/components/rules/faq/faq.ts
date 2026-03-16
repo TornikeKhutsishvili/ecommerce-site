@@ -17,9 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./faq.scss']
 })
 export class FAQ {
-
   public faqs = [
-
     {
       q: 'How do I place an order?',
       a: 'Add products to cart and follow checkout.'
@@ -29,7 +27,5 @@ export class FAQ {
       q: 'What payment methods do you accept?',
       a: 'We accept cards, Paypal and bank transfer.'
     }
-
   ];
-
 }

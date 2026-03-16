@@ -1,23 +1,12 @@
-import {
-  Component,
-  inject,
-  OnInit,
-  signal,
-  ViewChild
-} from '@angular/core';
-
-import {
-  ActivatedRoute,
-  RouterModule
-} from '@angular/router';
-
+import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { CartService } from '../../../services/cart-service';
-import { ProductService } from '../../../services/product-service';
-import { AddToasts } from '../../toasts/add-toasts/add-toasts';
+import { CartService } from '../../../core/services/cart-service';
+import { ProductService } from '../../../core/services/product-service';
+import { AddToasts } from '../../../shared/components/toasts/add-toasts/add-toasts';
 
 @Component({
   selector: 'app-product-details',
@@ -33,7 +22,6 @@ import { AddToasts } from '../../toasts/add-toasts/add-toasts';
   styleUrls: ['./product-details.scss']
 })
 export class ProductDetails implements OnInit {
-
   // variables
   product = signal<any>('');
   stars = signal<any>([1, 2, 3, 4, 5]);
@@ -43,10 +31,8 @@ export class ProductDetails implements OnInit {
   private cartService = inject(CartService);
   private productService = inject(ProductService);
 
-
   // ViewChild addToast
   @ViewChild('addToast') addToast!: AddToasts;
-
 
   // ngOnInit
   ngOnInit() {
@@ -62,8 +48,6 @@ export class ProductDetails implements OnInit {
 
   }
 
-
-
   // get star fill percent
   getStarFillPercent(productRating: number, star: number): number {
     if (star <= Math.floor(productRating)) {
@@ -76,14 +60,12 @@ export class ProductDetails implements OnInit {
     return 0;
   }
 
-
   // add product to cart
   addToCart() {
     const currentProduct = this.product();
     this.cartService.addToCart(currentProduct);
     this.addToast.openToast(`${currentProduct.title} added to cart! 🛒`);
   }
-
 
   // back
   goBack(scrollToTop: boolean = false) {
@@ -95,5 +77,4 @@ export class ProductDetails implements OnInit {
       }, 100);
     }
   }
-
 }

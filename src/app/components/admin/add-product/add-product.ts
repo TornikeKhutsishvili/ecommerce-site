@@ -1,23 +1,11 @@
-import {
-  Component,
-  inject,
-  signal,
-  ViewChild,
-  WritableSignal
-} from '@angular/core';
-
-import {
-  Router,
-  RouterLink,
-  RouterModule
-} from '@angular/router';
-
+import { Component, inject, signal, ViewChild, WritableSignal } from '@angular/core';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { ProductService } from '../../../services/product-service';
-import { AddToasts } from "../../toasts/add-toasts/add-toasts";
-import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
+import { ProductService } from '../../../core/services/product-service';
+import { AddToasts } from "../../../shared/components/toasts/add-toasts/add-toasts";
+import { AlertToasts } from '../../../shared/components/toasts/alert-toasts/alert-toasts';
 
 @Component({
   selector: 'app-add-product',
@@ -35,14 +23,12 @@ import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
   styleUrls: ['./add-product.scss']
 })
 export class AddProduct {
-
   private productService = inject(ProductService);
   private router = inject(Router);
 
   // ViewChild addToast
   @ViewChild('addToast') addToast!: AddToasts;
   @ViewChild('alertToast') alertToast!: AlertToasts;
-
 
   // product object
   product: {
@@ -58,7 +44,6 @@ export class AddProduct {
     category: signal(''),
     image: signal('')
   };
-
 
   // save product method
   saveProduct() {
@@ -93,5 +78,4 @@ export class AddProduct {
     this.addToast.openToast(`✅ Product added: ${payload.title}`);
     setTimeout(() => this.router.navigate(['/admin/dashboard']), 900);
   }
-
 }

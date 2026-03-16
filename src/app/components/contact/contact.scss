@@ -1,12 +1,11 @@
-@use "../../scss-components/mixins" as *;
-@use "../../scss-components/utilities" as *;
+@use "../../shared/scss-components/mixins" as mix;
 
 .error {
   color: #e91e63;
 }
 
 .contact-left {
-  @include flex-center(null, null, null, column, null);
+  @include mix.flex-center(null, null, null, column, null);
 }
 
 @media (max-width: 991.98px) {

@@ -1,14 +1,5 @@
-import {
-  Component,
-  inject,
-  OnInit
-} from '@angular/core';
-
-import {
-  AuthService,
-  User
-} from '../../../services/auth-service';
-
+import { Component, inject, OnInit } from '@angular/core';
+import { AuthService, User } from '../../../core/services/auth-service';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -27,7 +18,6 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./all-users.scss']
 })
 export class AllUsers implements OnInit {
-
   // variables
   private authService = inject(AuthService);
   users: User[] = [];
@@ -46,5 +36,4 @@ export class AllUsers implements OnInit {
       this.loadUsers(); // refresh table
     }
   }
-
 }

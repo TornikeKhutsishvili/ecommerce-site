@@ -1,26 +1,11 @@
-import {
-  Component,
-  inject,
-  signal,
-  ViewChild
-} from '@angular/core';
-
-import {
-  Router,
-  RouterLink,
-  RouterModule
-} from '@angular/router';
-
-import {
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms';
-
+import { Component, inject, signal, ViewChild } from '@angular/core';
+import { Router, RouterLink, RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
-import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
-import { AuthService } from '../../../services/auth-service';
+import { AlertToasts } from '../../../shared/components/toasts/alert-toasts/alert-toasts';
+import { AcceptToasts } from '../../../shared/components/toasts/accept-toasts/accept-toasts';
+import { AuthService } from '../../../core/services/auth-service';
 
 @Component({
   selector: 'app-register',
@@ -39,7 +24,6 @@ import { AuthService } from '../../../services/auth-service';
   styleUrls: ['./register.scss']
 })
 export class Register {
-
   // variables
   name = signal('');
   email = signal('');
@@ -47,11 +31,8 @@ export class Register {
   confirmPassword = signal('');
   active = signal(false);
 
-
-  // signals
   private router = inject(Router);
   private auth = inject(AuthService);
-
 
   // ViewChild acceptToast and alertToast
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
@@ -62,10 +43,8 @@ export class Register {
     return this.password() !== this.confirmPassword();
   }
 
-
   // onSubmit
   onSubmit() {
-
     if (this.passwordMismatch) {
       this.alertToast.openToast('Passwords do not match!');
       return;
@@ -84,7 +63,5 @@ export class Register {
         this.alertToast.openToast('User with this email already exists!');
       }
     }
-
   }
-
 }

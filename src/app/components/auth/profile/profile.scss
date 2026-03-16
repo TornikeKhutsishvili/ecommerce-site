@@ -1,5 +1,4 @@
-@use "../../../scss-components/mixins" as *;
-@use "../../../scss-components/utilities" as *;
+@use "../../../shared/scss-components/mixins" as mix;
 
 .profile-container-main {
   min-height: 80vh;
@@ -21,7 +20,7 @@
     }
 
     .profile-actions {
-      @include flex-center(center, null, wrap, null, 1rem);
+      @include mix.flex-center(center, null, wrap, null, 1rem);
 
       button {
         padding: 0.8rem 1.6rem;
@@ -61,7 +60,7 @@
       }
 
       .profile-actions {
-        @include flex-center(null, null, null, column, 0.8rem);
+        @include mix.flex-center(null, null, null, column, 0.8rem);
 
         button {
           width: 100%;

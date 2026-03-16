@@ -15,10 +15,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductList } from "../products/product-list/product-list";
 import { TranslateModule } from '@ngx-translate/core';
-import { Carusel } from "../carusel/carusel";
-import { ProductService } from '../../services/product-service';
-import { dummyProductModel } from '../../models/product.model';
-import { FilterService } from '../../services/filter-service';
+import { ProductService } from '../../core/services/product-service';
+import { Carusel } from '../../shared/components/carousel/carusel';
+import { dummyProductModel } from '../../core/models/product.model';
+import { FilterService } from '../../core/services/filter-service';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -36,7 +36,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
   styleUrls: ['./home.scss']
 })
 export class Home implements OnInit {
-
   // Signals
   allProducts = signal<dummyProductModel[]>([]);
   carouselProducts = signal<dummyProductModel[]>([]);
@@ -80,6 +79,7 @@ export class Home implements OnInit {
 
   }
 
+  // OnInit
   ngOnInit() {
     this.loadData();
   }
@@ -106,5 +106,4 @@ export class Home implements OnInit {
       this.carouselProducts.set(data);
     });
   }
-
 }

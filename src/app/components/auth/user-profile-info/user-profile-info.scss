@@ -1,6 +1,4 @@
-@use "../../../scss-components/mixins" as *;
-@use "../../../scss-components/utilities" as *;
-
+@use "../../../shared/scss-components/mixins" as mix;
 
 // styles
 .profile-card,
@@ -8,7 +6,7 @@
   max-width: 400px;
   margin: 20px auto;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  @include transition(all);
+  @include mix.transition(all);
 }
 
 .profile-header {
@@ -72,15 +70,13 @@
       background-color: #0056b3;
     }
   }
-
 }
 
-
 .profile-form {
-  @include flex-center(null, null, null, column, 12px);
+  @include mix.flex-center(null, null, null, column, 12px);
 
   label {
-    @include flex-center(null, null, null, column, 0.9rem);
+    @include mix.flex-center(null, null, null, column, 0.9rem);
     text-align: left;
   }
 
@@ -105,7 +101,6 @@
   }
 }
 
-
 .avatar-wrapper {
   position: relative;
   display: inline-block;
@@ -125,7 +120,7 @@
   }
 
   .upload-label {
-    @include position(absolute, null, 11px, null, 50%);
+    @include mix.position(absolute, null, 11px, null, 50%);
     transform: translateX(-50%);
     background: rgba(0,0,0,0.6);
     pointer-events: none;

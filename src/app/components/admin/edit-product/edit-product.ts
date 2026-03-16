@@ -1,30 +1,13 @@
-import {
-  Component,
-  inject,
-  OnInit,
-  signal,
-  ViewChild
-} from '@angular/core';
-
-import {
-  ActivatedRoute,
-  Router,
-  RouterLink,
-  RouterModule
-} from '@angular/router';
-
-import {
-  TranslateModule,
-  TranslateService
-} from '@ngx-translate/core';
-
+import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ProductService } from '../../../services/product-service';
-import { DeleteToasts } from '../../toasts/delete-toasts/delete-toasts';
-import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
-import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
-import { AddToasts } from '../../toasts/add-toasts/add-toasts';
+import { ProductService } from '../../../core/services/product-service';
+import { DeleteToasts } from '../../../shared/components/toasts/delete-toasts/delete-toasts';
+import { AcceptToasts } from '../../../shared/components/toasts/accept-toasts/accept-toasts';
+import { AlertToasts } from '../../../shared/components/toasts/alert-toasts/alert-toasts';
+import { AddToasts } from '../../../shared/components/toasts/add-toasts/add-toasts';
 
 @Component({
   selector: 'app-edit-product',
@@ -44,12 +27,10 @@ import { AddToasts } from '../../toasts/add-toasts/add-toasts';
   styleUrls: ['./edit-product.scss']
 })
 export class EditProduct implements OnInit {
-
-  productService = inject(ProductService);
   private translate = inject(TranslateService);
+  productService = inject(ProductService);
   route = inject(ActivatedRoute);
   router = inject(Router);
-
   product = signal<any>({});
 
   // All ViewChild
@@ -57,7 +38,6 @@ export class EditProduct implements OnInit {
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
   @ViewChild('alertToast') alertToast!: AlertToasts;
   @ViewChild('addToast') addToast!: AddToasts;
-
 
   // ngOnInit
   ngOnInit() {
@@ -67,7 +47,6 @@ export class EditProduct implements OnInit {
       error: () => this.alertToast.openToast('Product not found')
     });
   }
-
 
   // update product
   updateProduct() {
@@ -111,5 +90,4 @@ export class EditProduct implements OnInit {
       { ...p, description: this.translate.instant(val) }
     ));
   }
-
 }

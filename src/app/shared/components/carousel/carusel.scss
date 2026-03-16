@@ -1,0 +1,121 @@
+@use "../../scss-components/mixins" as mix;
+
+.carousel {
+  img {
+    height: 400px;
+    max-height: 500px;
+    object-fit: contain;
+    opacity: 0.85;
+  }
+
+  .carousel-caption {
+    background: rgba(0, 0, 0, 0.5);
+
+    h1 {
+      font-weight: bold;
+    }
+
+    .star-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .filled-star {
+      @include mix.position(absolute, 0, null, null, 0);
+      white-space: nowrap;
+      overflow: hidden;
+      pointer-events: none;
+    }
+  }
+
+  .carousel-control-prev,
+  .carousel-control-next {
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    @include mix.transitions(background-color);
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  .carousel-indicators {
+    gap: 10px;
+
+    button {
+      background-color: #2199E8 !important;
+      border: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50% !important;
+      transition: all 0.3s ease;
+
+      &.active {
+        background-color: blue !important;
+        opacity: 1;
+      }
+    }
+  }
+
+  /***   responsive   ***/
+  @media (max-width: 768px) {
+    img {
+      height: 250px;
+    }
+
+    .carousel-caption {
+      h1 {
+        font-size: 1.2rem;
+      }
+      p {
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .carousel-control-prev,
+    .carousel-control-next {
+      width: 25px;
+      height: 25px;
+
+      .carousel-control-next-icon,
+      .carousel-control-prev-icon {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+
+    .carousel-indicators {
+      gap: 6px;
+
+      button {
+        width: 0.6rem !important;
+        height: 0.6rem !important;
+        border-radius: 50% !important;
+        padding: 0;
+      }
+
+      &::before {
+        width: 0.6rem !important;
+        height: 0.6rem !important;
+      }
+    }
+
+    .carousel img {
+      height: 180px;
+    }
+
+    .carousel-caption h1 {
+      font-size: 1rem;
+    }
+
+    .carousel-caption p {
+      font-size: 0.8rem;
+    }
+  }
+}

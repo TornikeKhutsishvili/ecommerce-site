@@ -1,37 +1,16 @@
 import {
-  AfterViewChecked,
-  Component,
-  computed,
-  Inject,
-  inject,
-  OnInit,
-  PLATFORM_ID,
-  ViewChild
+  AfterViewChecked, Component, computed, Inject, inject, OnInit, PLATFORM_ID, ViewChild
 } from '@angular/core';
-
-import {
-  Router,
-  RouterLink,
-  RouterModule
-} from '@angular/router';
-
-import {
-  CommonModule,
-  isPlatformBrowser
-} from '@angular/common';
-
-import {
-  TranslateModule,
-  TranslateService
-} from '@ngx-translate/core';
-
+import { Router, RouterLink, RouterModule } from '@angular/router';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
-import { CartService } from '../../services/cart-service';
-import { AuthService } from '../../services/auth-service';
-import { SearchService } from '../../services/search-service';
-import { FilterService } from '../../services/filter-service';
-import { AlertToasts } from "../toasts/alert-toasts/alert-toasts";
-import { DeleteToasts } from "../toasts/delete-toasts/delete-toasts";
+import { CartService } from '../../core/services/cart-service';
+import { AuthService } from '../../core/services/auth-service';
+import { SearchService } from '../../core/services/search-service';
+import { FilterService } from '../../core/services/filter-service';
+import { AlertToasts } from "../../shared/components/toasts/alert-toasts/alert-toasts";
+import { DeleteToasts } from "../../shared/components/toasts/delete-toasts/delete-toasts";
 import AOS from 'aos';
 
 @Component({
@@ -50,7 +29,6 @@ import AOS from 'aos';
   styleUrls: ['./cart.scss']
 })
 export class Cart implements OnInit, AfterViewChecked {
-
   // variables
   private cartService = inject(CartService);
   private filterService = inject(FilterService);
@@ -87,18 +65,15 @@ export class Cart implements OnInit, AfterViewChecked {
 
   });
 
-
   // Computed: total price
   totalPrice = computed(() =>
     this.filteredProducts().reduce((acc, p) => acc + p.subtotal, 0)
   );
 
-
   // ViewChild deleteToast
   @ViewChild('deleteToast') deleteToast!: DeleteToasts;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
-
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -106,13 +81,11 @@ export class Cart implements OnInit, AfterViewChecked {
     }
   }
 
-
   ngAfterViewChecked(): void {
     if (isPlatformBrowser(this.platformId)) {
       AOS.refresh();
     }
   }
-
 
   updateQuantity(productId: number, quantity: number): void {
     if (quantity >= 1) {
@@ -133,7 +106,6 @@ export class Cart implements OnInit, AfterViewChecked {
     this.searchService.searchQuery.set(query);
   }
 
-
   proceedToCheckout(): void {
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/checkout']);
@@ -141,5 +113,4 @@ export class Cart implements OnInit, AfterViewChecked {
       this.router.navigate(['/auth/login']);
     }
   }
-
 }

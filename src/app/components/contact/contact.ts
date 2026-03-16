@@ -1,28 +1,13 @@
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import {
-  Component,
-  inject,
-  signal,
-  ViewChild
-} from '@angular/core';
-
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators
+  FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators
 } from '@angular/forms';
-
-import {
-  DomSanitizer,
-  SafeResourceUrl
-} from '@angular/platform-browser';
-
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { EmailService } from '../../services/email-service';
-import { AlertToasts } from '../toasts/alert-toasts/alert-toasts';
-import { AcceptToasts } from '../toasts/accept-toasts/accept-toasts';
+import { EmailService } from '../../core/services/email-service';
+import { AlertToasts } from '../../shared/components/toasts/alert-toasts/alert-toasts';
+import { AcceptToasts } from '../../shared/components/toasts/accept-toasts/accept-toasts';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -41,11 +26,9 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./contact.scss']
 })
 export class Contact {
-
   address = signal('https://maps.google.com/?q=123+Popular+St,+Tbilisi,+Georgia');
   phone = signal('+995599123456789');
   email = signal('support@tkshop.com');
-
   street = signal('123 Popular St');
 
   // map Url
@@ -55,11 +38,9 @@ export class Contact {
   private sanitizer = inject(DomSanitizer);
   private emailService = inject(EmailService);
 
-
   // ViewChilds
   @ViewChild('acceptToast') acceptToast!: AcceptToasts;
   @ViewChild('alertToast') alertToast!: AlertToasts;
-
 
   // constructor
   constructor() {
@@ -67,14 +48,12 @@ export class Contact {
     this.mapUrl.set(this.sanitizer.bypassSecurityTrustResourceUrl(rawUrl));
   }
 
-
   // form group
   myForm = new FormGroup({
     from_name: new FormControl('', Validators.required),
     user_email: new FormControl('', [Validators.required, Validators.email]),
     message: new FormControl('', Validators.required)
   });
-
 
   // send message
   sendEmail() {
@@ -101,5 +80,4 @@ export class Contact {
       this.alertToast.openToast('Please fill out all fields correctly.');
     }
   }
-
 }

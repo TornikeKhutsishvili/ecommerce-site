@@ -1,25 +1,13 @@
-import {
-  Component,
-  computed,
-  inject,
-  OnInit,
-  signal,
-  WritableSignal
-} from '@angular/core';
-
-import {
-  RouterModule,
-  RouterOutlet
-} from '@angular/router';
-
+import { Component, computed, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Navigation } from "./components/navigation/navigation";
-import { dummyProductModel } from './models/product.model';
-import { FilterService } from './services/filter-service';
-import { SearchService } from './services/search-service';
-import { ProductService } from './services/product-service';
-import { Footer } from "./components/footer/footer";
+import { Navigation } from "./shared/components/navigation/navigation";
+import { dummyProductModel } from './core/models/product.model';
+import { FilterService } from './core/services/filter-service';
+import { SearchService } from './core/services/search-service';
+import { ProductService } from './core/services/product-service';
+import { Footer } from "./shared/components/footer/footer";
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -33,12 +21,10 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     Navigation,
     Footer
-],
-  templateUrl: './app.html',
-  styleUrls: ['./app.scss']
+  ],
+  templateUrl: './app.html'
 })
 export class App implements OnInit {
-
   protected title = 'TKShop';
 
   items: WritableSignal<dummyProductModel[]> = signal([]);
@@ -91,5 +77,4 @@ export class App implements OnInit {
   applyFilter(filteredProducts: dummyProductModel[]) {
     this.items.set(filteredProducts);
   }
-
 }

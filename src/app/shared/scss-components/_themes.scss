@@ -1,0 +1,26 @@
+@use "./variables" as vars;
+@use "./mixins" as mix;
+
+body.light-theme {
+  background-color: vars.$light-bg;
+  color: vars.$dark-text;
+}
+
+body.dark-theme {
+  background-color: vars.$dark-bg;
+  color: vars.$light-text;
+}
+
+.navbar {
+  @include mix.transition(all);
+
+  &.navbar-light {
+    background-color: vars.$light-bg !important;
+    color: vars.$dark-text;
+  }
+
+  &.navbar-dark {
+    background-color: vars.$dark-bg !important;
+    color: vars.$light-text;
+  }
+}

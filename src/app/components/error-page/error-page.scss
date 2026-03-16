@@ -1,8 +1,7 @@
-@use "../../scss-components/mixins" as *;
-@use "../../scss-components/utilities" as *;
+@use "../../shared/scss-components/mixins" as mix;
 
 .error-container {
-  @include flex-center(center, center, null, column, null);
+  @include mix.flex-center(center, center, null, column, null);
   height: 100vh;
   background: radial-gradient(circle at top, #141e30, #243b55);
   overflow: hidden;
@@ -25,7 +24,7 @@
 .glitch::before,
 .glitch::after {
   content: attr(data-text);
-  @include position(absolute, 0, null, null, 0);
+  @include mix.position(absolute, 0, null, null, 0);
   width: 100%;
   overflow: hidden;
   color: #ff005a;
@@ -100,7 +99,7 @@
 }
 
 .actions {
-  @include flex-center(null, null, null, null, 1rem);
+  @include mix.flex-center(null, null, null, null, 1rem);
 }
 
 .mute-btn {

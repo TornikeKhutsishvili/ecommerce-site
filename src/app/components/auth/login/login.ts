@@ -1,26 +1,11 @@
-import {
-  Component,
-  inject,
-  signal,
-  ViewChild
-} from '@angular/core';
-
-import {
-  Router,
-  RouterLink,
-  RouterModule
-} from '@angular/router';
-
-import {
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms';
-
+import { Component, inject, signal, ViewChild } from '@angular/core';
+import { Router, RouterLink, RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../services/auth-service';
+import { AuthService } from '../../../core/services/auth-service';
 import { TranslateModule } from '@ngx-translate/core';
-import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
-import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
+import { AlertToasts } from '../../../shared/components/toasts/alert-toasts/alert-toasts';
+import { AcceptToasts } from '../../../shared/components/toasts/accept-toasts/accept-toasts';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +24,6 @@ import { AcceptToasts } from '../../toasts/accept-toasts/accept-toasts';
   styleUrls: ['./login.scss']
 })
 export class Login {
-
   email = signal('');
   password = signal('');
 
@@ -65,5 +49,4 @@ export class Login {
       }
     }
   }
-
 }

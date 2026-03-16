@@ -1,28 +1,12 @@
 import {
-  AfterViewChecked,
-  Component,
-  Inject,
-  inject,
-  OnInit,
-  PLATFORM_ID,
-  signal
+  AfterViewChecked, Component, Inject, inject, OnInit, PLATFORM_ID, signal
 } from '@angular/core';
-
-import {
-  CommonModule,
-  isPlatformBrowser,
-  NgOptimizedImage
-} from '@angular/common';
-
-import {
-  TranslateModule,
-  TranslateService
-} from '@ngx-translate/core';
-
+import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ProductService } from '../../services/product-service';
-import { dummyProductModel } from '../../models/product.model';
+import { ProductService } from '../../core/services/product-service';
+import { dummyProductModel } from '../../core/models/product.model';
 import AOS from 'aos';
 
 @Component({
@@ -39,7 +23,6 @@ import AOS from 'aos';
   styleUrls: ['./categories.scss']
 })
 export class Categories implements OnInit, AfterViewChecked {
-
   products = signal<dummyProductModel[]>([]);
   categories = signal<string[]>([]);
 
@@ -50,7 +33,6 @@ export class Categories implements OnInit, AfterViewChecked {
 
   // ngOnInit
   ngOnInit(): void {
-
     // AOS init
     if (isPlatformBrowser(this.platformId)) {
       AOS.init();
@@ -60,7 +42,6 @@ export class Categories implements OnInit, AfterViewChecked {
       this.products.set(data);
       this.categories.set([...new Set(data.map(p => p.category))]);
     });
-
   }
 
   // AOS refresh
@@ -70,10 +51,8 @@ export class Categories implements OnInit, AfterViewChecked {
     }
   }
 
-
   // categories image
   categoryImages: Record<string, string> = {
-
     'beauty': 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400&h=400&fit=cover&q=50&auto=format',
     'fragrances': 'https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=400&h=400&fit=cover&q=50&auto=format',
     'furniture': 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=400&h=400&fit=cover&q=50&auto=format',
@@ -98,7 +77,5 @@ export class Categories implements OnInit, AfterViewChecked {
     'womens-jewellery': 'https://plus.unsplash.com/premium_photo-1661645433820-24c8604e4db5?w=400&h=400&fit=cover&q=50&auto=format',
     'womens-shoes': 'https://images.unsplash.com/photo-1670938258821-2956d4ce9c9b?w=400&h=400&fit=cover&q=50&auto=format',
     'womens-watches': 'https://images.unsplash.com/photo-1653651461471-d4dffd0e5ab0?w=400&h=400&fit=cover&q=50&auto=format'
-
   };
-
 }

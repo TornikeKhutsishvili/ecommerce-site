@@ -1,4 +1,4 @@
-@use "../../../scss-components/mixins" as *;
+@use "../../../shared/scss-components/mixins" as mix;
 
 .star-container {
   position: relative;
@@ -6,7 +6,7 @@
 }
 
 .filled-star {
-  @include position(absolute, 0, null, null, 0);
+  @include mix.position(absolute, 0, null, null, 0);
   white-space: nowrap;
   overflow: hidden;
   height: 100%;

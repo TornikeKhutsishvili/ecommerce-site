@@ -1,0 +1,27 @@
+@use "../../../scss-components/mixins" as mix;
+@use "../../../scss-components/colors" as color;
+.toast-container {
+  @include mix.position(fixed, 20px, 20px, null, null);
+  z-index: 1055;
+}
+
+.toast {
+  @include mix.flex-center(space-between, center, null, null, null);
+  min-width: 250px;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  animation: slideIn 0.3s ease;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(100%); }
+  to { opacity: 1; transform: translateX(0); }
+}

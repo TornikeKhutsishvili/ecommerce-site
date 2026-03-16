@@ -1,23 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @use "bootstrap" as *;
 
-// ================================
 // GLOBAL IMPORTS
-// ================================
-@use "app/scss-components/functions" as *;
-@use "app/scss-components/variables" as *;
-@use "app/scss-components/colors" as *;
-@use "app/scss-components/mixins" as *;
-@use "app/scss-components/breakpoints" as *;
-@use "app/scss-components/base" as *;
-@use "app/scss-components/themes" as *;
-
-
-// ================================
-// GLOBAL ELEMENT STYLES
-// ================================
-body {
-  background-color: $light-bg;
-  color: $light-text;
-  @include transition(all);
-}
+@use "./app/shared/scss-components/main.scss" as main;

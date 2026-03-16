@@ -1,25 +1,11 @@
-import {
-  Component,
-  inject,
-  signal,
-  ViewChild
-} from '@angular/core';
-
-import {
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms';
-
-import {
-  Router,
-  RouterModule
-} from '@angular/router';
-
+import { Component, inject, signal, ViewChild } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { AuthService } from '../../../services/auth-service';
-import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
+import { AuthService } from '../../../core/services/auth-service';
+import { AlertToasts } from '../../../shared/components/toasts/alert-toasts/alert-toasts';
 
 @Component({
   selector: 'app-reset-password',
@@ -36,7 +22,6 @@ import { AlertToasts } from '../../toasts/alert-toasts/alert-toasts';
   styleUrls: ['./reset-password.scss']
 })
 export class ResetPassword {
-
   // variables
   email = signal('');
   newPassword = signal('');
@@ -84,20 +69,17 @@ export class ResetPassword {
     }
   }
 
-
   // on email input
   onEmailInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.email.set(input.value);
   }
 
-
   // on password input
   onPasswordInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.newPassword.set(input.value);
   }
-
 
   // back
   goBack(scrollToTop: boolean = false) {
@@ -109,5 +91,4 @@ export class ResetPassword {
       }, 100);
     }
   }
-
 }

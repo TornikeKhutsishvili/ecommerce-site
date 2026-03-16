@@ -1,8 +1,7 @@
-@use "../../../scss-components/mixins" as *;
-@use "../../../scss-components/utilities" as *;
+@use "../../../shared/scss-components/mixins" as mix;
 
 .toolbar {
-  @include flex-center(center, center, null, column, 0.75rem);
+  @include mix.flex-center(center, center, null, column, 0.75rem);
 }
 
 .table-wrapper {
@@ -45,7 +44,6 @@
       }
     }
   }
-
 }
 
 .spacer {

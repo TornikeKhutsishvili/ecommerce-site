@@ -1,6 +1,4 @@
-@use "../../../scss-components/mixins" as *;
-@use "../../../scss-components/utilities" as *;
-
+@use "../../../shared/scss-components/mixins" as mix;
 
 html,
 body {
@@ -18,7 +16,7 @@ body {
   display: inline-block;
 
   .filled-star {
-    @include position(absolute, 0, null, null, 0);
+    @include mix.position(absolute, 0, null, null, 0);
     white-space: nowrap;
     overflow: hidden;
     pointer-events: none;
@@ -26,7 +24,7 @@ body {
 }
 
 .price {
-  @include flex-center(flex-start, center, null, null, null);
+  @include mix.flex-center(flex-start, center, null, null, null);
 }
 
 // media query - responsive

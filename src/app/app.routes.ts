@@ -2,55 +2,66 @@ import { Routes } from '@angular/router';
 
 // routes
 export const routes: Routes = [
-
   {
     path: '',
     pathMatch: 'full',
-    loadComponent: () => import('./components/home/home')
-    .then((m) => m.Home), title: 'Home'
+    loadComponent: () => import('./components/home/home').then((m) => m.Home),
+    title: 'Home',
   },
 
   {
     path: 'home',
     pathMatch: 'full',
-    loadComponent: () => import('./components/home/home')
-    .then((m) => m.Home), title: 'Home'
+    loadComponent: () => import('./components/home/home').then((m) => m.Home),
+    title: 'Home',
   },
 
   {
     path: 'products',
-    loadChildren: () => import('./components/products/products.routes')
-    .then(m => m.PRODUCTS_ROUTES), title: 'Products'
+    loadChildren: () =>
+      import('./components/products/products.routes').then(
+        (m) => m.PRODUCTS_ROUTES,
+      ),
+    title: 'Products',
   },
 
   {
     path: 'rules',
-    loadChildren: () => import('./components/rules/rules.routes')
-    .then(m => m.RULES_ROUTES), title: 'Rules'
+    loadChildren: () =>
+      import('./components/rules/rules.routes').then((m) => m.RULES_ROUTES),
+    title: 'Rules',
   },
 
   {
     path: 'cart',
-    loadChildren: () => import('./components/cart/cart.routes')
-    .then(m => m.CART_ROUTES), title: 'Cart'
+    loadChildren: () =>
+      import('./components/cart/cart.routes').then((m) => m.CART_ROUTES),
+    title: 'Cart',
   },
 
   {
     path: 'checkout',
-    loadChildren: () => import('./components/checkout/checkout.routes')
-    .then(m => m.CHECKOUT_ROUTES), title: 'Checkout'
+    loadChildren: () =>
+      import('./components/checkout/checkout.routes').then(
+        (m) => m.CHECKOUT_ROUTES,
+      ),
+    title: 'Checkout',
   },
 
   {
     path: 'orders',
-    loadChildren: () => import('./components/orders/orders.routes')
-    .then(m => m.ORDERS_ROUTES), title: 'Orders'
+    loadChildren: () =>
+      import('./components/orders/orders.routes').then((m) => m.ORDERS_ROUTES),
+    title: 'Orders',
   },
 
   {
     path: 'about',
-    loadChildren: () => import('./components/about/about.routes')
-    .then(m => m.ABOUT_ROUTES), title: 'About'
+    loadChildren: () =>
+      import('./shared/components/about/about.routes').then(
+        (m) => m.ABOUT_ROUTES,
+      ),
+    title: 'About',
   },
 
   // {
@@ -61,32 +72,40 @@ export const routes: Routes = [
 
   {
     path: 'categories',
-    loadChildren: () => import('./components/categories/categories.routes')
-    .then((m) => m.CATEGORIES_ROUTES), title: 'Categories'
+    loadChildren: () =>
+      import('./components/categories/categories.routes').then(
+        (m) => m.CATEGORIES_ROUTES,
+      ),
+    title: 'Categories',
   },
 
   {
     path: 'contact',
-    loadChildren: () => import('./components/contact/contact.routes')
-    .then(m => m.CONTACT_ROUTES), title: 'Contact'
+    loadChildren: () =>
+      import('./components/contact/contact.routes').then(
+        (m) => m.CONTACT_ROUTES,
+      ),
+    title: 'Contact',
   },
 
   {
     path: 'auth',
-    loadChildren: () => import('./components/auth/auth.routes')
-    .then(m => m.AUTH_ROUTES), title: 'Auth'
+    loadChildren: () =>
+      import('./components/auth/auth.routes').then((m) => m.AUTH_ROUTES),
+    title: 'Auth',
   },
 
   {
     path: 'admin',
-    loadChildren: () => import('./components/admin/admin.routes')
-    .then(m => m.ADMIN_ROUTES), title: 'Admin'
+    loadChildren: () =>
+      import('./components/admin/admin.routes').then((m) => m.ADMIN_ROUTES),
+    title: 'Admin',
   },
 
   {
     path: '**',
-    loadComponent: () => import('./components/error-page/error-page')
-    .then(m => m.ErrorPage), title: '404 - Not Found'
+    loadComponent: () =>
+      import('./components/error-page/error-page').then((m) => m.ErrorPage),
+    title: '404 - Not Found',
   },
-
 ];

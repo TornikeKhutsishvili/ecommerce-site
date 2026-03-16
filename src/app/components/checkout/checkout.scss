@@ -1,6 +1,4 @@
-@use "../../scss-components/mixins" as *;
-@use "../../scss-components/utilities" as *;
-
+@use "../../shared/scss-components/mixins" as mix;
 
 .checkout-container {
   max-width: 1200px;
@@ -16,7 +14,6 @@
     body.dark-theme {
       color: #fff;
     }
-
   }
 
   .checkout-grid {
@@ -39,7 +36,7 @@
   /* Cart Items */
   .cart-items {
     .cart-item {
-      @include flex-center(null, null, null, null, 1.5rem);
+      @include mix.flex-center(null, null, null, null, 1.5rem);
       border-bottom: 1px solid #eee;
 
       &:last-child {
@@ -70,7 +67,7 @@
         }
 
         .quantity-control {
-          @include flex-center(null, center, null, null, 0.8rem);
+          @include mix.flex-center(null, center, null, null, 0.8rem);
 
           button {
             background-color: #009688;
@@ -123,7 +120,7 @@
     }
 
     form {
-      @include flex-center(null, null, null, column, null);
+      @include mix.flex-center(null, null, null, column, null);
 
       label {
         margin-top: 1rem;
@@ -188,7 +185,6 @@
     }
   }
 
-
   /* Empty cart template styling */
   p {
     color: #777;
@@ -200,7 +196,7 @@
     border: 2px solid #009688;
     color: #009688;
     text-decoration: none;
-    @include transitions(background-color, color);
+    @include mix.transitions(background-color, color);
 
     &:hover {
       background-color: #009688;

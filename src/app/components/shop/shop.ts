@@ -1,37 +1,17 @@
 import {
-  AfterViewChecked,
-  Component,
-  Inject,
-  inject,
-  OnInit,
-  PLATFORM_ID,
-  signal,
-  ViewChild,
+  AfterViewChecked, Component, Inject, inject, OnInit, PLATFORM_ID, signal, ViewChild,
 } from '@angular/core';
-
-import {
-  RouterLink,
-  RouterModule
-} from '@angular/router';
-
-import {
-  CommonModule,
-  isPlatformBrowser
-} from '@angular/common';
-
-import {
-  TranslateModule,
-  TranslateService
-} from '@ngx-translate/core';
-
+import { RouterLink, RouterModule } from '@angular/router';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { ProductService } from '../../services/product-service';
-import { CartService } from '../../services/cart-service';
-import { dummyProductModel } from '../../models/product.model';
-import { FilterService } from '../../services/filter-service';
-import { AddToasts } from '../toasts/add-toasts/add-toasts';
-import { SearchService } from '../../services/search-service';
+import { ProductService } from '../../core/services/product-service';
+import { CartService } from '../../core/services/cart-service';
+import { dummyProductModel } from '../../core/models/product.model';
+import { FilterService } from '../../core/services/filter-service';
+import { AddToasts } from '../../shared/components/toasts/add-toasts/add-toasts';
+import { SearchService } from '../../core/services/search-service';
 import AOS from 'aos';
 
 @Component({

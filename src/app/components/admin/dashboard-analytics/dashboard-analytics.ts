@@ -1,26 +1,12 @@
-import {
-  ChartConfiguration,
-  ChartType
-} from 'chart.js';
-
-import {
-  Component,
-  inject,
-  OnInit,
-  signal
-} from '@angular/core';
-
-import {
-  TranslateModule,
-  TranslateService
-} from '@ngx-translate/core';
-
+import { ChartConfiguration, ChartType } from 'chart.js';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgChartsModule } from 'ng2-charts';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AnalyticsService } from '../../../services/analytics-service';
-import { AdminAnalyticsService } from '../../../services/admin-analytics-service';
+import { AnalyticsService } from '../../../core/services/analytics-service';
+import { AdminAnalyticsService } from '../../../core/services/admin-analytics-service';
 
 @Component({
   selector: 'app-dashboard-analytics',
@@ -36,7 +22,6 @@ import { AdminAnalyticsService } from '../../../services/admin-analytics-service
   styleUrls: ['./dashboard-analytics.scss']
 })
 export class DashboardAnalytics implements OnInit {
-
   private analytics = inject(AnalyticsService);
   private translate = inject(TranslateService);
   private adminAnalytics = inject(AdminAnalyticsService);
@@ -49,7 +34,6 @@ export class DashboardAnalytics implements OnInit {
   ngOnInit() {
     this.analytics.trackPageView('/admin/dashboard-analytics');
   }
-
 
   // Reactive data from AnalyticsService
   // Chart configurations
