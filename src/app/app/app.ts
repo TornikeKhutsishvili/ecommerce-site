@@ -2,12 +2,12 @@ import { Component, computed, inject, OnInit, signal, WritableSignal } from '@an
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Navigation } from "./shared/components/navigation/navigation";
-import { dummyProductModel } from './core/models/product.model';
-import { FilterService } from './core/services/filter-service';
-import { SearchService } from './core/services/search-service';
-import { ProductService } from './core/services/product-service';
-import { Footer } from "./shared/components/footer/footer";
+import { Navigation } from "../shared/components/navigation/navigation";
+import { dummyProductModel } from '../core/models/product.model';
+import { FilterService } from '../core/services/filter-service';
+import { SearchService } from '../core/services/search-service';
+import { ProductService } from '../core/services/product-service';
+import { Footer } from "../shared/components/footer/footer";
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -23,6 +23,7 @@ import { TranslateModule } from '@ngx-translate/core';
     Footer
   ],
   templateUrl: './app.html',
+  styleUrls: ['app.scss']
 })
 export class App implements OnInit {
   protected title = 'TKShop';
