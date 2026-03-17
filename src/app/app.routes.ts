@@ -5,21 +5,21 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    loadComponent: () => import('./components/home/home').then((m) => m.Home),
+    loadComponent: () => import('./features/home/home').then((m) => m.Home),
     title: 'Home',
   },
 
   {
     path: 'home',
     pathMatch: 'full',
-    loadComponent: () => import('./components/home/home').then((m) => m.Home),
+    loadComponent: () => import('./features/home/home').then((m) => m.Home),
     title: 'Home',
   },
 
   {
     path: 'products',
     loadChildren: () =>
-      import('./components/products/products.routes').then(
+      import('./features/products/products.routes').then(
         (m) => m.PRODUCTS_ROUTES,
       ),
     title: 'Products',
@@ -28,21 +28,21 @@ export const routes: Routes = [
   {
     path: 'rules',
     loadChildren: () =>
-      import('./components/rules/rules.routes').then((m) => m.RULES_ROUTES),
+      import('./features/rules/rules.routes').then((m) => m.RULES_ROUTES),
     title: 'Rules',
   },
 
   {
     path: 'cart',
     loadChildren: () =>
-      import('./components/cart/cart.routes').then((m) => m.CART_ROUTES),
+      import('./features/cart/cart.routes').then((m) => m.CART_ROUTES),
     title: 'Cart',
   },
 
   {
     path: 'checkout',
     loadChildren: () =>
-      import('./components/checkout/checkout.routes').then(
+      import('./features/checkout/checkout.routes').then(
         (m) => m.CHECKOUT_ROUTES,
       ),
     title: 'Checkout',
@@ -51,7 +51,7 @@ export const routes: Routes = [
   {
     path: 'orders',
     loadChildren: () =>
-      import('./components/orders/orders.routes').then((m) => m.ORDERS_ROUTES),
+      import('./features/orders/orders.routes').then((m) => m.ORDERS_ROUTES),
     title: 'Orders',
   },
 
@@ -73,7 +73,7 @@ export const routes: Routes = [
   {
     path: 'categories',
     loadChildren: () =>
-      import('./components/categories/categories.routes').then(
+      import('./features/categories/categories.routes').then(
         (m) => m.CATEGORIES_ROUTES,
       ),
     title: 'Categories',
@@ -82,7 +82,7 @@ export const routes: Routes = [
   {
     path: 'contact',
     loadChildren: () =>
-      import('./components/contact/contact.routes').then(
+      import('./features/contact/contact.routes').then(
         (m) => m.CONTACT_ROUTES,
       ),
     title: 'Contact',
@@ -91,21 +91,21 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
-      import('./components/auth/auth.routes').then((m) => m.AUTH_ROUTES),
+      import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
     title: 'Auth',
   },
 
   {
     path: 'admin',
     loadChildren: () =>
-      import('./components/admin/admin.routes').then((m) => m.ADMIN_ROUTES),
+      import('./features/admin/admin.routes').then((m) => m.ADMIN_ROUTES),
     title: 'Admin',
   },
 
   {
     path: '**',
     loadComponent: () =>
-      import('./components/error-page/error-page').then((m) => m.ErrorPage),
+      import('./features/error-page/error-page').then((m) => m.ErrorPage),
     title: '404 - Not Found',
   },
 ];

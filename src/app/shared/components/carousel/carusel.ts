@@ -23,8 +23,6 @@ export class Carusel implements OnInit {
 
   // current Index
   currentIndex = signal(0);
-
-  // stars
   stars = signal<any>([1, 2, 3, 4, 5]);
 
   // current product

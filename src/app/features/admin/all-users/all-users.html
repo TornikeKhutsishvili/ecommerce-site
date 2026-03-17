@@ -1,0 +1,107 @@
+<!-- top -->
+
+<hr>
+
+<section class="toolbar d-flex justify-content-center">
+  <!-- navbar -->
+  <nav class="nav navbar navbar-expand-lg main-navbar">
+    <ul class="nav-list navbar-nav mx-auto">
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/dashboard']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          🏠 {{ 'Dashboard' | translate }}
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/users']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          👥 {{ 'All Users' | translate }}
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/orders']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          📄 {{ 'All Orders' | translate }}
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link"
+          [routerLink]="['/admin/dashboard-analytics']"
+          [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          📊 {{ 'Analytics' | translate }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</section>
+
+<hr>
+
+
+<!-- content -->
+<section class="container my-4">
+  <h2 class="mb-4 f-weight-600">
+    <i class="fa fa-users me-2"></i>
+    {{ 'All Users' | translate }}
+  </h2>
+
+  <div class="table-responsive">
+    <table class="table bord-radius-12 table-striped table-hover align-middle shadow-sm">
+
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>{{ 'Name' | translate }}</th>
+          <th>{{ 'Email' | translate }}</th>
+          <th>{{ 'Role' | translate }}</th>
+          <th>{{ 'Active' | translate }}</th>
+          <th>{{ 'Actions' | translate }}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for( user of users; track $index ) {
+        <tr>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ user.name | translate }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            @if( user.role === 'admin' ) {
+              <span class="badge bg-primary">{{ 'Admin' | translate }}</span>
+            }
+            @if( user.role === 'user' ) {
+              <span class="badge bg-secondary">{{ 'User' | translate }}</span>
+            }
+          </td>
+          <td>
+            <i class="fa" [ngClass]="user.active ? 'fa-check text-success' : 'fa-times text-danger'"></i>
+          </td>
+          <td>
+            <button
+              class="btn btn-sm btn-danger p-top-4 p-right-10 p-bottom-4 p-left-10 bord-radius-8"
+              (click)="deleteUser(user.email)"
+            >
+              <i class="fa fa-trash me-1"></i>
+              {{ 'Delete' | translate }}
+            </button>
+          </td>
+        </tr>}
+      </tbody>
+
+    </table>
+  </div>
+</section>

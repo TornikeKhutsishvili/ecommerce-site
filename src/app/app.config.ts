@@ -5,6 +5,7 @@ import {
 import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/router';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from '@angular/common/http';
 import { routes } from './app.routes';
+import { provideStore } from '@ngrx/store';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
       withEnabledBlockingInitialNavigation(),
     ),
     provideTranslateHttpLoader(),
+    provideStore({}),
 
     // Provide ngx-translate core
     importProvidersFrom(

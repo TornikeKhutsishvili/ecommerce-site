@@ -3,7 +3,6 @@
     [ngClass]="isDarkMode() ? 'navbar-dark bg-dark' : 'navbar-light bg-light'"
 >
   <div class="container">
-
     <!-- Logo -->
     <a class="navbar-brand fw-bold fontSize-15"
       [routerLink]="['/']"
@@ -14,22 +13,13 @@
       TK<span class="text-primary">Shop</span>
     </a>
 
-
     <!-- Burger Menu -->
-    <button class="navbar-toggler"
-            type="button"
-            (click)="toggleMenu()"
-            title="{{ 'Menu' | translate }}"
-    >
+    <button class="navbar-toggler" type="button" (click)="toggleMenu()" title="{{ 'Menu' | translate }}">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-
     <!-- Menu Items -->
-    <div #navbarCollapse
-      class="collapse navbar-collapse mobile-slide"
-      [ngClass]="{ 'show': isMenuOpen() }"
-    >
+    <div #navbarCollapse class="collapse navbar-collapse mobile-slide" [ngClass]="{ 'show': isMenuOpen() }">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
           <a class="nav-link"
@@ -90,7 +80,6 @@
       </ul>
 
 
-
       <!-- Right Side Actions -->
       <div class="d-flex align-items-center navbar-actions w-100 flex-wrap gap-2">
 
@@ -109,7 +98,6 @@
               </span>
             }
           </a>
-
 
 
           <!-- Auth Links -->
@@ -158,15 +146,10 @@
             }
           </div>
 
-
           <!-- Theme Toggle -->
-          <button type="button"
-            class="btn btn-outline-secondary theme-btn"
-            (click)="toggleTheme()"
-          >
+          <button type="button" class="btn btn-outline-secondary theme-btn" (click)="toggleTheme()">
             {{ isDarkMode() ? sun() : moon() }}
           </button>
-
 
           <!-- language selector -->
           <ul class="text-decoration-none list-unstyled m-0">
@@ -177,9 +160,7 @@
                       class="bord-radius-20 fontSize-17 f-weight-500 p-top-7 p-right-22 p-bottom-7 p-left-8"
               >
                 @for( lang of languages; track $index ) {
-                  <option [value]="lang.code"
-                          (change)="closeMenu()"
-                  >
+                  <option [value]="lang.code" (change)="closeMenu()">
                     {{ lang.code | translate }}
                   </option>
                 }
@@ -187,7 +168,6 @@
             </li>
           </ul>
         </div>
-
 
         <!-- second line -->
         <div class="rightSide-second-line w-100">
@@ -214,7 +194,6 @@
             </div>
           }
 
-
           <!-- Filter -->
           @if(currentUrl() !== '/contact' &&
               currentUrl() !== '/checkout' &&
@@ -230,15 +209,9 @@
                     name="select"
                     (change)="sortByPrice($any($event.target).value)"
             >
-              <option value="">
-                {{ 'Price' | translate}}
-              </option>
-              <option value="low">
-                {{ 'Low → High' | translate }}
-              </option>
-              <option value="high">
-                {{ 'High → Low' | translate }}
-              </option>
+              <option value="">{{ 'Price' | translate}}</option>
+              <option value="low">{{ 'Low → High' | translate }}</option>
+              <option value="high">{{ 'High → Low' | translate }}</option>
             </select>
           }
         </div>
