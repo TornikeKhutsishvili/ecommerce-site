@@ -21,9 +21,7 @@
       data-bs-interval="3000"
   >
     @for( item of products; track $index; let i = $index ) {
-      <div class="carousel-item"
-          [class.active]="i === currentIndex()"
-      >
+      <div class="carousel-item" [class.active]="i === currentIndex()">
         <img [src]="item.images[0]"
               class="d-block w-100 bord-radius-10"
               alt="{{ item.title | translate }}"
@@ -66,16 +64,11 @@
   </button>
 
   <!-- next btn -->
-  <button class="carousel-control-next"
-          type="button"
-          (click)="nextSlide()"
-          title="Next"
-  >
+  <button class="carousel-control-next" type="button" (click)="nextSlide()" title="Next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">
       {{ 'Next' | translate }}
     </span>
   </button>
-
 
 </div>

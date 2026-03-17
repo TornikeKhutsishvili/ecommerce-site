@@ -1,3 +1,4 @@
+@use 'sass:meta';
 @use "sass:map";
 @use 'sass:math';
 @use "./variables" as vars;
@@ -48,7 +49,7 @@ $utilities: (
 @each $key, $data in $utilities {
   $values: ();
   @for $i from 0 through 50 {
-    $val: if($i == 0, 0, vars.$padding * $i);
+    $val: if(sass($i == 0): 0; else: vars.$padding * $i);
     $values: map.merge($values, ($i: $val));
   }
   $utilities: map.merge(
@@ -69,6 +70,7 @@ $utilities: (
     }
   }
 }
+
 
 
 // font weight
@@ -101,6 +103,7 @@ $fontWeight: (
     }
   }
 }
+
 
 
 // opacity

@@ -1,7 +1,10 @@
+/******* IMPORTS *******/
+
 @use "./variables" as vars;
 @use "./functions" as function;
 @use "./colors" as color;
 @use "./mixins" as mix;
+@use "./utilities" as utils;
 @use "./breakpoints" as break;
 @use "./base" as base;
 @use "./themes" as theme;

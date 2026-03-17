@@ -1,0 +1,225 @@
+<div class="checkout-container p-top-16 p-right-16 p-bottom-16 p-left-16">
+  <!-- title -->
+  <h2 class="checkout-title f-weight-700 fontSize-40 text-center m-bottom-32">
+    {{ 'Checkout' | translate }} 🛍️
+  </h2>
+
+  <!-- content -->
+  @if( cartItems().length > 0 ) {
+    <div class="checkout-grid">
+
+      <!-- Left side: Cart items -->
+      <section class="cart-items">
+        <h3 class="text-dark f-weight-600 fontSize-29 m-bottom-24">{{ 'Your Cart' | translate }}</h3>
+
+        @for( item of cartItems(); track $index ) {
+          <div class="cart-item m-bottom-24 p-bottom-24 ">
+            <img [src]="item.thumbnail || item.image"
+              alt="{{ item.title }}"
+              class="cart-item-img bord-radius-8"
+              loading="lazy"
+            />
+
+            <div class="cart-item-info">
+              <h4 class="fontSize-19 f-weight-600 m-bottom-5">{{ item.title | translate }}</h4>
+              <p class="category fontSize-14 m-bottom-11">{{ item.category | translate }}</p>
+              <p class="price fontSize-17 f-weight-700 m-bottom-11">{{ '$' | translate }}{{ item.price.toFixed(2) }}</p>
+
+              <div class="quantity-control m-bottom-11">
+                <button class="text-white" (click)="updateQuantity(item.id, item.quantity - 1)">-</button>
+                <span class="text-dark text-center">{{ item.quantity }}</span>
+                <button class="text-white" (click)="updateQuantity(item.id, item.quantity + 1)">+</button>
+              </div>
+
+              <p class="total m-bottom-16 f-weight-600">
+                {{ 'Total' | translate }}: {{ '$' | translate }}{{ (item.price * item.quantity).toFixed(2) }}
+              </p>
+
+              <button class="remove-btn text-white f-weight-600 bord-radius-4 p-top-8 p-right-16 p-bottom-8 p-left-16"
+                      (click)="removeFromCart(item.id)"
+              >
+                🗑 {{ 'Remove' | translate }}
+              </button>
+            </div>
+          </div>
+        }
+      </section>
+
+
+      <!-- Right side: Checkout form -->
+      <section id="checkoutFormSection" class="checkout-form-section">
+        <h3 class="text-center text-dark f-weight-600 m-bottom-24 fontSize-29">
+          {{ 'Shipping & Payment' | translate }}
+        </h3>
+
+        <form (ngSubmit)="completeCheckout()" #checkoutForm="ngForm" novalidate>
+          <!-- Full Name -->
+          <label for="name">{{ 'Full Name' | translate }}</label>
+          <input id="name"
+                name="name"
+                type="text"
+                required
+                [ngModel]="userName()"
+                (ngModelChange)="userName.set($event)"
+                #nameInput="ngModel"
+          />
+          @if( nameInput.invalid && nameInput.touched ) {
+            <div class="error">{{ 'Full Name is required' | translate }}</div>
+          }
+
+          <!-- Email -->
+          <label for="email">{{ 'Email' | translate }}</label>
+          <input id="email"
+                name="email"
+                type="email"
+                required
+                pattern="^[^@]+@[^@]+\.[^@]+$"
+                [ngModel]="userEmail()"
+                (ngModelChange)="userEmail.set($event)"
+                #emailInput="ngModel"
+          />
+          @if( emailInput.invalid && emailInput.touched ) {
+            @if( emailInput.errors?.['required'] ) {
+              <div>{{ 'Email is required' | translate }}</div>
+            }
+            @if( emailInput.errors?.['pattern'] ) {
+              <div>{{ 'Invalid email format' | translate }}</div>
+            }
+          }
+
+          <!-- Shipping Address -->
+          <label for="address">{{ 'Shipping Address' | translate }}</label>
+          <input id="address"
+                name="address"
+                type="text"
+                required
+                [ngModel]="userAddress()"
+                (ngModelChange)="userAddress.set($event)"
+                #addressInput="ngModel"
+          />
+          @if( addressInput.invalid && addressInput.touched ) {
+            <div class="error">{{ 'Shipping Address is required' | translate }}</div>
+          }
+
+          <!-- Payment Method -->
+          <label for="paymentMethod">{{ 'Payment Method' | translate }}</label>
+          <select id="paymentMethod"
+                  name="paymentMethod"
+                  [ngModel]="paymentMethod()"
+                  (ngModelChange)="paymentMethod.set($event)"
+          >
+            <option value="Cash_on_Delivery">{{ 'Cash on Delivery' | translate }}</option>
+            <option value="PayPal">{{ 'PayPal' | translate }}</option>
+            <option value="Credit Card">{{ 'Credit Card' | translate }}</option>
+          </select>
+
+          <!-- Conditional payment fields -->
+          @if( paymentMethod() === 'Credit Card' ) {
+            <div class="payment-credit-card">
+              <label for="cardNumber">{{ 'Card Number' | translate }} *</label>
+              <input id="cardNumber"
+                    name="cardNumber"
+                    type="text"
+                    maxlength="19"
+                    placeholder="1234-5678-9012-3456"
+                    required
+                    [ngModel]="cardNumber()"
+                    (ngModelChange)="cardNumber.set($event)"
+                    #cardNumberInput="ngModel"
+                    (input)="formatCardNumber()"
+              />
+              @if( cardNumberInput.invalid && cardNumberInput.touched ) {
+                <div class="error">{{ 'Card Number is required' | translate }}</div>
+              }
+
+              <label for="expiryDate">{{ 'Expiry Date' | translate }} *</label>
+              <input id="expiryDate"
+                    name="expiryDate"
+                    type="month"
+                    required
+                    [ngModel]="expiryDate()"
+                    (ngModelChange)="expiryDate.set($event)"
+                    #expiryDateInput="ngModel"
+              />
+              @if( expiryDateInput.invalid && expiryDateInput.touched ) {
+                <div class="error">{{ 'Expiry Date is required' | translate }}</div>
+              }
+
+              <label for="cvv">{{ 'CVV' | translate }} *</label>
+              <input id="cvv"
+                    name="cvv"
+                    type="text"
+                    maxlength="3"
+                    placeholder="123"
+                    required
+                    [ngModel]="cvv()"
+                    (ngModelChange)="cvv.set($event)"
+                    #cvvInput="ngModel"
+              />
+              @if( cvvInput.invalid && cvvInput.touched ) {
+                <div class="error">{{ 'CVV is required' | translate }}</div>
+              }
+            </div>
+          }
+
+          @if( paymentMethod() === 'PayPal' ) {
+            <div class="payment-paypal">
+              <label for="paypalEmail">{{ 'PayPal Email' | translate }} *</label>
+              <input id="paypalEmail"
+                    name="paypalEmail"
+                    type="email"
+                    placeholder="you@example.com"
+                    required
+                    [ngModel]="paypalEmail()"
+                    (ngModelChange)="paypalEmail.set($event)"
+                    #paypalEmailInput="ngModel"
+              />
+              @if( paypalEmailInput.invalid && paypalEmailInput.touched ) {
+                <div class="error">{{ 'PayPal email is required' | translate }}</div>
+              }
+            </div>
+          }
+
+          @if( paymentMethod() === 'Cash_on_Delivery' ) {
+            <div class="payment-cash">
+              <p>{{ 'You will pay upon delivery.' | translate }}</p>
+            </div>
+          }
+
+          <button
+            type="submit"
+            [disabled]="checkoutForm.invalid"
+            class="btn-submit m-top-32 text-white f-weight-700 bord-radius-8 fontSize-17 p-top-12 p-right-12 p-bottom-12 p-left-12"
+          >
+            {{ 'Complete Checkout' | translate }}
+          </button>
+
+        </form>
+
+        <div class="total-price m-top-32 f-weight-700 fontSize-22 text-center">
+          <h4>{{ 'Total' | translate }}: {{ '$' | translate }}{{ totalPrice().toFixed(2) }}</h4>
+        </div>
+
+        <a [routerLink]="['/cart']" class="btn-back text-center bord-radius-8 f-weight-600">
+          {{ 'Back to Cart' | translate }}
+        </a>
+      </section>
+
+    </div>
+  } @else {
+
+    <p class="m-top-48 text-center fontSize-19">{{ 'Your cart is empty. Add some products!' | translate }}</p>
+    <a [routerLink]="['/']"
+      class="btn-back-home f-weight-600 bord-radius-8 text-center d-block"
+    >
+      {{ 'Back to Home' | translate }}
+    </a>
+
+  }
+
+  <!-- Toast Components -->
+  <app-alert-toasts #alertToast></app-alert-toasts>
+  <app-accept-toasts #acceptToast class="mt-3"></app-accept-toasts>
+  <app-delete-toasts #deleteToast></app-delete-toasts>
+
+</div>

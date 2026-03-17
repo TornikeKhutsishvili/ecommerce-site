@@ -1,0 +1,89 @@
+<div class="cart-container container mt-5">
+  <h2 class="text-center mb-4">🛒 {{ 'Your Shopping Cart' | translate }}</h2>
+
+  @if( filteredProducts().length > 0 ) {
+      <div class="row g-4">
+
+        @for( item of filteredProducts(); track $index ) {
+          <div class="col-lg-4 col-md-6"
+              data-aos="fade-up"
+              data-aos-duration="1200"
+              data-aos-anchor-placement="center-bottom"
+          >
+            <div class="cart-card bord-radius-15 bg-white shadow-sm">
+
+              <div class="cart-img text-center p-top-20 p-right-20 p-bottom-20 p-left-20">
+                <img [src]="item.thumbnail || item.images?.[0]"
+                      alt="{{ item.title | translate }}"
+                      class="img-fluid"
+                      loading="lazy"
+                />
+              </div>
+
+              <div class="cart-body p-top-15 p-right-15 p-bottom-15 p-left-15">
+                <h5 class="cart-title text-dark m-bottom-5 fontSize-18 f-weight-600">
+                  {{ item.title | translate }}
+                </h5>
+                <p class="cart-price fontSize-18">
+                  {{ '$' | translate }}{{ item.price | number : '1.2-2' }}
+                </p>
+
+                <!-- Quantity Control -->
+                <div class="cart-quantity">
+                  <button class="btn-qty text-dark" (click)="updateQuantity(item.id, item.quantity - 1)">
+                    -
+                  </button>
+                  <span class="text-dark">{{ item.quantity }}</span>
+                  <button class="btn-qty text-dark" (click)="updateQuantity(item.id, item.quantity + 1)">
+                    +
+                  </button>
+                </div>
+
+                <p class="cart-subtotal m-bottom-10 fontSize-15 text-dark">
+                  {{ 'Subtotal' | translate }}:
+                  <strong>
+                    {{ '$' | translate }}{{ (item.price * item.quantity) | number : '1.2-2' }}
+                  </strong>
+                </p>
+
+                <!-- Remove Button -->
+                <button class="btn-remove fontSize-14 text-white bord-radius-6 p-top-6 p-right-6 p-bottom-6 p-left-6"
+                        (click)="removeFromCart(item.id)"
+                >
+                  🗑 {{ 'Remove' | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Total + Checkout -->
+      <div class="cart-summary text-center mt-5">
+        <h4>{{ 'Total' | translate }}:
+          <span>{{ '$' | translate }}{{ totalPrice() | number : '1.2-2' }}</span>
+        </h4>
+        <a class="btn btn-success btn-lg mt-3" (click)="proceedToCheckout()">
+          {{ 'Proceed to Checkout' | translate }}
+        </a>
+      </div>
+
+  } @else {
+
+    <div class="empty-cart text-center fontSize-19">
+      <p>{{ 'Your cart is empty' | translate }} 😢</p>
+      <a [routerLink]="['/']" class="btn btn-outline-primary mt-3">
+        {{ 'Back to Home' | translate }}
+      </a>
+    </div>
+
+    <!-- toasts -->
+    <app-alert-toasts #alertToast></app-alert-toasts>
+
+  }
+</div>
+
+
+
+<!-- toasts -->
+<app-delete-toasts #deleteToast></app-delete-toasts>
