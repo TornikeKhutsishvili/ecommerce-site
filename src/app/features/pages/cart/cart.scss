@@ -1,0 +1,74 @@
+@use "app/shared/scss-components/mixins" as mix;
+
+.cart-container {
+  .cart-card {
+    overflow: hidden;
+    @include mix.transition(all);
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .cart-img {
+      background: #f8f9fa;
+
+      img {
+        max-height: 180px;
+        object-fit: contain;
+      }
+    }
+
+    .cart-body {
+      .cart-price {
+        color: #28a745;
+        font-weight: bold;
+      }
+
+      .cart-quantity {
+        @include mix.flex-center(center, center, null, null, 10px);
+        margin: 10px 0;
+
+        .btn-qty {
+          @include mix.flex-center(center, center, null, null, null);
+
+          background: #eee;
+          border: none;
+          width: 30px;
+          height: 30px;
+          font-weight: bold;
+          cursor: pointer;
+          border-radius: 50%;
+
+          &:hover {
+            background: #ddd;
+          }
+        }
+      }
+
+      .btn-remove {
+        background: #dc3545;
+        border: none;
+        cursor: pointer;
+
+        &:hover {
+          background: #b02a37;
+        }
+      }
+    }
+  }
+
+  .cart-summary {
+    h4 {
+      font-weight: bold;
+
+      span {
+        color: #28a745;
+      }
+    }
+  }
+
+  .empty-cart {
+    color: #666;
+  }
+}

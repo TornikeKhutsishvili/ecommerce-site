@@ -1,4 +1,4 @@
-@use "../../../shared/scss-components/mixins" as mix;
+@use "app/shared/scss-components/mixins" as mix;
 
 .cards {
   @include mix.flex-center(space-between, null, wrap, null, 20px);

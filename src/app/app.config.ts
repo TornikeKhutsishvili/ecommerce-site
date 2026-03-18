@@ -1,6 +1,5 @@
 import {
-  ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners,
-  provideZoneChangeDetection
+  ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners, provideZoneChangeDetection
 } from '@angular/core';
 import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/router';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch } from '@angular/common/http';
@@ -15,10 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(
-      routes,
-      withEnabledBlockingInitialNavigation(),
-    ),
+    provideRouter(routes, withEnabledBlockingInitialNavigation()),
     provideTranslateHttpLoader(),
     provideStore({}),
 

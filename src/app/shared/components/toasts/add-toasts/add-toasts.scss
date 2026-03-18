@@ -1,5 +1,5 @@
-@use "../../../scss-components/mixins" as mix;
-@use "../../../scss-components/colors" as color;
+@use "app/shared/scss-components/mixins" as mix;
+@use "app/shared/scss-components/colors" as color;
 .toast-container {
   @include mix.position(fixed, 20px, 20px, null, null);
   z-index: 1055;

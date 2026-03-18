@@ -17,6 +17,9 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "stylePreprocessorOptions": {
+              "includePaths": ["src"]
+            },
             "allowedCommonJsDependencies": [
               "lodash",
               "aos",

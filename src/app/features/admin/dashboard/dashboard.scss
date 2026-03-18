@@ -1,4 +1,4 @@
-@use "../../../shared/scss-components/mixins" as mix;
+@use "app/shared/scss-components/mixins" as mix;
 
 .toolbar {
   @include mix.flex-center(center, center, null, column, 0.75rem);

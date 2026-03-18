@@ -5,21 +5,21 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    loadComponent: () => import('./features/home/home').then((m) => m.Home),
+    loadComponent: () => import('./features/pages/home/home').then((m) => m.Home),
     title: 'Home',
   },
 
   {
     path: 'home',
     pathMatch: 'full',
-    loadComponent: () => import('./features/home/home').then((m) => m.Home),
+    loadComponent: () => import('./features/pages/home/home').then((m) => m.Home),
     title: 'Home',
   },
 
   {
     path: 'products',
     loadChildren: () =>
-      import('./features/products/products.routes').then(
+      import('./features/pages/products/products.routes').then(
         (m) => m.PRODUCTS_ROUTES,
       ),
     title: 'Products',
@@ -28,21 +28,21 @@ export const routes: Routes = [
   {
     path: 'rules',
     loadChildren: () =>
-      import('./features/rules/rules.routes').then((m) => m.RULES_ROUTES),
+      import('./features/pages/rules/rules.routes').then((m) => m.RULES_ROUTES),
     title: 'Rules',
   },
 
   {
     path: 'cart',
     loadChildren: () =>
-      import('./features/cart/cart.routes').then((m) => m.CART_ROUTES),
+      import('./features/pages/cart/cart.routes').then((m) => m.CART_ROUTES),
     title: 'Cart',
   },
 
   {
     path: 'checkout',
     loadChildren: () =>
-      import('./features/checkout/checkout.routes').then(
+      import('./features/pages/checkout/checkout.routes').then(
         (m) => m.CHECKOUT_ROUTES,
       ),
     title: 'Checkout',
@@ -51,7 +51,7 @@ export const routes: Routes = [
   {
     path: 'orders',
     loadChildren: () =>
-      import('./features/orders/orders.routes').then((m) => m.ORDERS_ROUTES),
+      import('./features/pages/orders/orders.routes').then((m) => m.ORDERS_ROUTES),
     title: 'Orders',
   },
 
@@ -73,7 +73,7 @@ export const routes: Routes = [
   {
     path: 'categories',
     loadChildren: () =>
-      import('./features/categories/categories.routes').then(
+      import('./features/pages/categories/categories.routes').then(
         (m) => m.CATEGORIES_ROUTES,
       ),
     title: 'Categories',
@@ -82,7 +82,7 @@ export const routes: Routes = [
   {
     path: 'contact',
     loadChildren: () =>
-      import('./features/contact/contact.routes').then(
+      import('./features/pages/contact/contact.routes').then(
         (m) => m.CONTACT_ROUTES,
       ),
     title: 'Contact',
@@ -105,7 +105,7 @@ export const routes: Routes = [
   {
     path: '**',
     loadComponent: () =>
-      import('./features/error-page/error-page').then((m) => m.ErrorPage),
+      import('./features/pages/error-page/error-page').then((m) => m.ErrorPage),
     title: '404 - Not Found',
   },
 ];
