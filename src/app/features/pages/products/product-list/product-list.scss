@@ -1,0 +1,14 @@
+@use "app/shared/scss-components/mixins" as mix;
+
+.star-container {
+  position: relative;
+  display: inline-block;
+}
+
+.filled-star {
+  @include mix.position(absolute, 0, null, null, 0);
+  white-space: nowrap;
+  overflow: hidden;
+  height: 100%;
+  pointer-events: none;
+}
