@@ -32,17 +32,6 @@
           </a>
         </li>
 
-        <!-- <li class="nav-item">
-          <a class="nav-link"
-            [routerLink]="['/shop']"
-            [routerLinkActive]="['active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-            (click)="closeMenu()"
-          >
-            {{ 'Shop' | translate }}
-          </a>
-        </li> -->
-
         <li class="nav-item">
           <a class="nav-link"
             [routerLink]="['/categories']"
@@ -172,8 +161,7 @@
         <!-- second line -->
         <div class="rightSide-second-line w-100">
           <!-- Search -->
-          @if(currentUrl() !== '/shop' &&
-              currentUrl() !== '/contact' &&
+          @if(currentUrl() !== '/contact' &&
               currentUrl() !== '/checkout' &&
               currentUrl() !== '/categories' &&
               currentUrl() !== '/auth/profile' &&

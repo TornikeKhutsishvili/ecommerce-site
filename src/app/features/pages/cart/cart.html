@@ -13,7 +13,7 @@
             <div class="cart-card bord-radius-15 bg-white shadow-sm">
 
               <div class="cart-img text-center p-top-20 p-right-20 p-bottom-20 p-left-20">
-                <img [src]="item.thumbnail || item.images?.[0]"
+                <img [src]="item.thumbnail || item.images[0]"
                       alt="{{ item.title | translate }}"
                       class="img-fluid"
                       loading="lazy"
