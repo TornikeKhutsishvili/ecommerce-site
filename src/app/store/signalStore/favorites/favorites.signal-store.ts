@@ -1,11 +1,11 @@
 import { signalStore, withMethods, withState } from "@ngrx/signals";
 
-export interface FavouritesState {}
+export interface FavoritesState {}
 
-export const FavouritesStore = signalStore(
+export const FavoritesStore = signalStore(
   { providedIn: 'root' },
 
-  withState<FavouritesState>({}),
+  withState<FavoritesState>({}),
 
   withMethods((store) => ({}))
 );

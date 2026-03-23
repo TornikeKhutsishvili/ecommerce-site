@@ -4,7 +4,7 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root'
 })
 export class CartService {
-  private cartKey = 'cartItems'; // Key of LocalStorage
+  private cartKey = 'cartItems';
   cartItems = signal<any[]>([]);
 
   // constructor
@@ -61,6 +61,6 @@ export class CartService {
   // Clear the cart
   clearCart(): void {
     this.cartItems.set([]);
-    localStorage.removeItem(this.cartKey); // Clear cart data from LocalStorage
+    localStorage.removeItem(this.cartKey);
   }
 }

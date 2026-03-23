@@ -11,9 +11,9 @@ export type AnalyticsEventName =
 
 export interface AnalyticsEvent<T = Record<string, any>> {
   name: AnalyticsEventName;
-  ts: number;               // epoch ms
-  uid?: string;             // authenticated user id (if already have)
-  sessionId: string;        // client session id
+  ts: number;
+  uid?: string;
+  sessionId: string;
   payload?: T;
 }
 
@@ -36,8 +36,9 @@ export class AnalyticsService {
     });
   }
 
-  // track<T = any>(name: AnalyticsEventName, payload?: T, uid?: string) {
-  track<T extends Record<string, any> | undefined = any>(name: AnalyticsEventName, payload?: T, uid?: string) {
+  track<T extends Record<string, any> | undefined = any>(
+    name: AnalyticsEventName, payload?: T, uid?: string
+  ) {
     this.buffer.push({
       name,
       payload,

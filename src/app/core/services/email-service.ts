@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import emailjs from '@emailjs/browser';
 
+interface IFormData {
+  serviceId: string,
+  templateId: string,
+  userId: string
+}
+
 @Injectable({
   providedIn: 'root'
 })

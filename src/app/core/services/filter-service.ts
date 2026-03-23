@@ -1,5 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { dummyProductModel } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class FilterService {
   searchFilter = signal<string>('');
 
   // All products (raw)
-  private allProducts = signal<any[]>([]);
+  private allProducts = signal<dummyProductModel[]>([]);
   private translate = inject(TranslateService);
 
   // Filtered + Sorted
@@ -55,12 +56,12 @@ export class FilterService {
   });
 
   // Setters
-  setAllProducts(products: any[]) { this.allProducts.set(products); }
-  setPriceFilter(price: number | null) { this.priceFilter.set(price); }
-  setSortOrder(order: 'low' | 'high' | null) { this.sortOrder.set(order); }
-  setCategory(category: string) { this.categoryFilter.set(category); }
-  setSearchQuery(query: string) { this.searchFilter.set(query); }
+  setAllProducts(products: dummyProductModel[]) { this.allProducts.set(products) }
+  setPriceFilter(price: number | null) { this.priceFilter.set(price) }
+  setSortOrder(order: 'low' | 'high' | null) { this.sortOrder.set(order) }
+  setCategory(category: string) { this.categoryFilter.set(category) }
+  setSearchQuery(query: string) { this.searchFilter.set(query) }
 
   // Getter
-  getFilteredProducts(): any[] { return this.filteredProducts(); }
+  getFilteredProducts(): dummyProductModel[] { return this.filteredProducts() }
 }

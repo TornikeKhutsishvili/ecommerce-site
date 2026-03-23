@@ -92,7 +92,7 @@
           <td>{{ p.title | translate }}</td>
           <td>{{ p.price }} {{ '$' | translate }}</td>
           <td>{{ p.category | translate }}</td>
-          <td>{{ p.rating | translate }} <i class="fa fa-star"></i></td>
+          <td>{{ p.rating }} <i class="fa fa-star"></i></td>
           <td class="right">
             <a [routerLink]="['/admin/edit-product', p.id]"
               class="btn btn-sm me-2 text-white bord-radius-10"
