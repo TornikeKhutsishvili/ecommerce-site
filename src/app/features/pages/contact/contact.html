@@ -1,8 +1,7 @@
 <div class="container mt-4">
+
   <!-- title -->
-  <h2 class="text-center mb-4">
-    📩 {{ 'Contact Us' | translate }}
-  </h2>
+  <h2 class="text-center mb-4">📩 {{ 'Contact Us' | translate }}</h2>
 
   <!-- Layout -->
   <div class="row">
@@ -33,15 +32,8 @@
 
       <!-- Google Maps -->
       <div class="map-container m-top-16">
-        <iframe
-          [src]="mapUrl()"
-          target="_blank"
-          width="100%"
-          height="280"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          title="{{ 'map' | translate }}"
+        <iframe [src]="mapUrl()" target="_blank" width="100%" height="280" style="border:0;"
+          allowfullscreen="" loading="lazy" title="{{ 'map' | translate }}"
         >
         </iframe>
       </div>
@@ -51,7 +43,6 @@
     <!-- Right side: Contact Form -->
     <div class="col-lg-6 contact-form">
       <form [formGroup]="myForm" (ngSubmit)="sendEmail()">
-
         <!-- name -->
         <div class="mb-3">
           <label for="from_name" class="form-label">{{ 'Name' | translate }}</label>
@@ -60,13 +51,8 @@
               <small>{{ 'Name_is_required' | translate }}</small>
             </div>
           }
-          <input
-            id="from_name"
-            type="text"
-            class="form-control"
-            name="name"
-            formControlName="from_name"
-            placeholder="{{ 'Enter_your_name' | translate }}"
+          <input id="from_name" type="text" class="form-control" name="name"
+            formControlName="from_name" placeholder="{{ 'Enter_your_name' | translate }}"
           >
         </div>
 
@@ -78,13 +64,8 @@
               <small>{{ 'Please_enter_a_valid_email' | translate }}</small>
             </div>
           }
-          <input
-            id="user_email"
-            type="email"
-            class="form-control"
-            name="email"
-            formControlName="user_email"
-            placeholder="{{ 'Enter_your_email' | translate }}"
+          <input id="user_email" type="email" class="form-control" name="email"
+            formControlName="user_email" placeholder="{{ 'Enter_your_email' | translate }}"
           >
         </div>
 
@@ -98,13 +79,8 @@
               <small>{{ 'Message_is_required' | translate }}</small>
             </div>
           }
-          <textarea
-            id="message"
-            class="form-control"
-            formControlName="message"
-            rows="8"
-            name="message"
-            placeholder="{{ 'Your_message' | translate }}"
+          <textarea id="message" class="form-control" formControlName="message" rows="8"
+            name="message" placeholder="{{ 'Your_message' | translate }}"
           >
           </textarea>
         </div>
@@ -113,7 +89,6 @@
         <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">
           {{ 'Send Message' | translate }}
         </button>
-
       </form>
     </div>
 

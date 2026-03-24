@@ -3,20 +3,14 @@
   <div class="row mb-5">
     @for( categ of categories(); track $index ) {
       <div class="col-lg-3 col-md-4 col-sm-6 mb-4" style="cursor: pointer">
-        <div
-          class="card h-100 shadow-sm category-card"
+        <div class="card h-100 shadow-sm category-card"
           [routerLink]="['/categories', 'categories-child', categ]"
           data-aos="fade-up"
           data-aos-duration="1200"
           data-aos-anchor-placement="center-bottom"
         >
-          <img
-            ngSrc="{{ categoryImages[categ] }}"
-            width="400"
-            height="200"
-            class="card-img-top"
-            alt="{{ categ | translate }}"
-            loading="lazy"
+          <img ngSrc="{{ categoryImages[categ] }}" width="400" height="200" loading="lazy"
+            class="card-img-top" alt="{{ categ | translate }}"
           />
           <div class="card-body text-center">
             <h5 class="card-title mb-3">{{ categ | titlecase | translate }}</h5>

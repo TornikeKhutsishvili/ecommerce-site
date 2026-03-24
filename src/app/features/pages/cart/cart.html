@@ -5,18 +5,14 @@
       <div class="row g-4">
 
         @for( item of filteredProducts(); track $index ) {
-          <div class="col-lg-4 col-md-6"
-              data-aos="fade-up"
-              data-aos-duration="1200"
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1200"
               data-aos-anchor-placement="center-bottom"
           >
             <div class="cart-card bord-radius-15 bg-white shadow-sm">
 
               <div class="cart-img text-center p-top-20 p-right-20 p-bottom-20 p-left-20">
-                <img [src]="item.thumbnail || item.images[0]"
-                      alt="{{ item.title | translate }}"
-                      class="img-fluid"
-                      loading="lazy"
+                <img [src]="item.thumbnail || item.images[0]" alt="{{ item.title | translate }}"
+                  class="img-fluid" loading="lazy"
                 />
               </div>
 
@@ -69,20 +65,15 @@
       </div>
 
   } @else {
-
     <div class="empty-cart text-center fontSize-19">
       <p>{{ 'Your cart is empty' | translate }} 😢</p>
-      <a [routerLink]="['/']" class="btn btn-outline-primary mt-3">
-        {{ 'Back to Home' | translate }}
-      </a>
+      <a [routerLink]="['/']" class="btn btn-outline-primary mt-3">{{ 'Back to Home' | translate }}</a>
     </div>
 
     <!-- toasts -->
     <app-alert-toasts #alertToast></app-alert-toasts>
-
   }
 </div>
-
 
 
 <!-- toasts -->

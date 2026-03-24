@@ -18,18 +18,15 @@
       🏠 {{ 'Go Back Home' | translate }}
     </button>
 
-    <button
+    <button [title]="isMuted() ? ('🔊 Unmute' | translate) : ('🔇 Mute' | translate)"
       class="mute-btn"
       (click)="toggleMute()"
       [attr.aria-pressed]="isMuted()"
-      [title]="isMuted() ? ('🔊 Unmute' | translate) : ('🔇 Mute' | translate)"
     >
       {{ (isMuted() ? '🔊 Unmute' : '🔇 Mute') | translate }}
     </button>
   </div>
-
 </div>
-
 
 <!-- toasts -->
 <app-alert-toasts #alertToast></app-alert-toasts>

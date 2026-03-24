@@ -5,8 +5,7 @@
       <!-- Product Image -->
       <div class="col-lg-6 text-center product-image p-bottom-40">
         <div class="p-3 bg-light rounded shadow-sm product-image-wrapper">
-          <img
-            [src]="product().thumbnail || product().image"
+          <img [src]="product().thumbnail || product().image"
             class="img-fluid rounded product-detail-img"
             alt="{{ product().title | translate }}"
             loading="lazy"
@@ -28,8 +27,7 @@
               <i class="bi bi-star text-secondary"></i>
               <i class="bi bi-star-fill text-warning filled-star h-100"
                 [style.width.%]="getStarFillPercent(product().rating, star)"
-                [style.overflow]="'hidden'"
-                [style.position]="'absolute'"
+                [style.overflow]="'hidden'" [style.position]="'absolute'"
               ></i>
             </div>
           }
@@ -74,10 +72,10 @@
 
         <!-- Buttons -->
         <div class="d-flex gap-3 btns-div">
-          <button type="button" class="btn btn-primary btn-lg flex-grow-1" (click)="addToCart()">
+          <button type="button" class="btn btn-primary btn-lg flex-grow-1" (click)="addToCart()" aria-label="Add to Cart">
             🛒 {{ 'Add to Cart' | translate }}
           </button>
-          <button type="button" class="btn btn-outline-secondary btn-lg" (click)="goBack(true)">
+          <button type="button" class="btn btn-outline-secondary btn-lg" (click)="goBack(true)" aria-label="Go to Back">
             ⬅ {{ 'Back' | translate }}
           </button>
         </div>
@@ -86,7 +84,6 @@
     </div>
   </div>
 }
-
 
 <!-- Toast Components -->
 <app-add-toasts #addToast></app-add-toasts>

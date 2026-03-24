@@ -1,7 +1,7 @@
 <div class="container-lg py-5">
   <!-- Pagination Top -->
   <div class="d-flex justify-content-center mb-4">
-    <pagination-controls (pageChange)="page.set($event)" class="page"></pagination-controls>
+    <pagination-controls (pageChange)="page.set($event)" class="page" [tabindex]="0"></pagination-controls>
   </div>
 
   <!-- Product Layout -->
@@ -15,8 +15,7 @@
           <div class="card border-0 shadow-sm h-100 product-card">
             <!-- Product Image -->
             <div class="position-relative overflow-hidden">
-              <img
-                ngSrc="{{ product.thumbnail || product.image }}"
+              <img ngSrc="{{ product.thumbnail || product.image }}"
                 width="1000"
                 height="1000"
                 class="card-img-top img-fluid product-img"
@@ -38,9 +37,7 @@
                 <p class="text-muted small mb-2">{{ product.brand | translate }}</p>
 
                 <div class="mb-3">
-                  <span class="fw-bold fs-5 text-primary">
-                    {{ '$' | translate }}{{ product.price }}
-                  </span>
+                  <span class="fw-bold fs-5 text-primary">{{ '$' | translate }}{{ product.price }}</span>
                   @if( product.discountPercentage ) {
                     <span class="text-muted text-decoration-line-through ms-2">
                       {{ '$' | translate }}{{ (product.price / (1 - product.discountPercentage / 100)).toFixed(2) }}
@@ -60,20 +57,18 @@
                       ></i>
                     </div>
                   }
-                  <span class="text-muted small ms-2">
-                    ({{ product.rating }})
-                  </span>
+                  <span class="text-muted small ms-2">({{ product.rating }})</span>
                 </div>
               </div>
 
               <!-- Actions -->
               <div>
                 <a [routerLink]="['/products', 'product-details', product.id]"
-                  class="btn btn-outline-primary w-100 mb-2"
+                  class="btn btn-outline-primary w-100 mb-2" aria-label="View Details"
+                >{{ 'View Details' | translate }}</a>
+                <button type="button" class="btn btn-primary w-100" (click)="addToCart(product)"
+                  aria-label="Add to Cart"
                 >
-                  {{ 'View Details' | translate }}
-                </a>
-                <button type="button" class="btn btn-primary w-100" (click)="addToCart(product)">
                   🛒 {{ 'Add to Cart' | translate }}
                 </button>
               </div>
@@ -81,35 +76,25 @@
           </div>
         </div>
       }
-
     </div>
 
   } @else {
-
     <p class="text-center text-muted mt-5">
       {{ 'No products found. Please try another category.' | translate }}
     </p>
-
   }
 
   <!-- Cart Info -->
   <div class="cart-info text-center mt-5">
-    <span class="fw-semibold">
-      🛍 {{ 'Items in Cart' | translate }}: {{ cartItemCount() }}
-    </span>
-    <a [routerLink]="['/cart']"
-        class="btn btn-info ms-3"
-    >
-      {{ 'View Cart' | translate }}
-    </a>
+    <span class="fw-semibold">🛍 {{ 'Items in Cart' | translate }}: {{ cartItemCount() }}</span>
+    <a [routerLink]="['/cart']" class="btn btn-info ms-3" aria-label="View Cart">{{ 'View Cart' | translate }}</a>
   </div>
 
   <!-- Pagination Bottom -->
   <div class="d-flex justify-content-center mt-4">
-    <pagination-controls (pageChange)="page.set($event)" class="page"></pagination-controls>
+    <pagination-controls (pageChange)="page.set($event)" class="page" [tabindex]="0"></pagination-controls>
   </div>
 </div>
-
 
 <!-- Toast Components -->
 <app-add-toasts #addToast></app-add-toasts>
