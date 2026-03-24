@@ -4,11 +4,8 @@
 >
   <div class="container">
     <!-- Logo -->
-    <a class="navbar-brand fw-bold fontSize-15"
-      [routerLink]="['/']"
-      [routerLinkActive]="['active']"
-      [routerLinkActiveOptions]="{ exact: true }"
-      (click)="closeMenu()"
+    <a class="navbar-brand fw-bold fontSize-15" [routerLink]="['/']" [routerLinkActive]="['active']"
+      [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()"
     >
       TK<span class="text-primary">Shop</span>
     </a>
@@ -22,33 +19,24 @@
     <div #navbarCollapse class="collapse navbar-collapse mobile-slide" [ngClass]="{ 'show': isMenuOpen() }">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
-          <a class="nav-link"
-            [routerLink]="['/home']"
-            [routerLinkActive]="['active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-            (click)="closeMenu()"
+          <a class="nav-link" [routerLink]="['/home']" [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()"
           >
             {{ 'home' | translate }}
           </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link"
-            [routerLink]="['/categories']"
-            [routerLinkActive]="['active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-            (click)="closeMenu()"
+          <a class="nav-link" [routerLink]="['/categories']" [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()"
           >
             {{ 'Categories' | translate }}
           </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link"
-            [routerLink]="['/contact']"
-            [routerLinkActive]="['active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-            (click)="closeMenu()"
+          <a class="nav-link" [routerLink]="['/contact']" [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()"
           >
             {{ 'contact' | translate }}
           </a>
@@ -56,11 +44,8 @@
 
         @if(isAdmin()) {
           <li class="nav-item">
-            <a class="nav-link"
-              [routerLink]="['/admin']"
-              [routerLinkActive]="['active']"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="closeMenu()"
+            <a class="nav-link" [routerLink]="['/admin']" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()"
             >
               {{ 'Admin' | translate }}
             </a>
@@ -69,12 +54,11 @@
       </ul>
 
 
+
       <!-- Right Side Actions -->
       <div class="d-flex align-items-center navbar-actions w-100 flex-wrap gap-2">
-
         <!-- first line -->
         <div class="rightSide-first-line w-100">
-
           <!-- Cart -->
           <a [routerLink]="['/cart']"
             class="btn btn-outline-primary position-relative cart-btn text-white"
@@ -88,7 +72,6 @@
             }
           </a>
 
-
           <!-- Auth Links -->
           <div class="auth-links d-flex align-items-center fontSize-17">
             @if( !isLoggedIn() ) {
@@ -99,24 +82,21 @@
                   [routerLinkActive]="['active']"
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="closeMenu()"
-                  >
-                    <i class="fa-solid fa-right-to-bracket"></i>
+                >
+                  <i class="fa-solid fa-right-to-bracket"></i>
                 </a>
 
                 <span class="o-6">|</span>
 
                 <a class="text-decoration-none ms-2 register btn btn-outline-warning"
-                  [routerLink]="['/auth/register']"
-                  [routerLinkActive]="['active']"
-                  [routerLinkActiveOptions]="{ exact: true }"
-                  (click)="closeMenu()"
+                  [routerLink]="['/auth/register']" [routerLinkActive]="['active']"
+                  [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()"
                 >
                   <i class="fa-solid fa-user-plus"></i>
                 </a>
               </ng-container>
 
             } @else {
-
               <a [routerLink]="['/auth/profile']"
                 class="text-decoration-none me-2 btn btn-primary text-light"
               >
@@ -125,13 +105,11 @@
 
               <span class="o-6">|</span>
 
-              <a [routerLink]="['/']"
+              <a [routerLink]="['/']" (click)="logout()"
                 class="text-decoration-none ms-2 btn btn-danger text-light"
-                (click)="logout()"
               >
                 <i class="fa-solid fa-right-from-bracket"></i>
               </a>
-
             }
           </div>
 
@@ -143,15 +121,11 @@
           <!-- language selector -->
           <ul class="text-decoration-none list-unstyled m-0">
             <li class="language-switcher">
-              <select [ngModel]="selectedLanguage()"
-                      (ngModelChange)="changeLanguage($event)"
-                      title="language"
-                      class="bord-radius-20 fontSize-17 f-weight-500 p-top-7 p-right-22 p-bottom-7 p-left-8"
+              <select [ngModel]="selectedLanguage()" (ngModelChange)="changeLanguage($event)" title="language"
+                class="bord-radius-20 fontSize-17 f-weight-500 p-top-7 p-right-22 p-bottom-7 p-left-8"
               >
                 @for( lang of languages; track $index ) {
-                  <option [value]="lang.code" (change)="closeMenu()">
-                    {{ lang.code | translate }}
-                  </option>
+                  <option [value]="lang.code" (change)="closeMenu()">{{ lang.code | translate }}</option>
                 }
               </select>
             </li>
@@ -172,12 +146,9 @@
               currentUrl() !== '/auth/user-profile'
           ) {
             <div class="search-box">
-              <input type="text"
-                id="search"
-                name="search"
+              <input type="text" id="search" name="search"
                 class="form-control bord-radius-20 p-top-3 p-right-8 p-bottom-3 p-left-8"
-                placeholder="{{ 'Search...' | translate }}"
-                (input)="onSearch($event)"
+                placeholder="{{ 'Search...' | translate }}" (input)="onSearch($event)"
               >
             </div>
           }
@@ -194,8 +165,7 @@
               currentUrl() !== '/auth/user-profile'
           ) {
             <select class="form-select sortPriceSelect bord-radius-20 p-top-3 p-right-8 p-bottom-3 p-left-8"
-                    name="select"
-                    (change)="sortByPrice($any($event.target).value)"
+              name="select"(change)="sortByPrice($any($event.target).value)"
             >
               <option value="">{{ 'Price' | translate}}</option>
               <option value="low">{{ 'Low → High' | translate }}</option>
@@ -203,10 +173,7 @@
             </select>
           }
         </div>
-
       </div>
-
     </div>
-
   </div>
 </nav>

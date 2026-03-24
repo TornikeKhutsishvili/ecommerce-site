@@ -64,12 +64,9 @@ export class ProductList implements OnInit, AfterViewChecked, OnChanges {
     if (isPlatformBrowser(this.platformId)) {
       AOS.init();
     }
-
     this.filterService.setAllProducts(this.productsInput);
-
     // Initialize filtered products
     this.filteredProducts.set([...this.productsInput]);
-
     // Set initial cart count
     this.cartItemCount.set(this.cartService.cartItems().length);
   }

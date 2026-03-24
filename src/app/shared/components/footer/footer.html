@@ -1,9 +1,7 @@
 <footer class="bg-dark text-light py-4 mt-5">
   <div class="container">
-
     <!-- Quick Links and Contact Info -->
     <div class="row text-center text-md-start align-items-start mb-4">
-
       <div class="col-md-6 mb-3">
         <h5>{{ 'Quick Links' | translate }}</h5>
         <ul class="list-unstyled d-flex flex-wrap gap-3 justify-content-center justify-content-md-start">
@@ -43,30 +41,21 @@
         <h5>{{ 'Contact Us' | translate }}</h5>
         <p class="small mb-1">
           <strong>{{ 'Email' | translate }}: </strong>
-          <a [href]="'mailto:' + email()" class="text-light text-decoration-none">
-            support&#64;tkshop.com
-          </a>
+          <a [href]="'mailto:' + email()" class="text-light text-decoration-none">support&#64;tkshop.com</a>
         </p>
 
         <p class="small mb-1">
           <strong>{{ 'Phone' | translate }}: </strong>
-          <a [href]="'tel:' + phone()" class="text-light text-decoration-none">
-            +995 (599) 123-456-789
-          </a>
+          <a [href]="'tel:' + phone()" class="text-light text-decoration-none">+995 (599) 123-456-789</a>
         </p>
 
         <p class="small">
           <strong>{{ 'Address' | translate }}: </strong>
-          <a [href]="address()"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-light text-decoration-none"
-          >
+          <a [href]="address()" target="_blank" rel="noopener noreferrer" class="text-light text-decoration-none">
             13 Popular St, {{ 'Tbilisi' | translate}}, {{ 'Georgia' | translate }}
           </a>
         </p>
       </div>
-
     </div>
 
     <!-- About -->
@@ -83,9 +72,7 @@
 
     <!-- Socials -->
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small">
-      <p class="mb-0">
-        &copy; {{ currentYear() }} {{ 'TKShop. All rights reserved.' | translate }}
-      </p>
+      <p class="mb-0">&copy; {{ currentYear() }} {{ 'TKShop. All rights reserved.' | translate }}</p>
 
       <div class="policy-terms">
         <a [routerLink]="['/rules/policy']">{{ 'Policy' | translate }}</a>
@@ -96,27 +83,25 @@
       </div>
 
       <div>
-
         <!-- facebook -->
-        <a [href]="facebook()" target="_blank" rel="noopener noreferrer" class="text-light me-3">
+        <a [href]="facebook()" target="_blank" rel="noopener noreferrer" class="text-light me-3" aria-label="Show TKShop in facebook">
           <i class="bi bi-facebook"></i>
         </a>
 
         <!-- twitter -->
-        <a [href]="twitter()" target="_blank" rel="noopener noreferrer" class="text-light me-3">
+        <a [href]="twitter()" target="_blank" rel="noopener noreferrer" class="text-light me-3" aria-label="Show TKShop in twitter">
           <i class="bi bi-twitter"></i>
         </a>
 
         <!-- instagram -->
-        <a [href]="instagram()" target="_blank" rel="noopener noreferrer" class="text-light me-3">
+        <a [href]="instagram()" target="_blank" rel="noopener noreferrer" class="text-light me-3" aria-label="Show TKShop in instagram">
           <i class="bi bi-instagram"></i>
         </a>
 
         <!-- linkedin -->
-        <a [href]="linkedIn()" target="_blank" rel="noopener noreferrer" class="text-light">
+        <a [href]="linkedIn()" target="_blank" rel="noopener noreferrer" class="text-light" aria-label="Show TKShop in linkedIn">
           <i class="bi bi-linkedin"></i>
         </a>
-
       </div>
     </div>
 

@@ -7,17 +7,14 @@
   <!-- content -->
   @if( cartItems().length > 0 ) {
     <div class="checkout-grid">
-
       <!-- Left side: Cart items -->
       <section class="cart-items">
         <h3 class="text-dark f-weight-600 fontSize-29 m-bottom-24">{{ 'Your Cart' | translate }}</h3>
 
         @for( item of cartItems(); track $index ) {
           <div class="cart-item m-bottom-24 p-bottom-24 ">
-            <img [src]="item.thumbnail || item.image"
-              alt="{{ item.title }}"
+            <img [src]="item.thumbnail || item.image" alt="{{ item.title }}" loading="lazy"
               class="cart-item-img bord-radius-8"
-              loading="lazy"
             />
 
             <div class="cart-item-info">
@@ -55,10 +52,7 @@
         <form (ngSubmit)="completeCheckout()" #checkoutForm="ngForm" novalidate>
           <!-- Full Name -->
           <label for="name">{{ 'Full Name' | translate }}</label>
-          <input id="name"
-                name="name"
-                type="text"
-                required
+          <input id="name" name="name" type="text" required
                 [ngModel]="userName()"
                 (ngModelChange)="userName.set($event)"
                 #nameInput="ngModel"
@@ -69,10 +63,7 @@
 
           <!-- Email -->
           <label for="email">{{ 'Email' | translate }}</label>
-          <input id="email"
-                name="email"
-                type="email"
-                required
+          <input id="email" name="email" type="email" required
                 pattern="^[^@]+@[^@]+\.[^@]+$"
                 [ngModel]="userEmail()"
                 (ngModelChange)="userEmail.set($event)"
@@ -89,10 +80,7 @@
 
           <!-- Shipping Address -->
           <label for="address">{{ 'Shipping Address' | translate }}</label>
-          <input id="address"
-                name="address"
-                type="text"
-                required
+          <input id="address" name="address" type="text" required
                 [ngModel]="userAddress()"
                 (ngModelChange)="userAddress.set($event)"
                 #addressInput="ngModel"
@@ -103,8 +91,7 @@
 
           <!-- Payment Method -->
           <label for="paymentMethod">{{ 'Payment Method' | translate }}</label>
-          <select id="paymentMethod"
-                  name="paymentMethod"
+          <select id="paymentMethod" name="paymentMethod"
                   [ngModel]="paymentMethod()"
                   (ngModelChange)="paymentMethod.set($event)"
           >
@@ -117,12 +104,8 @@
           @if( paymentMethod() === 'Credit Card' ) {
             <div class="payment-credit-card">
               <label for="cardNumber">{{ 'Card Number' | translate }} *</label>
-              <input id="cardNumber"
-                    name="cardNumber"
-                    type="text"
-                    maxlength="19"
+              <input id="cardNumber" name="cardNumber" type="text" maxlength="19" required
                     placeholder="1234-5678-9012-3456"
-                    required
                     [ngModel]="cardNumber()"
                     (ngModelChange)="cardNumber.set($event)"
                     #cardNumberInput="ngModel"
@@ -133,10 +116,7 @@
               }
 
               <label for="expiryDate">{{ 'Expiry Date' | translate }} *</label>
-              <input id="expiryDate"
-                    name="expiryDate"
-                    type="month"
-                    required
+              <input id="expiryDate" name="expiryDate" type="month" required
                     [ngModel]="expiryDate()"
                     (ngModelChange)="expiryDate.set($event)"
                     #expiryDateInput="ngModel"
@@ -146,12 +126,7 @@
               }
 
               <label for="cvv">{{ 'CVV' | translate }} *</label>
-              <input id="cvv"
-                    name="cvv"
-                    type="text"
-                    maxlength="3"
-                    placeholder="123"
-                    required
+              <input id="cvv" name="cvv" type="text" maxlength="3" placeholder="123" required
                     [ngModel]="cvv()"
                     (ngModelChange)="cvv.set($event)"
                     #cvvInput="ngModel"
@@ -165,11 +140,7 @@
           @if( paymentMethod() === 'PayPal' ) {
             <div class="payment-paypal">
               <label for="paypalEmail">{{ 'PayPal Email' | translate }} *</label>
-              <input id="paypalEmail"
-                    name="paypalEmail"
-                    type="email"
-                    placeholder="you@example.com"
-                    required
+              <input id="paypalEmail" name="paypalEmail" type="email" placeholder="you@example.com" required
                     [ngModel]="paypalEmail()"
                     (ngModelChange)="paypalEmail.set($event)"
                     #paypalEmailInput="ngModel"
@@ -193,7 +164,6 @@
           >
             {{ 'Complete Checkout' | translate }}
           </button>
-
         </form>
 
         <div class="total-price m-top-32 f-weight-700 fontSize-22 text-center">
@@ -204,17 +174,12 @@
           {{ 'Back to Cart' | translate }}
         </a>
       </section>
-
     </div>
   } @else {
-
     <p class="m-top-48 text-center fontSize-19">{{ 'Your cart is empty. Add some products!' | translate }}</p>
-    <a [routerLink]="['/']"
-      class="btn-back-home f-weight-600 bord-radius-8 text-center d-block"
-    >
+    <a [routerLink]="['/']" class="btn-back-home f-weight-600 bord-radius-8 text-center d-block">
       {{ 'Back to Home' | translate }}
     </a>
-
   }
 
   <!-- Toast Components -->
